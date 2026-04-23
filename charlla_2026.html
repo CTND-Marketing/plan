@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>찰나(Charlla) 비즈니스 성장 로드맵!</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #10b981;
+            --accent: #fbbf24;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --dark: #0f172a;
+        }
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 40px; 
+            color: #334155; 
+            font-size: 1.1rem; 
+            line-height: 1.5; 
+            word-break: keep-all;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 50px; }
+        .header-title { font-size: 2.1rem; font-weight: 800; color: #0f172a; letter-spacing: -1px; margin-bottom: 10px; }
+        .header-subtitle { color: #64748b; font-size: 1.2rem; font-weight: 500; }
+
+        .funnel-container { display: flex; flex-direction: column; gap: 15px; }
+        
+        .step { 
+            background: var(--card); border: 1px solid #e2e8f0; border-radius: 16px; 
+            padding: 25px 35px; cursor: pointer; transition: all 0.2s ease;
+        }
+        .step:hover { border-color: var(--primary); transform: translateY(-2px); }
+        
+        .step-header { display: flex; justify-content: space-between; align-items: center; }
+        .step-title { font-size: 1.4rem; font-weight: 800; color: #1e293b; }
+        .step-title small { display: block; font-size: 0.9rem; color: var(--primary); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; }
+        
+        .status-badge { text-align: right; }
+        .current-val { display: block; font-size: 1.6rem; font-weight: 800; color: #94a3b8; }
+        .expect-val { display: block; font-size: 1.3rem; font-weight: 800; color: var(--secondary); margin-top: 2px; }
+
+        .content { 
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 0;
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+        }
+        
+        .step.active { border-color: var(--primary); border-width: 2px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .step.active .content { 
+            max-height: 1000px;
+            opacity: 1;
+            margin-top: 25px; 
+            padding-top: 25px; 
+            border-top: 1px solid #f1f5f9; 
+        }
+        
+        .box { padding: 20px; border-radius: 12px; }
+        .box-title { font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-size: 1.05rem; }
+        .problem { background: #fff1f2; color: #9f1239; }
+        .solution { background: #eff6ff; color: #1e40af; }
+        .effect { background: #f0fdf4; color: #166534; }
+
+        ul { margin: 0; padding-left: 15px; list-style-type: none; }
+        li { margin-bottom: 8px; position: relative; }
+        li::before { content: "•"; position: absolute; left: -12px; font-weight: bold; }
+
+        .forecast-container {
+            margin-top: 60px; background: var(--dark); border-radius: 20px; padding: 50px; color: white; margin-bottom: 100px;
+        }
+        .forecast-header { text-align: center; margin-bottom: 40px; font-size: 1.6rem; font-weight: 800; color: #60a5fa; }
+        .forecast-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .forecast-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; text-align: center; }
+        .forecast-label { display: block; font-size: 1.1rem; color: #94a3b8; margin-bottom: 20px; font-weight: 600; }
+        .val-group { display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .val-as-is { font-size: 1.4rem; color: #64748b; text-decoration: line-through; }
+        .val-arrow { color: #3b82f6; font-size: 1.5rem; }
+        .val-to-be { font-size: 2.5rem; font-weight: 900; color: #fbbf24; }
+        .growth-tag { display: inline-block; margin-top: 15px; padding: 4px 14px; background: var(--secondary); border-radius: 20px; font-size: 0.9rem; font-weight: 700; }
+
+        #topBtn {
+            display: none; position: fixed; bottom: 40px; right: 40px; z-index: 99;
+            border: none; background-color: var(--primary); color: white; cursor: pointer;
+            width: 55px; height: 55px; border-radius: 50%; font-size: 14px; font-weight: 800;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-title">찰나(Charlla) 퍼널 고도화 로드맵</div>
+        <div class="header-subtitle">전략적 서비스 개편을 통한 현실적 매출 성장 시나리오</div>
+    </header>
+
+    <div class="funnel-container">
+        <div class="step active" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-title">
+                    <small>Subject: 홈페이지 개편</small>
+                    01 브랜딩 : 인식의 대전환
+                </div>
+                <div class="status-badge">
+                    <span class="current-val">무겁고 어려운 도구</span>
+                    <span class="expect-val">성과 중심 마케팅 솔루션</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="box problem">
+                    <span class="box-title">🚩 문제점</span>
+                    <ul>
+                        <li>개발 리소스 필수라는 도입 장벽</li>
+                        <li>단순 재생 위주로 마케팅 성과 소구 부족</li>
+                        <li>업종별 케이스스터디 가시성 미흡</li>
+                    </ul>
+                </div>
+                <div class="box solution">
+                    <span class="box-title">🛠️ 해결 과제</span>
+                    <ul>
+                        <li>노코드 기반 빠른 도입 강점 강조</li>
+                        <li>CTR/CVR 성과 지표 전면 배치</li>
+                        <li>산업군별 성공 사례 콘텐츠화</li>
+                    </ul>
+                </div>
+                <div class="box effect">
+                    <span class="box-title">📈 기대 효과</span>
+                    <ul>
+                        <li>가입 페이지 도달률 상승</li>
+                        <li>하이엔드 브랜드 신뢰도 및 전문성 확보</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-title">
+                    <small>Subject: 고객 유입 확대</small>
+                    02 유입 : 획득 채널 다각화
+                </div>
+                <div class="status-badge">
+                    <span class="current-val">광고 유입 의존</span>
+                    <span class="expect-val">파트너 및 연동 채널 확대</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="box problem">
+                    <span class="box-title">🚩 문제점</span>
+                    <ul>
+                        <li>호스팅 플랫폼 연동 범위 제한</li>
+                        <li>단순 정산 구조로 파트너 영업 동기 약화</li>
+                        <li>이탈 고객 재유입 채널 부재</li>
+                    </ul>
+                </div>
+                <div class="box solution">
+                    <span class="box-title">🛠️ 해결 과제</span>
+                    <ul>
+                        <li>아임웹 등 플랫폼 연동 범위 확대</li>
+                        <li>파트너 인센티브 구조 고도화</li>
+                        <li>카카오 채널을 통한 성공사례 홍보</li>
+                    </ul>
+                </div>
+                <div class="box effect">
+                    <span class="box-title">📈 기대 효과</span>
+                    <ul>
+                        <li>유효 가입자 품질 향상</li>
+                        <li>에이전시 추천 기반 유입 증대</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-title">
+                    <small>Subject: 가입 전환율 개선</small>
+                    03 회원가입 : 장벽 제거 및 온보딩
+                </div>
+                <div class="status-badge">
+                    <span class="current-val">월 200명</span>
+                    <span class="expect-val">월 300~350명</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="box problem">
+                    <span class="box-title">🚩 문제점</span>
+                    <ul>
+                        <li>가입 전 체험 기회 부재로 인한 심리적 장벽</li>
+                        <li>간편 로그인 미지원으로 인한 절차적 이탈</li>
+                        <li>가입 직후 가이드 부재로 인한 방치</li>
+                    </ul>
+                </div>
+                <div class="box solution">
+                    <span class="box-title">🛠️ 해결 과제</span>
+                    <ul>
+                        <li>가입 전 체험 가능한 데모 페이지 제공</li>
+                        <li>카카오 간편가입 및 계정 연동</li>
+                        <li>플레이어별 맞춤 온보딩 튜토리얼</li>
+                    </ul>
+                </div>
+                <div class="box effect">
+                    <span class="box-title">📈 기대 효과</span>
+                    <ul>
+                        <li>가입 완료율 대폭 개선</li>
+                        <li>CRM용 고객 채널 즉시 확보</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-title">
+                    <small>Subject: 통계/분석 강화</small>
+                    04 활성 사용 : 데이터 기반 이탈 방어
+                </div>
+                <div class="status-badge">
+                    <span class="current-val">휴면율 70%</span>
+                    <span class="expect-val">휴면율 60%</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="box problem">
+                    <span class="box-title">🚩 문제점</span>
+                    <ul>
+                        <li>실시간 사용량 확인 불가로 과금 공포 상존</li>
+                        <li>첫 영상 업로드 전 높은 허들 발생</li>
+                        <li>이탈 전 고객 시그널 포착 불가</li>
+                    </ul>
+                </div>
+                <div class="box solution">
+                    <span class="box-title">🛠️ 해결 과제</span>
+                    <ul>
+                        <li>대시보드 강화 및 로드수 실시간 안내</li>
+                        <li>사용량 리포트 자동 발송(이메일/톡)</li>
+                        <li>AI 기반 노코드 코드 생성 지원</li>
+                    </ul>
+                </div>
+                <div class="box effect">
+                    <span class="box-title">📈 기대 효과</span>
+                    <ul>
+                        <li>유저의 첫 성공 경험(Aha-moment) 유도</li>
+                        <li>과금 불안 해소를 통한 리텐션 강화</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-title">
+                    <small>Subject: 요금제 구조 개선</small>
+                    05 유료 전환 : 과금의 합리화
+                </div>
+                <div class="status-badge">
+                    <span class="current-val">전환율 4%</span>
+                    <span class="expect-val">전환율 7%</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="box problem">
+                    <span class="box-title">🚩 문제점</span>
+                    <ul>
+                        <li>로드수 초과금에 대한 심리적 거부감</li>
+                        <li>최적 플랜 선택 가이드 부족</li>
+                        <li>유료 전환 시점의 결정적 오퍼 부재</li>
+                    </ul>
+                </div>
+                <div class="box solution">
+                    <span class="box-title">🛠️ 해결 과제</span>
+                    <ul>
+                        <li>크레딧(벌크) 제도를 통한 예측 가능 과금</li>
+                        <li>페이지뷰 기반 맞춤형 요금 계산기 도입</li>
+                        <li>할인 쿠폰 발행 프로모션 시나리오</li>
+                    </ul>
+                </div>
+                <div class="box effect">
+                    <span class="box-title">📈 기대 효과</span>
+                    <ul>
+                        <li>결제 심리 장벽 해소</li>
+                        <li>엔터프라이즈 및 선결제 전환 촉진</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="step-header">
+                <div class="step-title">
+                    <small>Subject: 매출 성장 전략</small>
+                    06 리텐션 : 고객 생애 가치 극대화
+                </div>
+                <div class="status-badge">
+                    <span class="current-val">대형 고객 이탈 리스크</span>
+                    <span class="expect-val">재계약 및 업셀링 활성화</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="box problem">
+                    <span class="box-title">🚩 문제점</span>
+                    <ul>
+                        <li>대형 브랜드 이탈 신호 사전 감지 불가</li>
+                        <li>Lite 유저 대상 업그레이드 제안 부족</li>
+                        <li>장기 선결제 고객 보상 체계 미비</li>
+                    </ul>
+                </div>
+                <div class="box solution">
+                    <span class="box-title">🛠️ 해결 과제</span>
+                    <ul>
+                        <li>해지 전 신호 감지 알림 및 예방 체계</li>
+                        <li>Lite 6개월 이상 고객 업그레이드 캠페인</li>
+                        <li>연간 선결제 추가 할인 제도(10~15%)</li>
+                    </ul>
+                </div>
+                <div class="box effect">
+                    <span class="box-title">📈 기대 효과</span>
+                    <ul>
+                        <li>VIP 브랜드 이탈 최소화</li>
+                        <li>안정적인 선수금 및 매출 하방 경직성 확보</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="forecast-container">
+        <div class="forecast-header">🚀 프로젝트 성공 시 기대 성과 (광고비 동일 조건)</div>
+        <div class="forecast-grid">
+            <div class="forecast-card">
+                <span class="forecast-label">월 가입자 수</span>
+                <div class="val-group">
+                    <span class="val-as-is">200</span>
+                    <span class="val-arrow">→</span>
+                    <span class="val-to-be">350</span>
+                </div>
+                <div class="growth-tag">획득 효율 +75%</div>
+            </div>
+            <div class="forecast-card">
+                <span class="forecast-label">유료 전환율</span>
+                <div class="val-group">
+                    <span class="val-as-is">4%</span>
+                    <span class="val-arrow">→</span>
+                    <span class="val-to-be">7%</span>
+                </div>
+                <div class="growth-tag">결제 전환 +75%</div>
+            </div>
+            <div class="forecast-card">
+                <span class="forecast-label">휴면 유저 방어</span>
+                <div class="val-group">
+                    <span class="val-as-is">70%</span>
+                    <span class="val-arrow">→</span>
+                    <span class="val-to-be">60%</span>
+                </div>
+                <div class="growth-tag">이탈율 10%p 개선</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button onclick="scrollToTop()" id="topBtn">TOP</button>
+
+<script>
+    function toggleStep(element) {
+        document.querySelectorAll('.step').forEach(step => { if (step !== element) step.classList.remove('active'); });
+        element.classList.toggle('active');
+    }
+    window.onscroll = function() {
+        const btn = document.getElementById("topBtn");
+        btn.style.display = (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) ? "block" : "none";
+    };
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+
+</body>
+</html>
