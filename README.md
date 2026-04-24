@@ -1,6 +1,6 @@
 # plan
 
-<리포지토리>
+리포지토리
 charlla - https://github.com/CTND-Marketing/charlla
 kolllus - https://github.com/CTND-Marketing/kollus
 
