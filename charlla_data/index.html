@@ -1,0 +1,3328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>찰나 — 데이터 대시보드</title>
+<meta name="description" content="찰나 서비스 가입고객 분석 리포트 — 2025년 연간 데이터와 2026년 1분기 매출·광고 분석">
+<meta property="og:title" content="찰나 데이터 대시보드">
+<meta property="og:description" content="2025년 가입고객 분석 + 2026년 1분기 매출·광고 분석">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#4472C4">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<style>
+:root {
+  --ppt-1: #4472C4;
+  --ppt-2: #ED7D31;
+  --ppt-3: #A5A5A5;
+  --ppt-4: #FFC000;
+  --ppt-5: #5B9BD5;
+  --ppt-6: #70AD47;
+  --bg: #ffffff;
+  --bg-card: #ffffff;
+  --bg-subtle: #f5f7fa;
+  --ink: #1f1f1f;
+  --ink-soft: #4a4a4a;
+  --ink-mute: #8a8a8a;
+  --line: #e5e7eb;
+  --line-strong: #cbd0d6;
+  --accent-2025: #4472C4;
+  --accent-2026: #ED7D31;
+  --accent: #4472C4;
+}
+[data-year="2026"] { --accent: #ED7D31; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 15px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1280px; margin: 0 auto; padding: 48px 32px 80px; }
+
+header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--ink);
+}
+.brand-mark {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+header h1 {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+header .subtitle {
+  font-size: 13px;
+  color: var(--ink-mute);
+  margin-top: 8px;
+}
+
+/* YEAR TABS */
+.year-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.year-tab {
+  flex: 1;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 18px 24px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Pretendard', sans-serif;
+}
+.year-tab::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+.year-tab:hover { border-color: var(--line-strong); }
+.year-tab[data-year="2025"].active { border-color: var(--ppt-1); }
+.year-tab[data-year="2025"].active::before { background: var(--ppt-1); }
+.year-tab[data-year="2026"].active { border-color: var(--ppt-2); }
+.year-tab[data-year="2026"].active::before { background: var(--ppt-2); }
+.year-tab.active { background: #fafbfc; }
+
+.year-tab-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background: var(--bg-subtle);
+  color: var(--ink-mute);
+}
+.year-tab[data-year="2025"].active .year-tab-tag { background: #E8EFF9; color: #2A4F94; }
+.year-tab[data-year="2026"].active .year-tab-tag { background: #FBE6D6; color: #A04E14; }
+.year-tab-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.year-tab-meta {
+  font-size: 12px;
+  color: var(--ink-mute);
+  font-weight: 500;
+}
+.year-tab-meta strong { color: var(--ink); font-weight: 600; }
+
+/* YEAR PAGE */
+.year-page { display: none; animation: fadeIn 0.4s ease; }
+.year-page.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* KPI STRIP */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.kpi {
+  background: var(--bg-subtle);
+  padding: 20px 22px;
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+}
+.kpi-label {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-mute);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.kpi-value .unit {
+  font-size: 13px;
+  color: var(--ink-mute);
+  margin-left: 3px;
+  font-weight: 500;
+}
+.kpi-sub {
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+
+/* SECTION NAV */
+.section-nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+}
+.nav-tab {
+  background: transparent;
+  border: none;
+  padding: 12px 18px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-mute);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.nav-tab:hover { color: var(--ink); }
+.nav-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+.chart-section { display: none; animation: fadeIn 0.3s ease; }
+.chart-section.active { display: block; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.section-title-block { flex: 1; min-width: 280px; }
+.section-num {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.section-title {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.section-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  max-width: 560px;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.control-label {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-mute);
+  font-weight: 500;
+  margin-right: 4px;
+}
+.btn-pill {
+  background: #ffffff;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 7px 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-pill.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 24px;
+}
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 420px;
+}
+.legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.legend-row span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.insights {
+  margin-top: 20px;
+  padding: 20px 24px;
+  background: var(--bg-subtle);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+}
+.insights-head {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.insights ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.insights li {
+  font-size: 13.5px;
+  color: var(--ink);
+  line-height: 1.65;
+  padding-left: 16px;
+  position: relative;
+}
+.insights li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+.insights .num {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.sub-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.sub-stat {
+  background: var(--bg-subtle);
+  padding: 14px 16px;
+  border-radius: 4px;
+}
+.sub-stat-label {
+  font-size: 11px;
+  color: var(--ink-mute);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.sub-stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.note {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #FFF8E6;
+  border-left: 3px solid var(--ppt-4);
+  border-radius: 4px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.note strong { color: var(--ink); font-weight: 600; }
+
+footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--ink-mute);
+}
+
+@media (max-width: 900px) {
+  .container { padding: 32px 20px 60px; }
+  header h1 { font-size: 26px; }
+  .year-tabs { flex-direction: column; }
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  .section-title { font-size: 18px; }
+  .chart-card { padding: 16px; }
+  .chart-wrap { height: 340px; }
+}
+</style>
+</head>
+<body data-year="2025">
+<div class="container">
+
+  <header>
+    <div class="brand-mark">CHALNA · ANALYTICS REPORT</div>
+    <h1>찰나 데이터 대시보드</h1>
+    <div class="subtitle">2025년 가입고객 분석 + 2026년 1분기 매출·광고 분석 · 기준일 2026.05.06</div>
+  </header>
+
+  <!-- YEAR TABS -->
+  <div class="year-tabs">
+    <button class="year-tab active" data-year="2025">
+      <div class="year-tab-tag">REPORT 01</div>
+      <div class="year-tab-title">2025년 가입고객 분석</div>
+      <div class="year-tab-meta">2025.01 ~ 2025.12 · <strong>1,727명</strong> 가입 · 유료전환 <strong>420명</strong></div>
+    </button>
+    <button class="year-tab" data-year="2026">
+      <div class="year-tab-tag">REPORT 02</div>
+      <div class="year-tab-title">2026년 1분기 매출·광고 분석</div>
+      <div class="year-tab-meta">2026.01 ~ 2026.03 · <strong>777명</strong> 가입 · 3개월 매출 <strong>880만원</strong></div>
+    </button>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- ============== 2025 YEAR PAGE ================ -->
+  <!-- ============================================== -->
+  <div class="year-page active" id="page-2025">
+
+    <div class="kpi-strip">
+      <div class="kpi">
+        <div class="kpi-label">전체 회원</div>
+        <div class="kpi-value">1,727<span class="unit">명</span></div>
+        <div class="kpi-sub">2025년 가입 누적</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">유료 전환</div>
+        <div class="kpi-value">420<span class="unit">명</span></div>
+        <div class="kpi-sub">전환율 24.3%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">연 매출 (25.02~26.01)</div>
+        <div class="kpi-value">136,932,606<span class="unit">원</span></div>
+        <div class="kpi-sub">매출 발생 275명 · ARPU 49.8만원</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">연 광고비</div>
+        <div class="kpi-value">156,000,000<span class="unit">원</span></div>
+        <div class="kpi-sub">카페24 7,680만 · 검색/배너 7,920만</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">전체 ROAS</div>
+        <div class="kpi-value">87.8<span class="unit">%</span></div>
+        <div class="kpi-sub">광고비 1원당 0.88원 회수</div>
+      </div>
+    </div>
+
+    <nav class="section-nav" data-nav="2025">
+      <button class="nav-tab active" data-tab="duration25">01 이용기간</button>
+      <button class="nav-tab" data-tab="revenue25">02 매출 분포</button>
+      <button class="nav-tab" data-tab="adcost25">03 광고비 효율</button>
+      <button class="nav-tab" data-tab="conversion25">04 플랫폼별 전환</button>
+      <button class="nav-tab" data-tab="status25">05 고객 상태 분포</button>
+      <button class="nav-tab" data-tab="ltv25">06 LTV 매출 검증</button>
+      <button class="nav-tab" data-tab="services25">07 서비스 사용자</button>
+      <button class="nav-tab" data-tab="plans25">08 서비스별 플랜</button>
+    </nav>
+
+
+    <!-- 01 DURATION -->
+    <section class="chart-section active" id="section-duration25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 01</div>
+          <h2 class="section-title">유료고객 이용기간 분포</h2>
+          <p class="section-desc">유료전환일 기준, 해지 고객은 "전환일~해지일", 이용 중 고객은 "전환일~기준일(2026.05.06)"로 계산.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">표시</span>
+          <button class="btn-pill active" data-view="duration25" data-mode="stacked">전체 (해지+이용중)</button>
+          <button class="btn-pill" data-view="duration25" data-mode="channel">채널별</button>
+        </div>
+      </div>
+      <div class="note">
+        <strong>※ 계산 방식:</strong> 이용 중 고객의 이용기간은 "오늘 − 유료전환일"로 산정. 2025년 초 가입자는 14개월 이상 이용한 경우도 존재.
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">유료전환 총</div><div class="sub-stat-value">420명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">해지 완료</div><div class="sub-stat-value">107명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">이용 중</div><div class="sub-stat-value">313명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">해지 평균</div><div class="sub-stat-value">3.6개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">이용 중 평균</div><div class="sub-stat-value">8.0개월</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row" id="duration25-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>해지 고객 (107명)</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>이용 중 (313명)</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_duration25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>해지 고객</strong>은 <span class="num">1~3개월(34명)</span>과 <span class="num">1개월 미만(29명)</span>에 집중 — 초기 3개월 이내 약 60% 이탈.</li>
+          <li><strong>이용 중 고객</strong>은 <span class="num">6~12개월(146명)</span>이 가장 많고, <span class="num">12~15개월 59명</span>도 존재. 2025년 초 유료전환한 장기 고객들이 여기 분포.</li>
+          <li>해지 고객은 "초반에 빠지는" 패턴, 이용 중 고객은 "오래 살아남은" 코호트로 거울처럼 대비. 임계점(약 3개월)을 넘기면 잔존율이 급격히 좋아짐.</li>
+          <li><strong>채널별 비교</strong> (채널별 탭): 카페24 332명, 검색/배너광고 88명. 카페24는 6~12개월 그룹이 <span class="num">133명(40%)</span>으로 가장 두꺼운 잔존층, 검색/배너광고도 <span class="num">39명(44%)</span>으로 비슷한 비율 — 두 채널 모두 일정 임계점만 넘기면 안정적인 잔존 패턴.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 02 REVENUE DISTRIBUTION -->
+    <section class="chart-section" id="section-revenue25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 02</div>
+          <h2 class="section-title">2025년 매출 구간별 고객</h2>
+          <p class="section-desc">2025.02~2026.01 연 매출 기준. 275명의 매출 발생 고객을 플랜과 매출 구간으로 분석.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">기준</span>
+          <button class="btn-pill active" data-view="revenue25" data-mode="plan">플랜별</button>
+          <button class="btn-pill" data-view="revenue25" data-mode="bucket">매출구간</button>
+          <button class="btn-pill" data-view="revenue25" data-mode="channel">광고채널</button>
+        </div>
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">매출 발생 고객</div><div class="sub-stat-value">275명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">연 매출</div><div class="sub-stat-value">136,932,606원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">최대 단일 매출</div><div class="sub-stat-value">14,046,000원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">497,937원</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row" id="revenue25-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>매출 발생 고객 수</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_revenue25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>플랜별 분포</strong>: Lite 163명(59%), Basic 52명(19%), Standard 27명(10%), Enterprise 33명(12%). Lite가 진입 플랜으로 압도적이지만 <span class="num">상위 플랜으로 분산</span>이 잘 됨.</li>
+          <li><strong>Enterprise 100만원+ 20명이 전체 매출의 46%(6,328만원)</strong> 차지. 헤비 고객 의존도 분명.</li>
+          <li><strong>매출 구간별</strong>: 100만+ 30명이 7,794만원(57%) 차지 — 적은 모수가 큰 매출. 30~50만 구간 44명 등 중간층도 두꺼움.</li>
+          <li><strong>광고 채널별</strong>: 카페24 매출 발생 218명(79%) vs 검색/배너광고 57명(21%). 매출고객 모수에서 카페24가 압도적.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03 AD COST -->
+    <section class="chart-section" id="section-adcost25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 03</div>
+          <h2 class="section-title">광고비 대비 ARPU · ROAS 분석</h2>
+          <p class="section-desc">2025년 1년 광고비(1.56억) vs 2025.02~2026.01 누적 매출. 카페24 외 모든 플랫폼은 검색/배너광고로 통합.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">지표</span>
+          <button class="btn-pill active" data-view="adcost25" data-mode="roas">ROAS</button>
+          <button class="btn-pill" data-view="adcost25" data-mode="arpu_cac">ARPU·CAC</button>
+          <button class="btn-pill" data-view="adcost25" data-mode="rev_dist">매출분포</button>
+          <button class="btn-pill" data-view="adcost25" data-mode="cac_roas">CAC→ROAS</button>
+        </div>
+      </div>
+      <div class="note">
+        <strong>※ 광고비:</strong> 카페24 640만원/월 × 12 = <strong>7,680만원</strong> · 검색/배너광고 660만원/월 × 12 = <strong>7,920만원</strong> · 총 <strong>1억 5,600만원</strong><br>
+        <strong>※ 매출:</strong> 1개월 무료체험 구조라 매출이 1개월씩 밀림. 광고 시점(2025.01~12) 대응 매출은 <strong>2025.02 ~ 2026.01</strong>.
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">총 광고비 (연)</div><div class="sub-stat-value">156,000,000원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">총 연 매출</div><div class="sub-stat-value">136,932,606원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 ROAS</div><div class="sub-stat-value">87.8%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">총 유료전환</div><div class="sub-stat-value">420명</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row" id="adcost25-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>카페24</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>검색/배너광고</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_adcost25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>연 ROAS</strong>: 카페24 <span class="num">152.5%</span> (흑자) vs 검색/배너광고 <span class="num">25.0%</span> (큰 적자) — 약 6.1배 차이.</li>
+          <li><strong>카페24 흑자 채널</strong>: 광고비 7,680만 → 매출 1.17억 = <span class="num">+4,031만원 순이익</span>.</li>
+          <li><strong>검색/배너광고 적자</strong>: 광고비 7,920만 → 매출 1,982만 = <span class="num">-5,938만원 손실</span>.</li>
+          <li><strong>유료전환당 CAC</strong>: 카페24 23.1만 vs 검색/배너 90만 — 4배 차이. 검색/배너의 결제 의향 트래픽 효율 매우 낮음.</li>
+          <li>전체 매출 1.37억의 <strong>85.5%(1.17억)가 카페24</strong>에서 발생.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 PLATFORM CONVERSION -->
+    <section class="chart-section" id="section-conversion25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 04</div>
+          <h2 class="section-title">플랫폼별 유료전환율</h2>
+          <p class="section-desc">커머스 플랫폼별 가입자 수 대비 유료전환 고객 수와 전환율 비교.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">표시</span>
+          <button class="btn-pill active" data-view="conversion25" data-mode="bar">막대비교</button>
+          <button class="btn-pill" data-view="conversion25" data-mode="rate">전환율순</button>
+        </div>
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">1,727명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">420명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">24.3%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (48.9%)</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>가입자</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>유료전환</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2);border-radius:50%"></span>전환율 %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_conversion25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><span class="num">cafe24</span>가 압도적 — 가입자 679명 중 <span class="num">332명(48.9%)</span>이 유료 전환. 유료 고객 420명 중 <span class="num">79%가 cafe24 출신</span>.</li>
+          <li><span class="num">direct</span>는 가입자 855명(전체 1위)이지만 전환율 <span class="num">7.7%</span>에 불과.</li>
+          <li>nhn(16.0%) 중간, makeshop(7.0%) direct 수준, <span class="num">colorme 16명 중 0명 전환</span>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 CUSTOMER STATUS -->
+    <section class="chart-section" id="section-status25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 05</div>
+          <h2 class="section-title">가입자 대비 휴면 · 해지 분포</h2>
+          <p class="section-desc">2025년 가입 1,727명을 유료전환 여부 × 계정 상태(정상/휴면/해지)로 교차 분류.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">기준</span>
+          <button class="btn-pill active" data-view="status25" data-mode="overall">전체 분포</button>
+          <button class="btn-pill" data-view="status25" data-mode="quarter">분기별</button>
+          <button class="btn-pill" data-view="status25" data-mode="channel">광고채널별</button>
+        </div>
+      </div>
+      <div class="note">
+        <strong>※ 카테고리 정의:</strong> 미전환·휴면 = 결제 없이 휴면 / 미전환·해지 = 결제 전 계정 해지 / 유료·정상 = 결제 후 이용 중 / 유료·해지 = 결제 후 해지 / 유료·휴면 = 결제 후 휴면(드뭄)
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">1,727명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">미전환·휴면</div><div class="sub-stat-value">1,145명 (66.3%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">유료·정상</div><div class="sub-stat-value">286명 (16.6%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">유료 해지</div><div class="sub-stat-value">107명 (6.2%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">미전환 해지</div><div class="sub-stat-value">121명</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row" id="status25-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>미전환·휴면</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>유료·정상</span>
+          <span><span class="legend-dot" style="background:var(--ppt-5)"></span>미전환·정상</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>미전환·해지</span>
+          <span><span class="legend-dot" style="background:var(--ppt-4)"></span>유료·해지</span>
+          <span><span class="legend-dot" style="background:var(--ppt-6)"></span>유료·휴면</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_status25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>가입자의 66.3%(1,145명)가 미전환·휴면</strong>. 유료 전환까지 가지 않은 휴면 비중이 가장 큼.</li>
+          <li><strong>유료·해지 107명(전체의 6.2%, 유료의 25.5%)</strong> — 유료전환자의 1/4가 결국 해지. 1분기 코호트(2.1%)와 큰 차이.</li>
+          <li><strong>광고채널별</strong>: 카페24 가입자 679명 중 유료·정상 비율 33.9%, 검색/배너 1,048명 중 5.3% — <span class="num">카페24의 결제 친화도 6배</span>.</li>
+          <li><strong>분기별 추이</strong>: 1분기는 미전환·휴면 비중이 0%로 보이지만 그 시점에 휴면 처리가 되지 않은 것뿐. 4분기 가입자는 휴면 비중 80% — 신규 유입자의 결제 전환이 시간 걸림.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 06 LTV ACTUAL -->
+    <section class="chart-section" id="section-ltv25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 06</div>
+          <h2 class="section-title">LTV 매출 검증 (실제 누적 데이터)</h2>
+          <p class="section-desc">2025년은 12개월 매출이 이미 누적된 코호트로, 실제 매출과 광고비 효율을 직접 검증할 수 있음. 2026년 1분기와 비교 기준점.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">지표</span>
+          <button class="btn-pill active" data-view="ltv25" data-mode="roas">ROAS</button>
+          <button class="btn-pill" data-view="ltv25" data-mode="arpu">ARPU</button>
+          <button class="btn-pill" data-view="ltv25" data-mode="profit">손익</button>
+        </div>
+      </div>
+      <div class="note">
+        <strong>※ 2025년 = 실측치:</strong> 가입 후 1년이 충분히 지나 누적 매출이 거의 LTV에 가까움. 가입자 평균 매출 누적 기간 약 4.9개월(연중 분포된 가입자 평균). 매출고객 평균 이용기간 8개월 기준의 LTV 검증.<br>
+        <strong>※ 2026년과 비교:</strong> 2026년 1분기는 이 지표를 기준으로 추정한 예상치. 2025년은 실측치라 두 기간 비교의 앵커.
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">실 매출 (12개월)</div><div class="sub-stat-value">136,932,606원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">광고비 (12개월)</div><div class="sub-stat-value">156,000,000원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">실 ROAS</div><div class="sub-stat-value">87.8%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">실 순익</div><div class="sub-stat-value">-19,067,394원</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row" id="ltv25-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>카페24</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>검색/배너광고</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_ltv25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>2025년은 실측 데이터</strong>: 1년이 지나 매출이 충분히 누적됨. 추정 없이 실제 ROAS/ARPU/손익 확인 가능.</li>
+          <li><strong>채널별 명확한 우열</strong>: 카페24 ROAS 152.5% (흑자 +4,031만원) vs 검색/배너 25.0% (적자 -5,938만원) — 약 6배 차이.</li>
+          <li><strong>전체 광고비 대비 약간 적자</strong>: 광고비 1.56억 vs 매출 1.37억 = 약 1,907만원 미회수. 다만 지속 결제 고객의 추가 매출은 미반영.</li>
+          <li><strong>2026년 1분기 LTV 추정의 앵커</strong>: 이 실측치 위에서 1분기는 4.9개월 → 8개월로 외삽. 2026 LTV 탭의 가정이 합리적인지 검증할 수 있음.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 07 SERVICE USERS -->
+    <section class="chart-section" id="section-services25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 07</div>
+          <h2 class="section-title">서비스별 활성 사용자</h2>
+          <p class="section-desc">5개 서비스의 사용자 수. 각 서비스 로드수가 1 이상인 고객 집계.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">기준</span>
+          <button class="btn-pill active" data-view="services25" data-mode="abs">절대값</button>
+          <button class="btn-pill" data-view="services25" data-mode="pct">전체 대비 %</button>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-wrap"><canvas id="ch_services25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li>디스플레이어가 <span class="num">593명(전체의 34%)</span>으로 압도적 메인 서비스. 두 번째 샵플레이어와 4배 이상 차이.</li>
+          <li>위젯 활성 사용자 0명 — 데이터상 사용 흔적이 없어 사실상 비활성.</li>
+          <li>재생목록(35명)은 사용자 수 적지만 다음 섹션에서 보듯 유료 비중 가장 높음.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 08 PLANS BY SERVICE -->
+    <section class="chart-section" id="section-plans25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 08</div>
+          <h2 class="section-title">서비스별 가격 플랜 분포</h2>
+          <p class="section-desc">각 서비스 사용자들이 어떤 플랜에 속해 있는지 누적 막대 비교.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">표시</span>
+          <button class="btn-pill active" data-view="plans25" data-mode="count">고객 수</button>
+          <button class="btn-pill" data-view="plans25" data-mode="ratio">비율 100%</button>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>Promotion</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>Lite</span>
+          <span><span class="legend-dot" style="background:var(--ppt-5)"></span>Basic</span>
+          <span><span class="legend-dot" style="background:var(--ppt-4)"></span>Standard</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>Enterprise</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_plans25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><span class="num">디스플레이어</span>: Promotion(46%) + Lite(32%) = <span class="num">78%가 무료/저가</span>. 진입 서비스 역할 명확.</li>
+          <li><span class="num">샵플레이어</span>: 유료 플랜(Lite 이상) 비율 약 63% — 결제 의향 높은 그룹.</li>
+          <li><span class="num">재생목록</span>: 35명 중 Basic+Standard+Enterprise가 15명(43%) — <span class="num">유료 비중 최고</span>.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- ============== 2026 YEAR PAGE ================ -->
+  <!-- ============================================== -->
+  <div class="year-page" id="page-2026">
+
+    <div class="kpi-strip">
+      <div class="kpi">
+        <div class="kpi-label">1분기 가입자</div>
+        <div class="kpi-value">777<span class="unit">명</span></div>
+        <div class="kpi-sub">1월 336 · 2월 245 · 3월 196</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">유료 전환</div>
+        <div class="kpi-value">97<span class="unit">명</span></div>
+        <div class="kpi-sub">전환율 12.5%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">3개월 매출</div>
+        <div class="kpi-value">8,800,294<span class="unit">원</span></div>
+        <div class="kpi-sub">매출 발생 86명 · ARPU 102,329원</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">분기 광고비</div>
+        <div class="kpi-value">29,100,000<span class="unit">원</span></div>
+        <div class="kpi-sub">카페24 1,380만 · 검색/배너 1,530만</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">전체 ROAS</div>
+        <div class="kpi-value">30.2<span class="unit">%</span></div>
+        <div class="kpi-sub">3개월 매출/광고비 기준</div>
+      </div>
+    </div>
+
+    <nav class="section-nav" data-nav="2026">
+      <button class="nav-tab active" data-tab="duration26">01 이용기간</button>
+      <button class="nav-tab" data-tab="revenue26">02 매출 분포</button>
+      <button class="nav-tab" data-tab="adcost26">03 광고비 효율</button>
+      <button class="nav-tab" data-tab="conversion26">04 플랫폼별 전환</button>
+      <button class="nav-tab" data-tab="status26">05 고객 상태 분포</button>
+      <button class="nav-tab" data-tab="ltv26">06 LTV 예상 ROAS</button>
+      <button class="nav-tab" data-tab="services26">07 서비스 사용자</button>
+      <button class="nav-tab" data-tab="plans26">08 서비스별 플랜</button>
+    </nav>
+
+
+
+    <!-- 01 DURATION -->
+    <section class="chart-section active" id="section-duration26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 01</div>
+          <h2 class="section-title">유료고객 이용기간 분포</h2>
+          <p class="section-desc">유료전환일 기준, 해지 고객은 "전환일~해지일", 이용 중 고객은 "전환일~기준일(2026.05.06)"로 계산.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">표시</span>
+          <button class="btn-pill active" data-view="duration26" data-mode="stacked">전체 (해지+이용중)</button>
+          <button class="btn-pill" data-view="duration26" data-mode="channel">채널별</button>
+        </div>
+      </div>
+      <div class="note">
+        <strong>※ 1분기 코호트 한정:</strong> 2026.01~03 가입자가 유료전환한 시점부터 기준일까지의 이용기간. 1분기 가입자라 최대 약 4개월까지만 측정 가능.
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">유료전환 총</div><div class="sub-stat-value">97명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">해지 완료</div><div class="sub-stat-value">2명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">이용 중</div><div class="sub-stat-value">95명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">이용 중 평균</div><div class="sub-stat-value">1.5개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">해지율</div><div class="sub-stat-value">2.1%</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row" id="duration26-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>해지 고객 (2명)</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>이용 중 (95명)</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_duration26"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>이용 중 95명, 해지 2명</strong> — 유료전환 대비 해지율 단 2.1%. 2025년 유료·해지 25.5%와 큰 차이.</li>
+          <li><strong>이용 중 분포</strong>: 1~3개월 구간에 61명(64%) 집중. 1분기 가입자라 짧은 누적 기간이 자연스러움.</li>
+          <li><strong>해지 2명 모두 1개월 미만</strong>: 유료전환 직후 빠르게 빠진 사례. 다만 절대 수가 너무 적어 패턴 해석 어려움.</li>
+          <li><strong>채널별 비교</strong> (채널별 탭): 카페24 70명, 검색/배너광고 27명. 카페24의 1~3개월 구간이 45명(64%)으로 가장 두꺼움.</li>
+          <li>1분기 코호트는 매출 누적 기간이 짧아 장기 잔존 패턴 평가 불가. <span class="num">분기 종료 후 6개월 이상 시점에 재평가 권장</span>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 02 REVENUE DISTRIBUTION -->
+    <section class="chart-section" id="section-revenue26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 02</div>
+          <h2 class="section-title">26년 1분기 매출 구간별 고객</h2>
+          <p class="section-desc">2026.02~2026.04 3개월 누적 매출 기준. 86명의 매출 발생 고객을 플랜과 매출 구간으로 분석.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">기준</span>
+          <button class="btn-pill active" data-view="revenue26" data-mode="plan">플랜별</button>
+          <button class="btn-pill" data-view="revenue26" data-mode="bucket">매출구간</button>
+          <button class="btn-pill" data-view="revenue26" data-mode="channel">광고채널</button>
+        </div>
+      </div>
+      <div class="note">
+        <strong>※ 매출 산정:</strong> 1월 가입자는 무료체험 후 2~4월(3개월) 매출, 3월 가입자는 4월(1개월)만 매출. 즉 <strong>가입 시점에 따라 매출 누적 기간이 다름</strong>.<br>
+        <strong>※ 매출 발생 86명 ≠ 유료전환 97명</strong> — 유료전환 Y 중 12명은 매출 미발생(가입은 했으나 결제 시점 미도래·해지 처리), 유료전환 N 중 1명은 연결제로 매출 발생.
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">매출 발생 고객</div><div class="sub-stat-value">86명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">3개월 매출</div><div class="sub-stat-value">8,800,294원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">최대 단일 매출</div><div class="sub-stat-value">533,327원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">중앙 매출</div><div class="sub-stat-value">60,000원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">102,329원</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row" id="revenue26-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>매출 발생 고객 수</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_revenue26"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>매출 발생 86명의 플랜 분포</strong>: Lite 61명(71%), Basic 15명(17%), Standard 8명(9%), Enterprise 2명(2%). <span class="num">Lite가 진입 플랜으로 압도적</span>.</li>
+          <li><strong>Standard 8명이 매출 275만원(31%)</strong> — 인원은 적지만 객단가가 높아 매출 기여도 큼. 카페24 헤비 고객층.</li>
+          <li><strong>Enterprise 2명</strong>: 19만원, 42만원으로 1분기 코호트는 아직 100만원+ 헤비 Enterprise 고객 미형성.</li>
+          <li><strong>광고 채널별</strong>: 카페24 매출 발생 67명 vs 검색/배너광고 19명. <span class="num">카페24가 매출고객 모수에서 약 3.5배 우세</span>.</li>
+          <li>중앙 매출 6만원, 최대 53만원 — 헤비 고객이 아직 형성되지 않은 초기 코호트.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03 AD COST -->
+    <section class="chart-section" id="section-adcost26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 03</div>
+          <h2 class="section-title">광고비 대비 ARPU · ROAS 분석</h2>
+          <p class="section-desc">2026년 1분기 광고비(2,910만원) vs 2026.02~2026.04 매출. 카페24 외 모든 플랫폼은 검색/배너광고 통합.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">지표</span>
+          <button class="btn-pill active" data-view="adcost26" data-mode="roas">ROAS</button>
+          <button class="btn-pill" data-view="adcost26" data-mode="arpu_cac">ARPU·CAC</button>
+          <button class="btn-pill" data-view="adcost26" data-mode="rev_dist">매출분포</button>
+          <button class="btn-pill" data-view="adcost26" data-mode="cac_roas">CAC→ROAS</button>
+        </div>
+      </div>
+      <div class="note">
+        <strong>※ 광고비:</strong> 카페24 460만원/월 × 3 = <strong>1,380만원</strong> · 검색/배너광고 510만원/월 × 3 = <strong>1,530만원</strong> · 총 <strong>2,910만원</strong><br>
+        <strong>※ 매출:</strong> 1개월 무료체험으로 매출이 1개월씩 밀림. 광고 시점(2026.01~03) 대응 매출은 <strong>2026.02 ~ 2026.04</strong>.
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,100,000원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">3개월 매출</div><div class="sub-stat-value">8,800,294원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 ROAS</div><div class="sub-stat-value">30.2%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">총 가입자</div><div class="sub-stat-value">777명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">총 유료전환</div><div class="sub-stat-value">97명</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row" id="adcost26-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>카페24</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>검색/배너광고</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_adcost26"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>3개월 ROAS</strong>: 카페24 <span class="num">45.6%</span>가 검색/배너광고 <span class="num">16.4%</span>를 약 2.8배 능가. <strong>2025년과 동일한 패턴</strong>이 1분기에도 유지.</li>
+          <li><strong>가입 허들 제거 후</strong>: 검색/배너 가입자 590명으로 폭증했지만 매출고객은 19명에 그침. 카페24는 187명 가입에서 매출고객 67명.</li>
+          <li><strong>유료전환율도 카페24 우세</strong>: 카페24 37.4% vs 검색/배너 4.6%. 유료전환과 매출 모두 카페24가 강함.</li>
+          <li><strong>유료전환당 CAC</strong>: 카페24 19.7만원 vs 검색/배너 56.7만원. 단가도 검색/배너가 비싸고 매출 효율도 낮음 — <span class="num">검색/배너의 단위 경제성이 매우 약함</span>.</li>
+          <li>두 채널 모두 분기 단독 ROAS 100% 미만 — 카페24 −750만원, 검색/배너 −1,280만원. <strong>1분기 코호트 매출 누적 기간이 짧아 추가 시간 후 재평가 필요</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 PLATFORM CONVERSION -->
+    <section class="chart-section" id="section-conversion26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 04</div>
+          <h2 class="section-title">플랫폼별 유료전환율</h2>
+          <p class="section-desc">커머스 플랫폼별 가입자 수 대비 유료전환 고객 수와 전환율 비교.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">표시</span>
+          <button class="btn-pill active" data-view="conversion26" data-mode="bar">막대비교</button>
+          <button class="btn-pill" data-view="conversion26" data-mode="rate">전환율순</button>
+        </div>
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">777명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">97명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">12.5%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (37.4%)</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>가입자</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>유료전환</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2);border-radius:50%"></span>전환율 %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_conversion26"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><span class="num">cafe24가 압도적</span>: 187명 중 70명(37.4%)이 유료 전환. 1분기 유료 고객 97명의 <span class="num">72%가 cafe24 출신</span>.</li>
+          <li><strong>direct는 가입자 1위(441명, 57%)이지만 전환율 4.3%</strong>로 매우 낮음 — 가입 허들 제거 후 검색/배너로 유입된 트래픽 대부분이 결제로 이어지지 않음.</li>
+          <li>nhn 6.5%, makeshop 3.6%, colorme 0% — direct와 유사한 낮은 전환율 패턴.</li>
+          <li>2025년과 비교 시 <strong>cafe24의 우위는 유지(48.9%→37.4%)</strong>되지만 절대 전환율은 다소 하락.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 CUSTOMER STATUS -->
+    <section class="chart-section" id="section-status26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 05</div>
+          <h2 class="section-title">가입자 대비 휴면 · 해지 분포</h2>
+          <p class="section-desc">1분기 가입 777명을 유료전환 여부 × 계정 상태(정상/휴면/해지)로 교차 분류.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">기준</span>
+          <button class="btn-pill active" data-view="status26" data-mode="overall">전체 분포</button>
+          <button class="btn-pill" data-view="status26" data-mode="month">가입월별</button>
+          <button class="btn-pill" data-view="status26" data-mode="channel">광고채널별</button>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>※ 카테고리 정의:</strong> 미전환·휴면 = 가입만 하고 결제 없이 휴면 / 미전환·해지 = 결제 전 계정 해지 / 미전환·정상 = 결제 전 활성 / 유료·정상이용중 = 결제 후 이용 중 / 유료·해지 = 결제 후 해지<br>
+        <strong>※ 휴면 정의는 일정 기간 미접속 또는 활동 정지 상태</strong>. 1분기 가입자 다수가 무료체험 종료 후 결제 없이 자동 휴면 처리된 케이스로 보임.
+      </div>
+
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">777명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">미전환·휴면</div><div class="sub-stat-value">651명 (83.8%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">유료·정상</div><div class="sub-stat-value">95명 (12.2%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">유료 해지</div><div class="sub-stat-value">2명 (2.1%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">미전환 해지</div><div class="sub-stat-value">11명</div></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="legend-row" id="status26-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>미전환·휴면</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>유료·정상이용중</span>
+          <span><span class="legend-dot" style="background:var(--ppt-5)"></span>미전환·정상</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>미전환·해지</span>
+          <span><span class="legend-dot" style="background:var(--ppt-4)"></span>유료·해지</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_status26"></canvas></div>
+      </div>
+
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>가입자의 83.8%(651명)가 미전환·휴면</strong>. 가입 허들 제거 후 무료 체험은 시도하나 유료 결제로 이어지지 않는 비중이 매우 높음.</li>
+          <li><strong>유료전환자 97명 중 해지는 단 2명(2.1%)</strong>. <span class="num">결제까지 가면 매우 강한 잔존</span>. 1분기 코호트의 전환 후 이탈율은 거의 무시할 수준.</li>
+          <li><strong>미전환·해지 11명</strong>은 가입 후 결제 없이 계정 자체를 닫은 경우. 검색/배너광고에서 5명, 카페24에서 6명 — 절대값은 비슷하나 검색/배너의 모수(590명)가 훨씬 커서 비율로는 카페24가 높음.</li>
+          <li><strong>광고채널별 휴면 비중</strong>: 검색/배너광고는 590명 중 547명(92.7%)이 미전환·휴면, 카페24는 187명 중 104명(55.6%). <span class="num">카페24가 결제로 이어지는 비율이 압도적</span>.</li>
+          <li>2026년 1분기 가장 큰 과제는 <strong>"가입했으나 미전환 휴면 상태인 651명을 어떻게 활성화할 것인가"</strong> — 나우킹/푸쉬/리타게팅 등 회생 액션 우선순위가 높음.</li>
+        </ul>
+      </div>
+    </section>
+
+        
+    <!-- 06 LTV PROJECTION -->
+    <section class="chart-section" id="section-ltv26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 06</div>
+          <h2 class="section-title">LTV 8개월 기준 예상 ROAS · ARPU</h2>
+          <p class="section-desc">2025년 평균 이용기간 8개월을 LTV로 가정하고, 1분기 코호트의 매출이 8개월까지 누적될 경우의 ROAS와 ARPU를 추정.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">지표</span>
+          <button class="btn-pill active" data-view="ltv26" data-mode="roas">예상 ROAS</button>
+          <button class="btn-pill" data-view="ltv26" data-mode="arpu">예상 ARPU</button>
+          <button class="btn-pill" data-view="ltv26" data-mode="profit">예상 손익</button>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>※ 계산 근거:</strong> <strong>2025년 가입고객의 평균 이용기간 8개월</strong>(이용 중 고객 평균)을 LTV 기준으로 사용. 1분기 가입자 777명의 평균 매출 누적 기간은 약 <strong>2.18개월</strong>(1월 가입자 3개월 + 2월 2개월 + 3월 1개월의 가중평균). 현재 매출을 월 단위로 환산 후 8개월에 곱해 예상치 산출.<br>
+        <strong>※ 한계:</strong> 단순 선형 외삽이라 실제 결과는 다를 수 있음. 잔존율, 결제 갱신율, 헤비 고객 비중 등 변수 미반영. <span style="color:#A04E14;font-weight:600">"이 정도 매출 페이스가 8개월 유지된다고 가정할 때"</span>의 시나리오로 해석 필요.
+      </div>
+
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">현재 누적기간(가중평균)</div><div class="sub-stat-value">2.18개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">LTV 기준</div><div class="sub-stat-value">8개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">예상 매출 (8개월)</div><div class="sub-stat-value">32,291,988원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">예상 ROAS</div><div class="sub-stat-value">111.0%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">예상 순익</div><div class="sub-stat-value">+3,191,988원</div></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="legend-row" id="ltv26-legend">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>현재 (2.18개월 누적)</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>예상 (8개월 LTV)</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_ltv26"></canvas></div>
+      </div>
+
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>예상 ROAS</strong>: 카페24 45.6% → <span class="num">167.5%</span>로 손익분기 돌파. 검색/배너광고 16.4% → <span class="num">60.0%</span>로 상승하지만 100% 미달.</li>
+          <li><strong>예상 ARPU(8개월)</strong>: 카페24 매출고객 1인당 약 <span class="num">34.5만원</span>, 검색/배너 약 <span class="num">48.3만원</span>. 단가는 검색/배너가 더 높지만 모수가 매우 작음.</li>
+          <li><strong>예상 손익</strong>: 카페24 +931만원, 검색/배너 -612만원. 1분기에서도 <strong>카페24가 흑자, 검색/배너는 적자</strong>로 전망 — 2025년과 동일.</li>
+          <li><strong>왜 이런 차이</strong>: 카페24 매출고객 67명이 검색/배너 19명보다 약 3.5배 많아 절대 매출 자체에서 큰 차이. 가입 허들 제거 후 검색/배너 트래픽은 늘었지만 결제로 이어지는 비율이 매우 낮음.</li>
+          <li><strong>주의</strong>: 이 추정은 1분기 매출 페이스가 그대로 8개월 유지된다고 가정. 실제로는 잔존 이탈, 갱신율 변동, 헤비 고객 등장 여부에 따라 크게 달라질 수 있음. 분기 종료 후 실측 비교 권장.</li>
+        </ul>
+      </div>
+    </section>
+    <!-- 07 SERVICE USERS -->
+    <section class="chart-section" id="section-services26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 07</div>
+          <h2 class="section-title">서비스별 활성 사용자</h2>
+          <p class="section-desc">5개 서비스의 사용자 수. 각 서비스 로드수가 1 이상인 고객 집계.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">기준</span>
+          <button class="btn-pill active" data-view="services26" data-mode="abs">절대값</button>
+          <button class="btn-pill" data-view="services26" data-mode="pct">전체 대비 %</button>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-wrap"><canvas id="ch_services26"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li>디스플레이어가 <span class="num">223명(전체 가입자 777명의 28.7%)</span>으로 메인 서비스 위치 유지. 단 절대 비율은 2025년(34.3%)보다 약간 낮음.</li>
+          <li><strong>위젯이 새로 활성화</strong>: 2025년 0명 → 2026년 1분기 <span class="num">19명</span>. 신규 출시 또는 노출 강화로 보임.</li>
+          <li>썸네일플레이어 37명, 샵플레이어 35명으로 비슷한 규모. 재생목록은 7명으로 가장 적음.</li>
+          <li>2025년 대비 사용자 절대수는 적으나, 1분기 코호트만의 단기 데이터라 단순 비교는 어려움.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 08 PLANS BY SERVICE -->
+    <section class="chart-section" id="section-plans26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 08</div>
+          <h2 class="section-title">서비스별 가격 플랜 분포</h2>
+          <p class="section-desc">각 서비스 사용자들이 어떤 플랜에 속해 있는지 누적 막대 비교.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">표시</span>
+          <button class="btn-pill active" data-view="plans26" data-mode="count">고객 수</button>
+          <button class="btn-pill" data-view="plans26" data-mode="ratio">비율 100%</button>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>Promotion</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>Lite</span>
+          <span><span class="legend-dot" style="background:var(--ppt-5)"></span>Basic</span>
+          <span><span class="legend-dot" style="background:var(--ppt-4)"></span>Standard</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>Enterprise</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_plans26"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><strong>디스플레이어</strong>: Promotion 130명(58%) + Lite 63명(28%) = 86%가 무료/저가. 진입 서비스 역할 유지.</li>
+          <li><strong>샵플레이어</strong>: Standard·Enterprise가 각 5명씩(각 14%) — 고가 플랜 비중이 다른 서비스 대비 가장 높음. <span class="num">결제 의향 강한 사용자가 쓰는 서비스</span>.</li>
+          <li><strong>위젯</strong>: 19명 중 Enterprise 5명(26%). 적은 사용자지만 <span class="num">최상위 플랜 비중이 가장 높음</span> — 신규 활성 서비스인데 즉시 결제 고객 비중이 큼.</li>
+          <li><strong>재생목록</strong>: 7명 중 Enterprise 2명(29%). 소수지만 유료 비중 매우 높음 — 2025년과 동일 패턴.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>CHALNA · ANALYTICS REPORT</span>
+    <span>generated 2026.05.06</span>
+  </footer>
+
+</div>
+
+<script>
+// ===========================================
+// COMMON
+// ===========================================
+const COLORS = {
+  ppt1: '#4472C4', ppt2: '#ED7D31', ppt3: '#A5A5A5',
+  ppt4: '#FFC000', ppt5: '#5B9BD5', ppt6: '#70AD47',
+  ink: '#1f1f1f', inkSoft: '#4a4a4a', inkMute: '#8a8a8a',
+  line: '#e5e7eb', bgCard: '#ffffff'
+};
+
+const tooltipBase = {
+  backgroundColor: '#1f1f1f',
+  titleColor: '#ffffff', bodyColor: '#ffffff',
+  borderWidth: 0, padding: 12, cornerRadius: 4,
+  displayColors: false,
+  titleFont: { family: 'Pretendard', size: 12, weight: '600' },
+  bodyFont: { family: 'Pretendard', size: 13, weight: '400' }
+};
+const xAxisBase = {
+  ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 12, weight: '500' }, autoSkip: false, maxRotation: 0 },
+  grid: { display: false },
+  border: { color: COLORS.line }
+};
+const yAxisBase = {
+  ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 } },
+  grid: { color: COLORS.line, drawBorder: false },
+  border: { display: false }
+};
+
+let charts = {};
+
+// ===========================================
+// 2025 DATA & BUILDERS
+// ===========================================
+const DATA25 = {
+  duration: {
+    labels: ['1개월 미만', '1~3개월', '3~6개월', '6~12개월', '12~15개월'],
+    cancelled: [29, 34, 18, 26, 0],
+    active:    [2, 14, 92, 146, 59],
+    // 채널별 - 해지+이용중 합산
+    cafe24:    [21, 36, 94, 133, 48],
+    search:    [10, 12, 16, 39, 11]
+  },
+  services: {
+    labels: ['디스플레이어', '샵플레이어', '썸네일플레이어', '재생목록', '위젯'],
+    counts: [593, 141, 86, 35, 0],
+    total: 1727
+  },
+  plans: {
+    labels: ['디스플레이어\n(593명)', '샵플레이어\n(141명)', '썸네일플레이어\n(86명)', '재생목록\n(35명)'],
+    totals: [593, 141, 86, 35],
+    promotion: [271, 52, 36, 12],
+    lite:      [192, 34, 28, 8],
+    basic:     [56, 27, 14, 10],
+    standard:  [31, 14, 4, 2],
+    enterprise:[43, 14, 4, 3]
+  },
+  conversion: {
+    labels: ['cafe24', 'direct', 'nhn', 'makeshop', 'colorme'],
+    signup: [679, 855, 106, 71, 16],
+    paid:   [332, 66, 17, 5, 0],
+    rate:   [48.9, 7.7, 16.0, 7.0, 0.0]
+  },
+  revenue: {
+    plan_labels: ['Lite', 'Basic', 'Standard', 'Ent.<10만', 'Ent.10~30만', 'Ent.30~50만', 'Ent.50~100만', 'Ent.100만+'],
+    plan_counts: [163, 52, 27, 3, 4, 3, 3, 20],
+    plan_sums:   [28567138, 19070211, 22090069, 130000, 576000, 1100000, 2123003, 63276185],
+    bucket_labels: ['<10만', '10~30만', '30~50만', '50~100만', '100만+'],
+    bucket_counts: [76, 95, 44, 30, 30],
+    bucket_sums:   [4290000, 16999847, 15637322, 22064636, 77940801],
+    cafe24_counts: [66, 69, 33, 25, 25],
+    search_counts: [10, 26, 11, 5, 5]
+  },
+  adcost: {
+    labels: ['카페24', '검색/배너광고'],
+    cost:   [76800000, 79200000],
+    signup: [679, 1048],
+    paid:   [332, 88],
+    revenue:[117110215, 19822391],
+    arpu:   [537203, 347761],
+    arpu_per_paid: [352742, 225254],
+    cac_signup: [113108, 75573],
+    cac_paid:   [231325, 900000],
+    roas:   [152.5, 25.0],
+    arpu_cac: [1.525, 0.250],
+    profit: [40310215, -59377609]
+  },
+  status: {
+    cat_labels: ['미전환·휴면', '유료·정상', '미전환·해지', '유료·해지', '미전환·정상', '유료·휴면', '유료·연체'],
+    cat_counts: [1145, 286, 121, 107, 41, 26, 1],
+    quarter_labels: ['1분기', '2분기', '3분기', '4분기'],
+    quarter_totals: [134, 407, 557, 628],
+    quarter_dormant_unpaid: [0, 231, 413, 500],
+    quarter_paid_active:    [51, 69, 79, 87],
+    quarter_active_unpaid:  [4, 16, 9, 12],
+    quarter_cancel_unpaid:  [32, 52, 24, 13],
+    quarter_cancel_paid:    [43, 30, 24, 10],
+    quarter_paid_dormant:   [4, 8, 8, 6],
+    ch_labels: ['카페24', '검색/배너광고'],
+    ch_totals: [679, 1048],
+    ch_dormant_unpaid: [282, 863],
+    ch_paid_active:    [230, 56],
+    ch_active_unpaid:  [18, 23],
+    ch_cancel_unpaid:  [47, 74],
+    ch_cancel_paid:    [82, 25],
+    ch_paid_dormant:   [20, 6]
+  },
+  ltv: {
+    labels: ['카페24', '검색/배너광고'],
+    cost: [76800000, 79200000],
+    rev_actual:  [117110215, 19822391],
+    arpu_actual: [537203, 347761],
+    roas_actual: [152.5, 25.0],
+    profit_actual: [40310215, -59377609]
+  }
+};
+
+let modes25 = {
+  duration25: 'stacked',
+  revenue25: 'plan',
+  adcost25: 'roas',
+  status25: 'overall',
+  ltv25: 'roas',
+  services25: 'abs',
+  plans25: 'count',
+  conversion25: 'bar'
+};
+
+function buildDuration25() {
+  const mode = modes25.duration25;
+  const ctx = document.getElementById('ch_duration25');
+  if (charts.duration25) charts.duration25.destroy();
+
+  const D = DATA25.duration;
+
+  if (mode === 'channel') {
+    // 채널별 분포 (해지+이용중 합산)
+    const cafe24Total = D.cafe24.reduce((a,b) => a+b, 0);
+    const searchTotal = D.search.reduce((a,b) => a+b, 0);
+
+    document.getElementById('duration25-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (${cafe24Total}명)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고 (${searchTotal}명)</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">
+        해지 + 이용중 합산 · 카페24 외 모든 플랫폼은 검색/배너광고로 통합
+      </span>`;
+
+    charts.duration25 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: D.labels,
+        datasets: [
+          { label: '카페24',       data: D.cafe24, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.7 },
+          { label: '검색/배너광고', data: D.search, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.7 }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end', align: 'end', offset: 2,
+            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            formatter: (v, c) => {
+              if (v === 0) return '';
+              const total = c.dataset.label === '카페24' ? cafe24Total : searchTotal;
+              return Math.round(v / total * 100) + '%';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (c) => {
+                if (c.parsed.y === 0) return c.dataset.label + ': 0명';
+                const total = c.dataset.label === '카페24' ? cafe24Total : searchTotal;
+                const pct = (c.parsed.y / total * 100).toFixed(1);
+                return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, {
+            beginAtZero: true, grace: '12%',
+            title: { display: true, text: '유료고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          })
+        }
+      }
+    });
+    return;
+  }
+
+  // stacked 모드 - 해지+이용중 그룹 막대
+  document.getElementById('duration25-legend').innerHTML = `
+    <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>해지 고객 (107명)</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>이용 중 (313명)</span>`;
+
+  charts.duration25 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.labels,
+      datasets: [
+        { label: '해지 고객', data: D.cancelled, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.7 },
+        { label: '이용 중',   data: D.active,   backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.7 }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+          formatter: (v, c) => {
+            if (v === 0) return '';
+            const total = c.dataset.label === '이용 중' ? 313 : 107;
+            return Math.round(v / total * 100) + '%';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: {
+            label: (c) => {
+              if (c.parsed.y === 0) return c.dataset.label + ': 0명';
+              const total = c.dataset.label === '이용 중' ? 313 : 107;
+              const pct = (c.parsed.y / total * 100).toFixed(1);
+              return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: true, grace: '12%',
+          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+function buildServices25() {
+  const mode = modes25.services25;
+  const ctx = document.getElementById('ch_services25');
+  if (charts.services25) charts.services25.destroy();
+
+  const total = DATA25.services.total;
+  const data = mode === 'pct' ? DATA25.services.counts.map(v => +(v/total*100).toFixed(1)) : DATA25.services.counts;
+  const colors = DATA25.services.counts.map(v => v === 0 ? COLORS.ppt3 : COLORS.ppt1);
+
+  charts.services25 = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: DATA25.services.labels, datasets: [{ data, backgroundColor: colors, borderRadius: 2, barPercentage: 0.6 }] },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+          formatter: (v, c) => {
+            const cnt = DATA25.services.counts[c.dataIndex];
+            return Math.round(cnt / total * 100) + '%';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: {
+            label: (c) => {
+              const cnt = DATA25.services.counts[c.dataIndex];
+              const pct = (cnt/total*100).toFixed(1);
+              return cnt + '명 (전체 회원의 ' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: true, grace: '12%',
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => mode === 'pct' ? v + '%' : v },
+          title: { display: true, text: mode === 'pct' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+function buildPlans25() {
+  const mode = modes25.plans25;
+  const ctx = document.getElementById('ch_plans25');
+  if (charts.plans25) charts.plans25.destroy();
+
+  const D = DATA25.plans;
+  const transform = (arr) => mode === 'ratio' ? arr.map((v, i) => +(v/D.totals[i]*100).toFixed(1)) : arr;
+
+  charts.plans25 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.labels,
+      datasets: [
+        { label: 'Promotion',  data: transform(D.promotion),  backgroundColor: COLORS.ppt3 },
+        { label: 'Lite',       data: transform(D.lite),       backgroundColor: COLORS.ppt1 },
+        { label: 'Basic',      data: transform(D.basic),      backgroundColor: COLORS.ppt5 },
+        { label: 'Standard',   data: transform(D.standard),   backgroundColor: COLORS.ppt4 },
+        { label: 'Enterprise', data: transform(D.enterprise), backgroundColor: COLORS.ppt2 }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'center', align: 'center',
+          color: '#ffffff', font: { family: 'Pretendard', size: 10, weight: '700' },
+          formatter: (v, c) => {
+            const planArrs = [D.promotion, D.lite, D.basic, D.standard, D.enterprise];
+            const raw = planArrs[c.datasetIndex][c.dataIndex];
+            const tot = D.totals[c.dataIndex];
+            const pct = Math.round(raw / tot * 100);
+            return pct >= 3 ? pct + '%' : '';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          displayColors: true,
+          callbacks: {
+            label: (c) => {
+              const planArrs = [D.promotion, D.lite, D.basic, D.standard, D.enterprise];
+              const raw = planArrs[c.datasetIndex][c.dataIndex];
+              const tot = D.totals[c.dataIndex];
+              const pct = (raw/tot*100).toFixed(1);
+              return ' ' + c.dataset.label + ': ' + raw + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: Object.assign({}, xAxisBase, { stacked: true, ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 11, weight: '500' } } }),
+        y: Object.assign({}, yAxisBase, {
+          stacked: true, beginAtZero: true,
+          max: mode === 'ratio' ? 100 : undefined,
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => mode === 'ratio' ? v + '%' : v },
+          title: { display: true, text: mode === 'ratio' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+function buildConversion25() {
+  const mode = modes25.conversion25;
+  const ctx = document.getElementById('ch_conversion25');
+  if (charts.conversion25) charts.conversion25.destroy();
+
+  const D = DATA25.conversion;
+  let labels, signup, paid, rate;
+  if (mode === 'rate') {
+    const indexed = D.labels.map((l, i) => ({l, s: D.signup[i], p: D.paid[i], r: D.rate[i]}));
+    indexed.sort((a, b) => b.r - a.r);
+    labels = indexed.map(x => x.l);
+    signup = indexed.map(x => x.s);
+    paid = indexed.map(x => x.p);
+    rate = indexed.map(x => x.r);
+  } else {
+    labels = D.labels; signup = D.signup; paid = D.paid; rate = D.rate;
+  }
+
+  charts.conversion25 = new Chart(ctx, {
+    data: {
+      labels,
+      datasets: [
+        { type: 'bar', label: '가입자',   data: signup, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' },
+        { type: 'bar', label: '유료전환', data: paid,   backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' },
+        { type: 'line', label: '전환율',  data: rate,   borderColor: COLORS.ppt2, backgroundColor: COLORS.ppt2,
+          borderWidth: 2, pointRadius: 5, pointHoverRadius: 7, tension: 0.3, yAxisID: 'y1', datalabels: { display: false } }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+          formatter: (v, c) => {
+            if (c.dataset.type === 'line') return '';
+            const total = c.dataset.label === '가입자' ? 1727 : 420;
+            return Math.round(v / total * 100) + '%';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: {
+            label: (c) => {
+              if (c.dataset.label === '전환율') return '전환율: ' + c.parsed.y + '%';
+              const total = c.dataset.label === '가입자' ? 1727 : 420;
+              const pct = (c.parsed.y / total * 100).toFixed(1);
+              return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: true, grace: '12%', position: 'left',
+          title: { display: true, text: '명', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        }),
+        y1: {
+          beginAtZero: true, max: 60, position: 'right',
+          ticks: { color: COLORS.ppt2, font: { family: 'Pretendard', size: 11 }, callback: v => v + '%' },
+          grid: { display: false }, border: { display: false },
+          title: { display: true, text: '전환율 (%)', color: COLORS.ppt2, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        }
+      }
+    }
+  });
+}
+
+// ===========================================
+// 2026 DATA & BUILDERS
+// ===========================================
+const DATA26 = {
+  duration: {
+    labels: ['1개월 미만', '1~3개월', '3~6개월'],
+    cancelled: [2, 0, 0],
+    active:    [33, 61, 1],
+    cafe24:    [24, 45, 1],
+    search:    [11, 16, 0]
+  },
+  revenue: {
+    plan_labels: ['Lite', 'Basic', 'Standard', 'Ent.10~30만', 'Ent.30~50만'],
+    plan_counts: [61, 15, 8, 1, 1],
+    plan_sums:   [3454967, 1983000, 2753327, 189000, 420000],
+    bucket_labels: ['<5만', '5~10만', '10~30만', '30~50만', '50만+'],
+    bucket_counts: [26, 40, 13, 6, 1],
+    bucket_sums:   [778500, 2924672, 2343795, 2220000, 533327],
+    channel_labels: ['<5만', '5~10만', '10~30만', '30~50만', '50만+'],
+    cafe24_counts: [22, 30, 11, 4, 0],
+    search_counts: [4, 10, 2, 2, 1]
+  },
+  services: {
+    labels: ['디스플레이어', '샵플레이어', '썸네일플레이어', '재생목록', '위젯'],
+    counts: [223, 35, 37, 7, 19],
+    total: 777
+  },
+  plans: {
+    labels: ['디스플레이어\n(223명)', '샵플레이어\n(35명)', '썸네일플레이어\n(37명)', '재생목록\n(7명)', '위젯\n(19명)'],
+    totals: [223, 35, 37, 7, 19],
+    promotion: [130, 12, 17, 4, 6],
+    lite:      [63, 8, 8, 0, 2],
+    basic:     [16, 5, 5, 1, 4],
+    standard:  [9, 5, 4, 0, 2],
+    enterprise:[5, 5, 2, 2, 5]
+  },
+  conversion: {
+    labels: ['cafe24', 'direct', 'nhn', 'makeshop', 'colorme'],
+    signup: [187, 441, 92, 55, 2],
+    paid:   [70, 19, 6, 2, 0],
+    rate:   [37.4, 4.3, 6.5, 3.6, 0.0]
+  },
+  adcost: {
+    labels: ['카페24', '검색/배너광고'],
+    cost:   [13800000, 15300000],
+    signup: [187, 590],
+    paid:   [70, 27],
+    revenue:[6297967, 2502327],
+    arpu:   [94000, 131701],          // 매출고객 평균
+    arpu_per_paid: [89971, 92679],    // 유료전환 1인당
+    cac_signup: [73797, 25932],
+    cac_paid:   [197143, 566667],
+    roas:   [45.6, 16.4],
+    arpu_cac: [0.456, 0.164],
+    profit: [-7502033, -12797673]
+  },
+  status: {
+    // 카테고리 5개: 미전환·휴면, 유료·정상이용중, 미전환·정상, 미전환·해지, 유료·해지
+    cat_labels: ['미전환·휴면', '유료·정상이용중', '미전환·정상', '미전환·해지', '유료·해지'],
+    cat_counts: [651, 95, 18, 11, 2],
+    // 가입월별 (2026-01, 02, 03)
+    month_labels: ['2026-01', '2026-02', '2026-03'],
+    month_totals: [336, 245, 196],
+    month_dormant_unpaid: [284, 213, 154],   // 미전환·휴면
+    month_paid_active:    [36, 23, 36],       // 유료·정상
+    month_active_unpaid:  [5, 7, 6],          // 미전환·정상
+    month_cancel_unpaid:  [10, 1, 0],         // 미전환·해지
+    month_cancel_paid:    [1, 1, 0],          // 유료·해지
+    // 광고채널별
+    ch_labels: ['카페24', '검색/배너광고'],
+    ch_totals: [187, 590],
+    ch_dormant_unpaid: [104, 547],
+    ch_paid_active:    [69, 26],
+    ch_active_unpaid:  [7, 11],
+    ch_cancel_unpaid:  [6, 5],
+    ch_cancel_paid:    [1, 1]
+  },
+  ltv: {
+    labels: ['카페24', '검색/배너광고'],
+    cost: [13800000, 15300000],
+    rev_now:  [6297967, 2502327],
+    arpu_now: [94000, 131701],
+    roas_now: [45.6, 16.4],
+    rev_ltv:  [23109895, 9182092],
+    arpu_ltv: [344924, 483268],
+    roas_ltv: [167.5, 60.0],
+    profit_now: [-7502033, -12797673],
+    profit_ltv: [9309895, -6117908]
+  }
+};
+
+let modes26 = {
+  duration26: 'stacked',
+  revenue26: 'plan',
+  services26: 'abs',
+  plans26: 'count',
+  conversion26: 'bar',
+  adcost26: 'roas',
+  status26: 'overall',
+  ltv26: 'roas'
+};
+
+function buildRevenue26() {
+  const mode = modes26.revenue26;
+  const ctx = document.getElementById('ch_revenue26');
+  if (charts.revenue26) charts.revenue26.destroy();
+
+  const D = DATA26.revenue;
+
+  if (mode === 'plan') {
+    document.getElementById('revenue26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>매출 발생 고객 수</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">총 86명</span>`;
+
+    charts.revenue26 = new Chart(ctx, {
+      type: 'bar',
+      data: { labels: D.plan_labels, datasets: [{ data: D.plan_counts, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.6 }] },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end', align: 'end', offset: 2,
+            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            formatter: (v) => Math.round(v / 86 * 100) + '%'
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: { label: (c) => c.parsed.y + '명 (' + (c.parsed.y/86*100).toFixed(1) + '%)' }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, {
+            beginAtZero: true, grace: '15%',
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          })
+        }
+      }
+    });
+    return;
+  }
+
+  if (mode === 'bucket') {
+    document.getElementById('revenue26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>고객 수</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt6}"></span>매출 합계 (보조축)</span>`;
+
+    charts.revenue26 = new Chart(ctx, {
+      data: {
+        labels: D.bucket_labels,
+        datasets: [
+          { type: 'bar', label: '고객 수', data: D.bucket_counts, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' },
+          { type: 'line', label: '매출 합계', data: D.bucket_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end', align: 'end', offset: 2,
+            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            formatter: (v, c) => c.dataset.type === 'line' ? '' : Math.round(v / 86 * 100) + '%'
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (c) => {
+                if (c.dataset.label === '매출 합계') return '매출: ' + c.parsed.y.toLocaleString() + '원';
+                return c.parsed.y + '명 (' + (c.parsed.y/86*100).toFixed(1) + '%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, {
+            beginAtZero: true, grace: '12%', position: 'left',
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          }),
+          y1: {
+            beginAtZero: true, position: 'right',
+            ticks: { color: COLORS.ppt6, font: { family: 'Pretendard', size: 11 }, callback: (v) => (v/10000).toFixed(0) + '만' },
+            grid: { display: false }, border: { display: false },
+            title: { display: true, text: '매출 (원)', color: COLORS.ppt6, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          }
+        }
+      }
+    });
+    return;
+  }
+
+  // channel
+  document.getElementById('revenue26-legend').innerHTML = `
+    <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (67명)</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고 (19명)</span>`;
+
+  charts.revenue26 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.channel_labels,
+      datasets: [
+        { label: '카페24',       data: D.cafe24_counts, backgroundColor: COLORS.ppt1, borderRadius: 2 },
+        { label: '검색/배너광고', data: D.search_counts, backgroundColor: COLORS.ppt2, borderRadius: 2 }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+          formatter: (v, c) => {
+            const total = c.dataset.label === '카페24' ? 67 : 19;
+            return total > 0 ? Math.round(v / total * 100) + '%' : '';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: {
+            label: (c) => {
+              const total = c.dataset.label === '카페24' ? 67 : 19;
+              const pct = total > 0 ? (c.parsed.y / total * 100).toFixed(1) : 0;
+              return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: true, grace: '15%',
+          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+function buildAdcost26() {
+  const mode = modes26.adcost26;
+  const ctx = document.getElementById('ch_adcost26');
+  if (charts.adcost26) charts.adcost26.destroy();
+
+  const D = DATA26.adcost;
+
+  if (mode === 'rev_dist') {
+    const R = DATA26.revenue;
+    document.getElementById('adcost26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (67명)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고 (19명)</span>`;
+
+    charts.adcost26 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: R.channel_labels,
+        datasets: [
+          { label: '카페24',       data: R.cafe24_counts, backgroundColor: COLORS.ppt1, borderRadius: 2 },
+          { label: '검색/배너광고', data: R.search_counts, backgroundColor: COLORS.ppt2, borderRadius: 2 }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end', align: 'end', offset: 2,
+            color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+            formatter: (v, c) => {
+              const total = c.dataset.label === '카페24' ? 67 : 19;
+              return total > 0 ? Math.round(v / total * 100) + '%' : '';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (c) => {
+                const total = c.dataset.label === '카페24' ? 67 : 19;
+                const pct = total > 0 ? (c.parsed.y / total * 100).toFixed(1) : 0;
+                return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, {
+            beginAtZero: true, grace: '15%',
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          })
+        }
+      }
+    });
+    return;
+  }
+
+  if (mode === 'cac_roas') {
+    const cacRange = [];
+    for (let c = 30000; c <= 700000; c += 15000) cacRange.push(c);
+    const cafeArpu = D.arpu_per_paid[0];
+    const searchArpu = D.arpu_per_paid[1];
+    const cafeRoas = cacRange.map(c => +(cafeArpu / c * 100).toFixed(1));
+    const searchRoas = cacRange.map(c => +(searchArpu / c * 100).toFixed(1));
+    const cafeMarker = cacRange.map(c => Math.abs(c - 197143) < 8000 ? cafeArpu/c*100 : null);
+    const searchMarker = cacRange.map(c => Math.abs(c - 566667) < 8000 ? searchArpu/c*100 : null);
+
+    document.getElementById('adcost26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (ARPU 89,971원)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 (ARPU 92,679원)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt5};border-radius:50%"></span>현재 CAC 위치</span>`;
+
+    const xLabels = cacRange.map(c => (c/10000) + '만');
+
+    charts.adcost26 = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: xLabels,
+        datasets: [
+          { label: '카페24', data: cafeRoas, borderColor: COLORS.ppt1, backgroundColor: COLORS.ppt1, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5, tension: 0.2, datalabels: { display: false } },
+          { label: '검색/배너광고', data: searchRoas, borderColor: COLORS.ppt2, backgroundColor: COLORS.ppt2, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5, tension: 0.2, datalabels: { display: false } },
+          { label: '카페24 현재', data: cafeMarker, borderColor: COLORS.ppt1, backgroundColor: COLORS.ppt5, pointRadius: 7, pointHoverRadius: 9, pointStyle: 'circle', pointBorderColor: COLORS.ppt1, pointBorderWidth: 2, showLine: false,
+            datalabels: { display: true, anchor: 'end', align: 'top', offset: 8, color: COLORS.ppt1, font: { family: 'Pretendard', size: 11, weight: '700' }, formatter: (v) => v ? '카페24 현재\n45.6%' : '' } },
+          { label: '검색/배너 현재', data: searchMarker, borderColor: COLORS.ppt2, backgroundColor: COLORS.ppt5, pointRadius: 7, pointHoverRadius: 9, pointStyle: 'circle', pointBorderColor: COLORS.ppt2, pointBorderWidth: 2, showLine: false,
+            datalabels: { display: true, anchor: 'end', align: 'top', offset: 8, color: COLORS.ppt2, font: { family: 'Pretendard', size: 11, weight: '700' }, formatter: (v) => v ? '검색/배너 현재\n16.4%' : '' } }
+        ]
+      },
+      plugins: [ChartDataLabels, {
+        id: 'breakeven26',
+        afterDraw: (chart) => {
+          const yScale = chart.scales.y;
+          const xScale = chart.scales.x;
+          if (!yScale || !xScale) return;
+          const y100 = yScale.getPixelForValue(100);
+          const ctx2 = chart.ctx;
+          ctx2.save();
+          ctx2.strokeStyle = COLORS.ppt6;
+          ctx2.lineWidth = 1.5;
+          ctx2.setLineDash([6, 4]);
+          ctx2.beginPath();
+          ctx2.moveTo(xScale.left, y100);
+          ctx2.lineTo(xScale.right, y100);
+          ctx2.stroke();
+          ctx2.setLineDash([]);
+          ctx2.fillStyle = COLORS.ppt6;
+          ctx2.font = '600 11px Pretendard';
+          ctx2.fillText('손익분기 100%', xScale.right - 100, y100 - 6);
+          ctx2.restore();
+        }
+      }],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false }, datalabels: { display: false },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              title: (items) => 'CAC: ' + items[0].label + '원',
+              label: (c) => c.dataset.label.includes('현재') ? null : c.dataset.label + ' ROAS: ' + c.parsed.y.toFixed(1) + '%'
+            }
+          })
+        },
+        scales: {
+          x: Object.assign({}, xAxisBase, {
+            ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 10 }, autoSkip: true, maxTicksLimit: 12, maxRotation: 0 },
+            title: { display: true, text: '유료전환당 CAC (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          }),
+          y: Object.assign({}, yAxisBase, {
+            beginAtZero: true, max: 800,
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => v + '%' },
+            title: { display: true, text: 'ROAS (%)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          })
+        }
+      }
+    });
+    return;
+  }
+
+  // roas / arpu_cac
+  let datasets, yLabel, yFormatter, tooltipFmt, dataLabelFmt;
+
+  if (mode === 'roas') {
+    datasets = [{ label: 'ROAS (3개월)', data: D.roas, backgroundColor: [COLORS.ppt1, COLORS.ppt2], borderRadius: 2, barPercentage: 0.55 }];
+    yLabel = 'ROAS (%)';
+    yFormatter = (v) => v + '%';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      return [
+        'ROAS(3개월): ' + D.roas[i] + '%',
+        '광고비: ' + D.cost[i].toLocaleString() + '원',
+        '3개월 매출: ' + D.revenue[i].toLocaleString() + '원',
+        '순익: ' + (D.profit[i]>=0?'+':'') + D.profit[i].toLocaleString() + '원'
+      ];
+    };
+    dataLabelFmt = (v) => v + '%';
+    document.getElementById('adcost26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">ROAS = (3개월 매출 ÷ 분기 광고비) × 100</span>`;
+  } else {
+    datasets = [
+      { label: 'ARPU (매출고객)', data: D.arpu, backgroundColor: COLORS.ppt6, borderRadius: 2 },
+      { label: 'CAC (유료전환당)', data: D.cac_paid, backgroundColor: COLORS.ppt4, borderRadius: 2 }
+    ];
+    yLabel = '원';
+    yFormatter = (v) => (v/10000).toLocaleString() + '만';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      const ratio = D.arpu_cac[i].toFixed(3);
+      return [c.dataset.label + ': ' + c.parsed.y.toLocaleString() + '원', 'ROAS = ' + (ratio*100).toFixed(1) + '%'];
+    };
+    dataLabelFmt = (v) => (v/10000).toFixed(1) + '만';
+    document.getElementById('adcost26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt6}"></span>ARPU (매출고객 평균)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt4}"></span>유료전환당 CAC</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">ROAS: 카페24 <strong style="color:${COLORS.ppt1}">45.6%</strong> · 검색/배너 <strong style="color:${COLORS.ppt2}">16.4%</strong></span>`;
+  }
+
+  charts.adcost26 = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: D.labels, datasets },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' }, formatter: dataLabelFmt },
+        tooltip: Object.assign({}, tooltipBase, { callbacks: { label: tooltipFmt } })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: true, grace: '15%',
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: yFormatter },
+          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+// ===========================================
+// BUILDERS REGISTRY
+// ===========================================
+const BUILDERS = {
+  duration25: buildDuration25,
+  revenue25: buildRevenue25,
+  adcost25: buildAdcost25,
+  status25: buildStatus25,
+  ltv25: buildLtv25,
+  services25: buildServices25,
+  plans25: buildPlans25,
+  conversion25: buildConversion25,
+  duration26: buildDuration26,
+  revenue26: buildRevenue26,
+  services26: buildServices26,
+  plans26: buildPlans26,
+  conversion26: buildConversion26,
+  adcost26: buildAdcost26,
+  status26: buildStatus26,
+  ltv26: buildLtv26
+};
+
+// ===========================================
+// 2025 추가 빌더: revenue25, adcost25, status25, ltv25
+// 2026 추가 빌더: duration26
+// ===========================================
+
+function buildDuration26() {
+  const mode = modes26.duration26;
+  const ctx = document.getElementById('ch_duration26');
+  if (charts.duration26) charts.duration26.destroy();
+
+  const D = DATA26.duration;
+
+  if (mode === 'channel') {
+    const cafe24Total = D.cafe24.reduce((a,b) => a+b, 0);
+    const searchTotal = D.search.reduce((a,b) => a+b, 0);
+    document.getElementById('duration26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (${cafe24Total}명)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고 (${searchTotal}명)</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">해지 + 이용중 합산</span>`;
+
+    charts.duration26 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: D.labels,
+        datasets: [
+          { label: '카페24',       data: D.cafe24, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.7 },
+          { label: '검색/배너광고', data: D.search, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.7 }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end', align: 'end', offset: 2,
+            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            formatter: (v, c) => {
+              if (v === 0) return '';
+              const total = c.dataset.label === '카페24' ? cafe24Total : searchTotal;
+              return Math.round(v / total * 100) + '%';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (c) => {
+                if (c.parsed.y === 0) return c.dataset.label + ': 0명';
+                const total = c.dataset.label === '카페24' ? cafe24Total : searchTotal;
+                const pct = (c.parsed.y / total * 100).toFixed(1);
+                return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
+            title: { display: true, text: '유료고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+        }
+      }
+    });
+    return;
+  }
+
+  // stacked
+  document.getElementById('duration26-legend').innerHTML = `
+    <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>해지 고객 (2명)</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>이용 중 (95명)</span>`;
+
+  charts.duration26 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.labels,
+      datasets: [
+        { label: '해지 고객', data: D.cancelled, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.7 },
+        { label: '이용 중',   data: D.active,   backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.7 }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+          formatter: (v, c) => {
+            if (v === 0) return '';
+            const total = c.dataset.label === '이용 중' ? 95 : 2;
+            return Math.round(v / total * 100) + '%';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: {
+            label: (c) => {
+              if (c.parsed.y === 0) return c.dataset.label + ': 0명';
+              const total = c.dataset.label === '이용 중' ? 95 : 2;
+              const pct = (c.parsed.y / total * 100).toFixed(1);
+              return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
+          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+      }
+    }
+  });
+}
+
+function buildRevenue25() {
+  const mode = modes25.revenue25;
+  const ctx = document.getElementById('ch_revenue25');
+  if (charts.revenue25) charts.revenue25.destroy();
+
+  const D = DATA25.revenue;
+
+  if (mode === 'plan') {
+    const isEnt = D.plan_labels.map(l => l.startsWith('Ent'));
+    const colors = isEnt.map(e => e ? COLORS.ppt2 : COLORS.ppt1);
+    document.getElementById('revenue25-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>일반 플랜</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>Enterprise (매출구간별)</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">총 275명</span>`;
+
+    charts.revenue25 = new Chart(ctx, {
+      type: 'bar',
+      data: { labels: D.plan_labels, datasets: [{ data: D.plan_counts, backgroundColor: colors, borderRadius: 2, barPercentage: 0.6 }] },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end', align: 'end', offset: 2,
+            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            formatter: (v) => Math.round(v / 275 * 100) + '%'
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (c) => {
+                const cnt = D.plan_counts[c.dataIndex];
+                const sum = D.plan_sums[c.dataIndex];
+                return [cnt + '명 (' + (cnt/275*100).toFixed(1) + '%)', '매출 합계: ' + sum.toLocaleString() + '원'];
+              }
+            }
+          })
+        },
+        scales: {
+          x: Object.assign({}, xAxisBase, { ticks: Object.assign({}, xAxisBase.ticks, { font: { family: 'Pretendard', size: 10, weight: '500' } }) }),
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+        }
+      }
+    });
+    return;
+  }
+
+  if (mode === 'bucket') {
+    document.getElementById('revenue25-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>고객 수</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt6}"></span>매출 합계 (보조축)</span>`;
+
+    charts.revenue25 = new Chart(ctx, {
+      data: {
+        labels: D.bucket_labels,
+        datasets: [
+          { type: 'bar', label: '고객 수', data: D.bucket_counts, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' },
+          { type: 'line', label: '매출 합계', data: D.bucket_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end', align: 'end', offset: 2,
+            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            formatter: (v, c) => c.dataset.type === 'line' ? '' : Math.round(v / 275 * 100) + '%'
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (c) => {
+                if (c.dataset.label === '매출 합계') return '매출: ' + c.parsed.y.toLocaleString() + '원';
+                return c.parsed.y + '명 (' + (c.parsed.y/275*100).toFixed(1) + '%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '12%', position: 'left',
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } }),
+          y1: { beginAtZero: true, position: 'right',
+            ticks: { color: COLORS.ppt6, font: { family: 'Pretendard', size: 11 }, callback: (v) => (v/10000000).toFixed(0) + '천만' },
+            grid: { display: false }, border: { display: false },
+            title: { display: true, text: '매출 (원)', color: COLORS.ppt6, font: { family: 'Pretendard', size: 11, weight: '500' } } }
+        }
+      }
+    });
+    return;
+  }
+
+  // channel
+  document.getElementById('revenue25-legend').innerHTML = `
+    <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (218명)</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고 (57명)</span>`;
+
+  charts.revenue25 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.bucket_labels,
+      datasets: [
+        { label: '카페24',       data: D.cafe24_counts, backgroundColor: COLORS.ppt1, borderRadius: 2 },
+        { label: '검색/배너광고', data: D.search_counts, backgroundColor: COLORS.ppt2, borderRadius: 2 }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+          formatter: (v, c) => {
+            const total = c.dataset.label === '카페24' ? 218 : 57;
+            return total > 0 ? Math.round(v / total * 100) + '%' : '';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: {
+            label: (c) => {
+              const total = c.dataset.label === '카페24' ? 218 : 57;
+              const pct = (c.parsed.y / total * 100).toFixed(1);
+              return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
+          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+      }
+    }
+  });
+}
+
+function buildAdcost25() {
+  const mode = modes25.adcost25;
+  const ctx = document.getElementById('ch_adcost25');
+  if (charts.adcost25) charts.adcost25.destroy();
+
+  const D = DATA25.adcost;
+
+  if (mode === 'rev_dist') {
+    const R = DATA25.revenue;
+    document.getElementById('adcost25-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (218명)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고 (57명)</span>`;
+
+    charts.adcost25 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: R.bucket_labels,
+        datasets: [
+          { label: '카페24',       data: R.cafe24_counts, backgroundColor: COLORS.ppt1, borderRadius: 2 },
+          { label: '검색/배너광고', data: R.search_counts, backgroundColor: COLORS.ppt2, borderRadius: 2 }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end', align: 'end', offset: 2,
+            color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+            formatter: (v, c) => {
+              const total = c.dataset.label === '카페24' ? 218 : 57;
+              return Math.round(v / total * 100) + '%';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (c) => {
+                const total = c.dataset.label === '카페24' ? 218 : 57;
+                return c.dataset.label + ': ' + c.parsed.y + '명 (' + (c.parsed.y/total*100).toFixed(1) + '%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+        }
+      }
+    });
+    return;
+  }
+
+  if (mode === 'cac_roas') {
+    const cacRange = [];
+    for (let cv = 50000; cv <= 1100000; cv += 25000) cacRange.push(cv);
+    const cafeArpu = D.arpu_per_paid[0];
+    const searchArpu = D.arpu_per_paid[1];
+    const cafeRoas = cacRange.map(cv => +(cafeArpu / cv * 100).toFixed(1));
+    const searchRoas = cacRange.map(cv => +(searchArpu / cv * 100).toFixed(1));
+    const cafeMarker = cacRange.map(cv => Math.abs(cv - 231325) < 13000 ? cafeArpu/cv*100 : null);
+    const searchMarker = cacRange.map(cv => Math.abs(cv - 900000) < 13000 ? searchArpu/cv*100 : null);
+
+    document.getElementById('adcost25-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (ARPU 352,742원)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 (ARPU 225,254원)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt5};border-radius:50%"></span>현재 CAC 위치</span>`;
+
+    const xLabels = cacRange.map(cv => (cv/10000) + '만');
+
+    charts.adcost25 = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: xLabels,
+        datasets: [
+          { label: '카페24', data: cafeRoas, borderColor: COLORS.ppt1, backgroundColor: COLORS.ppt1, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5, tension: 0.2, datalabels: { display: false } },
+          { label: '검색/배너광고', data: searchRoas, borderColor: COLORS.ppt2, backgroundColor: COLORS.ppt2, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5, tension: 0.2, datalabels: { display: false } },
+          { label: '카페24 현재', data: cafeMarker, borderColor: COLORS.ppt1, backgroundColor: COLORS.ppt5, pointRadius: 7, pointHoverRadius: 9, pointStyle: 'circle', pointBorderColor: COLORS.ppt1, pointBorderWidth: 2, showLine: false,
+            datalabels: { display: true, anchor: 'end', align: 'top', offset: 8, color: COLORS.ppt1, font: { family: 'Pretendard', size: 11, weight: '700' }, formatter: (v) => v ? '카페24 현재\n152.5%' : '' } },
+          { label: '검색/배너 현재', data: searchMarker, borderColor: COLORS.ppt2, backgroundColor: COLORS.ppt5, pointRadius: 7, pointHoverRadius: 9, pointStyle: 'circle', pointBorderColor: COLORS.ppt2, pointBorderWidth: 2, showLine: false,
+            datalabels: { display: true, anchor: 'end', align: 'top', offset: 8, color: COLORS.ppt2, font: { family: 'Pretendard', size: 11, weight: '700' }, formatter: (v) => v ? '검색/배너 현재\n25.0%' : '' } }
+        ]
+      },
+      plugins: [ChartDataLabels, {
+        id: 'breakeven25',
+        afterDraw: (chart) => {
+          const yScale = chart.scales.y;
+          const xScale = chart.scales.x;
+          if (!yScale || !xScale) return;
+          const y100 = yScale.getPixelForValue(100);
+          if (y100 < yScale.top || y100 > yScale.bottom) return;
+          const ctx2 = chart.ctx;
+          ctx2.save();
+          ctx2.strokeStyle = COLORS.ppt6;
+          ctx2.lineWidth = 1.5;
+          ctx2.setLineDash([6, 4]);
+          ctx2.beginPath();
+          ctx2.moveTo(xScale.left, y100);
+          ctx2.lineTo(xScale.right, y100);
+          ctx2.stroke();
+          ctx2.setLineDash([]);
+          ctx2.fillStyle = COLORS.ppt6;
+          ctx2.font = '600 11px Pretendard';
+          ctx2.fillText('손익분기 100%', xScale.right - 100, y100 - 6);
+          ctx2.restore();
+        }
+      }],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false }, datalabels: { display: false },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              title: (items) => 'CAC: ' + items[0].label + '원',
+              label: (c) => c.dataset.label.includes('현재') ? null : c.dataset.label + ' ROAS: ' + c.parsed.y.toFixed(1) + '%'
+            }
+          })
+        },
+        scales: {
+          x: Object.assign({}, xAxisBase, {
+            ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 10 }, autoSkip: true, maxTicksLimit: 12, maxRotation: 0 },
+            title: { display: true, text: '유료전환당 CAC (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          }),
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, max: 600,
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => v + '%' },
+            title: { display: true, text: 'ROAS (%)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+        }
+      }
+    });
+    return;
+  }
+
+  // roas / arpu_cac
+  let datasets, yLabel, yFormatter, tooltipFmt, dataLabelFmt;
+
+  if (mode === 'roas') {
+    datasets = [{ label: 'ROAS (연)', data: D.roas, backgroundColor: [COLORS.ppt1, COLORS.ppt2], borderRadius: 2, barPercentage: 0.55 }];
+    yLabel = 'ROAS (%)';
+    yFormatter = (v) => v + '%';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      return ['ROAS(연): ' + D.roas[i] + '%',
+        '광고비: ' + D.cost[i].toLocaleString() + '원',
+        '연 매출: ' + D.revenue[i].toLocaleString() + '원',
+        '순익: ' + (D.profit[i]>=0?'+':'') + D.profit[i].toLocaleString() + '원'];
+    };
+    dataLabelFmt = (v) => v + '%';
+    document.getElementById('adcost25-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">ROAS = (연 매출 ÷ 연 광고비) × 100</span>`;
+  } else {
+    datasets = [
+      { label: 'ARPU (매출고객)', data: D.arpu, backgroundColor: COLORS.ppt6, borderRadius: 2 },
+      { label: 'CAC (유료전환당)', data: D.cac_paid, backgroundColor: COLORS.ppt4, borderRadius: 2 }
+    ];
+    yLabel = '원';
+    yFormatter = (v) => (v/10000).toLocaleString() + '만';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      const ratio = D.arpu_cac[i].toFixed(3);
+      return [c.dataset.label + ': ' + c.parsed.y.toLocaleString() + '원', 'ROAS = ' + (ratio*100).toFixed(1) + '%'];
+    };
+    dataLabelFmt = (v) => (v/10000).toFixed(1) + '만';
+    document.getElementById('adcost25-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt6}"></span>ARPU (매출고객 평균)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt4}"></span>유료전환당 CAC</span>`;
+  }
+
+  charts.adcost25 = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: D.labels, datasets },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' }, formatter: dataLabelFmt },
+        tooltip: Object.assign({}, tooltipBase, { callbacks: { label: tooltipFmt } })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: yFormatter },
+          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+      }
+    }
+  });
+}
+
+function buildStatus25() {
+  const mode = modes25.status25;
+  const ctx = document.getElementById('ch_status25');
+  if (charts.status25) charts.status25.destroy();
+
+  const D = DATA25.status;
+  const catColors = {
+    '미전환·휴면': COLORS.ppt3,
+    '유료·정상': COLORS.ppt1,
+    '미전환·정상': COLORS.ppt5,
+    '미전환·해지': COLORS.ppt2,
+    '유료·해지': COLORS.ppt4,
+    '유료·휴면': COLORS.ppt6,
+    '유료·연체': '#999'
+  };
+
+  if (mode === 'overall') {
+    document.getElementById('status25-legend').innerHTML = D.cat_labels.map((l, i) => 
+      `<span><span class="legend-dot" style="background:${catColors[l]}"></span>${l} ${D.cat_counts[i]}명 (${(D.cat_counts[i]/1727*100).toFixed(1)}%)</span>`
+    ).join('');
+
+    charts.status25 = new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels: D.cat_labels, datasets: [{ data: D.cat_counts, backgroundColor: D.cat_labels.map(l => catColors[l]), borderWidth: 2, borderColor: '#ffffff' }] },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
+        cutout: '55%',
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            color: (c) => {
+              const lbl = D.cat_labels[c.dataIndex];
+              return lbl === '미전환·휴면' || lbl === '유료·정상' || lbl === '유료·휴면' ? '#fff' : COLORS.ink;
+            },
+            font: { family: 'Pretendard', size: 12, weight: '700' },
+            formatter: (v) => {
+              const pct = v / 1727 * 100;
+              if (pct < 2) return '';
+              return v + '명\n' + pct.toFixed(1) + '%';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            displayColors: true,
+            callbacks: { label: (c) => ' ' + c.label + ': ' + c.parsed + '명 (' + (c.parsed/1727*100).toFixed(1) + '%)' }
+          })
+        }
+      }
+    });
+    return;
+  }
+
+  if (mode === 'quarter') {
+    document.getElementById('status25-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt3}"></span>미전환·휴면</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>유료·정상</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt5}"></span>미전환·정상</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>미전환·해지</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt4}"></span>유료·해지</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt6}"></span>유료·휴면</span>`;
+
+    charts.status25 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: D.quarter_labels.map((l, i) => l + '\n(' + D.quarter_totals[i] + '명)'),
+        datasets: [
+          { label: '미전환·휴면', data: D.quarter_dormant_unpaid, backgroundColor: COLORS.ppt3 },
+          { label: '유료·정상', data: D.quarter_paid_active, backgroundColor: COLORS.ppt1 },
+          { label: '미전환·정상', data: D.quarter_active_unpaid, backgroundColor: COLORS.ppt5 },
+          { label: '미전환·해지', data: D.quarter_cancel_unpaid, backgroundColor: COLORS.ppt2 },
+          { label: '유료·해지', data: D.quarter_cancel_paid, backgroundColor: COLORS.ppt4 },
+          { label: '유료·휴면', data: D.quarter_paid_dormant, backgroundColor: COLORS.ppt6 }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'center', align: 'center',
+            color: (c) => {
+              const lbl = c.dataset.label;
+              return lbl === '미전환·휴면' || lbl === '유료·정상' || lbl === '유료·휴면' ? '#fff' : COLORS.ink;
+            },
+            font: { family: 'Pretendard', size: 10, weight: '700' },
+            formatter: (v, c) => {
+              const tot = D.quarter_totals[c.dataIndex];
+              const pct = Math.round(v / tot * 100);
+              return pct >= 4 ? pct + '%' : '';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            displayColors: true,
+            callbacks: {
+              label: (c) => {
+                const tot = D.quarter_totals[c.dataIndex];
+                return ' ' + c.dataset.label + ': ' + c.parsed.y + '명 (' + (c.parsed.y/tot*100).toFixed(1) + '%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: Object.assign({}, xAxisBase, { stacked: true }),
+          y: Object.assign({}, yAxisBase, { stacked: true, beginAtZero: true,
+            title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+        }
+      }
+    });
+    return;
+  }
+
+  // channel
+  document.getElementById('status25-legend').innerHTML = `
+    <span><span class="legend-dot" style="background:${COLORS.ppt3}"></span>미전환·휴면</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>유료·정상</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt5}"></span>미전환·정상</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>미전환·해지</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt4}"></span>유료·해지</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt6}"></span>유료·휴면</span>`;
+
+  charts.status25 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.ch_labels.map((l, i) => l + '\n(' + D.ch_totals[i] + '명)'),
+      datasets: [
+        { label: '미전환·휴면', data: D.ch_dormant_unpaid, backgroundColor: COLORS.ppt3 },
+        { label: '유료·정상', data: D.ch_paid_active, backgroundColor: COLORS.ppt1 },
+        { label: '미전환·정상', data: D.ch_active_unpaid, backgroundColor: COLORS.ppt5 },
+        { label: '미전환·해지', data: D.ch_cancel_unpaid, backgroundColor: COLORS.ppt2 },
+        { label: '유료·해지', data: D.ch_cancel_paid, backgroundColor: COLORS.ppt4 },
+        { label: '유료·휴면', data: D.ch_paid_dormant, backgroundColor: COLORS.ppt6 }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'center', align: 'center',
+          color: (c) => {
+            const lbl = c.dataset.label;
+            return lbl === '미전환·휴면' || lbl === '유료·정상' || lbl === '유료·휴면' ? '#fff' : COLORS.ink;
+          },
+          font: { family: 'Pretendard', size: 10, weight: '700' },
+          formatter: (v, c) => {
+            const tot = D.ch_totals[c.dataIndex];
+            const pct = Math.round(v / tot * 100);
+            return pct >= 3 ? pct + '%' : '';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          displayColors: true,
+          callbacks: {
+            label: (c) => {
+              const tot = D.ch_totals[c.dataIndex];
+              return ' ' + c.dataset.label + ': ' + c.parsed.y + '명 (' + (c.parsed.y/tot*100).toFixed(1) + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: Object.assign({}, xAxisBase, { stacked: true }),
+        y: Object.assign({}, yAxisBase, { stacked: true, beginAtZero: true,
+          title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+      }
+    }
+  });
+}
+
+function buildLtv25() {
+  const mode = modes25.ltv25;
+  const ctx = document.getElementById('ch_ltv25');
+  if (charts.ltv25) charts.ltv25.destroy();
+
+  const D = DATA25.ltv;
+
+  let data, yLabel, yFormatter, dataLabelFmt, tooltipFmt;
+  if (mode === 'roas') {
+    data = D.roas_actual;
+    yLabel = 'ROAS (%) - 실측치';
+    yFormatter = (v) => v + '%';
+    dataLabelFmt = (v) => v + '%';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      return ['실 ROAS: ' + D.roas_actual[i] + '%',
+        '광고비: ' + D.cost[i].toLocaleString() + '원',
+        '연 매출: ' + D.rev_actual[i].toLocaleString() + '원',
+        '순익: ' + (D.profit_actual[i]>=0?'+':'') + D.profit_actual[i].toLocaleString() + '원'];
+    };
+  } else if (mode === 'arpu') {
+    data = D.arpu_actual;
+    yLabel = 'ARPU (원) - 실측치';
+    yFormatter = (v) => (v/10000).toLocaleString() + '만';
+    dataLabelFmt = (v) => (v/10000).toFixed(1) + '만';
+    tooltipFmt = (c) => '실 ARPU: ' + c.parsed.y.toLocaleString() + '원 (매출고객 평균, 12개월 누적)';
+  } else {
+    data = D.profit_actual;
+    yLabel = '순익 (원) - 실측치';
+    yFormatter = (v) => (v/10000).toLocaleString() + '만';
+    dataLabelFmt = (v) => (v >= 0 ? '+' : '') + (v/10000).toFixed(0) + '만';
+    tooltipFmt = (c) => {
+      const v = c.parsed.y;
+      const i = c.dataIndex;
+      return [(v>=0?'흑자':'적자') + ': ' + (v>=0?'+':'') + v.toLocaleString() + '원',
+        '매출 ' + D.rev_actual[i].toLocaleString() + ' − 광고비 ' + D.cost[i].toLocaleString()];
+    };
+  }
+
+  document.getElementById('ltv25-legend').innerHTML = `
+    <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
+    <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">2025년 = 12개월 매출 누적 실측 데이터</span>`;
+
+  charts.ltv25 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.labels,
+      datasets: [{ data, backgroundColor: [COLORS.ppt1, COLORS.ppt2], borderRadius: 2, barPercentage: 0.55 }]
+    },
+    plugins: [ChartDataLabels].concat(mode === 'roas' ? [{
+      id: 'breakeven_ltv25',
+      afterDraw: (chart) => {
+        const yScale = chart.scales.y;
+        const xScale = chart.scales.x;
+        if (!yScale || !xScale) return;
+        const y100 = yScale.getPixelForValue(100);
+        if (y100 < yScale.top || y100 > yScale.bottom) return;
+        const ctx2 = chart.ctx;
+        ctx2.save();
+        ctx2.strokeStyle = COLORS.ppt6;
+        ctx2.lineWidth = 1.5;
+        ctx2.setLineDash([6, 4]);
+        ctx2.beginPath();
+        ctx2.moveTo(xScale.left, y100);
+        ctx2.lineTo(xScale.right, y100);
+        ctx2.stroke();
+        ctx2.setLineDash([]);
+        ctx2.fillStyle = COLORS.ppt6;
+        ctx2.font = '600 11px Pretendard';
+        ctx2.fillText('손익분기 100%', xScale.right - 100, y100 - 6);
+        ctx2.restore();
+      }
+    }] : []),
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
+      plugins: {
+        legend: { display: false },
+        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' }, formatter: dataLabelFmt },
+        tooltip: Object.assign({}, tooltipBase, { callbacks: { label: tooltipFmt } })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: mode !== 'profit',
+          grace: '15%',
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: yFormatter },
+          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+// 2026 services/plans/conversion - 구조는 2025와 동일하지만 데이터 namespace 분리
+function buildServices26() {
+  const mode = modes26.services26;
+  const ctx = document.getElementById('ch_services26');
+  if (charts.services26) charts.services26.destroy();
+
+  const total = DATA26.services.total;
+  const data = mode === 'pct' ? DATA26.services.counts.map(v => +(v/total*100).toFixed(1)) : DATA26.services.counts;
+  const colors = DATA26.services.counts.map(v => v === 0 ? COLORS.ppt3 : COLORS.ppt2);
+
+  charts.services26 = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: DATA26.services.labels, datasets: [{ data, backgroundColor: colors, borderRadius: 2, barPercentage: 0.6 }] },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+          formatter: (v, c) => {
+            const cnt = DATA26.services.counts[c.dataIndex];
+            return Math.round(cnt / total * 100) + '%';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: {
+            label: (c) => {
+              const cnt = DATA26.services.counts[c.dataIndex];
+              const pct = (cnt/total*100).toFixed(1);
+              return cnt + '명 (전체 가입자의 ' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: true, grace: '12%',
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => mode === 'pct' ? v + '%' : v },
+          title: { display: true, text: mode === 'pct' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+function buildPlans26() {
+  const mode = modes26.plans26;
+  const ctx = document.getElementById('ch_plans26');
+  if (charts.plans26) charts.plans26.destroy();
+
+  const D = DATA26.plans;
+  const transform = (arr) => mode === 'ratio' ? arr.map((v, i) => +(v/D.totals[i]*100).toFixed(1)) : arr;
+
+  charts.plans26 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.labels,
+      datasets: [
+        { label: 'Promotion',  data: transform(D.promotion),  backgroundColor: COLORS.ppt3 },
+        { label: 'Lite',       data: transform(D.lite),       backgroundColor: COLORS.ppt1 },
+        { label: 'Basic',      data: transform(D.basic),      backgroundColor: COLORS.ppt5 },
+        { label: 'Standard',   data: transform(D.standard),   backgroundColor: COLORS.ppt4 },
+        { label: 'Enterprise', data: transform(D.enterprise), backgroundColor: COLORS.ppt2 }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'center', align: 'center',
+          color: '#ffffff', font: { family: 'Pretendard', size: 10, weight: '700' },
+          formatter: (v, c) => {
+            const planArrs = [D.promotion, D.lite, D.basic, D.standard, D.enterprise];
+            const raw = planArrs[c.datasetIndex][c.dataIndex];
+            const tot = D.totals[c.dataIndex];
+            const pct = Math.round(raw / tot * 100);
+            return pct >= 5 ? pct + '%' : '';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          displayColors: true,
+          callbacks: {
+            label: (c) => {
+              const planArrs = [D.promotion, D.lite, D.basic, D.standard, D.enterprise];
+              const raw = planArrs[c.datasetIndex][c.dataIndex];
+              const tot = D.totals[c.dataIndex];
+              const pct = (raw/tot*100).toFixed(1);
+              return ' ' + c.dataset.label + ': ' + raw + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: Object.assign({}, xAxisBase, { stacked: true, ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 11, weight: '500' } } }),
+        y: Object.assign({}, yAxisBase, {
+          stacked: true, beginAtZero: true,
+          max: mode === 'ratio' ? 100 : undefined,
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => mode === 'ratio' ? v + '%' : v },
+          title: { display: true, text: mode === 'ratio' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+function buildConversion26() {
+  const mode = modes26.conversion26;
+  const ctx = document.getElementById('ch_conversion26');
+  if (charts.conversion26) charts.conversion26.destroy();
+
+  const D = DATA26.conversion;
+  let labels, signup, paid, rate;
+  if (mode === 'rate') {
+    const indexed = D.labels.map((l, i) => ({l, s: D.signup[i], p: D.paid[i], r: D.rate[i]}));
+    indexed.sort((a, b) => b.r - a.r);
+    labels = indexed.map(x => x.l);
+    signup = indexed.map(x => x.s);
+    paid = indexed.map(x => x.p);
+    rate = indexed.map(x => x.r);
+  } else {
+    labels = D.labels; signup = D.signup; paid = D.paid; rate = D.rate;
+  }
+
+  charts.conversion26 = new Chart(ctx, {
+    data: {
+      labels,
+      datasets: [
+        { type: 'bar', label: '가입자',   data: signup, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' },
+        { type: 'bar', label: '유료전환', data: paid,   backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' },
+        { type: 'line', label: '전환율',  data: rate,   borderColor: COLORS.ppt2, backgroundColor: COLORS.ppt2,
+          borderWidth: 2, pointRadius: 5, pointHoverRadius: 7, tension: 0.3, yAxisID: 'y1', datalabels: { display: false } }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+          formatter: (v, c) => {
+            if (c.dataset.type === 'line') return '';
+            const total = c.dataset.label === '가입자' ? 777 : 97;
+            return Math.round(v / total * 100) + '%';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: {
+            label: (c) => {
+              if (c.dataset.label === '전환율') return '전환율: ' + c.parsed.y + '%';
+              const total = c.dataset.label === '가입자' ? 777 : 97;
+              const pct = (c.parsed.y / total * 100).toFixed(1);
+              return c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: true, grace: '12%', position: 'left',
+          title: { display: true, text: '명', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        }),
+        y1: {
+          beginAtZero: true, max: 50, position: 'right',
+          ticks: { color: COLORS.ppt2, font: { family: 'Pretendard', size: 11 }, callback: v => v + '%' },
+          grid: { display: false }, border: { display: false },
+          title: { display: true, text: '전환율 (%)', color: COLORS.ppt2, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        }
+      }
+    }
+  });
+}
+
+function buildLtv26() {
+  const mode = modes26.ltv26;
+  const ctx = document.getElementById('ch_ltv26');
+  if (charts.ltv26) charts.ltv26.destroy();
+
+  const D = DATA26.ltv;
+
+  let nowData, ltvData, yLabel, yFormatter, dataLabelFmt, tooltipFmt;
+
+  if (mode === 'roas') {
+    nowData = D.roas_now;
+    ltvData = D.roas_ltv;
+    yLabel = 'ROAS (%)';
+    yFormatter = (v) => v + '%';
+    dataLabelFmt = (v) => v + '%';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      return [
+        c.dataset.label + ': ' + c.parsed.y + '%',
+        '광고비: ' + D.cost[i].toLocaleString() + '원',
+        c.dataset.label.includes('현재') ? '현재 매출(2.18M): ' + D.rev_now[i].toLocaleString() + '원'
+                                          : '예상 매출(8M): ' + D.rev_ltv[i].toLocaleString() + '원'
+      ];
+    };
+  } else if (mode === 'arpu') {
+    nowData = D.arpu_now;
+    ltvData = D.arpu_ltv;
+    yLabel = 'ARPU (원)';
+    yFormatter = (v) => (v/10000).toLocaleString() + '만';
+    dataLabelFmt = (v) => (v/10000).toFixed(1) + '만';
+    tooltipFmt = (c) => {
+      const isNow = c.dataset.label.includes('현재');
+      return c.dataset.label + ': ' + c.parsed.y.toLocaleString() + '원' +
+             (isNow ? ' (3개월 누적 매출고객 평균)' : ' (8개월 LTV 매출고객 1인당)');
+    };
+  } else { // profit
+    nowData = D.profit_now;
+    ltvData = D.profit_ltv;
+    yLabel = '순익 (원)';
+    yFormatter = (v) => (v/10000).toLocaleString() + '만';
+    dataLabelFmt = (v) => (v >= 0 ? '+' : '') + (v/10000).toFixed(0) + '만';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      const v = c.parsed.y;
+      return [
+        c.dataset.label + ': ' + (v>=0?'+':'') + v.toLocaleString() + '원',
+        c.dataset.label.includes('현재') ? '매출 ' + D.rev_now[i].toLocaleString() + ' − 광고비 ' + D.cost[i].toLocaleString()
+                                          : '예상매출 ' + D.rev_ltv[i].toLocaleString() + ' − 광고비 ' + D.cost[i].toLocaleString()
+      ];
+    };
+  }
+
+  charts.ltv26 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.labels,
+      datasets: [
+        { label: '현재 (2.18개월)', data: nowData, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.55 },
+        { label: '예상 (8개월 LTV)', data: ltvData, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.55 }
+      ]
+    },
+    plugins: [ChartDataLabels].concat(mode === 'roas' ? [{
+      id: 'breakeven_ltv',
+      afterDraw: (chart) => {
+        const yScale = chart.scales.y;
+        const xScale = chart.scales.x;
+        if (!yScale || !xScale) return;
+        const y100 = yScale.getPixelForValue(100);
+        if (y100 < yScale.top || y100 > yScale.bottom) return;
+        const ctx2 = chart.ctx;
+        ctx2.save();
+        ctx2.strokeStyle = COLORS.ppt6;
+        ctx2.lineWidth = 1.5;
+        ctx2.setLineDash([6, 4]);
+        ctx2.beginPath();
+        ctx2.moveTo(xScale.left, y100);
+        ctx2.lineTo(xScale.right, y100);
+        ctx2.stroke();
+        ctx2.setLineDash([]);
+        ctx2.fillStyle = COLORS.ppt6;
+        ctx2.font = '600 11px Pretendard';
+        ctx2.fillText('손익분기 100%', xScale.right - 100, y100 - 6);
+        ctx2.restore();
+      }
+    }] : []),
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end', offset: 2,
+          color: COLORS.ink,
+          font: { family: 'Pretendard', size: 11, weight: '600' },
+          formatter: dataLabelFmt
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          callbacks: { label: tooltipFmt }
+        })
+      },
+      scales: {
+        x: xAxisBase,
+        y: Object.assign({}, yAxisBase, {
+          beginAtZero: mode !== 'profit',
+          grace: '15%',
+          ticks: {
+            color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 },
+            callback: yFormatter
+          },
+          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+function buildStatus26() {
+  const mode = modes26.status26;
+  const ctx = document.getElementById('ch_status26');
+  if (charts.status26) charts.status26.destroy();
+
+  const D = DATA26.status;
+
+  // 카테고리별 색상 매핑
+  const catColors = {
+    '미전환·휴면': COLORS.ppt3,
+    '유료·정상이용중': COLORS.ppt1,
+    '미전환·정상': COLORS.ppt5,
+    '미전환·해지': COLORS.ppt2,
+    '유료·해지': COLORS.ppt4
+  };
+
+  if (mode === 'overall') {
+    // 전체 분포 - 도넛 차트
+    document.getElementById('status26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt3}"></span>미전환·휴면 651명 (83.8%)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>유료·정상이용중 95명 (12.2%)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt5}"></span>미전환·정상 18명 (2.3%)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>미전환·해지 11명 (1.4%)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt4}"></span>유료·해지 2명 (0.3%)</span>`;
+
+    charts.status26 = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: D.cat_labels,
+        datasets: [{
+          data: D.cat_counts,
+          backgroundColor: D.cat_labels.map(l => catColors[l]),
+          borderWidth: 2,
+          borderColor: '#ffffff'
+        }]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
+        cutout: '55%',
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            color: (c) => {
+              const lbl = D.cat_labels[c.dataIndex];
+              return lbl === '미전환·휴면' || lbl === '유료·정상이용중' ? '#fff' : COLORS.ink;
+            },
+            font: { family: 'Pretendard', size: 12, weight: '700' },
+            formatter: (v) => {
+              const pct = (v / 777 * 100);
+              if (pct < 2) return '';
+              return v + '명\n' + pct.toFixed(1) + '%';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            displayColors: true,
+            callbacks: {
+              label: (c) => {
+                const pct = (c.parsed / 777 * 100).toFixed(1);
+                return ' ' + c.label + ': ' + c.parsed + '명 (' + pct + '%)';
+              }
+            }
+          })
+        }
+      }
+    });
+    return;
+  }
+
+  if (mode === 'month') {
+    // 가입월별 누적 막대
+    document.getElementById('status26-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt3}"></span>미전환·휴면</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>유료·정상이용중</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt5}"></span>미전환·정상</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>미전환·해지</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt4}"></span>유료·해지</span>`;
+
+    charts.status26 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: D.month_labels.map((l, i) => l + '\n(' + D.month_totals[i] + '명)'),
+        datasets: [
+          { label: '미전환·휴면', data: D.month_dormant_unpaid, backgroundColor: COLORS.ppt3 },
+          { label: '유료·정상이용중', data: D.month_paid_active, backgroundColor: COLORS.ppt1 },
+          { label: '미전환·정상', data: D.month_active_unpaid, backgroundColor: COLORS.ppt5 },
+          { label: '미전환·해지', data: D.month_cancel_unpaid, backgroundColor: COLORS.ppt2 },
+          { label: '유료·해지', data: D.month_cancel_paid, backgroundColor: COLORS.ppt4 }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'center', align: 'center',
+            color: (c) => {
+              const lbl = c.dataset.label;
+              return lbl === '미전환·휴면' || lbl === '유료·정상이용중' ? '#fff' : COLORS.ink;
+            },
+            font: { family: 'Pretendard', size: 10, weight: '700' },
+            formatter: (v, c) => {
+              const tot = D.month_totals[c.dataIndex];
+              const pct = Math.round(v / tot * 100);
+              return pct >= 3 ? pct + '%' : '';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            displayColors: true,
+            callbacks: {
+              label: (c) => {
+                const tot = D.month_totals[c.dataIndex];
+                const pct = (c.parsed.y / tot * 100).toFixed(1);
+                return ' ' + c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: Object.assign({}, xAxisBase, { stacked: true }),
+          y: Object.assign({}, yAxisBase, {
+            stacked: true, beginAtZero: true,
+            title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          })
+        }
+      }
+    });
+    return;
+  }
+
+  // channel
+  document.getElementById('status26-legend').innerHTML = `
+    <span><span class="legend-dot" style="background:${COLORS.ppt3}"></span>미전환·휴면</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>유료·정상이용중</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt5}"></span>미전환·정상</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>미전환·해지</span>
+    <span><span class="legend-dot" style="background:${COLORS.ppt4}"></span>유료·해지</span>`;
+
+  charts.status26 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: D.ch_labels.map((l, i) => l + '\n(' + D.ch_totals[i] + '명)'),
+      datasets: [
+        { label: '미전환·휴면', data: D.ch_dormant_unpaid, backgroundColor: COLORS.ppt3 },
+        { label: '유료·정상이용중', data: D.ch_paid_active, backgroundColor: COLORS.ppt1 },
+        { label: '미전환·정상', data: D.ch_active_unpaid, backgroundColor: COLORS.ppt5 },
+        { label: '미전환·해지', data: D.ch_cancel_unpaid, backgroundColor: COLORS.ppt2 },
+        { label: '유료·해지', data: D.ch_cancel_paid, backgroundColor: COLORS.ppt4 }
+      ]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'center', align: 'center',
+          color: (c) => {
+            const lbl = c.dataset.label;
+            return lbl === '미전환·휴면' || lbl === '유료·정상이용중' ? '#fff' : COLORS.ink;
+          },
+          font: { family: 'Pretendard', size: 10, weight: '700' },
+          formatter: (v, c) => {
+            const tot = D.ch_totals[c.dataIndex];
+            const pct = Math.round(v / tot * 100);
+            return pct >= 3 ? pct + '%' : '';
+          }
+        },
+        tooltip: Object.assign({}, tooltipBase, {
+          displayColors: true,
+          callbacks: {
+            label: (c) => {
+              const tot = D.ch_totals[c.dataIndex];
+              const pct = (c.parsed.y / tot * 100).toFixed(1);
+              return ' ' + c.dataset.label + ': ' + c.parsed.y + '명 (' + pct + '%)';
+            }
+          }
+        })
+      },
+      scales: {
+        x: Object.assign({}, xAxisBase, { stacked: true }),
+        y: Object.assign({}, yAxisBase, {
+          stacked: true, beginAtZero: true,
+          title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+        })
+      }
+    }
+  });
+}
+
+// ===========================================
+// EVENT HANDLERS
+// ===========================================
+
+// 연도 탭 전환
+document.querySelectorAll('.year-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const year = tab.dataset.year;
+    document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.year-page').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('page-' + year).classList.add('active');
+    document.body.setAttribute('data-year', year);
+
+    // 활성 섹션의 차트 다시 빌드
+    setTimeout(() => {
+      const activePage = document.getElementById('page-' + year);
+      const activeSection = activePage.querySelector('.chart-section.active');
+      if (activeSection) {
+        const tabBtn = activePage.querySelector('.nav-tab.active');
+        if (tabBtn) BUILDERS[tabBtn.dataset.tab]();
+      }
+    }, 50);
+  });
+});
+
+// 섹션 탭 전환
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    const parentNav = tab.closest('.section-nav');
+    const parentPage = tab.closest('.year-page');
+    parentNav.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    parentPage.querySelectorAll('.chart-section').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('section-' + target).classList.add('active');
+    setTimeout(() => BUILDERS[target](), 50);
+  });
+});
+
+// 모드 토글 버튼
+document.querySelectorAll('.btn-pill[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const view = btn.dataset.view;
+    const mode = btn.dataset.mode;
+    document.querySelectorAll(`.btn-pill[data-view="${view}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (view.endsWith('25')) modes25[view] = mode;
+    else modes26[view] = mode;
+    BUILDERS[view]();
+  });
+});
+
+// 초기 빌드 - 양쪽 페이지 모두 미리 그려둠 (전환 시 끊김 방지)
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    // 활성 페이지(2025)부터
+    buildDuration25();
+    // 비활성 페이지(2026)도 미리 빌드해두면 첫 전환 시 끊김 없음
+    // 다만 비활성 상태에서는 canvas 크기가 0일 수 있으니 첫 클릭 시 다시 그리도록 비워둠
+  }, 50);
+});
+</script>
+</body>
+</html>
