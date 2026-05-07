@@ -833,6 +833,8 @@ footer {
           <button class="btn-pill" data-view="orevenue25" data-mode="plan">플랜별</button>
           <button class="btn-pill" data-view="orevenue25" data-mode="channel">채널별</button>
           <button class="btn-pill" data-view="orevenue25" data-mode="industry">업종별</button>
+          <button class="btn-pill" data-view="orevenue25" data-mode="monthly">월별 추이</button>
+          <button class="btn-pill" data-view="orevenue25" data-mode="compare">전체 vs 신규</button>
         </div>
       </div>
       <div class="sub-stats">
@@ -866,23 +868,25 @@ footer {
         <div class="section-title-block">
           <div class="section-num">SECTION 02</div>
           <h2 class="section-title">광고 효율 (전체 매출 기준)</h2>
-          <p class="section-desc">2025년 광고비 1.56억 vs 전체 매출 6.20억 (광고비 시점 = 매출 시점). 진짜 사업 ROAS.</p>
+          <p class="section-desc">광고비 1.56억으로 매출 6.20억 회수. ROAS · CAC · Payback Period 3가지 핵심 광고 효율 지표.</p>
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oadcost25" data-mode="roas">전체 ROAS</button>
-          <button class="btn-pill" data-view="oadcost25" data-mode="monthly">월별 매출 추이</button>
-          <button class="btn-pill" data-view="oadcost25" data-mode="compare">전체 vs 신규 비교</button>
+          <button class="btn-pill active" data-view="oadcost25" data-mode="roas">ROAS</button>
+          <button class="btn-pill" data-view="oadcost25" data-mode="cac">CAC</button>
+          <button class="btn-pill" data-view="oadcost25" data-mode="payback">Payback</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ 전체 ROAS</strong> = 같은 기간 모든 결제 매출 ÷ 광고비. 광고비 시점(2025.01~12)과 매출 시점(2025.01~12) 동일. 모든 가입자(2024년 이전 + 2025년 신규)의 결제 매출 포함.
+        <strong>※ ROAS</strong> = 매출 ÷ 광고비. 광고비 1원당 매출 회수율.<br>
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 매출 발생 고객 수. 매출 고객 1명을 얻는 데 든 비용.<br>
+        <strong>※ Payback Period</strong> = CAC ÷ 월 ARPU. 광고비를 회수하기까지 걸리는 개월 수. SaaS에서 12개월 이내면 우수.
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">156,000,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 매출</div><div class="sub-stat-value">620,203,282원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">전체 ROAS</div><div class="sub-stat-value">397.6%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 순익</div><div class="sub-stat-value">+464,203,282원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 CAC</div><div class="sub-stat-value">261,307원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">3.0개월</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oadcost25-legend">
@@ -894,11 +898,10 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>전체 ROAS 397.6%</strong> — 광고비 1.56억으로 매출 6.20억 회수. 광고비 1원당 <span class="num">약 4원 회수</span>. 사업이 광고비를 충분히 정당화.</li>
-          <li><strong>채널별 전체 ROAS</strong>: 카페24 <span class="num">443.8%</span> (+2.64억) vs 검색/배너 <span class="num">352.7%</span> (+2.00억). 둘 다 흑자.</li>
-          <li><strong>전체 vs 신규 코호트 격차</strong>: 전체 397.6% vs 신규 87.8% — 차이 <span class="num">+310%p가 기존 고객 누적 매출 기여</span>. 시간 누적 효과 강함.</li>
-          <li><strong>5~6월 매출 점프</strong>: 4월 3,863만 → 5월 4,615만 → 6월 5,612만. 가입 허들 제거 효과 명확.</li>
-          <li><strong>연말 가속</strong>: 1월 3,678만 → 12월 7,147만, <span class="num">94% 성장</span>. 누적 고객 베이스가 매출 견인.</li>
+          <li><strong>전체 ROAS 397.6%</strong> — 광고비 1원당 약 4원 회수. 채널별로는 카페24 <span class="num">443.8%</span>, 검색/배너 <span class="num">352.7%</span>로 두 채널 모두 흑자.</li>
+          <li><strong>CAC 26.1만원</strong>: 매출 고객 1명을 얻는 데 약 26만원 광고비 소요. 채널별로는 카페24 16.1만 vs 검색/배너 65.5만 — 검색/배너가 4배 비쌈.</li>
+          <li><strong>Payback 3.0개월</strong>: 광고비를 약 3개월 만에 회수. SaaS 우수 기준(12개월 이내)을 4배 빠르게 도달. 채널별로는 카페24 2.7개월 / 검색/배너 3.4개월.</li>
+          <li><strong>검색/배너의 역설</strong>: CAC는 비싸지만 Payback은 카페24와 비슷. 1인 매출이 더 크기 때문 — 헤비 고객 채널.</li>
         </ul>
       </div>
     </section>
@@ -913,18 +916,20 @@ footer {
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oltv25" data-mode="arpu">ARPU</button>
-          <button class="btn-pill" data-view="oltv25" data-mode="profit">손익</button>
+          <button class="btn-pill active" data-view="oltv25" data-mode="ltv">LTV</button>
+          <button class="btn-pill" data-view="oltv25" data-mode="arpu">ARPU</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ LTV 매출 검증</strong>: 1년 누적 결제 매출로 채널별 ARPU와 손익을 직접 검증. ROAS 비교는 "광고 효율" 탭에서 별도 확인.
+        <strong>※ LTV (Customer Lifetime Value)</strong> = 월 ARPU ÷ 월 해지율 (SaaS 표준 공식). 매출고객 1인이 평균 이용기간 동안 만들어주는 총 매출 추정치.<br>
+        <strong>※ LTV:CAC 비율</strong>은 SaaS 사업 건강도의 핵심 지표 — 일반적으로 <strong>3:1 이상</strong>이면 우수, 5:1 이상은 매우 우수.
       </div>
       <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">실 매출 (12개월)</div><div class="sub-stat-value">620,203,282원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">광고비 (12개월)</div><div class="sub-stat-value">156,000,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">결제 고객</div><div class="sub-stat-value">597명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">1,039,118원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 LTV</div><div class="sub-stat-value">5,441,695원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">월 ARPU</div><div class="sub-stat-value">86,593원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">월 해지율</div><div class="sub-stat-value">1.59%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">CAC (광고비/매출고객)</div><div class="sub-stat-value">261,307원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">LTV:CAC 비율</div><div class="sub-stat-value">20.8 : 1</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oltv25-legend">
@@ -936,10 +941,11 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>채널별 ARPU</strong>: 카페24 매출고객 평균 약 71만원 (12개월 누적) vs 검색/배너 약 230만원. 검색/배너 채널의 매출고객은 적지만 1인당 단가는 높음.</li>
-          <li><strong>두 채널 모두 흑자 손익</strong>: 카페24 +2.64억 / 검색/배너 +2.00억.</li>
-          <li><strong>매출 분포 풍성</strong>: Enterprise 79명이 매출 67.5% 만들고, 1000만원+ 헤비 10명이 47.1% 차지 — 헤비 의존도 높음.</li>
-          <li><strong>2026 1분기와 비교</strong>: 1분기 ARPU 35.4만 (3개월 누적)으로 1년 환산 시 약 142만 → 2025 평균(104만)보다 높은 페이스. 사업 성장 중.</li>
+          <li><strong>전체 LTV 약 544만원</strong> — 매출고객 1명이 평균 약 63개월(5.2년) 동안 결제하며 누적 매출. 월 ARPU 8.7만 ÷ 월 해지율 1.59%로 산출.</li>
+          <li><strong>채널별 격차 명확</strong>: 검색/배너 LTV <span class="num">1,035만</span> vs 카페24 LTV <span class="num">392만</span> — 검색/배너 채널의 1인 가치가 약 2.6배. 매출고객 수는 적지만 단가 높은 헤비 고객 비중.</li>
+          <li><strong>LTV:CAC = 20.8:1</strong> — SaaS 업계 우수 기준(3:1)을 약 7배 초과. 광고비 1원 투자로 약 21배 매출 회수.</li>
+          <li><strong>채널별 LTV:CAC</strong>: 카페24 24.3:1 (CAC 16.1만, LTV 392만) vs 검색/배너 15.8:1 (CAC 65만, LTV 1,035만) — 두 채널 모두 매우 우수.</li>
+          <li><strong>월 해지율 1.59%</strong>는 SaaS 평균(3~5%)보다 훨씬 낮음 — 충성도 높은 고객 베이스.</li>
         </ul>
       </div>
     </section>
@@ -1381,6 +1387,8 @@ footer {
           <button class="btn-pill" data-view="orevenue26" data-mode="plan">플랜별</button>
           <button class="btn-pill" data-view="orevenue26" data-mode="channel">채널별</button>
           <button class="btn-pill" data-view="orevenue26" data-mode="industry">업종별</button>
+          <button class="btn-pill" data-view="orevenue26" data-mode="monthly">월별 추이</button>
+          <button class="btn-pill" data-view="orevenue26" data-mode="compare">전체 vs 신규</button>
         </div>
       </div>
       <div class="sub-stats">
@@ -1414,23 +1422,25 @@ footer {
         <div class="section-title-block">
           <div class="section-num">SECTION 02</div>
           <h2 class="section-title">광고 효율 (전체 매출 기준)</h2>
-          <p class="section-desc">2026 1분기 광고비 2,910만 vs 전체 매출 1.92억. 광고비 1원당 6.6원 회수.</p>
+          <p class="section-desc">광고비 2,910만으로 매출 1.92억 회수. ROAS · CAC · Payback Period 3가지 핵심 광고 효율 지표.</p>
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oadcost26" data-mode="roas">전체 ROAS</button>
-          <button class="btn-pill" data-view="oadcost26" data-mode="monthly">월별 매출 추이</button>
-          <button class="btn-pill" data-view="oadcost26" data-mode="compare">전체 vs 신규 비교</button>
+          <button class="btn-pill active" data-view="oadcost26" data-mode="roas">ROAS</button>
+          <button class="btn-pill" data-view="oadcost26" data-mode="cac">CAC</button>
+          <button class="btn-pill" data-view="oadcost26" data-mode="payback">Payback</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ 전체 ROAS</strong> = 같은 기간 모든 결제 매출 ÷ 광고비. 광고비 시점(2026.01~03)과 매출 시점(2026.01~03) 동일.
+        <strong>※ ROAS</strong> = 매출 ÷ 광고비. 광고비 1원당 매출 회수율.<br>
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 매출 발생 고객 수. 매출 고객 1명을 얻는 데 든 비용.<br>
+        <strong>※ Payback Period</strong> = CAC ÷ 월 ARPU. 광고비를 회수하기까지 걸리는 개월 수. SaaS에서 12개월 이내면 우수.
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,100,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 매출</div><div class="sub-stat-value">192,346,867원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">전체 ROAS</div><div class="sub-stat-value">661.0%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 순익</div><div class="sub-stat-value">+163,246,867원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 CAC</div><div class="sub-stat-value">53,591원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">0.45개월</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oadcost26-legend">
@@ -1442,10 +1452,11 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>전체 ROAS 661.0%</strong> — 광고비 2,910만으로 매출 1.92억 회수. 광고비 1원당 <span class="num">약 6.6원 회수</span>. 2025년(397.6%)보다 더 효율적.</li>
-          <li><strong>채널별 전체 ROAS</strong>: 카페24 <span class="num">841.6%</span> (+1.02억) vs 검색/배너 <span class="num">498.1%</span> (+6,091만). 두 채널 모두 강한 흑자.</li>
-          <li><strong>전체 vs 신규 코호트 격차</strong>: 전체 661% vs 신규 30.2% — 차이 <span class="num">+631%p가 기존 고객 누적</span>. 2024~2025 가입 베이스가 1분기 매출의 95% 만듦.</li>
-          <li><strong>월 매출 안정화</strong>: 1월 6,281만 → 2월 6,510만 → 3월 6,444만. <span class="num">월 평균 6,411만</span>으로 2025년 12월 수준 유지.</li>
+          <li><strong>전체 ROAS 661.0%</strong> — 광고비 1원당 약 6.6원 회수. 2025년(397.6%) 대비 1.66배 효율 개선. 채널별 카페24 <span class="num">841.6%</span>, 검색/배너 <span class="num">498.1%</span>.</li>
+          <li><strong>CAC 5.4만원</strong>: 매출 고객 1명을 얻는 데 약 5.4만원 — 2025년 26.1만 대비 <span class="num">5분의 1 수준</span>. 광고 효율 폭발적 개선. 카페24 3.0만 vs 검색/배너 17.6만.</li>
+          <li><strong>Payback 0.45개월(약 2주)</strong>: 광고비를 거의 즉시 회수. 2025년 3.0개월 대비 약 <span class="num">7배 빠름</span>. 매우 비현실적 — 1분기 짧은 측정 한계도 있음.</li>
+          <li><strong>채널별 Payback</strong>: 카페24 0.36개월 (~11일) / 검색/배너 0.60개월 (~18일) — 둘 다 매우 빠름.</li>
+          <li><strong>1분기 한계</strong>: CAC와 Payback이 너무 좋게 나오는 건 측정 기간이 짧아 광고비도 분기 광고비만 카운트되기 때문. 시간 누적되면 안정 값으로 수렴 예상.</li>
         </ul>
       </div>
     </section>
@@ -1456,22 +1467,24 @@ footer {
         <div class="section-title-block">
           <div class="section-num">SECTION 03</div>
           <h2 class="section-title">LTV 매출 검증 (1분기 추정)</h2>
-          <p class="section-desc">2026 1분기 3개월 누적 매출 기준 채널별 ARPU와 손익 검증. ROAS 비교는 "광고 효율" 탭에서 별도 확인.</p>
+          <p class="section-desc">2026 1분기 3개월 누적 매출 기준 채널별 LTV(고객 평생 가치) 검증. SaaS 표준 공식 = 월 ARPU ÷ 월 해지율.</p>
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oltv26" data-mode="arpu">ARPU</button>
-          <button class="btn-pill" data-view="oltv26" data-mode="profit">손익</button>
+          <button class="btn-pill active" data-view="oltv26" data-mode="ltv">LTV</button>
+          <button class="btn-pill" data-view="oltv26" data-mode="arpu">ARPU</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ 2026 1분기 = 단기 데이터</strong>: 3개월 누적 매출. 2025년 평균 ARPU(104만/12개월)와 비교 시 1분기 35.4만은 1년 환산 약 142만 페이스 — 사업 성장 신호.
+        <strong>※ LTV (Customer Lifetime Value)</strong> = 월 ARPU ÷ 월 해지율 (SaaS 표준 공식). 매출고객 1인이 평균 이용기간 동안 만들어주는 총 매출 추정치.<br>
+        <strong>※ 1분기 데이터의 한계</strong>: 3개월만의 해지 패턴으로 추정한 값이라 변동성 큼. 시간 누적되면 더 정확해짐.
       </div>
       <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">실 매출 (3개월)</div><div class="sub-stat-value">192,346,867원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">광고비 (3개월)</div><div class="sub-stat-value">29,100,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">결제 고객</div><div class="sub-stat-value">543명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">354,230원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 LTV</div><div class="sub-stat-value">8,362,907원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">월 ARPU</div><div class="sub-stat-value">118,077원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">월 해지율</div><div class="sub-stat-value">1.41%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">CAC (광고비/매출고객)</div><div class="sub-stat-value">53,591원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">LTV:CAC 비율</div><div class="sub-stat-value">156.0 : 1</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oltv26-legend">
@@ -1483,10 +1496,11 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>채널별 ARPU (3개월)</strong>: 카페24 약 25.5만 vs 검색/배너 약 87.6만. 2025년과 동일 패턴 — 검색/배너 매출고객은 적지만 단가 높음.</li>
-          <li><strong>두 채널 모두 흑자 손익</strong>: 카페24 +1.02억 / 검색/배너 +6,091만.</li>
-          <li><strong>1년 환산 ARPU 페이스</strong>: 1분기 35.4만 × 4 = 약 142만/연. 2025년 평균(104만)을 36% 초과 — 사업 안정화 신호.</li>
-          <li><strong>월별 매출 안정</strong>: 1월 6,281만 → 2월 6,510만 → 3월 6,444만. 평균 6,411만/월 유지.</li>
+          <li><strong>전체 LTV 약 836만원</strong> — 2025년(544만) 대비 <span class="num">54% 증가</span>. 월 ARPU도 8.7만 → 11.8만으로 36% 상승, 해지율은 1.59% → 1.41%로 개선.</li>
+          <li><strong>검색/배너 LTV 폭증</strong>: <span class="num">2,540만원</span> (2025년 1,035만 대비 2.5배). 월 ARPU 29.2만(2025년 19.2만 대비 +52%) + 해지율 1.86% → 1.15%로 개선.</li>
+          <li><strong>LTV:CAC = 156.0:1</strong> — 비현실적으로 높지만 1분기 짧은 측정으로 인한 변동. 광고비 효율이 폭발적으로 개선됨.</li>
+          <li><strong>채널별 LTV:CAC</strong>: 카페24 191.9:1, 검색/배너 144.5:1 — 모두 SaaS 우수 기준(3:1)을 압도적으로 초과.</li>
+          <li><strong>1분기 데이터 한계</strong>: 표본 기간이 짧아 LTV가 과대 추정될 가능성. 시간 누적되면 보다 안정적인 값으로 수렴 예상.</li>
         </ul>
       </div>
     </section>
@@ -1703,7 +1717,23 @@ const OVERALL_25 = {
   month_ad: [13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000],
   feature_labels: ['디스플레이어', '샵플레이어', '썸네일플레이어', '재생목록', '위젯'],
   feature_counts: [593, 141, 86, 35, 0],
-  feature_total: 1727
+  feature_total: 1727,
+  // LTV 데이터 (SaaS 공식: 월 ARPU / 월 해지율)
+  ltv_total: 5441695,
+  ltv_cafe24: 3919686,
+  ltv_search: 10345948,
+  arpu_monthly_total: 86593,
+  arpu_monthly_cafe24: 59701,
+  arpu_monthly_search: 192383,
+  churn_rate_total: 1.59,
+  churn_rate_cafe24: 1.52,
+  churn_rate_search: 1.86,
+  cac_total: 261307,
+  cac_cafe24: 161345,
+  cac_search: 654545,
+  ltv_cac_ratio_total: 20.8,
+  ltv_cac_ratio_cafe24: 24.3,
+  ltv_cac_ratio_search: 15.8
 };
 
 let modes25 = {
@@ -1717,7 +1747,7 @@ let modes25 = {
   conversion25: 'bar',
   orevenue25: 'bucket',
   oadcost25: 'roas',
-  oltv25: 'arpu',
+  oltv25: 'ltv',
   ofeatures25: 'abs'
 };
 
@@ -2163,7 +2193,23 @@ const OVERALL_26 = {
   // 찰나 기능 (신규 가입자 데이터)
   feature_labels: ['디스플레이어', '샵플레이어', '썸네일플레이어', '재생목록', '위젯'],
   feature_counts: [223, 35, 37, 7, 19],
-  feature_total: 777
+  feature_total: 777,
+  // LTV 데이터
+  ltv_total: 8362907,
+  ltv_cafe24: 5806958,
+  ltv_search: 25402567,
+  arpu_monthly_total: 118077,
+  arpu_monthly_cafe24: 84897,
+  arpu_monthly_search: 291984,
+  churn_rate_total: 1.41,
+  churn_rate_cafe24: 1.46,
+  churn_rate_search: 1.15,
+  cac_total: 53591,
+  cac_cafe24: 30263,
+  cac_search: 175862,
+  ltv_cac_ratio_total: 156.0,
+  ltv_cac_ratio_cafe24: 191.9,
+  ltv_cac_ratio_search: 144.5
 };
 
 let modes26 = {
@@ -2177,7 +2223,7 @@ let modes26 = {
   ltv26: 'roas',
   orevenue26: 'bucket',
   oadcost26: 'roas',
-  oltv26: 'arpu',
+  oltv26: 'ltv',
   ofeatures26: 'abs'
 };
 
@@ -2708,6 +2754,120 @@ function buildORevenue(year) {
     return;
   }
 
+  if (mode === 'monthly') {
+    // 월별 매출 추이 - 광고비 라인 없이, 손익분기 점선 없이
+    document.getElementById('orevenue' + year + '-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 매출</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 매출</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">${year === '25' ? '2025년 12개월' : '2026 1분기 3개월'} 월별 매출 추이</span>`;
+
+    charts[chartKey] = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: D.month_labels,
+        datasets: [
+          { label: '카페24', data: D.month_cafe24, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.7, stack: 'rev' },
+          { label: '검색/배너', data: D.month_search, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.7, stack: 'rev' }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'center', align: 'center',
+            color: '#fff', font: { family: 'Pretendard', size: 11, weight: '700' },
+            formatter: (v) => {
+              if (v < 8000000) return '';
+              return (v/10000).toFixed(0) + '만';
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            displayColors: true,
+            callbacks: {
+              label: (c) => {
+                const tot = D.month_total[c.dataIndex];
+                const pct = (c.parsed.y / tot * 100).toFixed(1);
+                return ' ' + c.dataset.label + ': ' + c.parsed.y.toLocaleString() + '원 (' + pct + '%)';
+              },
+              afterBody: (items) => {
+                if (items.length > 0) {
+                  const tot = D.month_total[items[0].dataIndex];
+                  return '\n월 총매출: ' + tot.toLocaleString() + '원';
+                }
+                return '';
+              }
+            }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, stacked: true, grace: '5%',
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => (v/10000000).toFixed(1) + '천만' },
+            title: { display: true, text: '매출 (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
+        }
+      }
+    });
+    return;
+  }
+
+  if (mode === 'compare') {
+    // 전체 vs 신규 코호트 매출 비교 - 손익분기 점선 없이
+    const newRevTotal = year === '25' ? 136932606 : 8800294;
+    const newRevCafe24 = year === '25' ? 117110215 : 6297967;
+    const newRevSearch = year === '25' ? 19822391 : 2502327;
+
+    document.getElementById('orevenue' + year + '-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>전체 매출 (모든 가입자 결제)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt3}"></span>신규 코호트 매출 (그 광고로 가입한 사람만)</span>`;
+
+    const labels = ['전체', '카페24', '검색/배너광고'];
+    const overall = [D.rev_total, D.rev_cafe24, D.rev_search];
+    const newCohort = [newRevTotal, newRevCafe24, newRevSearch];
+
+    charts[chartKey] = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          { label: '전체 매출', data: overall, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.6 },
+          { label: '신규 코호트', data: newCohort, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.6 }
+        ]
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
+        plugins: {
+          legend: { display: false },
+          datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink,
+            font: { family: 'Pretendard', size: 12, weight: '600' },
+            formatter: (v) => (v/100000000).toFixed(2) + '억' },
+          tooltip: Object.assign({}, tooltipBase, {
+            displayColors: true,
+            callbacks: {
+              label: (c) => ' ' + c.dataset.label + ': ' + c.parsed.y.toLocaleString() + '원',
+              afterBody: (items) => {
+                if (items.length === 2) {
+                  const ratio = items[0].parsed.y / items[1].parsed.y;
+                  return '\n전체 ÷ 신규 = ' + ratio.toFixed(1) + '배';
+                }
+                return '';
+              }
+            }
+          })
+        },
+        scales: {
+          x: xAxisBase,
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => (v/100000000).toFixed(1) + '억' },
+            title: { display: true, text: '매출 (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
+        }
+      }
+    });
+    return;
+  }
+
   // industry
   document.getElementById('orevenue' + year + '-legend').innerHTML = `
     <span><span class="legend-dot" style="background:${accent}"></span>고객 수</span>
@@ -2762,119 +2922,125 @@ function buildOAdcost(year) {
   const chartKey = 'oadcost' + year;
   if (charts[chartKey]) charts[chartKey].destroy();
 
-  if (mode === 'monthly') {
+  // CAC 모드
+  if (mode === 'cac') {
     document.getElementById('oadcost' + year + '-legend').innerHTML = `
-      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 매출</span>
-      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 매출</span>
-      <span><span class="legend-dot" style="background:${COLORS.ppt4};border-radius:50%"></span>월 광고비</span>`;
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">CAC = 광고비 ÷ 매출 발생 고객 수 · 낮을수록 좋음</span>`;
+
+    const data = [D.cac_cafe24, D.cac_search];
 
     charts[chartKey] = new Chart(ctx, {
+      type: 'bar',
       data: {
-        labels: D.month_labels,
-        datasets: [
-          { type: 'bar', label: '카페24', data: D.month_cafe24, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.7, stack: 'rev', yAxisID: 'y' , order: 1 },
-          { type: 'bar', label: '검색/배너', data: D.month_search, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.7, stack: 'rev', yAxisID: 'y' , order: 1 },
-          { type: 'line', label: '광고비', data: D.month_ad, borderColor: COLORS.ppt4, backgroundColor: COLORS.ppt4, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0, yAxisID: 'y', datalabels: { display: false } , order: 0 }
-        ]
+        labels: ['카페24', '검색/배너광고'],
+        datasets: [{ data, backgroundColor: [COLORS.ppt1, COLORS.ppt2], borderRadius: 2, barPercentage: 0.55 }]
       },
       plugins: [ChartDataLabels],
       options: {
         responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
         plugins: {
           legend: { display: false },
-          datalabels: {
-            anchor: 'center', align: 'center',
-            color: '#fff', font: { family: 'Pretendard', size: 11, weight: '700' },
-            formatter: (v, c) => {
-              if (c.dataset.type !== 'bar') return '';
-              if (v < 8000000) return '';
-              return (v/10000).toFixed(0) + '만';
-            }
-          },
+          datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink,
+            font: { family: 'Pretendard', size: 13, weight: '600' },
+            formatter: (v) => (v/10000).toFixed(1) + '만원' },
           tooltip: Object.assign({}, tooltipBase, {
-            displayColors: true,
             callbacks: {
               label: (c) => {
-                if (c.dataset.label === '광고비') return ' 광고비: ' + c.parsed.y.toLocaleString() + '원/월';
-                const tot = D.month_total[c.dataIndex];
-                return ' ' + c.dataset.label + ': ' + c.parsed.y.toLocaleString() + '원 (' + (c.parsed.y/tot*100).toFixed(1) + '%)';
+                const i = c.dataIndex;
+                const cost = i === 0 ? D.cost_cafe24 : D.cost_search;
+                const n = Math.round(cost / c.parsed.y);
+                return ['CAC: ' + c.parsed.y.toLocaleString() + '원',
+                  '광고비: ' + cost.toLocaleString() + '원',
+                  '매출 고객: ' + n + '명'];
               }
             }
           })
         },
         scales: {
           x: xAxisBase,
-          y: Object.assign({}, yAxisBase, { beginAtZero: true, stacked: true, grace: '5%',
-            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => (v/10000000).toFixed(1) + '천만' },
-            title: { display: true, text: '매출 (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => (v/10000).toFixed(0) + '만' },
+            title: { display: true, text: 'CAC (원/매출고객)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
         }
       }
     });
     return;
   }
 
-  if (mode === 'compare') {
-    document.getElementById('oadcost' + year + '-legend').innerHTML = `
-      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>전체 ROAS (모든 가입자 결제)</span>
-      <span><span class="legend-dot" style="background:${COLORS.ppt3}"></span>신규 코호트 ROAS (신규 가입자만)</span>`;
+  // Payback Period 모드
+  if (mode === 'payback') {
+    const paybackCafe = D.cac_cafe24 / D.arpu_monthly_cafe24;
+    const paybackSearch = D.cac_search / D.arpu_monthly_search;
 
-    const labels = ['전체', '카페24', '검색/배너광고'];
-    const overall = [D.roas_total, D.roas_cafe24, D.roas_search];
-    const newCohort = [D.roas_total_new, D.roas_cafe24_new, D.roas_search_new];
+    document.getElementById('oadcost' + year + '-legend').innerHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">Payback = CAC ÷ 월 ARPU · SaaS 우수 기준 12개월 이내</span>`;
+
+    const data = [paybackCafe, paybackSearch];
 
     charts[chartKey] = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels,
-        datasets: [
-          { label: '전체 ROAS', data: overall, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.6 },
-          { label: '신규 코호트 ROAS', data: newCohort, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.6 }
-        ]
+        labels: ['카페24', '검색/배너광고'],
+        datasets: [{ data, backgroundColor: [COLORS.ppt1, COLORS.ppt2], borderRadius: 2, barPercentage: 0.55 }]
       },
       plugins: [ChartDataLabels, {
-        id: 'be_compare_' + year,
+        id: 'be_payback_' + year,
         afterDraw: (chart) => {
-          const yScale = chart.scales.y;
-          const xScale = chart.scales.x;
+          const yScale = chart.scales.y; const xScale = chart.scales.x;
           if (!yScale || !xScale) return;
-          const y100 = yScale.getPixelForValue(100);
-          if (y100 < yScale.top || y100 > yScale.bottom) return;
+          const y12 = yScale.getPixelForValue(12);
+          if (y12 < yScale.top || y12 > yScale.bottom) return;
           const cc = chart.ctx;
           cc.save();
           cc.strokeStyle = COLORS.ppt6; cc.lineWidth = 1.5; cc.setLineDash([6, 4]);
-          cc.beginPath(); cc.moveTo(xScale.left, y100); cc.lineTo(xScale.right, y100); cc.stroke();
+          cc.beginPath(); cc.moveTo(xScale.left, y12); cc.lineTo(xScale.right, y12); cc.stroke();
           cc.setLineDash([]);
           cc.fillStyle = COLORS.ppt6; cc.font = '600 13px Pretendard';
-          cc.fillText('손익분기 100%', xScale.right - 110, y100 - 6);
+          cc.fillText('SaaS 우수 기준 12개월', xScale.right - 165, y12 - 6);
           cc.restore();
         }
       }],
       options: {
-        responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
+        responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
         plugins: {
           legend: { display: false },
           datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink,
             font: { family: 'Pretendard', size: 13, weight: '600' },
-            formatter: (v) => v.toFixed(1) + '%' },
-          tooltip: Object.assign({}, tooltipBase, { displayColors: true,
-            callbacks: { label: (c) => ' ' + c.dataset.label + ': ' + c.parsed.y.toFixed(1) + '%' } })
+            formatter: (v) => v.toFixed(2) + '개월' },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (c) => {
+                const i = c.dataIndex;
+                const cac = i === 0 ? D.cac_cafe24 : D.cac_search;
+                const arpu = i === 0 ? D.arpu_monthly_cafe24 : D.arpu_monthly_search;
+                const days = Math.round(c.parsed.y * 30.44);
+                return ['Payback: ' + c.parsed.y.toFixed(2) + '개월 (약 ' + days + '일)',
+                  'CAC: ' + cac.toLocaleString() + '원',
+                  '월 ARPU: ' + arpu.toLocaleString() + '원'];
+              }
+            }
+          })
         },
         scales: {
           x: xAxisBase,
-          y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
-            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => v + '%' },
-            title: { display: true, text: 'ROAS (%)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
+          y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '20%',
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => v + '개월' },
+            title: { display: true, text: 'Payback Period (개월)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
         }
       }
     });
     return;
   }
 
-  // roas (default)
+  // ROAS (default)
   document.getElementById('oadcost' + year + '-legend').innerHTML = `
     <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
     <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
-    <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">광고비 시점 = 매출 시점, 진짜 ROAS</span>`;
+    <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">ROAS = 매출 ÷ 광고비 · 광고비 1원당 회수율</span>`;
 
   charts[chartKey] = new Chart(ctx, {
     type: 'bar',
@@ -2937,37 +3103,48 @@ function buildOLtv(year) {
   const chartKey = 'oltv' + year;
   if (charts[chartKey]) charts[chartKey].destroy();
 
-  let data, yLabel, yFormatter, dataLabelFmt, tooltipFmt;
+  let data, yLabel, yFormatter, dataLabelFmt, tooltipFmt, legendHTML;
 
-  if (mode === 'arpu') {
-    // 각 채널의 매출 / 결제고객 수
-    const arpuCafe = year === '25' ? Math.round(D.rev_cafe24 / 476) : Math.round(D.rev_cafe24 / 456);
-    const arpuSearch = year === '25' ? Math.round(D.rev_search / 121) : Math.round(D.rev_search / 87);
-    data = [arpuCafe, arpuSearch];
-    yLabel = 'ARPU (원/매출고객)';
+  if (mode === 'ltv') {
+    data = [D.ltv_cafe24, D.ltv_search];
+    yLabel = 'LTV (원/고객)';
     yFormatter = (v) => (v/10000).toLocaleString() + '만';
-    dataLabelFmt = (v) => (v/10000).toFixed(1) + '만';
-    tooltipFmt = (c) => 'ARPU: ' + c.parsed.y.toLocaleString() + '원/매출고객';
-  } else {
-    // profit
-    data = [D.profit_cafe24, D.profit_search];
-    yLabel = '손익 (원) - 실측';
-    yFormatter = (v) => (v/10000000).toFixed(1) + '천만';
-    dataLabelFmt = (v) => (v >= 0 ? '+' : '') + (v/10000000).toFixed(1) + '천만';
+    dataLabelFmt = (v) => (v/10000).toFixed(0) + '만';
     tooltipFmt = (c) => {
-      const v = c.parsed.y;
       const i = c.dataIndex;
-      const cost = i === 0 ? D.cost_cafe24 : D.cost_search;
-      const rev = i === 0 ? D.rev_cafe24 : D.rev_search;
-      return [(v>=0?'흑자':'적자') + ': ' + (v>=0?'+':'') + v.toLocaleString(),
-        '매출 ' + rev.toLocaleString() + ' − 광고비 ' + cost.toLocaleString()];
+      const arpu = i === 0 ? D.arpu_monthly_cafe24 : D.arpu_monthly_search;
+      const churn = i === 0 ? D.churn_rate_cafe24 : D.churn_rate_search;
+      const cac = i === 0 ? D.cac_cafe24 : D.cac_search;
+      const ratio = i === 0 ? D.ltv_cac_ratio_cafe24 : D.ltv_cac_ratio_search;
+      return ['LTV: ' + c.parsed.y.toLocaleString() + '원',
+        '월 ARPU: ' + arpu.toLocaleString() + '원',
+        '월 해지율: ' + churn.toFixed(2) + '%',
+        'CAC: ' + cac.toLocaleString() + '원',
+        'LTV:CAC = ' + ratio.toFixed(1) + ':1'];
     };
+    legendHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 LTV (LTV:CAC ${D.ltv_cac_ratio_cafe24.toFixed(1)}:1)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 LTV (LTV:CAC ${D.ltv_cac_ratio_search.toFixed(1)}:1)</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">LTV = 월 ARPU ÷ 월 해지율 (SaaS 표준)</span>`;
+  } else {
+    // arpu (월 ARPU)
+    data = [D.arpu_monthly_cafe24, D.arpu_monthly_search];
+    yLabel = '월 ARPU (원/매출고객)';
+    yFormatter = (v) => (v/10000).toFixed(1) + '만';
+    dataLabelFmt = (v) => (v/10000).toFixed(1) + '만';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      const churn = i === 0 ? D.churn_rate_cafe24 : D.churn_rate_search;
+      return ['월 ARPU: ' + c.parsed.y.toLocaleString() + '원',
+        '월 해지율: ' + churn.toFixed(2) + '%'];
+    };
+    legendHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">매출고객 1인의 월 평균 결제액</span>`;
   }
 
-  document.getElementById('oltv' + year + '-legend').innerHTML = `
-    <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
-    <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
-    <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">${year === '25' ? '12개월 누적 실측' : '3개월 누적 실측'}</span>`;
+  document.getElementById('oltv' + year + '-legend').innerHTML = legendHTML;
 
   charts[chartKey] = new Chart(ctx, {
     type: 'bar',
@@ -2986,7 +3163,7 @@ function buildOLtv(year) {
       },
       scales: {
         x: xAxisBase,
-        y: Object.assign({}, yAxisBase, { beginAtZero: mode !== 'profit', grace: '15%',
+        y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
           ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: yFormatter },
           title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
       }
