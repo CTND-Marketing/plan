@@ -71,70 +71,86 @@ header .subtitle {
 /* MAIN NAV (메인 페이지 / 연도별 분석) */
 .main-nav {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   margin: 24px 0 32px;
-  padding: 6px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 2px solid var(--line-strong);
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   position: sticky;
   top: 12px;
   z-index: 100;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
 }
 .main-nav-item {
   flex: 1;
-  padding: 14px 18px;
-  border: none;
-  background: transparent;
-  color: var(--ink-mute);
-  font-size: 15px;
+  padding: 18px 20px;
+  border: 2px solid transparent;
+  background: var(--bg-subtle);
+  color: var(--ink);
+  font-size: 16px;
   font-weight: 600;
   font-family: 'Pretendard', -apple-system, sans-serif;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.18s ease;
+  border-radius: 10px;
+  transition: all 0.2s ease;
   letter-spacing: -0.01em;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
+  position: relative;
 }
 .main-nav-item:hover {
-  color: var(--ink);
-  background: var(--bg-subtle);
+  background: #fff;
+  border-color: var(--line-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 .main-nav-item.active {
   color: #fff;
-  background: var(--ink);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
 }
 .main-nav-item[data-target="overview"].active {
   background: linear-gradient(135deg, var(--ppt-1) 0%, #2C5BAD 100%);
 }
 .main-nav-item[data-target="year-2025"].active {
-  background: var(--ppt-1);
+  background: linear-gradient(135deg, var(--ppt-1) 0%, #2C5BAD 100%);
 }
 .main-nav-item[data-target="year-2026"].active {
-  background: var(--ppt-2);
+  background: linear-gradient(135deg, var(--ppt-2) 0%, #C25A1F 100%);
 }
 .main-nav-label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  opacity: 0.85;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
   text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.main-nav-item.active .main-nav-label {
+  opacity: 0.95;
+  color: #fff;
 }
 .main-nav-title {
-  font-size: 14.5px;
+  font-size: 17px;
   font-weight: 700;
+  color: var(--ink);
+}
+.main-nav-item.active .main-nav-title {
+  color: #fff;
 }
 .main-nav-meta {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 500;
-  opacity: 0.75;
+  color: var(--ink-mute);
   margin-top: 2px;
+}
+.main-nav-item.active .main-nav-meta {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* MAIN PAGE - 메인/연도 페이지 토글 */
