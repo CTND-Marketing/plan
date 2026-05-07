@@ -1968,10 +1968,10 @@ function buildConversion25() {
     data: {
       labels,
       datasets: [
-        { type: 'bar', label: '가입자',   data: signup, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' },
-        { type: 'bar', label: '유료전환', data: paid,   backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' },
+        { type: 'bar', label: '가입자',   data: signup, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' , order: 1 },
+        { type: 'bar', label: '유료전환', data: paid,   backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' , order: 1 },
         { type: 'line', label: '전환율',  data: rate,   borderColor: COLORS.ppt2, backgroundColor: COLORS.ppt2,
-          borderWidth: 2, pointRadius: 5, pointHoverRadius: 7, tension: 0.3, yAxisID: 'y1', datalabels: { display: false } }
+          borderWidth: 2, pointRadius: 5, pointHoverRadius: 7, tension: 0.3, yAxisID: 'y1', datalabels: { display: false } , order: 0 }
       ]
     },
     plugins: [ChartDataLabels],
@@ -2232,8 +2232,8 @@ function buildRevenue26() {
       data: {
         labels: D.bucket_labels,
         datasets: [
-          { type: 'bar', label: '고객 수', data: D.bucket_counts, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' },
-          { type: 'line', label: '매출 합계', data: D.bucket_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } }
+          { type: 'bar', label: '고객 수', data: D.bucket_counts, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' , order: 1 },
+          { type: 'line', label: '매출 합계', data: D.bucket_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } , order: 0 }
         ]
       },
       plugins: [ChartDataLabels],
@@ -2577,8 +2577,8 @@ function buildORevenue(year) {
       data: {
         labels: D.bucket_labels,
         datasets: [
-          { type: 'bar', label: '고객 수', data: D.bucket_counts, backgroundColor: accent, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' },
-          { type: 'line', label: '매출 합계', data: D.bucket_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } }
+          { type: 'bar', label: '고객 수', data: D.bucket_counts, backgroundColor: accent, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' , order: 1 },
+          { type: 'line', label: '매출 합계', data: D.bucket_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } , order: 0 }
         ]
       },
       plugins: [ChartDataLabels],
@@ -2624,8 +2624,8 @@ function buildORevenue(year) {
       data: {
         labels: D.plan_labels,
         datasets: [
-          { type: 'bar', label: '고객 수', data: D.plan_counts, backgroundColor: accent, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' },
-          { type: 'line', label: '매출 합계', data: D.plan_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } }
+          { type: 'bar', label: '고객 수', data: D.plan_counts, backgroundColor: accent, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' , order: 1 },
+          { type: 'line', label: '매출 합계', data: D.plan_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } , order: 0 }
         ]
       },
       plugins: [ChartDataLabels],
@@ -2719,8 +2719,8 @@ function buildORevenue(year) {
     data: {
       labels: D.industry_labels,
       datasets: [
-        { type: 'bar', label: '고객 수', data: D.industry_counts, backgroundColor: accent, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' },
-        { type: 'line', label: '매출 합계', data: D.industry_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } }
+        { type: 'bar', label: '고객 수', data: D.industry_counts, backgroundColor: accent, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' , order: 1 },
+        { type: 'line', label: '매출 합계', data: D.industry_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } , order: 0 }
       ]
     },
     plugins: [ChartDataLabels],
@@ -2773,9 +2773,9 @@ function buildOAdcost(year) {
       data: {
         labels: D.month_labels,
         datasets: [
-          { type: 'bar', label: '카페24', data: D.month_cafe24, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.7, stack: 'rev', yAxisID: 'y' },
-          { type: 'bar', label: '검색/배너', data: D.month_search, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.7, stack: 'rev', yAxisID: 'y' },
-          { type: 'line', label: '광고비', data: D.month_ad, borderColor: COLORS.ppt4, backgroundColor: COLORS.ppt4, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0, yAxisID: 'y', datalabels: { display: false } }
+          { type: 'bar', label: '카페24', data: D.month_cafe24, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.7, stack: 'rev', yAxisID: 'y' , order: 1 },
+          { type: 'bar', label: '검색/배너', data: D.month_search, backgroundColor: COLORS.ppt2, borderRadius: 2, barPercentage: 0.7, stack: 'rev', yAxisID: 'y' , order: 1 },
+          { type: 'line', label: '광고비', data: D.month_ad, borderColor: COLORS.ppt4, backgroundColor: COLORS.ppt4, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0, yAxisID: 'y', datalabels: { display: false } , order: 0 }
         ]
       },
       plugins: [ChartDataLabels],
@@ -3240,8 +3240,8 @@ function buildRevenue25() {
       data: {
         labels: D.bucket_labels,
         datasets: [
-          { type: 'bar', label: '고객 수', data: D.bucket_counts, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' },
-          { type: 'line', label: '매출 합계', data: D.bucket_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } }
+          { type: 'bar', label: '고객 수', data: D.bucket_counts, backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.6, yAxisID: 'y' , order: 1 },
+          { type: 'line', label: '매출 합계', data: D.bucket_sums, borderColor: COLORS.ppt6, backgroundColor: COLORS.ppt6, borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, tension: 0.2, yAxisID: 'y1', datalabels: { display: false } , order: 0 }
         ]
       },
       plugins: [ChartDataLabels],
@@ -3927,10 +3927,10 @@ function buildConversion26() {
     data: {
       labels,
       datasets: [
-        { type: 'bar', label: '가입자',   data: signup, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' },
-        { type: 'bar', label: '유료전환', data: paid,   backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' },
+        { type: 'bar', label: '가입자',   data: signup, backgroundColor: COLORS.ppt3, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' , order: 1 },
+        { type: 'bar', label: '유료전환', data: paid,   backgroundColor: COLORS.ppt1, borderRadius: 2, barPercentage: 0.85, categoryPercentage: 0.65, yAxisID: 'y' , order: 1 },
         { type: 'line', label: '전환율',  data: rate,   borderColor: COLORS.ppt2, backgroundColor: COLORS.ppt2,
-          borderWidth: 2, pointRadius: 5, pointHoverRadius: 7, tension: 0.3, yAxisID: 'y1', datalabels: { display: false } }
+          borderWidth: 2, pointRadius: 5, pointHoverRadius: 7, tension: 0.3, yAxisID: 'y1', datalabels: { display: false } , order: 0 }
       ]
     },
     plugins: [ChartDataLabels],
