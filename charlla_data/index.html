@@ -4,11 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>찰나 — 데이터 대시보드</title>
-<meta name="description" content="찰나 서비스 가입고객 분석 리포트 — 2025년 연간 데이터와 2026년 1분기 매출·광고 분석">
-<meta property="og:title" content="찰나 데이터 대시보드">
-<meta property="og:description" content="2025년 가입고객 분석 + 2026년 1분기 매출·광고 분석">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#4472C4">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
@@ -41,7 +36,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   line-height: 1.6;
-  font-size: 15px;
+  font-size: 17px;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
@@ -68,7 +63,7 @@ header h1 {
   color: var(--ink);
 }
 header .subtitle {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ink-mute);
   margin-top: 8px;
 }
@@ -109,7 +104,7 @@ header .subtitle {
 
 .year-tab-tag {
   display: inline-block;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   padding: 3px 8px;
@@ -121,14 +116,14 @@ header .subtitle {
 .year-tab[data-year="2025"].active .year-tab-tag { background: #E8EFF9; color: #2A4F94; }
 .year-tab[data-year="2026"].active .year-tab-tag { background: #FBE6D6; color: #A04E14; }
 .year-tab-title {
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--ink);
   margin-bottom: 4px;
   letter-spacing: -0.01em;
 }
 .year-tab-meta {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--ink-mute);
   font-weight: 500;
 }
@@ -156,7 +151,7 @@ header .subtitle {
   border-left: 3px solid var(--accent);
 }
 .kpi-label {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.05em;
   color: var(--ink-mute);
   font-weight: 500;
@@ -164,19 +159,19 @@ header .subtitle {
 }
 .kpi-value {
   font-weight: 700;
-  font-size: 24px;
+  font-size: 30px;
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--ink);
 }
 .kpi-value .unit {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ink-mute);
   margin-left: 3px;
   font-weight: 500;
 }
 .kpi-sub {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--ink-soft);
   margin-top: 6px;
 }
@@ -192,9 +187,9 @@ header .subtitle {
 .nav-tab {
   background: transparent;
   border: none;
-  padding: 12px 18px;
+  padding: 14px 20px;
   font-family: 'Pretendard', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--ink-mute);
   cursor: pointer;
@@ -222,7 +217,7 @@ header .subtitle {
 }
 .section-title-block { flex: 1; min-width: 280px; }
 .section-num {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   color: var(--accent);
   font-weight: 600;
@@ -230,14 +225,14 @@ header .subtitle {
 }
 .section-title {
   font-weight: 700;
-  font-size: 22px;
+  font-size: 26px;
   line-height: 1.3;
   letter-spacing: -0.01em;
   color: var(--ink);
   margin-bottom: 6px;
 }
 .section-desc {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ink-soft);
   max-width: 560px;
 }
@@ -249,7 +244,7 @@ header .subtitle {
   align-items: center;
 }
 .control-label {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.05em;
   color: var(--ink-mute);
   font-weight: 500;
@@ -259,9 +254,9 @@ header .subtitle {
   background: #ffffff;
   border: 1px solid var(--line-strong);
   border-radius: 4px;
-  padding: 7px 14px;
+  padding: 8px 15px;
   font-family: 'Pretendard', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--ink-soft);
   cursor: pointer;
@@ -293,7 +288,7 @@ header .subtitle {
   flex-wrap: wrap;
   gap: 18px;
   margin-bottom: 16px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--ink-soft);
   font-weight: 500;
 }
@@ -316,7 +311,7 @@ header .subtitle {
   border-left: 3px solid var(--accent);
 }
 .insights-head {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   color: var(--accent);
   font-weight: 600;
@@ -329,7 +324,7 @@ header .subtitle {
   gap: 8px;
 }
 .insights li {
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--ink);
   line-height: 1.65;
   padding-left: 16px;
@@ -359,24 +354,24 @@ header .subtitle {
   border-radius: 4px;
 }
 .sub-stat-label {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--ink-mute);
   font-weight: 500;
   margin-bottom: 4px;
 }
 .sub-stat-value {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--ink);
 }
 
 .note {
   margin-bottom: 16px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   background: #FFF8E6;
   border-left: 3px solid var(--ppt-4);
   border-radius: 4px;
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--ink-soft);
   line-height: 1.55;
 }
@@ -389,7 +384,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--ink-mute);
 }
 
@@ -398,7 +393,7 @@ footer {
   header h1 { font-size: 26px; }
   .year-tabs { flex-direction: column; }
   .kpi-strip { grid-template-columns: repeat(2, 1fr); }
-  .section-title { font-size: 18px; }
+  .section-title { font-size: 22px; }
   .chart-card { padding: 16px; }
   .chart-wrap { height: 340px; }
 }
@@ -1195,16 +1190,16 @@ const tooltipBase = {
   titleColor: '#ffffff', bodyColor: '#ffffff',
   borderWidth: 0, padding: 12, cornerRadius: 4,
   displayColors: false,
-  titleFont: { family: 'Pretendard', size: 12, weight: '600' },
-  bodyFont: { family: 'Pretendard', size: 13, weight: '400' }
+  titleFont: { family: 'Pretendard', size: 14, weight: '600' },
+  bodyFont: { family: 'Pretendard', size: 15, weight: '400' }
 };
 const xAxisBase = {
-  ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 12, weight: '500' }, autoSkip: false, maxRotation: 0 },
+  ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 14, weight: '500' }, autoSkip: false, maxRotation: 0 },
   grid: { display: false },
   border: { color: COLORS.line }
 };
 const yAxisBase = {
-  ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 } },
+  ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 } },
   grid: { color: COLORS.line, drawBorder: false },
   border: { display: false }
 };
@@ -1323,7 +1318,7 @@ function buildDuration25() {
     document.getElementById('duration25-legend').innerHTML = `
       <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (${cafe24Total}명)</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고 (${searchTotal}명)</span>
-      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">
         해지 + 이용중 합산 · 카페24 외 모든 플랫폼은 검색/배너광고로 통합
       </span>`;
 
@@ -1343,7 +1338,7 @@ function buildDuration25() {
           legend: { display: false },
           datalabels: {
             anchor: 'end', align: 'end', offset: 2,
-            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
             formatter: (v, c) => {
               if (v === 0) return '';
               const total = c.dataset.label === '카페24' ? cafe24Total : searchTotal;
@@ -1365,7 +1360,7 @@ function buildDuration25() {
           x: xAxisBase,
           y: Object.assign({}, yAxisBase, {
             beginAtZero: true, grace: '12%',
-            title: { display: true, text: '유료고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            title: { display: true, text: '유료고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
           })
         }
       }
@@ -1394,7 +1389,7 @@ function buildDuration25() {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
-          color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+          color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
           formatter: (v, c) => {
             if (v === 0) return '';
             const total = c.dataset.label === '이용 중' ? 313 : 107;
@@ -1416,7 +1411,7 @@ function buildDuration25() {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, {
           beginAtZero: true, grace: '12%',
-          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -1442,7 +1437,7 @@ function buildServices25() {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
-          color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+          color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
           formatter: (v, c) => {
             const cnt = DATA25.services.counts[c.dataIndex];
             return Math.round(cnt / total * 100) + '%';
@@ -1462,8 +1457,8 @@ function buildServices25() {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, {
           beginAtZero: true, grace: '12%',
-          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => mode === 'pct' ? v + '%' : v },
-          title: { display: true, text: mode === 'pct' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => mode === 'pct' ? v + '%' : v },
+          title: { display: true, text: mode === 'pct' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -1497,7 +1492,7 @@ function buildPlans25() {
         legend: { display: false },
         datalabels: {
           anchor: 'center', align: 'center',
-          color: '#ffffff', font: { family: 'Pretendard', size: 10, weight: '700' },
+          color: '#ffffff', font: { family: 'Pretendard', size: 12, weight: '700' },
           formatter: (v, c) => {
             const planArrs = [D.promotion, D.lite, D.basic, D.standard, D.enterprise];
             const raw = planArrs[c.datasetIndex][c.dataIndex];
@@ -1520,12 +1515,12 @@ function buildPlans25() {
         })
       },
       scales: {
-        x: Object.assign({}, xAxisBase, { stacked: true, ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 11, weight: '500' } } }),
+        x: Object.assign({}, xAxisBase, { stacked: true, ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 13, weight: '500' } } }),
         y: Object.assign({}, yAxisBase, {
           stacked: true, beginAtZero: true,
           max: mode === 'ratio' ? 100 : undefined,
-          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => mode === 'ratio' ? v + '%' : v },
-          title: { display: true, text: mode === 'ratio' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => mode === 'ratio' ? v + '%' : v },
+          title: { display: true, text: mode === 'ratio' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -1567,7 +1562,7 @@ function buildConversion25() {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
-          color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+          color: COLORS.ink, font: { family: 'Pretendard', size: 12, weight: '600' },
           formatter: (v, c) => {
             if (c.dataset.type === 'line') return '';
             const total = c.dataset.label === '가입자' ? 1727 : 420;
@@ -1589,13 +1584,13 @@ function buildConversion25() {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, {
           beginAtZero: true, grace: '12%', position: 'left',
-          title: { display: true, text: '명', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          title: { display: true, text: '명', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         }),
         y1: {
           beginAtZero: true, max: 60, position: 'right',
-          ticks: { color: COLORS.ppt2, font: { family: 'Pretendard', size: 11 }, callback: v => v + '%' },
+          ticks: { color: COLORS.ppt2, font: { family: 'Pretendard', size: 13 }, callback: v => v + '%' },
           grid: { display: false }, border: { display: false },
-          title: { display: true, text: '전환율 (%)', color: COLORS.ppt2, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          title: { display: true, text: '전환율 (%)', color: COLORS.ppt2, font: { family: 'Pretendard', size: 13, weight: '500' } }
         }
       }
     }
@@ -1714,7 +1709,7 @@ function buildRevenue26() {
   if (mode === 'plan') {
     document.getElementById('revenue26-legend').innerHTML = `
       <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>매출 발생 고객 수</span>
-      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">총 86명</span>`;
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">총 86명</span>`;
 
     charts.revenue26 = new Chart(ctx, {
       type: 'bar',
@@ -1726,7 +1721,7 @@ function buildRevenue26() {
           legend: { display: false },
           datalabels: {
             anchor: 'end', align: 'end', offset: 2,
-            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
             formatter: (v) => Math.round(v / 86 * 100) + '%'
           },
           tooltip: Object.assign({}, tooltipBase, {
@@ -1737,7 +1732,7 @@ function buildRevenue26() {
           x: xAxisBase,
           y: Object.assign({}, yAxisBase, {
             beginAtZero: true, grace: '15%',
-            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
           })
         }
       }
@@ -1765,7 +1760,7 @@ function buildRevenue26() {
           legend: { display: false },
           datalabels: {
             anchor: 'end', align: 'end', offset: 2,
-            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
             formatter: (v, c) => c.dataset.type === 'line' ? '' : Math.round(v / 86 * 100) + '%'
           },
           tooltip: Object.assign({}, tooltipBase, {
@@ -1781,13 +1776,13 @@ function buildRevenue26() {
           x: xAxisBase,
           y: Object.assign({}, yAxisBase, {
             beginAtZero: true, grace: '12%', position: 'left',
-            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
           }),
           y1: {
             beginAtZero: true, position: 'right',
-            ticks: { color: COLORS.ppt6, font: { family: 'Pretendard', size: 11 }, callback: (v) => (v/10000).toFixed(0) + '만' },
+            ticks: { color: COLORS.ppt6, font: { family: 'Pretendard', size: 13 }, callback: (v) => (v/10000).toFixed(0) + '만' },
             grid: { display: false }, border: { display: false },
-            title: { display: true, text: '매출 (원)', color: COLORS.ppt6, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            title: { display: true, text: '매출 (원)', color: COLORS.ppt6, font: { family: 'Pretendard', size: 13, weight: '500' } }
           }
         }
       }
@@ -1816,7 +1811,7 @@ function buildRevenue26() {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
-          color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+          color: COLORS.ink, font: { family: 'Pretendard', size: 12, weight: '600' },
           formatter: (v, c) => {
             const total = c.dataset.label === '카페24' ? 67 : 19;
             return total > 0 ? Math.round(v / total * 100) + '%' : '';
@@ -1836,7 +1831,7 @@ function buildRevenue26() {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, {
           beginAtZero: true, grace: '15%',
-          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -1872,7 +1867,7 @@ function buildAdcost26() {
           legend: { display: false },
           datalabels: {
             anchor: 'end', align: 'end', offset: 2,
-            color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+            color: COLORS.ink, font: { family: 'Pretendard', size: 12, weight: '600' },
             formatter: (v, c) => {
               const total = c.dataset.label === '카페24' ? 67 : 19;
               return total > 0 ? Math.round(v / total * 100) + '%' : '';
@@ -1892,7 +1887,7 @@ function buildAdcost26() {
           x: xAxisBase,
           y: Object.assign({}, yAxisBase, {
             beginAtZero: true, grace: '15%',
-            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
           })
         }
       }
@@ -1948,7 +1943,7 @@ function buildAdcost26() {
           ctx2.stroke();
           ctx2.setLineDash([]);
           ctx2.fillStyle = COLORS.ppt6;
-          ctx2.font = '600 11px Pretendard';
+          ctx2.font = '600 13px Pretendard';
           ctx2.fillText('손익분기 100%', xScale.right - 100, y100 - 6);
           ctx2.restore();
         }
@@ -1967,13 +1962,13 @@ function buildAdcost26() {
         },
         scales: {
           x: Object.assign({}, xAxisBase, {
-            ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 10 }, autoSkip: true, maxTicksLimit: 12, maxRotation: 0 },
-            title: { display: true, text: '유료전환당 CAC (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 12 }, autoSkip: true, maxTicksLimit: 12, maxRotation: 0 },
+            title: { display: true, text: '유료전환당 CAC (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
           }),
           y: Object.assign({}, yAxisBase, {
             beginAtZero: true, max: 800,
-            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => v + '%' },
-            title: { display: true, text: 'ROAS (%)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => v + '%' },
+            title: { display: true, text: 'ROAS (%)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
           })
         }
       }
@@ -2001,7 +1996,7 @@ function buildAdcost26() {
     document.getElementById('adcost26-legend').innerHTML = `
       <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
-      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">ROAS = (3개월 매출 ÷ 분기 광고비) × 100</span>`;
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">ROAS = (3개월 매출 ÷ 분기 광고비) × 100</span>`;
   } else {
     datasets = [
       { label: 'ARPU (매출고객)', data: D.arpu, backgroundColor: COLORS.ppt6, borderRadius: 2 },
@@ -2018,7 +2013,7 @@ function buildAdcost26() {
     document.getElementById('adcost26-legend').innerHTML = `
       <span><span class="legend-dot" style="background:${COLORS.ppt6}"></span>ARPU (매출고객 평균)</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt4}"></span>유료전환당 CAC</span>
-      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">ROAS: 카페24 <strong style="color:${COLORS.ppt1}">45.6%</strong> · 검색/배너 <strong style="color:${COLORS.ppt2}">16.4%</strong></span>`;
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">ROAS: 카페24 <strong style="color:${COLORS.ppt1}">45.6%</strong> · 검색/배너 <strong style="color:${COLORS.ppt2}">16.4%</strong></span>`;
   }
 
   charts.adcost26 = new Chart(ctx, {
@@ -2029,15 +2024,15 @@ function buildAdcost26() {
       responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
       plugins: {
         legend: { display: false },
-        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' }, formatter: dataLabelFmt },
+        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' }, formatter: dataLabelFmt },
         tooltip: Object.assign({}, tooltipBase, { callbacks: { label: tooltipFmt } })
       },
       scales: {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, {
           beginAtZero: true, grace: '15%',
-          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: yFormatter },
-          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: yFormatter },
+          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -2084,7 +2079,7 @@ function buildDuration26() {
     document.getElementById('duration26-legend').innerHTML = `
       <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (${cafe24Total}명)</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고 (${searchTotal}명)</span>
-      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">해지 + 이용중 합산</span>`;
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">해지 + 이용중 합산</span>`;
 
     charts.duration26 = new Chart(ctx, {
       type: 'bar',
@@ -2102,7 +2097,7 @@ function buildDuration26() {
           legend: { display: false },
           datalabels: {
             anchor: 'end', align: 'end', offset: 2,
-            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
             formatter: (v, c) => {
               if (v === 0) return '';
               const total = c.dataset.label === '카페24' ? cafe24Total : searchTotal;
@@ -2123,7 +2118,7 @@ function buildDuration26() {
         scales: {
           x: xAxisBase,
           y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
-            title: { display: true, text: '유료고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+            title: { display: true, text: '유료고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
         }
       }
     });
@@ -2151,7 +2146,7 @@ function buildDuration26() {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
-          color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+          color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
           formatter: (v, c) => {
             if (v === 0) return '';
             const total = c.dataset.label === '이용 중' ? 95 : 2;
@@ -2172,7 +2167,7 @@ function buildDuration26() {
       scales: {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
-          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
       }
     }
   });
@@ -2191,7 +2186,7 @@ function buildRevenue25() {
     document.getElementById('revenue25-legend').innerHTML = `
       <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>일반 플랜</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>Enterprise (매출구간별)</span>
-      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">총 275명</span>`;
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">총 275명</span>`;
 
     charts.revenue25 = new Chart(ctx, {
       type: 'bar',
@@ -2203,7 +2198,7 @@ function buildRevenue25() {
           legend: { display: false },
           datalabels: {
             anchor: 'end', align: 'end', offset: 2,
-            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
             formatter: (v) => Math.round(v / 275 * 100) + '%'
           },
           tooltip: Object.assign({}, tooltipBase, {
@@ -2217,9 +2212,9 @@ function buildRevenue25() {
           })
         },
         scales: {
-          x: Object.assign({}, xAxisBase, { ticks: Object.assign({}, xAxisBase.ticks, { font: { family: 'Pretendard', size: 10, weight: '500' } }) }),
+          x: Object.assign({}, xAxisBase, { ticks: Object.assign({}, xAxisBase.ticks, { font: { family: 'Pretendard', size: 12, weight: '500' } }) }),
           y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
-            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
         }
       }
     });
@@ -2246,7 +2241,7 @@ function buildRevenue25() {
           legend: { display: false },
           datalabels: {
             anchor: 'end', align: 'end', offset: 2,
-            color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+            color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
             formatter: (v, c) => c.dataset.type === 'line' ? '' : Math.round(v / 275 * 100) + '%'
           },
           tooltip: Object.assign({}, tooltipBase, {
@@ -2261,11 +2256,11 @@ function buildRevenue25() {
         scales: {
           x: xAxisBase,
           y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '12%', position: 'left',
-            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } }),
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } }),
           y1: { beginAtZero: true, position: 'right',
-            ticks: { color: COLORS.ppt6, font: { family: 'Pretendard', size: 11 }, callback: (v) => (v/10000000).toFixed(0) + '천만' },
+            ticks: { color: COLORS.ppt6, font: { family: 'Pretendard', size: 13 }, callback: (v) => (v/10000000).toFixed(0) + '천만' },
             grid: { display: false }, border: { display: false },
-            title: { display: true, text: '매출 (원)', color: COLORS.ppt6, font: { family: 'Pretendard', size: 11, weight: '500' } } }
+            title: { display: true, text: '매출 (원)', color: COLORS.ppt6, font: { family: 'Pretendard', size: 13, weight: '500' } } }
         }
       }
     });
@@ -2293,7 +2288,7 @@ function buildRevenue25() {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
-          color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+          color: COLORS.ink, font: { family: 'Pretendard', size: 12, weight: '600' },
           formatter: (v, c) => {
             const total = c.dataset.label === '카페24' ? 218 : 57;
             return total > 0 ? Math.round(v / total * 100) + '%' : '';
@@ -2312,7 +2307,7 @@ function buildRevenue25() {
       scales: {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
-          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+          title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
       }
     }
   });
@@ -2347,7 +2342,7 @@ function buildAdcost25() {
           legend: { display: false },
           datalabels: {
             anchor: 'end', align: 'end', offset: 2,
-            color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+            color: COLORS.ink, font: { family: 'Pretendard', size: 12, weight: '600' },
             formatter: (v, c) => {
               const total = c.dataset.label === '카페24' ? 218 : 57;
               return Math.round(v / total * 100) + '%';
@@ -2365,7 +2360,7 @@ function buildAdcost25() {
         scales: {
           x: xAxisBase,
           y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
-            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+            title: { display: true, text: '고객 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
         }
       }
     });
@@ -2421,7 +2416,7 @@ function buildAdcost25() {
           ctx2.stroke();
           ctx2.setLineDash([]);
           ctx2.fillStyle = COLORS.ppt6;
-          ctx2.font = '600 11px Pretendard';
+          ctx2.font = '600 13px Pretendard';
           ctx2.fillText('손익분기 100%', xScale.right - 100, y100 - 6);
           ctx2.restore();
         }
@@ -2440,12 +2435,12 @@ function buildAdcost25() {
         },
         scales: {
           x: Object.assign({}, xAxisBase, {
-            ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 10 }, autoSkip: true, maxTicksLimit: 12, maxRotation: 0 },
-            title: { display: true, text: '유료전환당 CAC (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 12 }, autoSkip: true, maxTicksLimit: 12, maxRotation: 0 },
+            title: { display: true, text: '유료전환당 CAC (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
           }),
           y: Object.assign({}, yAxisBase, { beginAtZero: true, max: 600,
-            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => v + '%' },
-            title: { display: true, text: 'ROAS (%)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => v + '%' },
+            title: { display: true, text: 'ROAS (%)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
         }
       }
     });
@@ -2470,7 +2465,7 @@ function buildAdcost25() {
     document.getElementById('adcost25-legend').innerHTML = `
       <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
-      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">ROAS = (연 매출 ÷ 연 광고비) × 100</span>`;
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">ROAS = (연 매출 ÷ 연 광고비) × 100</span>`;
   } else {
     datasets = [
       { label: 'ARPU (매출고객)', data: D.arpu, backgroundColor: COLORS.ppt6, borderRadius: 2 },
@@ -2497,14 +2492,14 @@ function buildAdcost25() {
       responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
       plugins: {
         legend: { display: false },
-        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' }, formatter: dataLabelFmt },
+        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' }, formatter: dataLabelFmt },
         tooltip: Object.assign({}, tooltipBase, { callbacks: { label: tooltipFmt } })
       },
       scales: {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, { beginAtZero: true, grace: '15%',
-          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: yFormatter },
-          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: yFormatter },
+          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
       }
     }
   });
@@ -2595,7 +2590,7 @@ function buildStatus25() {
               const lbl = c.dataset.label;
               return lbl === '미전환·휴면' || lbl === '유료·정상' || lbl === '유료·휴면' ? '#fff' : COLORS.ink;
             },
-            font: { family: 'Pretendard', size: 10, weight: '700' },
+            font: { family: 'Pretendard', size: 12, weight: '700' },
             formatter: (v, c) => {
               const tot = D.quarter_totals[c.dataIndex];
               const pct = Math.round(v / tot * 100);
@@ -2615,7 +2610,7 @@ function buildStatus25() {
         scales: {
           x: Object.assign({}, xAxisBase, { stacked: true }),
           y: Object.assign({}, yAxisBase, { stacked: true, beginAtZero: true,
-            title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+            title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
         }
       }
     });
@@ -2655,7 +2650,7 @@ function buildStatus25() {
             const lbl = c.dataset.label;
             return lbl === '미전환·휴면' || lbl === '유료·정상' || lbl === '유료·휴면' ? '#fff' : COLORS.ink;
           },
-          font: { family: 'Pretendard', size: 10, weight: '700' },
+          font: { family: 'Pretendard', size: 12, weight: '700' },
           formatter: (v, c) => {
             const tot = D.ch_totals[c.dataIndex];
             const pct = Math.round(v / tot * 100);
@@ -2675,7 +2670,7 @@ function buildStatus25() {
       scales: {
         x: Object.assign({}, xAxisBase, { stacked: true }),
         y: Object.assign({}, yAxisBase, { stacked: true, beginAtZero: true,
-          title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } } })
+          title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
       }
     }
   });
@@ -2723,7 +2718,7 @@ function buildLtv25() {
   document.getElementById('ltv25-legend').innerHTML = `
     <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24</span>
     <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너광고</span>
-    <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:11px">2025년 = 12개월 매출 누적 실측 데이터</span>`;
+    <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">2025년 = 12개월 매출 누적 실측 데이터</span>`;
 
   charts.ltv25 = new Chart(ctx, {
     type: 'bar',
@@ -2750,7 +2745,7 @@ function buildLtv25() {
         ctx2.stroke();
         ctx2.setLineDash([]);
         ctx2.fillStyle = COLORS.ppt6;
-        ctx2.font = '600 11px Pretendard';
+        ctx2.font = '600 13px Pretendard';
         ctx2.fillText('손익분기 100%', xScale.right - 100, y100 - 6);
         ctx2.restore();
       }
@@ -2759,7 +2754,7 @@ function buildLtv25() {
       responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
       plugins: {
         legend: { display: false },
-        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' }, formatter: dataLabelFmt },
+        datalabels: { anchor: 'end', align: 'end', offset: 2, color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' }, formatter: dataLabelFmt },
         tooltip: Object.assign({}, tooltipBase, { callbacks: { label: tooltipFmt } })
       },
       scales: {
@@ -2767,8 +2762,8 @@ function buildLtv25() {
         y: Object.assign({}, yAxisBase, {
           beginAtZero: mode !== 'profit',
           grace: '15%',
-          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: yFormatter },
-          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: yFormatter },
+          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -2795,7 +2790,7 @@ function buildServices26() {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
-          color: COLORS.ink, font: { family: 'Pretendard', size: 11, weight: '600' },
+          color: COLORS.ink, font: { family: 'Pretendard', size: 13, weight: '600' },
           formatter: (v, c) => {
             const cnt = DATA26.services.counts[c.dataIndex];
             return Math.round(cnt / total * 100) + '%';
@@ -2815,8 +2810,8 @@ function buildServices26() {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, {
           beginAtZero: true, grace: '12%',
-          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => mode === 'pct' ? v + '%' : v },
-          title: { display: true, text: mode === 'pct' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => mode === 'pct' ? v + '%' : v },
+          title: { display: true, text: mode === 'pct' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -2850,7 +2845,7 @@ function buildPlans26() {
         legend: { display: false },
         datalabels: {
           anchor: 'center', align: 'center',
-          color: '#ffffff', font: { family: 'Pretendard', size: 10, weight: '700' },
+          color: '#ffffff', font: { family: 'Pretendard', size: 12, weight: '700' },
           formatter: (v, c) => {
             const planArrs = [D.promotion, D.lite, D.basic, D.standard, D.enterprise];
             const raw = planArrs[c.datasetIndex][c.dataIndex];
@@ -2873,12 +2868,12 @@ function buildPlans26() {
         })
       },
       scales: {
-        x: Object.assign({}, xAxisBase, { stacked: true, ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 11, weight: '500' } } }),
+        x: Object.assign({}, xAxisBase, { stacked: true, ticks: { color: COLORS.inkSoft, font: { family: 'Pretendard', size: 13, weight: '500' } } }),
         y: Object.assign({}, yAxisBase, {
           stacked: true, beginAtZero: true,
           max: mode === 'ratio' ? 100 : undefined,
-          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 }, callback: (v) => mode === 'ratio' ? v + '%' : v },
-          title: { display: true, text: mode === 'ratio' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => mode === 'ratio' ? v + '%' : v },
+          title: { display: true, text: mode === 'ratio' ? '비율 (%)' : '사용자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -2920,7 +2915,7 @@ function buildConversion26() {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
-          color: COLORS.ink, font: { family: 'Pretendard', size: 10, weight: '600' },
+          color: COLORS.ink, font: { family: 'Pretendard', size: 12, weight: '600' },
           formatter: (v, c) => {
             if (c.dataset.type === 'line') return '';
             const total = c.dataset.label === '가입자' ? 777 : 97;
@@ -2942,13 +2937,13 @@ function buildConversion26() {
         x: xAxisBase,
         y: Object.assign({}, yAxisBase, {
           beginAtZero: true, grace: '12%', position: 'left',
-          title: { display: true, text: '명', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          title: { display: true, text: '명', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         }),
         y1: {
           beginAtZero: true, max: 50, position: 'right',
-          ticks: { color: COLORS.ppt2, font: { family: 'Pretendard', size: 11 }, callback: v => v + '%' },
+          ticks: { color: COLORS.ppt2, font: { family: 'Pretendard', size: 13 }, callback: v => v + '%' },
           grid: { display: false }, border: { display: false },
-          title: { display: true, text: '전환율 (%)', color: COLORS.ppt2, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          title: { display: true, text: '전환율 (%)', color: COLORS.ppt2, font: { family: 'Pretendard', size: 13, weight: '500' } }
         }
       }
     }
@@ -3035,7 +3030,7 @@ function buildLtv26() {
         ctx2.stroke();
         ctx2.setLineDash([]);
         ctx2.fillStyle = COLORS.ppt6;
-        ctx2.font = '600 11px Pretendard';
+        ctx2.font = '600 13px Pretendard';
         ctx2.fillText('손익분기 100%', xScale.right - 100, y100 - 6);
         ctx2.restore();
       }
@@ -3047,7 +3042,7 @@ function buildLtv26() {
         datalabels: {
           anchor: 'end', align: 'end', offset: 2,
           color: COLORS.ink,
-          font: { family: 'Pretendard', size: 11, weight: '600' },
+          font: { family: 'Pretendard', size: 13, weight: '600' },
           formatter: dataLabelFmt
         },
         tooltip: Object.assign({}, tooltipBase, {
@@ -3060,10 +3055,10 @@ function buildLtv26() {
           beginAtZero: mode !== 'profit',
           grace: '15%',
           ticks: {
-            color: COLORS.inkMute, font: { family: 'Pretendard', size: 11 },
+            color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 },
             callback: yFormatter
           },
-          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          title: { display: true, text: yLabel, color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
@@ -3171,7 +3166,7 @@ function buildStatus26() {
               const lbl = c.dataset.label;
               return lbl === '미전환·휴면' || lbl === '유료·정상이용중' ? '#fff' : COLORS.ink;
             },
-            font: { family: 'Pretendard', size: 10, weight: '700' },
+            font: { family: 'Pretendard', size: 12, weight: '700' },
             formatter: (v, c) => {
               const tot = D.month_totals[c.dataIndex];
               const pct = Math.round(v / tot * 100);
@@ -3193,7 +3188,7 @@ function buildStatus26() {
           x: Object.assign({}, xAxisBase, { stacked: true }),
           y: Object.assign({}, yAxisBase, {
             stacked: true, beginAtZero: true,
-            title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+            title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
           })
         }
       }
@@ -3232,7 +3227,7 @@ function buildStatus26() {
             const lbl = c.dataset.label;
             return lbl === '미전환·휴면' || lbl === '유료·정상이용중' ? '#fff' : COLORS.ink;
           },
-          font: { family: 'Pretendard', size: 10, weight: '700' },
+          font: { family: 'Pretendard', size: 12, weight: '700' },
           formatter: (v, c) => {
             const tot = D.ch_totals[c.dataIndex];
             const pct = Math.round(v / tot * 100);
@@ -3254,7 +3249,7 @@ function buildStatus26() {
         x: Object.assign({}, xAxisBase, { stacked: true }),
         y: Object.assign({}, yAxisBase, {
           stacked: true, beginAtZero: true,
-          title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 11, weight: '500' } }
+          title: { display: true, text: '가입자 수 (명)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } }
         })
       }
     }
