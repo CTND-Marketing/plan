@@ -182,7 +182,7 @@ header .subtitle {
   margin-bottom: 8px;
 }
 .biz-diag-sub {
-  font-size: 16px;
+  font-size: 17px;
   color: var(--ink-mute);
   line-height: 1.55;
   margin-bottom: 24px;
@@ -200,7 +200,7 @@ header .subtitle {
 .biz-diag-stage-icon { font-size: 32px; }
 .biz-diag-stage-text { flex: 1; }
 .biz-diag-stage-label {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: #B8742A;
@@ -214,7 +214,7 @@ header .subtitle {
   margin-bottom: 4px;
 }
 .biz-diag-stage-desc {
-  font-size: 14.5px;
+  font-size: 16px;
   color: var(--ink-mute);
   line-height: 1.5;
 }
@@ -226,7 +226,7 @@ header .subtitle {
   margin-bottom: 28px;
 }
 .biz-diag-table thead th {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -239,7 +239,7 @@ header .subtitle {
 .biz-diag-table thead th:nth-child(3),
 .biz-diag-table thead th:nth-child(4) { text-align: center; }
 .biz-diag-table tbody td {
-  font-size: 15px;
+  font-size: 16px;
   padding: 14px;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
@@ -266,11 +266,11 @@ header .subtitle {
 .biz-diag-table tr.metric-bad  { background: rgba(237, 125, 49, 0.05); }
 .biz-diag-table .val-chalna {
   color: var(--ppt-1);
-  font-size: 15px;
+  font-size: 17px;
 }
 .biz-diag-table .val-bench {
   color: var(--ink-soft);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 /* 진단 메시지 박스 */
@@ -308,7 +308,7 @@ header .subtitle {
   list-style: none;
 }
 .biz-diag-msg li {
-  font-size: 14.5px;
+  font-size: 16px;
   color: var(--ink);
   line-height: 1.6;
   padding: 4px 0;
@@ -335,7 +335,7 @@ header .subtitle {
   margin-bottom: 28px;
 }
 .biz-diag-bep-title {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--ink);
   margin-bottom: 14px;
@@ -389,7 +389,7 @@ header .subtitle {
 .biz-diag-bep-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-soft);
   margin-top: 8px;
 }
@@ -401,7 +401,7 @@ header .subtitle {
   border-radius: 8px;
 }
 .biz-diag-timeline-title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--ink);
   margin-bottom: 14px;
@@ -438,7 +438,7 @@ header .subtitle {
   box-shadow: 0 0 0 2px var(--ppt-2);
 }
 .biz-diag-timeline-date {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--ppt-1);
   margin-bottom: 4px;
@@ -447,15 +447,94 @@ header .subtitle {
   color: var(--ppt-2);
 }
 .biz-diag-timeline-name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--ink);
   margin-bottom: 4px;
 }
 .biz-diag-timeline-impact {
-  font-size: 13.5px;
+  font-size: 15px;
   color: var(--ink-mute);
   line-height: 1.45;
+}
+
+/* 휴면 전환 패턴 박스 */
+.biz-diag-dormant {
+  margin-bottom: 28px;
+  padding: 24px 26px;
+  background: linear-gradient(135deg, #FFF8E6 0%, #FFFAF0 100%);
+  border: 1px solid #F0D070;
+  border-radius: 10px;
+}
+.biz-diag-dormant-header { margin-bottom: 18px; }
+.biz-diag-dormant-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.biz-diag-dormant-sub {
+  font-size: 15px;
+  color: var(--ink-mute);
+  line-height: 1.55;
+}
+.biz-diag-dormant-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+.biz-diag-dormant-stat {
+  background: #fff;
+  padding: 16px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+.biz-diag-dormant-stat-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.biz-diag-dormant-bar {
+  display: flex;
+  height: 36px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  border: 1px solid var(--line);
+}
+.biz-diag-dormant-bar .bar-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.biz-diag-dormant-bar .bar-seg span {
+  padding: 0 8px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.biz-diag-dormant-bar .bar-seg.dormant { background: #B8742A; }
+.biz-diag-dormant-bar .bar-seg.cancel { background: var(--ppt-2); }
+.biz-diag-dormant-bar .bar-seg.active { background: var(--ppt-6); }
+.biz-diag-dormant-stat-meta {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+.biz-diag-dormant-insight {
+  padding: 16px 18px;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.6;
+  border-left: 3px solid #F0A623;
 }
 
 /* MAIN PAGE - 메인/연도 페이지 토글 */
@@ -1143,7 +1222,7 @@ footer {
     <div class="biz-diag-bep">
       <div class="biz-diag-bep-title">
         <span>매출 / 비용 비율 (Burn Rate 기준)</span>
-        <span class="pct">52% <span style="font-size:13px;color:var(--ink-mute);font-weight:500">(2025년)</span></span>
+        <span class="pct">52% <span style="font-size:14px;color:var(--ink-mute);font-weight:500">(2025년)</span></span>
       </div>
       <div class="biz-diag-bep-bar">
         <div class="biz-diag-bep-fill" style="width: 52%;">52%</div>
@@ -1154,14 +1233,14 @@ footer {
         <span style="color:var(--ink);font-weight:600">현재 매출 6.2억 / 비용 12억 = <strong>-5.8억 적자</strong></span>
         <span>손익분기점 (BEP)</span>
       </div>
-      <div style="margin-top:14px;font-size:13px;color:var(--ink-mute);line-height:1.5">
+      <div style="margin-top:14px;font-size:15px;color:var(--ink-mute);line-height:1.5">
         <strong>※ 2026 1분기는 64%로 개선 중</strong> — 매출 1.92억 / 비용 3억 (분기 적자 1.08억). 현재 매출 성장률이 유지되면
         <strong style="color:var(--ppt-1)">약 6~8개월 내 손익분기점 도달 가능</strong>.
       </div>
     </div>
 
     <!-- SMB SaaS 비교 테이블 -->
-    <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:14px">
+    <div style="font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px">
       📊 핵심 SaaS 지표 — SMB 업계 표준 비교
     </div>
     <table class="biz-diag-table">
@@ -1194,25 +1273,31 @@ footer {
         </tr>
         <tr class="metric-good">
           <td>월 매출 성장률 (MRR)</td>
-          <td><span class="val-chalna">월 +6%</span><br><span style="font-size:11px;color:var(--ink-soft)">(연 +94%)</span></td>
+          <td><span class="val-chalna">월 +6%</span><br><span style="font-size:12px;color:var(--ink-soft)">(연 +94%)</span></td>
           <td><span class="val-bench">월 5~10% 우수 (T2D3 모델)</span></td>
           <td>✅</td>
         </tr>
         <tr class="metric-warn">
           <td>유료전환율</td>
-          <td><span class="val-chalna">24.3% → 12.5%</span><br><span style="font-size:11px;color:var(--ink-soft)">(추세 하락)</span></td>
+          <td><span class="val-chalna">24.3% → 12.5%</span><br><span style="font-size:12px;color:var(--ink-soft)">(추세 하락)</span></td>
           <td><span class="val-bench">SMB SaaS 평균 5~15%</span></td>
           <td>⚠️</td>
         </tr>
+        <tr class="metric-bad">
+          <td>휴면 전환율<br><span style="font-size:12px;color:var(--ink-soft);font-weight:500">(미전환자 → 휴면)</span></td>
+          <td><span class="val-chalna">87.6% → 95.8%</span><br><span style="font-size:12px;color:var(--ink-soft)">(전체 휴면율 67.8% → 83.9%)</span></td>
+          <td><span class="val-bench">SMB SaaS 평균 30~50%</span></td>
+          <td>❌</td>
+        </tr>
         <tr class="metric-warn">
           <td>Burn Multiple</td>
-          <td><span class="val-chalna">약 1.86</span><br><span style="font-size:11px;color:var(--ink-soft)">(적자 ÷ 순신규 ARR)</span></td>
+          <td><span class="val-chalna">약 1.86</span><br><span style="font-size:12px;color:var(--ink-soft)">(적자 ÷ 순신규 ARR)</span></td>
           <td><span class="val-bench">1.5 이하 양호 / 2 이상 위험</span></td>
           <td>⚠️</td>
         </tr>
         <tr class="metric-bad">
           <td>매출 / 비용 비율</td>
-          <td><span class="val-chalna">52%</span><br><span style="font-size:11px;color:var(--ink-soft)">(1Q 64%로 개선 중)</span></td>
+          <td><span class="val-chalna">52%</span><br><span style="font-size:12px;color:var(--ink-soft)">(1Q 64%로 개선 중)</span></td>
           <td><span class="val-bench">100%+ 흑자 전환</span></td>
           <td>❌</td>
         </tr>
@@ -1243,10 +1328,59 @@ footer {
         <ul>
           <li><strong>매출이 비용의 52%</strong> — 월 1억 비용 vs 월 약 5~6천만 매출. 연 5.8억 적자. 자본 보유량에 따라 12~24개월 안에 자금 압박 발생 가능.</li>
           <li><strong>유료전환율 24.3% → 12.5%로 하락</strong>: 양적 가입자는 늘었지만 결제 전환은 떨어짐. 회복 못하면 단위 경제성 자체가 흔들림. 다음 분기 데이터로 재진단 필요.</li>
+          <li><strong>휴면율 67.8% → 83.9%로 악화</strong>: 미전환자의 95.8%(2026 1Q)가 휴면 전환. SMB SaaS 평균(30~50%)을 크게 상회. 세부 분석은 아래 박스 참조.</li>
           <li><strong>Burn Multiple 1.86</strong>은 위험선(2.0) 근처. 매출 성장이 멈추면 자금 효율 급락. 향후 6개월 매출 성장이 핵심.</li>
           <li><strong>매출 80/20 의존</strong>: Enterprise 79명(13%)이 매출 67% 차지. 헤비 고객 1~2명 이탈이 매출에 큰 충격. 헤비 고객 유지·확대 전략 필수.</li>
           <li><strong>현 추세 시뮬레이션</strong>: 1Q 페이스(월 6,400만 매출) 유지 시 연 7.7억 — 여전히 비용 12억의 64%. 매출 약 +60% 추가 성장이 BEP 도달 조건.</li>
         </ul>
+      </div>
+    </div>
+
+    <!-- 휴면 전환 패턴 (사업 모델의 본질적 특성) -->
+    <div class="biz-diag-dormant">
+      <div class="biz-diag-dormant-header">
+        <div class="biz-diag-dormant-title">💤 휴면 전환 패턴 — 사업 모델의 본질적 특성</div>
+        <div class="biz-diag-dormant-sub">
+          유료전환되지 않은 가입자는 거의 모두 휴면 상태로 전환됨. 이건 결제 기반 SaaS의 자연스러운 패턴이지만, 현재 비율이 SMB 평균을 크게 상회.
+        </div>
+      </div>
+
+      <div class="biz-diag-dormant-grid">
+        <div class="biz-diag-dormant-stat">
+          <div class="biz-diag-dormant-stat-label">2025년 미전환자의 행로</div>
+          <div class="biz-diag-dormant-bar">
+            <div class="bar-seg dormant" style="width: 87.6%"><span>휴면 87.6%</span></div>
+            <div class="bar-seg cancel" style="width: 9.3%"><span>해지 9.3%</span></div>
+            <div class="bar-seg active" style="width: 3.1%"></div>
+          </div>
+          <div class="biz-diag-dormant-stat-meta">미전환 1,307명 중 1,145명 휴면 · 121명 해지 · 41명 사용중</div>
+        </div>
+
+        <div class="biz-diag-dormant-stat">
+          <div class="biz-diag-dormant-stat-label">2026 1Q 미전환자의 행로</div>
+          <div class="biz-diag-dormant-bar">
+            <div class="bar-seg dormant" style="width: 95.8%"><span>휴면 95.8%</span></div>
+            <div class="bar-seg cancel" style="width: 1.6%"></div>
+            <div class="bar-seg active" style="width: 2.6%"></div>
+          </div>
+          <div class="biz-diag-dormant-stat-meta">미전환 687명 중 658명 휴면 · 11명 해지 · 18명 사용중 · 휴면 가속화</div>
+        </div>
+      </div>
+
+      <div class="biz-diag-dormant-insight">
+        <strong>📊 핵심 발견:</strong>
+        2025년 5월 가입 허들 제거 전후로 휴면율이 극적으로 변화 —
+        <strong style="color:var(--ppt-1)">5월 이전 가입자: 휴면 3.4% / 유료전환 65.7%</strong> vs
+        <strong style="color:var(--ppt-2)">5월 이후 가입자: 휴면 76.4% / 유료전환 18.8%</strong>.
+        <br><br>
+        <strong>해석</strong>: 카드정보 입력이라는 진입 허들이
+        "구매 의향이 약한 가입자"를 자연스럽게 걸러주던 역할. 허들 제거로 가입 수는 7.5배 늘었지만,
+        실제 결제 의향이 없는 가입자들이 대거 휴면 풀로 흘러들어가는 구조. <br>
+        2026 1Q에 휴면율이 더 심해진 것(76.4% → 95.8%)은 동일 패턴의 가속화를 의미해요.
+        <br><br>
+        <strong style="color:var(--ppt-6)">💡 기회</strong>:
+        2025년에 휴면된 1,145명은 <strong>이미 가입한 잠재 고객 풀</strong>. 휴면 활성화 캠페인,
+        리타게팅, 신기능(위젯) 알림 등으로 일부만 깨워도 즉시 매출 효과. 신규 고객 획득(CAC 26만)보다 훨씬 저렴한 회복 비용.
       </div>
     </div>
 
@@ -1275,7 +1409,7 @@ footer {
           </div>
         </div>
       </div>
-      <div style="margin-top:18px;padding:14px 16px;background:#fff;border-radius:6px;font-size:13px;color:var(--ink);line-height:1.55;border:1px dashed var(--line-strong)">
+      <div style="margin-top:18px;padding:14px 16px;background:#fff;border-radius:6px;font-size:15px;color:var(--ink);line-height:1.6;border:1px dashed var(--line-strong)">
         <strong>💡 인사이트:</strong>
         25년 5월 가입 허들 제거는 <strong>"양 ↑ vs 질 ↓"</strong> 트레이드오프를 만들었어요.
         반면 26년 3월 위젯은 <strong>Enterprise 비중이 높은 신기능</strong>으로 헤비 고객 풀 확장의 가능성을 보여줍니다.
