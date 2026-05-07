@@ -810,7 +810,7 @@ footer {
     <div class="group-divider"></div>
     <div class="group-header">
       <div class="group-title">전체 매출 분석</div>
-      <div class="group-desc">2025년 결제 고객 597명의 12개월 누적 매출 분석 (모든 시점 가입자 포함)</div>
+      <div class="group-desc">2025년 결제 고객 597명(해지 포함)의 12개월 누적 매출 분석 (모든 시점 가입자 포함)</div>
     </div>
     <nav class="section-nav" data-nav="2025-overall">
       <button class="nav-tab active" data-tab="orevenue25">01 매출 분포</button>
@@ -825,7 +825,7 @@ footer {
         <div class="section-title-block">
           <div class="section-num">SECTION 01</div>
           <h2 class="section-title">2025년 매출 분포 (전체)</h2>
-          <p class="section-desc">2025년에 결제 발생한 모든 고객 597명의 12개월 누적 매출. 모드를 선택해 다양한 각도로 분석.</p>
+          <p class="section-desc">2025년에 결제 발생한 모든 고객 597명(현 사용 388 · 해지 195 · 휴면 14 포함)의 12개월 누적 매출. 모드를 선택해 다양한 각도로 분석.</p>
         </div>
         <div class="controls">
           <span class="control-label">기준</span>
@@ -836,10 +836,10 @@ footer {
         </div>
       </div>
       <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">결제 고객</div><div class="sub-stat-value">597명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">결제 고객 (해지 포함)</div><div class="sub-stat-value">597명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">└ 사용 중 / 해지 / 휴면</div><div class="sub-stat-value">388 / 195 / 14</div></div>
         <div class="sub-stat"><div class="sub-stat-label">총 매출</div><div class="sub-stat-value">620,353,282원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">1,039,118원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">중앙값</div><div class="sub-stat-value">270,000원</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="orevenue25-legend">
@@ -913,19 +913,18 @@ footer {
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oltv25" data-mode="roas">ROAS</button>
-          <button class="btn-pill" data-view="oltv25" data-mode="arpu">ARPU</button>
+          <button class="btn-pill active" data-view="oltv25" data-mode="arpu">ARPU</button>
           <button class="btn-pill" data-view="oltv25" data-mode="profit">손익</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ 실측 LTV ROAS</strong> = 1년 누적 매출 ÷ 1년 광고비. 시간 충분히 지난 코호트 분석이라 추정 불필요.
+        <strong>※ LTV 매출 검증</strong>: 1년 누적 결제 매출로 채널별 ARPU와 손익을 직접 검증. ROAS 비교는 "광고 효율" 탭에서 별도 확인.
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">실 매출 (12개월)</div><div class="sub-stat-value">620,203,282원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">광고비 (12개월)</div><div class="sub-stat-value">156,000,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">실 ROAS</div><div class="sub-stat-value">397.6%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">실 순익</div><div class="sub-stat-value">+464,203,282원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">결제 고객</div><div class="sub-stat-value">597명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">1,039,118원</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oltv25-legend">
@@ -937,10 +936,10 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>2025년 = 실측 데이터</strong>: 1년 누적 매출 검증.</li>
-          <li><strong>두 채널 모두 흑자</strong>: 카페24 ROAS <span class="num">443.8%</span> (+2.64억) vs 검색/배너 <span class="num">352.7%</span> (+2.00억).</li>
-          <li><strong>채널 격차 작음</strong>: 전체 매출 기준으로는 1.3배 차이만 (신규 코호트 기준 6배 차이와 대비).</li>
-          <li><strong>2026 1분기 비교 앵커</strong>: 2025 397.6% 대비 1분기 661.0%는 시간 효과 + 사업 성장 반영.</li>
+          <li><strong>채널별 ARPU</strong>: 카페24 매출고객 평균 약 71만원 (12개월 누적) vs 검색/배너 약 230만원. 검색/배너 채널의 매출고객은 적지만 1인당 단가는 높음.</li>
+          <li><strong>두 채널 모두 흑자 손익</strong>: 카페24 +2.64억 / 검색/배너 +2.00억.</li>
+          <li><strong>매출 분포 풍성</strong>: Enterprise 79명이 매출 67.5% 만들고, 1000만원+ 헤비 10명이 47.1% 차지 — 헤비 의존도 높음.</li>
+          <li><strong>2026 1분기와 비교</strong>: 1분기 ARPU 35.4만 (3개월 누적)으로 1년 환산 시 약 142만 → 2025 평균(104만)보다 높은 페이스. 사업 성장 중.</li>
         </ul>
       </div>
     </section>
@@ -1359,7 +1358,7 @@ footer {
     <div class="group-divider"></div>
     <div class="group-header">
       <div class="group-title">전체 매출 분석</div>
-      <div class="group-desc">2026년 1분기 결제 고객 543명의 3개월 누적 매출 분석 (모든 시점 가입자 포함)</div>
+      <div class="group-desc">2026년 1분기 결제 고객 543명(해지 포함)의 3개월 누적 매출 분석 (모든 시점 가입자 포함)</div>
     </div>
     <nav class="section-nav" data-nav="2026-overall">
       <button class="nav-tab active" data-tab="orevenue26">01 매출 분포</button>
@@ -1374,7 +1373,7 @@ footer {
         <div class="section-title-block">
           <div class="section-num">SECTION 01</div>
           <h2 class="section-title">2026 1분기 매출 분포 (전체)</h2>
-          <p class="section-desc">2026년 1분기에 결제 발생한 모든 고객 543명의 3개월 누적 매출. 모드를 선택해 다양한 각도로 분석.</p>
+          <p class="section-desc">2026년 1분기에 결제 발생한 모든 고객 543명(현 사용 488 · 해지 39 · 휴면 16 포함)의 3개월 누적 매출. 모드를 선택해 다양한 각도로 분석.</p>
         </div>
         <div class="controls">
           <span class="control-label">기준</span>
@@ -1385,10 +1384,10 @@ footer {
         </div>
       </div>
       <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">결제 고객</div><div class="sub-stat-value">543명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">결제 고객 (해지 포함)</div><div class="sub-stat-value">543명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">└ 사용 중 / 해지 / 휴면</div><div class="sub-stat-value">488 / 39 / 16</div></div>
         <div class="sub-stat"><div class="sub-stat-label">총 매출</div><div class="sub-stat-value">192,346,867원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">354,230원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">중앙값</div><div class="sub-stat-value">90,000원</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="orevenue26-legend">
@@ -1457,23 +1456,22 @@ footer {
         <div class="section-title-block">
           <div class="section-num">SECTION 03</div>
           <h2 class="section-title">LTV 매출 검증 (1분기 추정)</h2>
-          <p class="section-desc">2026 1분기는 3개월 누적이라 단기 데이터. 2025년 실측 397.6%와 비교하여 사업 성장도 가늠.</p>
+          <p class="section-desc">2026 1분기 3개월 누적 매출 기준 채널별 ARPU와 손익 검증. ROAS 비교는 "광고 효율" 탭에서 별도 확인.</p>
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oltv26" data-mode="roas">ROAS</button>
-          <button class="btn-pill" data-view="oltv26" data-mode="arpu">ARPU</button>
+          <button class="btn-pill active" data-view="oltv26" data-mode="arpu">ARPU</button>
           <button class="btn-pill" data-view="oltv26" data-mode="profit">손익</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ 2026 1분기 = 단기 데이터</strong>: 3개월 누적 매출만 측정 가능. 2025년 12개월 실측치(397.6%)와 비교하면 사업이 성장 중인지, 평년 페이스인지 확인 가능.
+        <strong>※ 2026 1분기 = 단기 데이터</strong>: 3개월 누적 매출. 2025년 평균 ARPU(104만/12개월)와 비교 시 1분기 35.4만은 1년 환산 약 142만 페이스 — 사업 성장 신호.
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">실 매출 (3개월)</div><div class="sub-stat-value">192,346,867원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">광고비 (3개월)</div><div class="sub-stat-value">29,100,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">실 ROAS</div><div class="sub-stat-value">661.0%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">실 순익</div><div class="sub-stat-value">+163,246,867원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">결제 고객</div><div class="sub-stat-value">543명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">354,230원</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oltv26-legend">
@@ -1485,9 +1483,10 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>1분기 ROAS 661% > 2025년 397.6%</strong> — 1.66배 효율 개선. 사업이 빠르게 안정화 중.</li>
-          <li><strong>채널별 모두 흑자</strong>: 카페24 ROAS <span class="num">841.6%</span> (+1.02억) vs 검색/배너 <span class="num">498.1%</span> (+6,091만).</li>
-          <li><strong>월 평균 매출 안정</strong>: 6,411만/월 — 2025년 12월(7,147만)에서 약간 감소했으나 안정적.</li>
+          <li><strong>채널별 ARPU (3개월)</strong>: 카페24 약 25.5만 vs 검색/배너 약 87.6만. 2025년과 동일 패턴 — 검색/배너 매출고객은 적지만 단가 높음.</li>
+          <li><strong>두 채널 모두 흑자 손익</strong>: 카페24 +1.02억 / 검색/배너 +6,091만.</li>
+          <li><strong>1년 환산 ARPU 페이스</strong>: 1분기 35.4만 × 4 = 약 142만/연. 2025년 평균(104만)을 36% 초과 — 사업 안정화 신호.</li>
+          <li><strong>월별 매출 안정</strong>: 1월 6,281만 → 2월 6,510만 → 3월 6,444만. 평균 6,411만/월 유지.</li>
         </ul>
       </div>
     </section>
@@ -1718,7 +1717,7 @@ let modes25 = {
   conversion25: 'bar',
   orevenue25: 'bucket',
   oadcost25: 'roas',
-  oltv25: 'roas',
+  oltv25: 'arpu',
   ofeatures25: 'abs'
 };
 
@@ -2178,7 +2177,7 @@ let modes26 = {
   ltv26: 'roas',
   orevenue26: 'bucket',
   oadcost26: 'roas',
-  oltv26: 'roas',
+  oltv26: 'arpu',
   ofeatures26: 'abs'
 };
 
@@ -2940,23 +2939,8 @@ function buildOLtv(year) {
 
   let data, yLabel, yFormatter, dataLabelFmt, tooltipFmt;
 
-  if (mode === 'roas') {
-    data = [D.roas_cafe24, D.roas_search];
-    yLabel = 'ROAS (%) - 실측';
-    yFormatter = (v) => v + '%';
-    dataLabelFmt = (v) => v.toFixed(1) + '%';
-    tooltipFmt = (c) => {
-      const i = c.dataIndex;
-      const cost = i === 0 ? D.cost_cafe24 : D.cost_search;
-      const rev = i === 0 ? D.rev_cafe24 : D.rev_search;
-      const profit = i === 0 ? D.profit_cafe24 : D.profit_search;
-      return ['실 ROAS: ' + c.parsed.y.toFixed(1) + '%',
-        '광고비: ' + cost.toLocaleString(),
-        '매출: ' + rev.toLocaleString(),
-        '순익: ' + (profit>=0?'+':'') + profit.toLocaleString()];
-    };
-  } else if (mode === 'arpu') {
-    // 각 채널의 매출 / 결제고객 수 (대략 추정)
+  if (mode === 'arpu') {
+    // 각 채널의 매출 / 결제고객 수
     const arpuCafe = year === '25' ? Math.round(D.rev_cafe24 / 476) : Math.round(D.rev_cafe24 / 456);
     const arpuSearch = year === '25' ? Math.round(D.rev_search / 121) : Math.round(D.rev_search / 87);
     data = [arpuCafe, arpuSearch];
@@ -2965,8 +2949,9 @@ function buildOLtv(year) {
     dataLabelFmt = (v) => (v/10000).toFixed(1) + '만';
     tooltipFmt = (c) => 'ARPU: ' + c.parsed.y.toLocaleString() + '원/매출고객';
   } else {
+    // profit
     data = [D.profit_cafe24, D.profit_search];
-    yLabel = '순익 (원) - 실측';
+    yLabel = '손익 (원) - 실측';
     yFormatter = (v) => (v/10000000).toFixed(1) + '천만';
     dataLabelFmt = (v) => (v >= 0 ? '+' : '') + (v/10000000).toFixed(1) + '천만';
     tooltipFmt = (c) => {
@@ -2990,21 +2975,7 @@ function buildOLtv(year) {
       labels: ['카페24', '검색/배너광고'],
       datasets: [{ data, backgroundColor: [COLORS.ppt1, COLORS.ppt2], borderRadius: 2, barPercentage: 0.55 }]
     },
-    plugins: [ChartDataLabels].concat(mode === 'roas' ? [{
-      id: 'be_oltv_' + year,
-      afterDraw: (chart) => {
-        const yScale = chart.scales.y; const xScale = chart.scales.x;
-        if (!yScale || !xScale) return;
-        const y100 = yScale.getPixelForValue(100);
-        if (y100 < yScale.top || y100 > yScale.bottom) return;
-        const cc = chart.ctx;
-        cc.save(); cc.strokeStyle = COLORS.ppt6; cc.lineWidth = 1.5; cc.setLineDash([6, 4]);
-        cc.beginPath(); cc.moveTo(xScale.left, y100); cc.lineTo(xScale.right, y100); cc.stroke();
-        cc.setLineDash([]); cc.fillStyle = COLORS.ppt6; cc.font = '600 13px Pretendard';
-        cc.fillText('손익분기 100%', xScale.right - 110, y100 - 6);
-        cc.restore();
-      }
-    }] : []),
+    plugins: [ChartDataLabels],
     options: {
       responsive: true, maintainAspectRatio: false, animation: { duration: 600 },
       plugins: {
