@@ -185,6 +185,53 @@ header .subtitle {
   border-bottom: 1px solid var(--line);
 }
 
+/* GROUP TABS (큰 탭 - 신규 가입자 / 전체 매출) */
+.group-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 24px 0 28px;
+  padding: 6px;
+  background: var(--bg-subtle);
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.group-tab {
+  flex: 1;
+  padding: 14px 24px;
+  border: none;
+  background: transparent;
+  color: var(--ink-mute);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  cursor: pointer;
+  border-radius: 7px;
+  transition: all 0.18s ease;
+  letter-spacing: -0.01em;
+}
+.group-tab:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.4);
+}
+.group-tab.active {
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* GROUP PAGE - 그룹 콘텐츠 토글 */
+.group-page {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+.group-page.active {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* GROUP HEADER (신규 가입자 분석 / 전체 매출 분석) */
 .group-header {
   margin-bottom: 16px;
@@ -480,6 +527,14 @@ footer {
       </div>
     </div>
 
+    <!-- 그룹 탭 -->
+    <div class="group-tabs">
+      <button class="group-tab active" data-group="new25">신규 가입자 분석</button>
+      <button class="group-tab" data-group="overall25">전체 매출 분석</button>
+    </div>
+
+    <!-- 신규 가입자 분석 그룹 -->
+    <div class="group-page active" id="group-new25">
     <div class="group-header">
       <div class="group-title">신규 가입자 분석</div>
       <div class="group-desc">2025년에 가입한 1,727명의 코호트 분석</div>
@@ -807,7 +862,11 @@ footer {
       </div>
     </section>
 
-    <div class="group-divider"></div>
+    </div>
+    <!-- /group-page new25 -->
+
+    <!-- 전체 매출 분석 그룹 -->
+    <div class="group-page" id="group-overall25">
     <div class="group-header">
       <div class="group-title">전체 매출 분석</div>
       <div class="group-desc">2025년 결제 고객 597명(해지 포함)의 12개월 누적 매출 분석 (모든 시점 가입자 포함)</div>
@@ -977,6 +1036,9 @@ footer {
       </div>
     </section>
 
+    </div>
+    <!-- /group-page overall25 -->
+
   </div>
 
   <!-- ============================================== -->
@@ -1012,6 +1074,14 @@ footer {
       </div>
     </div>
 
+    <!-- 그룹 탭 -->
+    <div class="group-tabs">
+      <button class="group-tab active" data-group="new26">신규 가입자 분석</button>
+      <button class="group-tab" data-group="overall26">전체 매출 분석</button>
+    </div>
+
+    <!-- 신규 가입자 분석 그룹 -->
+    <div class="group-page active" id="group-new26">
     <div class="group-header">
       <div class="group-title">신규 가입자 분석</div>
       <div class="group-desc">2026년 1분기에 가입한 777명의 코호트 분석</div>
@@ -1361,7 +1431,11 @@ footer {
       </div>
     </section>
 
-    <div class="group-divider"></div>
+    </div>
+    <!-- /group-page new26 -->
+
+    <!-- 전체 매출 분석 그룹 -->
+    <div class="group-page" id="group-overall26">
     <div class="group-header">
       <div class="group-title">전체 매출 분석</div>
       <div class="group-desc">2026년 1분기 결제 고객 543명(해지 포함)의 3개월 누적 매출 분석 (모든 시점 가입자 포함)</div>
@@ -1531,6 +1605,9 @@ footer {
         </ul>
       </div>
     </section>
+
+    </div>
+    <!-- /group-page overall26 -->
 
   </div>
 
@@ -3048,21 +3125,7 @@ function buildOAdcost(year) {
       labels: ['카페24', '검색/배너광고'],
       datasets: [{ data: [D.roas_cafe24, D.roas_search], backgroundColor: [COLORS.ppt1, COLORS.ppt2], borderRadius: 2, barPercentage: 0.55 }]
     },
-    plugins: [ChartDataLabels, {
-      id: 'be_roas_' + year,
-      afterDraw: (chart) => {
-        const yScale = chart.scales.y; const xScale = chart.scales.x;
-        if (!yScale || !xScale) return;
-        const y100 = yScale.getPixelForValue(100);
-        if (y100 < yScale.top || y100 > yScale.bottom) return;
-        const cc = chart.ctx;
-        cc.save(); cc.strokeStyle = COLORS.ppt6; cc.lineWidth = 1.5; cc.setLineDash([6, 4]);
-        cc.beginPath(); cc.moveTo(xScale.left, y100); cc.lineTo(xScale.right, y100); cc.stroke();
-        cc.setLineDash([]); cc.fillStyle = COLORS.ppt6; cc.font = '600 13px Pretendard';
-        cc.fillText('손익분기 100%', xScale.right - 110, y100 - 6);
-        cc.restore();
-      }
-    }],
+    plugins: [ChartDataLabels],
     options: {
       responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
       plugins: {
@@ -3531,20 +3594,20 @@ function buildAdcost25() {
 
   if (mode === 'cac_roas') {
     const cacRange = [];
-    for (let cv = 50000; cv <= 1100000; cv += 25000) cacRange.push(c);
+    for (let cv = 50000; cv <= 1100000; cv += 25000) cacRange.push(cv);
     const cafeArpu = D.arpu_per_paid[0];
     const searchArpu = D.arpu_per_paid[1];
-    const cafeRoas = cacRange.map(c => +(cafeArpu / c * 100).toFixed(1));
-    const searchRoas = cacRange.map(c => +(searchArpu / c * 100).toFixed(1));
-    const cafeMarker = cacRange.map(c => Math.abs(c - 231325) < 13000 ? cafeArpu/c*100 : null);
-    const searchMarker = cacRange.map(c => Math.abs(c - 900000) < 13000 ? searchArpu/c*100 : null);
+    const cafeRoas = cacRange.map(cv => +(cafeArpu / cv * 100).toFixed(1));
+    const searchRoas = cacRange.map(cv => +(searchArpu / cv * 100).toFixed(1));
+    const cafeMarker = cacRange.map(cv => Math.abs(cv - 231325) < 13000 ? cafeArpu/cv*100 : null);
+    const searchMarker = cacRange.map(cv => Math.abs(cv - 900000) < 13000 ? searchArpu/cv*100 : null);
 
     document.getElementById('adcost25-legend').innerHTML = `
       <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 (ARPU 352,742원)</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 (ARPU 225,254원)</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt5};border-radius:50%"></span>현재 CAC 위치</span>`;
 
-    const xLabels = cacRange.map(c => (c/10000) + '만');
+    const xLabels = cacRange.map(cv => (cv/10000) + '만');
 
     charts.adcost25 = new Chart(ctx, {
       type: 'line',
@@ -4433,6 +4496,26 @@ function buildStatus26() {
 // EVENT HANDLERS
 // ===========================================
 
+// 그룹 탭 전환 (신규 가입자 / 전체 매출)
+document.querySelectorAll('.group-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const groupId = tab.dataset.group;
+    const parentPage = tab.closest('.year-page');
+    // 같은 연도 페이지 안의 그룹 탭에서 active 제거
+    parentPage.querySelectorAll('.group-tab').forEach(t => t.classList.remove('active'));
+    parentPage.querySelectorAll('.group-page').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('group-' + groupId).classList.add('active');
+
+    // 활성화된 그룹 안의 활성 섹션 차트 다시 빌드
+    setTimeout(() => {
+      const activeGroup = document.getElementById('group-' + groupId);
+      const activeNavTab = activeGroup.querySelector('.nav-tab.active');
+      if (activeNavTab) BUILDERS[activeNavTab.dataset.tab]();
+    }, 50);
+  });
+});
+
 // 연도 탭 전환
 document.querySelectorAll('.year-tab').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -4443,13 +4526,13 @@ document.querySelectorAll('.year-tab').forEach(tab => {
     document.getElementById('page-' + year).classList.add('active');
     document.body.setAttribute('data-year', year);
 
-    // 활성 섹션의 차트 다시 빌드
+    // 활성 그룹의 활성 섹션 차트 다시 빌드
     setTimeout(() => {
       const activePage = document.getElementById('page-' + year);
-      const activeSection = activePage.querySelector('.chart-section.active');
-      if (activeSection) {
-        const tabBtn = activePage.querySelector('.nav-tab.active');
-        if (tabBtn) BUILDERS[tabBtn.dataset.tab]();
+      const activeGroup = activePage.querySelector('.group-page.active');
+      if (activeGroup) {
+        const activeNavTab = activeGroup.querySelector('.nav-tab.active');
+        if (activeNavTab) BUILDERS[activeNavTab.dataset.tab]();
       }
     }, 50);
   });
