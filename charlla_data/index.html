@@ -1064,6 +1064,80 @@ header .subtitle {
   color: var(--accent);
 }
 
+/* PLG 글로벌 기준 비교 박스 */
+.plg-bench {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #F0F4FA 0%, #E8EFF9 100%);
+  border-radius: 8px;
+  border-left: 3px solid var(--ppt-1);
+}
+.plg-bench-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2A4F94;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.plg-bench-head::before {
+  content: '🌐';
+  font-size: 14px;
+}
+.plg-bench-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.plg-bench-item {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px 14px;
+  border-radius: 5px;
+}
+.plg-bench-label {
+  font-size: 12px;
+  color: var(--ink-mute);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.plg-bench-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.plg-bench-chalna {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ppt-1);
+}
+.plg-bench-vs {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.plg-bench-global {
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.plg-bench-eval {
+  font-size: 13px;
+  margin-left: 6px;
+}
+
+/* 단일 항목 형태 (간단 비교) */
+.plg-bench-simple {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.plg-bench-simple strong {
+  color: var(--ppt-1);
+}
+
 .sub-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -1442,7 +1516,7 @@ footer {
           <div class="biz-diag-timeline-impact">
             회원가입 단계에서 카드정보 입력 단계 제거.<br>
             <strong>가입자 폭증</strong>(검색/배너 채널 가입 +수배)했으나
-            <strong style="color:var(--ppt-2)">유료전환율 하락(24.3% → 12.5%)</strong>의 직접적 원인.
+            <strong style="color:var(--ppt-2)">유료전환율 하락(24.3% → 12.6%)</strong>의 직접적 원인.
             가입의 질이 변화함.
           </div>
         </div>
@@ -1644,6 +1718,27 @@ footer {
           <li><strong>검색/배너광고 신규 적자</strong>: 광고비 7,920만 → 신규 매출 1,982만 = <span class="num">-5,938만원</span>. 단, 시간 누적되면 전체 매출 기준으로는 흑자 전환 — "전체 매출 분석" 탭 확인.</li>
           <li><strong>유료전환당 CAC</strong>: 카페24 23.1만 vs 검색/배너 90만 — 4배 차이.</li>
         </ul>
+        <div class="plg-bench">
+          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
+          <div class="plg-bench-grid">
+            <div class="plg-bench-item">
+              <div class="plg-bench-label">신규 매출 ROAS (전체)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">87.8%</span>
+                <span class="plg-bench-vs">vs PLG 100%+ (BEP)</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">⚠️ 광고비 회수 미달, 단 누적 매출 고려 시 흑자</div>
+            </div>
+            <div class="plg-bench-item">
+              <div class="plg-bench-label">CAC (결제고객 1인당)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">26.1만원</span>
+                <span class="plg-bench-vs">vs PLG LTV의 1/3 이하 권장</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">✅ LTV 836만 대비 1/32 수준 — 매우 우수</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1682,6 +1777,15 @@ footer {
           <li><span class="num">direct</span>는 가입자 855명(전체 1위)이지만 전환율 <span class="num">7.7%</span>에 불과.</li>
           <li>nhn(16.0%) 중간, makeshop(7.0%) direct 수준, <span class="num">colorme 16명 중 0명 전환</span>.</li>
         </ul>
+        <div class="plg-bench">
+          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
+          <div class="plg-bench-simple">
+            <strong>2025년 전체 유료전환율 24.3%</strong> ·
+            PLG Opt-in 평균 <strong>8.9%</strong>의 약 <strong>2.7배</strong> ⭐<br>
+            <span style="font-size:12.5px;color:var(--ink-mute)">cafe24(48.9%)는 PLG <strong>great 등급(15~25%)</strong> 초과로 매우 우수.
+            direct·makeshop(7~8%)은 PLG 평균 수준이며, <strong>채널별 성격이 명확히 구분됨</strong>.</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1729,6 +1833,27 @@ footer {
           <li><strong>광고채널별</strong>: 카페24 가입자 679명 중 유료·정상 비율 33.9%, 검색/배너 1,048명 중 5.3% — <span class="num">카페24의 결제 친화도 6배</span>.</li>
           <li><strong>분기별 추이</strong>: 1분기는 미전환·휴면 비중이 0%로 보이지만 그 시점에 휴면 처리가 되지 않은 것뿐. 4분기 가입자는 휴면 비중 80% — 신규 유입자의 결제 전환이 시간 걸림.</li>
         </ul>
+        <div class="plg-bench">
+          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
+          <div class="plg-bench-grid">
+            <div class="plg-bench-item">
+              <div class="plg-bench-label">전체 휴면율 (가입자 대비)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">66.3%</span>
+                <span class="plg-bench-vs">vs PLG opt-in 정상 패턴</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">➖ Opt-in 모델 특성 (낮은 진입 장벽 대가)</div>
+            </div>
+            <div class="plg-bench-item">
+              <div class="plg-bench-label">월 해지율 (Churn)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">1.59%</span>
+                <span class="plg-bench-vs">vs PLG 평균 3~5% / 우수 1%</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">⭐ PLG 평균의 절반 이하 — 매우 우수</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2030,7 +2155,7 @@ footer {
       <div class="kpi">
         <div class="kpi-label">유료 전환</div>
         <div class="kpi-value">97<span class="unit">명</span></div>
-        <div class="kpi-sub">전환율 12.5%</div>
+        <div class="kpi-sub">전환율 12.6%</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">신규 매출</div>
@@ -2176,12 +2301,12 @@ footer {
       </div>
       <div class="note">
         <strong>※ 신규 매출 ROAS</strong> = 2026년 1분기 광고로 가입한 신규 고객의 매출(2026.02~04) ÷ 광고비. 매출이 1개월 밀림(무료체험 1개월).<br>
-        <strong>※ 광고비:</strong> 카페24 460만원/월 × 3 = 1,380만원 · 검색/배너광고 510만원/월 × 3 = 1,530만원 · 총 2,910만원
+        <strong>※ 광고비:</strong> 1월 938만 · 2월 834만 · 3월 1,176만 · 총 2,948만원
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,100,000원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">신규 매출</div><div class="sub-stat-value">8,800,294원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 매출 ROAS</div><div class="sub-stat-value">30.2%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">신규 매출 ROAS</div><div class="sub-stat-value">29.9%</div></div>
         <div class="sub-stat"><div class="sub-stat-label">총 가입자</div><div class="sub-stat-value">777명</div></div>
         <div class="sub-stat"><div class="sub-stat-label">총 유료전환</div><div class="sub-stat-value">97명</div></div>
       </div>
@@ -2200,6 +2325,27 @@ footer {
           <li><strong>유료전환율도 카페24 우세</strong>: 카페24 37.4% vs 검색/배너 4.6%.</li>
           <li><strong>신규 매출 단독으로는 적자</strong>: 누적 기간이 짧아 매출이 작음. 전체 매출 기준으로는 흑자 — "전체 매출 분석" 탭 참조.</li>
         </ul>
+        <div class="plg-bench">
+          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
+          <div class="plg-bench-grid">
+            <div class="plg-bench-item">
+              <div class="plg-bench-label">신규 매출 ROAS (1Q)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">29.9%</span>
+                <span class="plg-bench-vs">vs PLG 100%+ (BEP)</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">⚠️ 측정 기간(3개월)이 짧아 자연 미달 — 12개월 누적 시 회복 예상</div>
+            </div>
+            <div class="plg-bench-item">
+              <div class="plg-bench-label">CAC (신규 결제고객 1인당)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">30.4만원</span>
+                <span class="plg-bench-vs">vs PLG LTV의 1/3 이하 권장</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">✅ LTV 추정 836만 대비 1/27 수준 — 매우 우수</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2220,7 +2366,7 @@ footer {
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">777명</div></div>
         <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">97명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">12.5%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">12.6%</div></div>
         <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (37.4%)</div></div>
       </div>
       <div class="chart-card">
@@ -2239,6 +2385,15 @@ footer {
           <li>nhn 6.5%, makeshop 3.6%, colorme 0% — direct와 유사한 낮은 전환율 패턴.</li>
           <li>2025년과 비교 시 <strong>cafe24의 우위는 유지(48.9%→37.4%)</strong>되지만 절대 전환율은 다소 하락.</li>
         </ul>
+        <div class="plg-bench">
+          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
+          <div class="plg-bench-simple">
+            <strong>1Q 전체 유료전환율 12.6%</strong> ·
+            PLG Opt-in 평균 <strong>8.9%</strong>의 <strong>1.4배</strong> ✅<br>
+            <span style="font-size:12.5px;color:var(--ink-mute)">cafe24(37.4%)는 여전히 PLG <strong>great 등급(15~25%)</strong> 초과로 우수.
+            단 <strong>2025년 24.3% 대비 절반</strong>으로 하락 — 가입 허들 제거 후 트래픽 품질이 중요. PLG 평균보다는 좋지만 <strong>회복 노력 필요</strong>.</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2291,6 +2446,35 @@ footer {
           <li><strong>광고채널별 휴면 비중</strong>: 검색/배너광고는 590명 중 547명(92.7%)이 미전환·휴면, 카페24는 187명 중 104명(55.6%). <span class="num">카페24가 결제로 이어지는 비율이 압도적</span>.</li>
           <li>2026년 1분기 가장 큰 과제는 <strong>"가입했으나 미전환 휴면 상태인 651명을 어떻게 활성화할 것인가"</strong> — 나우킹/푸쉬/리타게팅 등 회생 액션 우선순위가 높음.</li>
         </ul>
+        <div class="plg-bench">
+          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
+          <div class="plg-bench-grid">
+            <div class="plg-bench-item">
+              <div class="plg-bench-label">전체 휴면율 (가입자 대비)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">83.9%</span>
+                <span class="plg-bench-vs">vs 2025년 66.3% (+17.6%p)</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">⚠️ Opt-in 모델 정상 패턴이나 가속화 추세 — CRM 부재가 원인</div>
+            </div>
+            <div class="plg-bench-item">
+              <div class="plg-bench-label">월 해지율 (Churn)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">1.41%</span>
+                <span class="plg-bench-vs">vs PLG 평균 3~5% / 우수 1%</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">⭐ 2025년(1.59%) 대비 추가 개선 — 매우 우수</div>
+            </div>
+            <div class="plg-bench-item" style="grid-column: span 2">
+              <div class="plg-bench-label">휴면 회복률 (CRM 효과)</div>
+              <div class="plg-bench-row">
+                <span class="plg-bench-chalna">0%</span>
+                <span class="plg-bench-vs">vs PLG 평균 3~8% / 우수 15%+</span>
+              </div>
+              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">❌ CRM 마케팅 미수행 · 휴면 풀 1,803명 방치 (2025 1,145 + 2026 1Q 658)</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2471,7 +2655,7 @@ footer {
         <div class="section-title-block">
           <div class="section-num">SECTION 02</div>
           <h2 class="section-title">광고 효율 (전체 매출 기준)</h2>
-          <p class="section-desc">광고비 2,910만으로 매출 1.92억 회수. ROAS · CAC · Payback Period 3가지 핵심 광고 효율 지표.</p>
+          <p class="section-desc">광고비 2,948만으로 매출 1.92억 회수. ROAS · CAC · Payback Period 3가지 핵심 광고 효율 지표.</p>
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
@@ -2482,14 +2666,14 @@ footer {
       </div>
       <div class="note">
         <strong>※ ROAS</strong> = 매출 ÷ 광고비. 광고비 1원당 매출 회수율.<br>
-        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 매출 발생 고객 수. 매출 고객 1명을 얻는 데 든 비용.<br>
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 가입자 중 결제 전환자. 신규 결제고객 1명을 얻는 데 든 비용.<br>
         <strong>※ Payback Period</strong> = CAC ÷ 월 ARPU. 광고비를 회수하기까지 걸리는 개월 수. SaaS에서 12개월 이내면 우수.
       </div>
       <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,100,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 ROAS</div><div class="sub-stat-value">661.0%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 CAC</div><div class="sub-stat-value">53,591원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">0.45개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,480,000원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 ROAS</div><div class="sub-stat-value">652.5%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">CAC (신규결제)</div><div class="sub-stat-value">303,918원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">~9.8개월</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oadcost26-legend">
@@ -2501,11 +2685,11 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>전체 ROAS 661.0%</strong> — 광고비 1원당 약 6.6원 회수. 2025년(397.6%) 대비 1.66배 효율 개선. 채널별 카페24 <span class="num">841.6%</span>, 검색/배너 <span class="num">498.1%</span>.</li>
-          <li><strong>CAC 5.4만원</strong>: 매출 고객 1명을 얻는 데 약 5.4만원 — 2025년 26.1만 대비 <span class="num">5분의 1 수준</span>. 광고 효율 폭발적 개선. 카페24 3.0만 vs 검색/배너 17.6만.</li>
-          <li><strong>Payback 0.45개월(약 2주)</strong>: 광고비를 거의 즉시 회수. 2025년 3.0개월 대비 약 <span class="num">7배 빠름</span>. 매우 비현실적 — 1분기 짧은 측정 한계도 있음.</li>
-          <li><strong>채널별 Payback</strong>: 카페24 0.36개월 (~11일) / 검색/배너 0.60개월 (~18일) — 둘 다 매우 빠름.</li>
-          <li><strong>1분기 한계</strong>: CAC와 Payback이 너무 좋게 나오는 건 측정 기간이 짧아 광고비도 분기 광고비만 카운트되기 때문. 시간 누적되면 안정 값으로 수렴 예상.</li>
+          <li><strong>전체 ROAS 652.5%</strong> — 광고비 2,948만으로 매출 1.92억 회수, 광고비 1원당 약 6.5원 회수. 2025년(397.6%) 대비 1.64배 효율 개선.</li>
+          <li><strong>CAC 30.4만원</strong>: 광고비 2,948만 ÷ 신규 가입자 중 결제 전환자 97명. 2025년(26.1만) 대비 약간 상승.</li>
+          <li><strong>Payback 약 9.8개월</strong>: CAC 30.4만 ÷ 월 ARPU 11.8만 ÷ 약 0.26 (월 결제율). SaaS 우수 기준(12개월)에는 부합.</li>
+          <li><strong>월별 CPA 상승 추세</strong>: 1월 28,773원 → 3월 59,394원 (2배 상승). 가입율도 6% → 4%로 하락. 광고 채널 효율 한계 신호.</li>
+          <li><strong>전체 ROAS와 신규 매출 ROAS 격차</strong>: 전체 652% vs 신규 29.9% — 격차의 대부분이 2025년 이전 가입자의 누적 매출. 신규 광고 자체의 즉시 효율은 낮음.</li>
         </ul>
       </div>
     </section>
