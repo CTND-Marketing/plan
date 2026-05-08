@@ -226,7 +226,7 @@ header .subtitle {
   margin-bottom: 28px;
 }
 .biz-diag-table thead th {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -239,7 +239,7 @@ header .subtitle {
 .biz-diag-table thead th:nth-child(3),
 .biz-diag-table thead th:nth-child(4) { text-align: center; }
 .biz-diag-table tbody td {
-  font-size: 16px;
+  font-size: 17px;
   padding: 14px;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
@@ -258,7 +258,7 @@ header .subtitle {
 }
 .biz-diag-table tbody td:nth-child(4) {
   text-align: center;
-  font-size: 18px;
+  font-size: 24px;
   width: 60px;
 }
 .biz-diag-table tr.metric-good { background: rgba(112, 173, 71, 0.04); }
@@ -266,11 +266,11 @@ header .subtitle {
 .biz-diag-table tr.metric-bad  { background: rgba(237, 125, 49, 0.05); }
 .biz-diag-table .val-chalna {
   color: var(--ppt-1);
-  font-size: 17px;
+  font-size: 19px;
 }
 .biz-diag-table .val-bench {
   color: var(--ink-soft);
-  font-size: 14px;
+  font-size: 16px;
 }
 /* 벤치마크 출처 태그 */
 .bench-tag {
@@ -805,8 +805,8 @@ header .subtitle {
 /* KPI 우선순위 카드 (LTV:CAC, 유료전환율 등) */
 .exec-kpi-row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
   padding-top: 22px;
   border-top: 1px dashed var(--line-strong);
 }
@@ -821,7 +821,7 @@ header .subtitle {
   letter-spacing: 0.01em;
 }
 .exec-kpi-val {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--ink);
   letter-spacing: -0.01em;
@@ -1272,37 +1272,43 @@ footer {
       </div>
     </div>
 
-    <!-- 핵심 KPI 5종 (PLG SaaS 글로벌 기준) -->
+    <!-- 핵심 KPI 6종 (PLG SaaS 글로벌 기준) -->
     <div class="exec-kpi-row">
       <div class="exec-kpi">
         <div class="exec-kpi-label">유료전환율</div>
         <div class="exec-kpi-val">12.6%</div>
         <div class="exec-kpi-trend down">▼ 25년 24.3% 대비 절반</div>
-        <div style="font-size:11px;color:var(--ink-soft);margin-top:4px">PLG 평균 8.9% · good 8~15%</div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:5px">PLG 평균 8.9% · good 8~15%</div>
       </div>
       <div class="exec-kpi">
         <div class="exec-kpi-label">회원가입율</div>
         <div class="exec-kpi-val">5.4%</div>
         <div class="exec-kpi-trend up">▲ 1월 6% / 3월 4%</div>
-        <div style="font-size:11px;color:var(--ink-soft);margin-top:4px">PLG 평균 3~4% · 우수 7~8%</div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:5px">PLG 평균 3~4% · 우수 7~8%</div>
+      </div>
+      <div class="exec-kpi">
+        <div class="exec-kpi-label">월 ARPU</div>
+        <div class="exec-kpi-val">11.8만</div>
+        <div class="exec-kpi-trend up">▲ 25년 8.7만 대비 +36%</div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:5px">PLG ACV $1K~5K 우수 구간</div>
       </div>
       <div class="exec-kpi">
         <div class="exec-kpi-label">CAC (결제고객)</div>
         <div class="exec-kpi-val">30.4만</div>
         <div class="exec-kpi-trend neutral">광고비 2,948만 ÷ 결제 97명</div>
-        <div style="font-size:11px;color:var(--ink-soft);margin-top:4px">PLG 기준 LTV의 1/3 이하 권장</div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:5px">PLG 기준 LTV의 1/3 이하 권장</div>
       </div>
       <div class="exec-kpi">
         <div class="exec-kpi-label">결제 고객 규모</div>
         <div class="exec-kpi-val">504명</div>
         <div class="exec-kpi-trend down">❌ BEP 필요 850명 · 현재 59%</div>
-        <div style="font-size:11px;color:var(--ink-soft);margin-top:4px">찰나 비용 1억 ÷ ARPU 11.8만</div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:5px">찰나 비용 1억 ÷ ARPU 11.8만</div>
       </div>
       <div class="exec-kpi">
         <div class="exec-kpi-label">휴면 회복률 (CRM)</div>
         <div class="exec-kpi-val">0%</div>
         <div class="exec-kpi-trend down">❌ 휴면 1,803명 방치</div>
-        <div style="font-size:11px;color:var(--ink-soft);margin-top:4px">PLG 평균 3~8% · 우수 15%+</div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:5px">PLG 평균 3~8% · 우수 15%+</div>
       </div>
     </div>
   </section>
@@ -1352,10 +1358,10 @@ footer {
     </div>
 
     <!-- PLG SaaS 비교 테이블 -->
-    <div style="font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px">
+    <div style="font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px">
       📊 핵심 6개 지표 — PLG SaaS 글로벌 기준 비교
     </div>
-    <div style="font-size:13px;color:var(--ink-mute);margin-bottom:14px;line-height:1.5">
+    <div style="font-size:14.5px;color:var(--ink-mute);margin-bottom:14px;line-height:1.6">
       찰나는 <strong>PLG (Product-Led Growth) + Opt-in Free Trial</strong> 모델 (카드정보 없는 30일 무료체험).
       모든 지표를 동일한 PLG SaaS 글로벌 기준으로 비교 ·
       출처: ChartMogul 2026 (200개사) · OpenView ProductLed Benchmarks · First Page Sage 2025
@@ -1371,56 +1377,56 @@ footer {
       </thead>
       <tbody>
         <tr class="metric-warn">
-          <td>유료전환율<br><span style="font-size:12px;color:var(--ink-soft);font-weight:500">(가입 → 결제)</span></td>
-          <td><span class="val-chalna">24.3% → 12.6%</span><br><span style="font-size:12px;color:var(--ink-soft)">(전년 대비 절반 수준 하락)</span></td>
+          <td>유료전환율<br><span style="font-size:13.5px;color:var(--ink-soft);font-weight:500">(가입 → 결제)</span></td>
+          <td><span class="val-chalna">24.3% → 12.6%</span><br><span style="font-size:13.5px;color:var(--ink-soft)">(전년 대비 절반 수준 하락)</span></td>
           <td>
             <span class="val-bench"><strong>평균 8.9%</strong></span><br>
-            <span style="font-size:12px;color:var(--ink-soft)">good 8~15% / great 15~25%</span>
+            <span style="font-size:14px;color:var(--ink-soft)">good 8~15% / great 15~25%</span>
           </td>
           <td>⚠️</td>
         </tr>
         <tr class="metric-good">
-          <td>회원가입율<br><span style="font-size:12px;color:var(--ink-soft);font-weight:500">(방문자 → 가입)</span></td>
-          <td><span class="val-chalna">5.4%</span><br><span style="font-size:12px;color:var(--ink-soft)">(1Q 방문 14,265명 → 가입 770명 · 1월 6%, 3월 4%)</span></td>
+          <td>회원가입율<br><span style="font-size:13.5px;color:var(--ink-soft);font-weight:500">(방문자 → 가입)</span></td>
+          <td><span class="val-chalna">5.4%</span><br><span style="font-size:13.5px;color:var(--ink-soft)">(1Q 방문 14,265명 → 가입 770명 · 1월 6%, 3월 4%)</span></td>
           <td>
             <span class="val-bench"><strong>평균 3~4%</strong></span><br>
-            <span style="font-size:12px;color:var(--ink-soft)">PLG Free Trial 모델 기준 / 우수 7~8%+</span>
+            <span style="font-size:14px;color:var(--ink-soft)">PLG Free Trial 모델 기준 / 우수 7~8%+</span>
           </td>
           <td>⭐</td>
         </tr>
         <tr class="metric-bad">
-          <td>휴면 회복률 (CRM)<br><span style="font-size:12px;color:var(--ink-soft);font-weight:500">(휴면 → 결제 회복)</span></td>
-          <td><span class="val-chalna">0%</span><br><span style="font-size:12px;color:var(--ink-soft)">(CRM 마케팅 미수행 · 휴면 풀 1,803명 방치)</span></td>
+          <td>휴면 회복률 (CRM)<br><span style="font-size:13.5px;color:var(--ink-soft);font-weight:500">(휴면 → 결제 회복)</span></td>
+          <td><span class="val-chalna">0%</span><br><span style="font-size:13.5px;color:var(--ink-soft)">(CRM 마케팅 미수행 · 휴면 풀 1,803명 방치)</span></td>
           <td>
             <span class="val-bench"><strong>평균 3~8%</strong></span><br>
-            <span style="font-size:12px;color:var(--ink-soft)">우수 PLG 15%+ (reactivation 표준)</span>
+            <span style="font-size:14px;color:var(--ink-soft)">우수 PLG 15%+ (reactivation 표준)</span>
           </td>
           <td>❌</td>
         </tr>
         <tr class="metric-bad">
-          <td>매출 / 비용 비율<br><span style="font-size:12px;color:var(--ink-soft);font-weight:500">(사업 지속력)</span></td>
-          <td><span class="val-chalna">52% → 64%</span><br><span style="font-size:12px;color:var(--ink-soft)">(BEP까지 매출 +56% 추가 필요)</span></td>
+          <td>매출 / 비용 비율<br><span style="font-size:13.5px;color:var(--ink-soft);font-weight:500">(사업 지속력)</span></td>
+          <td><span class="val-chalna">52% → 64%</span><br><span style="font-size:13.5px;color:var(--ink-soft)">(BEP까지 매출 +56% 추가 필요)</span></td>
           <td>
             <span class="val-bench"><strong>100%+ 흑자 전환</strong></span><br>
-            <span style="font-size:12px;color:var(--ink-soft)">PLG 성숙기 사업 건강도 기준</span>
+            <span style="font-size:14px;color:var(--ink-soft)">PLG 성숙기 사업 건강도 기준</span>
           </td>
           <td>❌</td>
         </tr>
         <tr class="metric-bad">
-          <td>결제 고객 규모<br><span style="font-size:12px;color:var(--ink-soft);font-weight:500">(BEP 도달 가능 규모)</span></td>
-          <td><span class="val-chalna">504명</span><br><span style="font-size:12px;color:var(--ink-soft)">(2026 1Q 정상 결제 · BEP 필요 ~850명)</span></td>
+          <td>결제 고객 규모<br><span style="font-size:13.5px;color:var(--ink-soft);font-weight:500">(BEP 도달 가능 규모)</span></td>
+          <td><span class="val-chalna">504명</span><br><span style="font-size:13.5px;color:var(--ink-soft)">(2026 1Q 정상 결제 · BEP 필요 ~850명)</span></td>
           <td>
             <span class="val-bench"><strong>1.7배 필요</strong></span><br>
-            <span style="font-size:12px;color:var(--ink-soft)">찰나 비용 1억/월 ÷ ARPU 11.8만 기준</span>
+            <span style="font-size:14px;color:var(--ink-soft)">찰나 비용 1억/월 ÷ ARPU 11.8만 기준</span>
           </td>
           <td>❌</td>
         </tr>
         <tr class="metric-good">
-          <td>월 ARPU<br><span style="font-size:12px;color:var(--ink-soft);font-weight:500">(전체 결제고객 1인당)</span></td>
-          <td><span class="val-chalna">11.8만</span><br><span style="font-size:12px;color:var(--ink-soft)">(전체 매출 1.92억 ÷ 504명 ÷ 3개월)</span></td>
+          <td>월 ARPU<br><span style="font-size:13.5px;color:var(--ink-soft);font-weight:500">(전체 결제고객 1인당)</span></td>
+          <td><span class="val-chalna">11.8만</span><br><span style="font-size:13.5px;color:var(--ink-soft)">(전체 매출 1.92억 ÷ 504명 ÷ 3개월)</span></td>
           <td>
             <span class="val-bench"><strong>월 $80~400 수준</strong></span><br>
-            <span style="font-size:12px;color:var(--ink-soft)">PLG ACV $1K~5K 구간 (가장 높은 전환)</span>
+            <span style="font-size:14px;color:var(--ink-soft)">PLG ACV $1K~5K 구간 (가장 높은 전환)</span>
           </td>
           <td>✅</td>
         </tr>
