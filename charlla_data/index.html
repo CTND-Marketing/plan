@@ -1644,7 +1644,7 @@ footer {
           <li><strong>월 ARPU 11.8만</strong>(1Q 매출 1.92억 ÷ 결제 543명 ÷ 3개월)으로 SMB SaaS 우수 수준. 1인당 매출 가치는 검증됨.</li>
           <li><strong>월 해지율 1.41%</strong>: 한번 결제한 고객의 ~95%가 유지. 제품 가치는 충분히 작동. PLG SaaS 평균(3~5%)을 크게 하회.</li>
           <li><strong>LTV 120만 · LTV:CAC = 4.0:1</strong>: PLG SaaS 글로벌 표준(3:1)을 충족. 광고비 30만원으로 평생 가치 120만원 고객 확보 — <strong>광고 효율 자체는 건강한 수준</strong>.</li>
-          <li><strong>ROAS (LTV 기준) 392%</strong>: 광고비 1원당 평생 3.92원 회수 가능. PLG SaaS 우수 구간(300~400%) 충족. 단, <strong>회수 기간 평균 10.2개월 소요</strong> 고려 필요.</li>
+          <li><strong>ROAS (LTV 기준) 392%</strong>: 광고비 1원당 평생 3.92원 회수 가능. PLG SaaS 우수 구간(300~400%) 충족. <strong>광고비 회수 약 2.6개월 (CAC 30.4만 ÷ ARPU 11.8만)</strong> — SaaS 베스트 클래스(5~7개월)보다도 빠름.</li>
         </ul>
       </div>
 
@@ -2236,21 +2236,20 @@ footer {
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oadcost25" data-mode="roas">ROAS</button>
-          <button class="btn-pill" data-view="oadcost25" data-mode="cac">CAC</button>
+          <button class="btn-pill active" data-view="oadcost25" data-mode="cac">CAC</button>
           <button class="btn-pill" data-view="oadcost25" data-mode="payback">Payback</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ ROAS</strong> = 매출 ÷ 광고비. 광고비 1원당 매출 회수율.<br>
-        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 매출 발생 고객 수. 매출 고객 1명을 얻는 데 든 비용.<br>
-        <strong>※ Payback Period</strong> = CAC ÷ 월 ARPU. 광고비를 회수하기까지 걸리는 개월 수. SaaS에서 12개월 이내면 우수.
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 결제 고객 수. 고객 1명 데려오는 데 든 광고비.<br>
+        <strong>※ Payback Period</strong> = CAC ÷ 월 ARPU. 광고비를 회수하기까지 걸리는 개월 수. SaaS에서 12개월 이내면 우수.<br>
+        <span style="color:var(--ink-soft);font-size:13px">※ ROAS는 LTV 매출 검증 탭으로 이동했습니다.</span>
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">156,000,000원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">전체 ROAS</div><div class="sub-stat-value">397.6%</div></div>
         <div class="sub-stat"><div class="sub-stat-label">전체 CAC</div><div class="sub-stat-value">371,429원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">3.0개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">4.3개월</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oadcost25-legend">
@@ -2262,12 +2261,11 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>전체 매출 ROAS 397.6%</strong> — 광고비 1원당 약 4원 회수. 채널별로는 카페24 <span class="num">443.8%</span>, 검색/배너 <span class="num">352.7%</span>로 두 채널 모두 흑자.</li>
-          <li><strong>신규 매출 ROAS 76.5%</strong>(신규 매출 1.19억 ÷ 광고비 1.56억): 1Q에 새로 들어온 가입자만 보면 즉시 회수율 낮음. <strong>LTV 기준 ROAS는 211%</strong>(LTV 78만 ÷ CAC 37.1만)로 PLG 표준(300~400%)에는 미달, 단 측정 1년의 한계.</li>
-          <li><strong>전체 CAC 26.1만원</strong>(광고비 1.56억 ÷ 결제고객 597명): 채널별로는 카페24 <span class="num">16.1만</span> (476명 기준) vs 검색/배너 <span class="num">65.5만</span> (121명 기준) — 검색/배너가 약 4배 비쌈.</li>
-          <li><strong>Payback 3.0개월</strong>: 광고비를 약 3개월 만에 회수 (전체 결제고객 597명 ARPU 기준). SaaS 우수 기준(12개월 이내) 충족. 채널별로는 카페24 2.7개월 / 검색/배너 3.4개월.</li>
-          <li><strong>검색/배너의 역설</strong>: CAC는 비싸지만 Payback은 카페24와 비슷. 1인 매출이 더 크기 때문 — 헤비 고객 채널.</li>
-          <li><strong>참고: 신규 가입자만 보는 CAC는 37.1만원</strong>(광고비 1.56억 ÷ 신규 결제 420명). 이게 메인 대시보드에 표시된 값. <strong>전체 매출 분석에서는 결제 고객 597명 기준으로 26.1만원</strong>으로 더 낮음.</li>
+          <li><strong>전체 매출 ROAS 397.6%</strong> — 광고비 1.56억으로 전체 매출 6.20억 발생. 채널별로는 카페24 <span class="num">444.0%</span> (광고비 7,680만 → 매출 3.41억), 검색/배너 <span class="num">157.6%</span> (광고비 7,920만 → 매출 1.25억).</li>
+          <li><strong>신규 매출 ROAS 76.5%</strong>(신규 매출 1.19억 ÷ 광고비 1.56억): 신규 가입자만 보면 1년차 회수율 낮음. <strong>LTV 기준 ROAS는 211%</strong>(LTV 78만 ÷ CAC 37.1만)로 PLG 표준(300~400%)에는 미달, 단 운영 1년차 측정 한계.</li>
+          <li><strong>전체 CAC 37.1만원</strong>(광고비 1.56억 ÷ 신규 결제 420명): 채널별 카페24 <span class="num">23.1만</span> (332명) vs 검색/배너 <span class="num">90.0만</span> (88명) — 검색/배너가 약 4배 비쌈.</li>
+          <li><strong>Payback 4.3개월</strong> (CAC 37.1만 ÷ ARPU 8.7만): 광고비를 약 4.3개월 만에 회수. SaaS 베스트 클래스(5~7개월) 능가.</li>
+          <li><strong>검색/배너의 역설</strong>: CAC 4배 비싸지만 ARPU(20.4만)가 카페24(6.0만)의 3.4배 — 회수 후 장기 수익성은 더 클 수 있음. 헤비 고객 채널 특성.</li>
         </ul>
       </div>
     </section>
@@ -2284,18 +2282,20 @@ footer {
           <span class="control-label">지표</span>
           <button class="btn-pill active" data-view="oltv25" data-mode="arpu">ARPU</button>
           <button class="btn-pill" data-view="oltv25" data-mode="ltv">LTV</button>
+          <button class="btn-pill" data-view="oltv25" data-mode="roas">ROAS</button>
         </div>
       </div>
       <div class="note">
         <strong>※ LTV (Customer Lifetime Value)</strong> = 월 ARPU × 평균 이용 개월. 매출고객 1인이 평균 이용기간 동안 만들어주는 총 매출.<br>
         <strong>※ 평균 이용 개월</strong>은 raw 매출 데이터 실측치 — 가입~해지(또는 기준일)까지의 실제 이용 기간 평균.<br>
+        <strong>※ ROAS</strong> = 매출 ÷ 광고비. 광고비 1원당 회수한 매출. SaaS에서는 LTV 기준 300~400%(LTV:CAC 3:1)가 표준.<br>
         <strong>※ LTV:CAC 비율</strong>은 SaaS 사업 건강도의 핵심 지표 — 일반적으로 <strong>3:1 이상</strong>이면 우수, 5:1 이상은 매우 우수.
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">전체 LTV</div><div class="sub-stat-value">78만원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">월 ARPU</div><div class="sub-stat-value">86,593원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">평균 이용 개월</div><div class="sub-stat-value">9.0개월</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">CAC (광고비/매출고객)</div><div class="sub-stat-value">371,429원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">CAC</div><div class="sub-stat-value">371,429원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">LTV:CAC 비율</div><div class="sub-stat-value">2.1 : 1</div></div>
       </div>
       <div class="chart-card">
@@ -2310,8 +2310,9 @@ footer {
         <ul>
           <li><strong>전체 LTV 78만원</strong> — 월 ARPU 8.7만 × 2025년 평균 이용 9.0개월. raw 매출 데이터 기반 실측치.</li>
           <li><strong>이용 개월 분포 (2025)</strong>: 평균 9.0개월 · 카페24 채널 8.3개월 · 검색/배너 채널 12.8개월. 채널별 충성도 차이가 명확.</li>
-          <li><strong>채널별 LTV 차이</strong>: 검색/배너 LTV <span class="num">260만원</span> (ARPU 20.4만 × 12.8개월) vs 카페24 LTV <span class="num">49만원</span> (ARPU 6.0만 × 8.3개월). 검색/배너는 헤비 고객 비중 높아 1인당 가치 5배.</li>
-          <li><strong>LTV:CAC = 2.1:1</strong> — SaaS 우수 기준(3:1) 미달. 단, 측정 기간 1년이라 짧은 한계. 시간 누적 시 LTV 상승 예상.</li>
+          <li><strong>채널별 LTV 차이</strong>: 검색/배너 LTV <span class="num">261만원</span> (ARPU 20.4만 × 12.8개월) vs 카페24 LTV <span class="num">49.6만원</span> (ARPU 6.0만 × 8.3개월). 검색/배너는 헤비 고객 비중 높아 1인당 가치 5배.</li>
+          <li><strong>LTV:CAC = 2.1:1</strong> (LTV 78만 ÷ CAC 37.1만) — PLG SaaS 표준(3:1)에 미달. 채널별로는 카페24 <span class="num">2.1:1</span>, 검색/배너 <span class="num">2.9:1</span>. 운영 1년차로 측정 기간 한계.</li>
+          <li><strong>Payback 4.3개월</strong> (CAC 37.1만 ÷ ARPU 8.7만): 광고비 회수는 빠름. SaaS 베스트 클래스(5~7개월) 능가.</li>
           <li><strong>월 해지율 1.59%</strong>는 SaaS 평균(3~5%)보다 낮지만, 실측 평균 이용은 9.0개월 (운영 1년차라 장기 수치 측정 한계).</li>
         </ul>
       </div>
@@ -2868,21 +2869,20 @@ footer {
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oadcost26" data-mode="roas">ROAS</button>
-          <button class="btn-pill" data-view="oadcost26" data-mode="cac">CAC</button>
+          <button class="btn-pill active" data-view="oadcost26" data-mode="cac">CAC</button>
           <button class="btn-pill" data-view="oadcost26" data-mode="payback">Payback</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ ROAS</strong> = 매출 ÷ 광고비. 광고비 1원당 매출 회수율.<br>
-        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 가입자 중 결제 전환자. 신규 결제고객 1명을 얻는 데 든 비용.<br>
-        <strong>※ Payback Period</strong> = CAC ÷ 월 ARPU. 광고비를 회수하기까지 걸리는 개월 수. SaaS에서 12개월 이내면 우수.
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 결제 고객 수. 고객 1명 데려오는 데 든 광고비.<br>
+        <strong>※ Payback Period</strong> = CAC ÷ 월 ARPU. 광고비를 회수하기까지 걸리는 개월 수. SaaS에서 12개월 이내면 우수.<br>
+        <span style="color:var(--ink-soft);font-size:13px">※ ROAS는 LTV 매출 검증 탭으로 이동했습니다.</span>
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,480,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 ROAS</div><div class="sub-stat-value">652.5%</div></div>
         <div class="sub-stat"><div class="sub-stat-label">CAC (신규결제)</div><div class="sub-stat-value">303,918원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">~10.2개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">2.6개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">LTV:CAC 비율</div><div class="sub-stat-value">4.0 : 1</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oadcost26-legend">
@@ -2897,7 +2897,7 @@ footer {
           <li><strong>전체 매출 ROAS 652.5%</strong> — 광고비 2,948만으로 매출 1.92억 회수, 광고비 1원당 약 6.5원 회수. 2025년(397.6%) 대비 1.64배 효율 개선. 단, 이는 <strong>이전 가입자 매출까지 포함</strong>한 광의의 효율.</li>
           <li><strong>신규 매출 ROAS 29.8%</strong>(신규 매출 877만 ÷ 광고비 2,948만): 1Q에 새로 들어온 가입자만 보면 즉시 회수 매우 낮음. <strong>LTV 기준 ROAS는 392%</strong> (LTV 120만 ÷ CAC 30만)로 PLG 표준(300~400%) 충족.</li>
           <li><strong>CAC 30.4만원</strong>(광고비 2,948만 ÷ 신규 결제 97명): 2025년 가입자 기준 CAC 37.1만보다 낮아짐 — 광고 효율 개선 추세.</li>
-          <li><strong>Payback 약 10.2개월</strong>: 광고비 1원당 매월 일정액 회수, 평균 이용 10.2개월 동안 LTV 120만으로 회수 완료. SaaS 우수 기준(12개월 이내) 충족.</li>
+          <li><strong>Payback 약 2.6개월</strong> (CAC 30.4만 ÷ ARPU 11.8만): 광고비를 약 2.6개월 만에 회수 완료. SaaS 베스트 클래스(5~7개월)도 능가하는 매우 빠른 회수 속도. 이후 평균 이용 기간 10.2개월 중 7.6개월은 순이익 발생.</li>
           <li><strong>월별 CPA 상승 추세</strong>: 1월 28,773원 → 3월 59,394원 (2배 상승). 가입율도 6% → 4%로 하락. 광고 채널 효율 한계 신호 — 광고비 증액보다 다른 레버 필요.</li>
         </ul>
       </div>
@@ -2915,11 +2915,13 @@ footer {
           <span class="control-label">지표</span>
           <button class="btn-pill active" data-view="oltv26" data-mode="arpu">ARPU</button>
           <button class="btn-pill" data-view="oltv26" data-mode="ltv">LTV</button>
+          <button class="btn-pill" data-view="oltv26" data-mode="roas">ROAS</button>
         </div>
       </div>
       <div class="note">
         <strong>※ LTV (Customer Lifetime Value)</strong> = 월 ARPU × 평균 이용 개월. 매출고객 1인이 평균 이용기간 동안 만들어주는 총 매출.<br>
         <strong>※ 평균 이용 개월</strong>은 raw 매출 데이터 실측치 — 가입~해지(또는 기준일)까지의 실제 이용 기간 평균.<br>
+        <strong>※ ROAS</strong> = 매출 ÷ 광고비. 광고비 1원당 회수한 매출. SaaS에서는 LTV 기준 300~400%(LTV:CAC 3:1)가 표준.<br>
         <strong>※ CAC (1Q)</strong> = 광고비 ÷ 신규 가입자 중 결제 전환자 (97명 기준).
       </div>
       <div class="sub-stats">
@@ -2943,7 +2945,7 @@ footer {
           <li><strong>이용 개월 분포 (2026 1Q)</strong>: 평균 10.2개월 · 카페24 채널 9.2개월 · 검색/배너 채널 15.2개월. 2025년 대비 카페24(+0.9개월), 검색/배너(+2.4개월) 모두 충성도 향상.</li>
           <li><strong>채널별 LTV 차이</strong>: 검색/배너 LTV <span class="num">388만원</span> (ARPU 25.5만 × 15.2개월) vs 카페24 LTV <span class="num">77만원</span> (ARPU 8.4만 × 9.2개월). 검색/배너는 Enterprise 등 헤비 고객 비중 높아 5배 차이.</li>
           <li><strong>LTV:CAC = 4.0:1</strong> — PLG SaaS 글로벌 표준(3:1) 충족. 광고비 1원당 평균 4.0원 회수. 2025년(2.1:1) 대비 약 2배 개선 — 사업 효율 향상 추세.</li>
-          <li><strong>Payback 약 10.2개월</strong>: 광고비를 평균 이용 기간 동안 LTV로 회수 완료 (CAC 30만 → LTV 120만). SaaS 우수 기준(12개월 이내) 충족. 단기 자금 압박은 고려 필요.</li>
+          <li><strong>Payback 약 2.6개월</strong> (CAC 30.4만 ÷ ARPU 11.8만): 광고비 회수가 매우 빠름. SaaS 베스트 클래스(5~7개월)도 능가하며 SaaS 우수 기준(12개월 이내)을 약 5배 초과 충족. 이후 평균 이용 10.2개월 중 7.6개월은 순이익 발생 → LTV:CAC 4.0:1.</li>
         </ul>
       </div>
     </section>
@@ -3117,11 +3119,11 @@ const DATA25 = {
     cost_cafe24: 76800000,
     cost_search: 79200000,
     roas_total_overall: 397.6,
-    roas_cafe24_overall: 443.8,
-    roas_search_overall: 352.7,
+    roas_cafe24_overall: 444.0,
+    roas_search_overall: 157.6,
     roas_total_new: 76.5,        // 신규 매출 ROAS
-    roas_cafe24_new: 152.5,
-    roas_search_new: 25.0,
+    roas_cafe24_new: 130.8,
+    roas_search_new: 23.9,
     monthly_ad_total: [13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000, 13000000]
   }
 };
@@ -3148,14 +3150,14 @@ const OVERALL_25 = {
   rev_cafe24: 340862699,
   rev_search: 279340583,
   roas_total: 397.6,
-  roas_cafe24: 443.8,
-  roas_search: 352.7,
+  roas_cafe24: 444.0,
+  roas_search: 157.6,
   profit_total: 464203282,
   profit_cafe24: 264062699,
   profit_search: 200140583,
   roas_total_new: 76.5,
-  roas_cafe24_new: 152.5,
-  roas_search_new: 25.0,
+  roas_cafe24_new: 130.8,
+  roas_search_new: 23.9,
   month_labels: ['25-01','25-02','25-03','25-04','25-05','25-06','25-07','25-08','25-09','25-10','25-11','25-12'],
   month_total: [36776841, 35298243, 37185806, 38627095, 46146433, 56115776, 56420163, 54223750, 58271887, 61584591, 68080853, 71471844],
   month_cafe24: [17473841, 19092243, 20726806, 21821687, 23585358, 32427707, 30337441, 30366197, 33482355, 34040184, 39823766, 37685114],
@@ -3166,10 +3168,10 @@ const OVERALL_25 = {
   feature_total: 1727,
   // LTV 데이터 (실측: 월 ARPU × 평균 이용 개월)
   ltv_total: 781188,
-  ltv_cafe24: 491627,
-  ltv_search: 2601796,
+  ltv_cafe24: 495518,
+  ltv_search: 2609830,
   arpu_monthly_total: 86593,
-  arpu_monthly_cafe24: 59570,
+  arpu_monthly_cafe24: 59701,
   arpu_monthly_search: 203893,
   avg_months_total: 9.0,
   avg_months_cafe24: 8.3,
@@ -3178,11 +3180,11 @@ const OVERALL_25 = {
   churn_rate_cafe24: 1.52,
   churn_rate_search: 1.86,
   cac_total: 371429,
-  cac_cafe24: 165660,
-  cac_search: 1554902,
+  cac_cafe24: 231325,
+  cac_search: 900000,
   ltv_cac_ratio_total: 2.1,
-  ltv_cac_ratio_cafe24: 3.0,
-  ltv_cac_ratio_search: 1.7,
+  ltv_cac_ratio_cafe24: 2.1,
+  ltv_cac_ratio_search: 2.9,
   // 채널별 Enterprise 핵심 고객 (100만원+ 무한로드 Enterprise)
   enterprise_cafe24: ['멜리언스', '핫핑', '리리앤코'],
   enterprise_search: ['젝시믹스', 'NA미디어', '카페24 광고', '신세계면세점']
@@ -3198,7 +3200,7 @@ let modes25 = {
   plans25: 'count',
   conversion25: 'bar',
   orevenue25: 'bucket',
-  oadcost25: 'roas',
+  oadcost25: 'cac',
   oltv25: 'ltv',
   ofeatures25: 'abs'
 };
@@ -3648,10 +3650,10 @@ const OVERALL_26 = {
   feature_total: 777,
   // LTV 데이터 (실측: 월 ARPU × 평균 이용 개월)
   ltv_total: 1200000,
-  ltv_cafe24: 767243,
-  ltv_search: 3876548,
+  ltv_cafe24: 781052,
+  ltv_search: 3879815,
   arpu_monthly_total: 118077,
-  arpu_monthly_cafe24: 83822,
+  arpu_monthly_cafe24: 84897,
   arpu_monthly_search: 255251,
   avg_months_total: 10.2,
   avg_months_cafe24: 9.2,
@@ -3663,7 +3665,7 @@ const OVERALL_26 = {
   cac_cafe24: 197143,
   cac_search: 580741,
   ltv_cac_ratio_total: 4.0,
-  ltv_cac_ratio_cafe24: 3.9,
+  ltv_cac_ratio_cafe24: 4.0,
   ltv_cac_ratio_search: 6.7,
   // 채널별 Enterprise 핵심 고객 (100만원+ 무한로드 Enterprise)
   enterprise_cafe24: ['멜리언스', '핫핑', '리리앤코'],
@@ -3680,7 +3682,7 @@ let modes26 = {
   status26: 'overall',
   ltv26: 'roas',
   orevenue26: 'bucket',
-  oadcost26: 'roas',
+  oadcost26: 'cac',
   oltv26: 'ltv',
   ofeatures26: 'abs'
 };
@@ -4307,7 +4309,11 @@ function buildORevenue(year) {
             anchor: 'center', align: 'center', color: '#fff',
             font: { family: 'Pretendard', size: 11, weight: '700' },
             textShadowColor: 'rgba(0,0,0,0.35)', textShadowBlur: 4,
-            formatter: (v) => v >= 5000000 ? (v/10000000).toFixed(0) + '천만' : (v >= 1000000 ? (v/10000).toFixed(0) + '만' : ''),
+            formatter: (v) => {
+              if (v < 1000000) return '';
+              // 100만원 단위까지 반올림 없이 표시 (X,XXX만)
+              return Math.floor(v / 10000).toLocaleString() + '만';
+            },
             display: (c) => c && c.parsed && c.parsed.y >= 1000000
           },
           tooltip: Object.assign({}, tooltipBase, {
@@ -4334,7 +4340,7 @@ function buildORevenue(year) {
         scales: {
           x: Object.assign({}, xAxisBase, { stacked: true }),
           y: Object.assign({}, yAxisBase, { stacked: true, beginAtZero: true, grace: '15%',
-            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => (v/10000000).toFixed(0) + '천만' },
+            ticks: { color: COLORS.inkMute, font: { family: 'Pretendard', size: 13 }, callback: (v) => Math.floor(v/10000).toLocaleString() + '만' },
             title: { display: true, text: '월별 매출 (원)', color: COLORS.inkMute, font: { family: 'Pretendard', size: 13, weight: '500' } } })
         }
       }
@@ -4586,6 +4592,29 @@ function buildOLtv(year) {
       <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 LTV (LTV:CAC ${D.ltv_cac_ratio_cafe24.toFixed(1)}:1)</span>
       <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 LTV (LTV:CAC ${D.ltv_cac_ratio_search.toFixed(1)}:1)</span>
       <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">LTV = 월 ARPU × 평균 이용 개월 (실측)</span>`;
+  } else if (mode === 'roas') {
+    // ROAS 모드 (LTV 기준 + 전체 매출 기준 두 가지 표시)
+    const roasCafe_LTV = (D.ltv_cafe24 / D.cac_cafe24) * 100;
+    const roasSearch_LTV = (D.ltv_search / D.cac_search) * 100;
+    data = [roasCafe_LTV, roasSearch_LTV];
+    yLabel = 'ROAS (LTV 기준, %)';
+    yFormatter = (v) => v.toFixed(0) + '%';
+    dataLabelFmt = (v) => v.toFixed(0) + '%';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      const ltv = i === 0 ? D.ltv_cafe24 : D.ltv_search;
+      const cac = i === 0 ? D.cac_cafe24 : D.cac_search;
+      const roasOverall = i === 0 ? D.roas_cafe24 : D.roas_search;
+      return ['ROAS (LTV 기준): ' + c.parsed.y.toFixed(0) + '%',
+        'LTV: ' + ltv.toLocaleString() + '원',
+        'CAC: ' + cac.toLocaleString() + '원',
+        '─────',
+        'ROAS (전체 매출 기준): ' + roasOverall.toFixed(1) + '%'];
+    };
+    legendHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 ROAS (LTV ${(D.ltv_cafe24/D.cac_cafe24*100).toFixed(0)}%)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 ROAS (LTV ${(D.ltv_search/D.cac_search*100).toFixed(0)}%)</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">ROAS = LTV ÷ CAC × 100% · PLG SaaS 표준 300~400%</span>`;
   } else {
     // arpu (월 ARPU)
     data = [D.arpu_monthly_cafe24, D.arpu_monthly_search];
