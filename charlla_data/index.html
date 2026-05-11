@@ -1795,8 +1795,8 @@ footer {
     </div>
     <nav class="section-nav" data-nav="2025">
       <button class="nav-tab active" data-tab="duration25">01 이용기간</button>
-      <button class="nav-tab" data-tab="adcost25">02 광고비 효율</button>
-      <button class="nav-tab" data-tab="conversion25">03 플랫폼별 전환</button>
+      <button class="nav-tab" data-tab="conversion25">02 플랫폼별 전환</button>
+      <button class="nav-tab" data-tab="adcost25">03 광고비 효율</button>
       <button class="nav-tab" data-tab="status25">04 고객 분포</button>
       <button class="nav-tab" data-tab="plans25">05 서비스별 플랜</button>
     </nav>
@@ -1882,6 +1882,53 @@ footer {
       </div>
     </section>
 
+    <!-- 04 PLATFORM CONVERSION -->
+    <section class="chart-section" id="section-conversion25">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 02</div>
+          <h2 class="section-title">플랫폼별 유료전환율</h2>
+          <p class="section-desc">커머스 플랫폼별 가입자 수 대비 유료전환 고객 수와 전환율 비교.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">표시</span>
+          <button class="btn-pill active" data-view="conversion25" data-mode="bar">막대비교</button>
+          <button class="btn-pill" data-view="conversion25" data-mode="rate">전환율순</button>
+        </div>
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">1,727명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">420명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">24.3%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (48.9%)</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>가입자</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>유료전환</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2);border-radius:50%"></span>전환율 %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_conversion25"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><span class="num">cafe24</span>가 압도적 — 가입자 679명 중 <span class="num">332명(48.9%)</span>이 유료 전환. 유료 고객 420명 중 <span class="num">79%가 cafe24 출신</span>.</li>
+          <li><span class="num">direct</span>는 가입자 855명(전체 1위)이지만 전환율 <span class="num">7.7%</span>에 불과.</li>
+          <li>nhn(16.0%) 중간, makeshop(7.0%) direct 수준, <span class="num">colorme 16명 중 0명 전환</span>.</li>
+        </ul>
+        <div class="plg-bench">
+          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
+          <div class="plg-bench-simple">
+            <strong>2025년 전체 유료전환율 24.3%</strong> ·
+            PLG Opt-in 평균 <strong>8.9%</strong>의 약 <strong>2.7배</strong> ⭐<br>
+            <span style="font-size:12.5px;color:var(--ink-mute)">cafe24(48.9%)는 PLG <strong>great 등급(15~25%)</strong> 초과로 매우 우수.
+            direct·makeshop(7~8%)은 PLG 평균 수준이며, <strong>채널별 성격이 명확히 구분됨</strong>.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 03 AD COST -->
     <section class="chart-section" id="section-adcost25">
       <div class="section-header">
@@ -1947,58 +1994,11 @@ footer {
       </div>
     </section>
 
-    <!-- 04 PLATFORM CONVERSION -->
-    <section class="chart-section" id="section-conversion25">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 04</div>
-          <h2 class="section-title">플랫폼별 유료전환율</h2>
-          <p class="section-desc">커머스 플랫폼별 가입자 수 대비 유료전환 고객 수와 전환율 비교.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">표시</span>
-          <button class="btn-pill active" data-view="conversion25" data-mode="bar">막대비교</button>
-          <button class="btn-pill" data-view="conversion25" data-mode="rate">전환율순</button>
-        </div>
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">1,727명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">420명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">24.3%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (48.9%)</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row">
-          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>가입자</span>
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>유료전환</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2);border-radius:50%"></span>전환율 %</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_conversion25"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><span class="num">cafe24</span>가 압도적 — 가입자 679명 중 <span class="num">332명(48.9%)</span>이 유료 전환. 유료 고객 420명 중 <span class="num">79%가 cafe24 출신</span>.</li>
-          <li><span class="num">direct</span>는 가입자 855명(전체 1위)이지만 전환율 <span class="num">7.7%</span>에 불과.</li>
-          <li>nhn(16.0%) 중간, makeshop(7.0%) direct 수준, <span class="num">colorme 16명 중 0명 전환</span>.</li>
-        </ul>
-        <div class="plg-bench">
-          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
-          <div class="plg-bench-simple">
-            <strong>2025년 전체 유료전환율 24.3%</strong> ·
-            PLG Opt-in 평균 <strong>8.9%</strong>의 약 <strong>2.7배</strong> ⭐<br>
-            <span style="font-size:12.5px;color:var(--ink-mute)">cafe24(48.9%)는 PLG <strong>great 등급(15~25%)</strong> 초과로 매우 우수.
-            direct·makeshop(7~8%)은 PLG 평균 수준이며, <strong>채널별 성격이 명확히 구분됨</strong>.</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 05 CUSTOMER STATUS -->
     <section class="chart-section" id="section-status25">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 05</div>
+          <div class="section-num">SECTION 04</div>
           <h2 class="section-title">가입자 대비 휴면 · 해지 분포</h2>
           <p class="section-desc">2025년 가입 1,727명을 유료전환 여부 × 계정 상태(정상/휴면/해지)로 교차 분류.</p>
         </div>
@@ -2137,7 +2137,7 @@ footer {
     <section class="chart-section" id="section-plans25">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 08</div>
+          <div class="section-num">SECTION 05</div>
           <h2 class="section-title">서비스별 가격 플랜 분포</h2>
           <p class="section-desc">각 서비스 사용자들이 어떤 플랜에 속해 있는지 누적 막대 비교.</p>
         </div>
@@ -2397,8 +2397,8 @@ footer {
     </div>
     <nav class="section-nav" data-nav="2026">
       <button class="nav-tab active" data-tab="duration26">01 이용기간</button>
-      <button class="nav-tab" data-tab="adcost26">02 광고비 효율</button>
-      <button class="nav-tab" data-tab="conversion26">03 플랫폼별 전환</button>
+      <button class="nav-tab" data-tab="conversion26">02 플랫폼별 전환</button>
+      <button class="nav-tab" data-tab="adcost26">03 광고비 효율</button>
       <button class="nav-tab" data-tab="status26">04 고객 분포</button>
       <button class="nav-tab" data-tab="plans26">05 서비스별 플랜</button>
     </nav>
@@ -2492,6 +2492,54 @@ footer {
       </div>
     </section>
 
+    <!-- 04 PLATFORM CONVERSION -->
+    <section class="chart-section" id="section-conversion26">
+      <div class="section-header">
+        <div class="section-title-block">
+          <div class="section-num">SECTION 02</div>
+          <h2 class="section-title">플랫폼별 유료전환율</h2>
+          <p class="section-desc">커머스 플랫폼별 가입자 수 대비 유료전환 고객 수와 전환율 비교.</p>
+        </div>
+        <div class="controls">
+          <span class="control-label">표시</span>
+          <button class="btn-pill active" data-view="conversion26" data-mode="bar">막대비교</button>
+          <button class="btn-pill" data-view="conversion26" data-mode="rate">전환율순</button>
+        </div>
+      </div>
+      <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">784명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">97명</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">12.4%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (37.4%)</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="legend-row">
+          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>가입자</span>
+          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>유료전환</span>
+          <span><span class="legend-dot" style="background:var(--ppt-2);border-radius:50%"></span>전환율 %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ch_conversion26"></canvas></div>
+      </div>
+      <div class="insights">
+        <div class="insights-head">DATA INSIGHTS</div>
+        <ul>
+          <li><span class="num">cafe24가 압도적</span>: 187명 중 70명(37.4%)이 유료 전환. 1분기 유료 고객 97명의 <span class="num">72%가 cafe24 출신</span>.</li>
+          <li><strong>direct는 가입자 1위(441명, 57%)이지만 전환율 4.3%</strong>로 매우 낮음 — 가입 허들 제거 후 검색/배너로 유입된 트래픽 대부분이 결제로 이어지지 않음.</li>
+          <li>nhn 6.5%, makeshop 3.6%, colorme 0% — direct와 유사한 낮은 전환율 패턴.</li>
+          <li>2025년과 비교 시 <strong>cafe24의 우위는 유지(48.9%→37.4%)</strong>되지만 절대 전환율은 다소 하락.</li>
+        </ul>
+        <div class="plg-bench">
+          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
+          <div class="plg-bench-simple">
+            <strong>1Q 전체 유료전환율 12.4%</strong> ·
+            PLG Opt-in 평균 <strong>8.9%</strong>의 <strong>1.4배</strong> ✅<br>
+            <span style="font-size:12.5px;color:var(--ink-mute)">cafe24(37.4%)는 여전히 PLG <strong>great 등급(15~25%)</strong> 초과로 우수.
+            단 <strong>2025년 24.3% 대비 절반</strong>으로 하락 — 가입 허들 제거 후 트래픽 품질이 중요. PLG 평균보다는 좋지만 <strong>회복 노력 필요</strong>.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 03 AD COST -->
     <section class="chart-section" id="section-adcost26">
       <div class="section-header">
@@ -2559,59 +2607,11 @@ footer {
       </div>
     </section>
 
-    <!-- 04 PLATFORM CONVERSION -->
-    <section class="chart-section" id="section-conversion26">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 04</div>
-          <h2 class="section-title">플랫폼별 유료전환율</h2>
-          <p class="section-desc">커머스 플랫폼별 가입자 수 대비 유료전환 고객 수와 전환율 비교.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">표시</span>
-          <button class="btn-pill active" data-view="conversion26" data-mode="bar">막대비교</button>
-          <button class="btn-pill" data-view="conversion26" data-mode="rate">전환율순</button>
-        </div>
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">784명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">97명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">12.4%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (37.4%)</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row">
-          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>가입자</span>
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>유료전환</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2);border-radius:50%"></span>전환율 %</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_conversion26"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><span class="num">cafe24가 압도적</span>: 187명 중 70명(37.4%)이 유료 전환. 1분기 유료 고객 97명의 <span class="num">72%가 cafe24 출신</span>.</li>
-          <li><strong>direct는 가입자 1위(441명, 57%)이지만 전환율 4.3%</strong>로 매우 낮음 — 가입 허들 제거 후 검색/배너로 유입된 트래픽 대부분이 결제로 이어지지 않음.</li>
-          <li>nhn 6.5%, makeshop 3.6%, colorme 0% — direct와 유사한 낮은 전환율 패턴.</li>
-          <li>2025년과 비교 시 <strong>cafe24의 우위는 유지(48.9%→37.4%)</strong>되지만 절대 전환율은 다소 하락.</li>
-        </ul>
-        <div class="plg-bench">
-          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
-          <div class="plg-bench-simple">
-            <strong>1Q 전체 유료전환율 12.4%</strong> ·
-            PLG Opt-in 평균 <strong>8.9%</strong>의 <strong>1.4배</strong> ✅<br>
-            <span style="font-size:12.5px;color:var(--ink-mute)">cafe24(37.4%)는 여전히 PLG <strong>great 등급(15~25%)</strong> 초과로 우수.
-            단 <strong>2025년 24.3% 대비 절반</strong>으로 하락 — 가입 허들 제거 후 트래픽 품질이 중요. PLG 평균보다는 좋지만 <strong>회복 노력 필요</strong>.</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 05 CUSTOMER STATUS -->
     <section class="chart-section" id="section-status26">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 05</div>
+          <div class="section-num">SECTION 04</div>
           <h2 class="section-title">가입자 대비 휴면 · 해지 분포</h2>
           <p class="section-desc">1분기 가입 784명을 유료전환 여부 × 계정 상태(정상/휴면/해지)로 교차 분류.</p>
         </div>
@@ -2769,7 +2769,7 @@ footer {
     <section class="chart-section" id="section-plans26">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 08</div>
+          <div class="section-num">SECTION 05</div>
           <h2 class="section-title">서비스별 가격 플랜 분포</h2>
           <p class="section-desc">각 서비스 사용자들이 어떤 플랜에 속해 있는지 누적 막대 비교.</p>
         </div>
