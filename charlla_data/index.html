@@ -1309,45 +1309,45 @@ footer {
 
   <section class="exec-summary">
     <div class="exec-title">EXECUTIVE SUMMARY</div>
-    <div class="exec-headline">한눈에 보는 사업 현황 — ROAS 두 가지 정의</div>
+    <div class="exec-headline">한눈에 보는 사업 현황 — 광고 효율 & 사업 건강도</div>
 
     <div class="exec-grid">
-      <!-- 신규 매출 ROAS -->
+      <!-- 광고 효율 (신규 가입자 분석) -->
       <div class="exec-card new">
-        <span class="exec-card-tag">광고 효율</span>
-        <div class="exec-card-title">신규 매출 ROAS</div>
-        <div class="exec-card-desc">광고로 들어온 신규 고객의 매출만 기준. SaaS 표준 광고 효율 지표.</div>
-        <div class="exec-card-formula">ROAS = 신규 가입 고객의 매출 ÷ 광고비</div>
+        <span class="exec-card-tag">광고 효율 (신규 가입자 분석)</span>
+        <div class="exec-card-title">신규 결제 고객의 광고 효율</div>
+        <div class="exec-card-desc">광고로 새로 들어온 결제 고객을 데려오는 데 든 비용. 광고 채널의 품질 평가.</div>
+        <div class="exec-card-formula">CAC = 광고비 ÷ 신규 결제 고객 수</div>
         <div class="exec-card-stats">
           <div class="exec-card-stat">
             <div class="exec-card-stat-label">2025년</div>
-            <div class="exec-card-stat-val accent-1">76.5%</div>
-            <div class="exec-card-stat-sub">광고비 1.56억 → 신규 1.19억</div>
+            <div class="exec-card-stat-val accent-1">37.1만</div>
+            <div class="exec-card-stat-sub">광고비 1.56억 ÷ 420명</div>
           </div>
           <div class="exec-card-stat">
             <div class="exec-card-stat-label">2026 1분기</div>
-            <div class="exec-card-stat-val accent-1">29.8%</div>
-            <div class="exec-card-stat-sub">광고비 2,948만 → 신규 877만</div>
+            <div class="exec-card-stat-val accent-1">30.4만</div>
+            <div class="exec-card-stat-sub">광고비 2,948만 ÷ 97명 · 전년 대비 18% 개선</div>
           </div>
         </div>
       </div>
 
-      <!-- 전체 매출 ROAS -->
+      <!-- 사업 건강도 (전체 매출 분석) -->
       <div class="exec-card overall">
-        <span class="exec-card-tag">사업 건강도</span>
-        <div class="exec-card-title">전체 매출 ROAS</div>
-        <div class="exec-card-desc">같은 기간 모든 결제 매출 기준. 사업 전체의 광고비 회수 효율.</div>
-        <div class="exec-card-formula">ROAS = 같은 기간 모든 매출 ÷ 광고비</div>
+        <span class="exec-card-tag">사업 건강도 (전체 매출 분석)</span>
+        <div class="exec-card-title">광고비 1원당 회수율 (LTV 기준)</div>
+        <div class="exec-card-desc">고객 1명의 평생 가치로 측정한 광고 회수율. PLG SaaS 글로벌 표준 평가.</div>
+        <div class="exec-card-formula">ROAS = LTV ÷ CAC × 100%</div>
         <div class="exec-card-stats">
           <div class="exec-card-stat">
             <div class="exec-card-stat-label">2025년</div>
-            <div class="exec-card-stat-val accent-6">397.6%</div>
-            <div class="exec-card-stat-sub">광고비 1.56억 → 전체 6.20억</div>
+            <div class="exec-card-stat-val accent-6">211%</div>
+            <div class="exec-card-stat-sub">LTV 78만 ÷ CAC 37만 · PLG 표준 미달</div>
           </div>
           <div class="exec-card-stat">
             <div class="exec-card-stat-label">2026 1분기</div>
-            <div class="exec-card-stat-val accent-6">652.5%</div>
-            <div class="exec-card-stat-sub">광고비 2,948만 → 전체 1.92억</div>
+            <div class="exec-card-stat-val accent-6">350% ✅</div>
+            <div class="exec-card-stat-sub">LTV 106만 ÷ CAC 30만 · PLG 표준 충족</div>
           </div>
         </div>
       </div>
@@ -1387,7 +1387,7 @@ footer {
         <div class="exec-kpi-eval-text good">우수</div>
         <div class="exec-kpi-label">CAC (결제고객)</div>
         <div class="exec-kpi-val">30.4만</div>
-        <div style="display:inline-block;margin-top:8px;padding:5px 12px;background:#E8F2E0;border-radius:6px;font-size:14px;color:#3D6020;font-weight:700">LTV : CAC = 4.0 : 1 ✅</div>
+        <div style="display:inline-block;margin-top:8px;padding:5px 12px;background:#E8F2E0;border-radius:6px;font-size:14px;color:#3D6020;font-weight:700">LTV : CAC = 3.5 : 1 ✅</div>
         <div style="font-size:14.5px;color:var(--ink-soft);margin-top:6px">PLG SaaS 표준 3:1 이상 충족</div>
         <div class="exec-kpi-source q1">2026 1Q</div>
       </div>
@@ -1481,27 +1481,42 @@ footer {
       <div style="font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:6px">
         <span>📖</span> 핵심 지표 한눈에 이해하기
       </div>
-      <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:14px">
+      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:12px;margin-bottom:10px">
         <div style="padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid var(--ppt-1)">
           <div style="font-weight:700;color:var(--ppt-1);font-size:15px;margin-bottom:4px">CAC</div>
-          <div style="font-size:13px;color:var(--ink-mute);line-height:1.5">고객 1명 데려오는<br>광고 비용</div>
-          <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">광고비 ÷ 신규 결제자</div>
+          <div style="font-size:12.5px;color:var(--ink-mute);line-height:1.5">Customer Acquisition Cost<br><strong style="color:var(--ink)">고객 1명 데려오는 비용</strong></div>
+          <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">광고비 ÷ 신규 결제 고객</div>
         </div>
         <div style="padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid var(--ppt-6)">
           <div style="font-weight:700;color:var(--ppt-6);font-size:15px;margin-bottom:4px">ARPU</div>
-          <div style="font-size:13px;color:var(--ink-mute);line-height:1.5">고객 1명이<br>매달 내는 돈</div>
-          <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">매출 ÷ 고객 수 ÷ 개월</div>
-        </div>
-        <div style="padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid var(--ppt-2)">
-          <div style="font-weight:700;color:var(--ppt-2);font-size:15px;margin-bottom:4px">ROAS</div>
-          <div style="font-size:13px;color:var(--ink-mute);line-height:1.5">광고비 1원당<br>회수한 매출</div>
-          <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">매출 ÷ 광고비 × 100%</div>
+          <div style="font-size:12.5px;color:var(--ink-mute);line-height:1.5">Average Revenue Per User<br><strong style="color:var(--ink)">고객 1명이 매달 내는 돈</strong></div>
+          <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">매출 ÷ 결제 고객 ÷ 개월</div>
         </div>
         <div style="padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid var(--ppt-4)">
           <div style="font-weight:700;color:#B8860B;font-size:15px;margin-bottom:4px">LTV</div>
-          <div style="font-size:13px;color:var(--ink-mute);line-height:1.5">고객 1명이 평균 이용 기간<br>동안 내는 총 금액</div>
+          <div style="font-size:12.5px;color:var(--ink-mute);line-height:1.5">Lifetime Value<br><strong style="color:var(--ink)">고객 1명이 평생 내는 총 금액</strong></div>
           <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">ARPU × 평균 이용 개월</div>
         </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:12px">
+        <div style="padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid var(--ppt-2)">
+          <div style="font-weight:700;color:var(--ppt-2);font-size:15px;margin-bottom:4px">ROAS</div>
+          <div style="font-size:12.5px;color:var(--ink-mute);line-height:1.5">Return on Ad Spend<br><strong style="color:var(--ink)">광고비 회수율 (LTV 기준)</strong></div>
+          <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">LTV ÷ CAC × 100%</div>
+        </div>
+        <div style="padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #4F7733">
+          <div style="font-weight:700;color:#4F7733;font-size:15px;margin-bottom:4px">LTV : CAC</div>
+          <div style="font-size:12.5px;color:var(--ink-mute);line-height:1.5">LTV to CAC Ratio<br><strong style="color:var(--ink)">사업 건강도 비율</strong></div>
+          <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">LTV ÷ CAC (PLG 표준 3:1+)</div>
+        </div>
+        <div style="padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #8C3E4A">
+          <div style="font-weight:700;color:#8C3E4A;font-size:15px;margin-bottom:4px">BEP</div>
+          <div style="font-size:12.5px;color:var(--ink-mute);line-height:1.5">Break-Even Point<br><strong style="color:var(--ink)">손익분기점</strong></div>
+          <div style="font-size:11.5px;color:var(--ink-mute);margin-top:6px;padding-top:6px;border-top:1px dashed #ddd">매출 = 비용 (찰나 BEP 850명)</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:8px 12px;background:#F5F0E0;border-radius:4px;font-size:12.5px;color:var(--ink-mute);line-height:1.5">
+        <strong style="color:#8B6F00">📌 ROAS 측정 방식</strong>: SaaS는 <strong>LTV 기준</strong>(LTV÷CAC)이 표준. 즉시 ROAS(측정 기간 매출÷광고비)는 이전 가입자 매출이 섞여 부정확. 본 대시보드는 <strong>LTV 기준 ROAS</strong>로 통일.
       </div>
     </div>
     
@@ -1515,11 +1530,11 @@ footer {
         </tr>
       </thead>
       <tbody>
-        <!-- 🟡 광고/마케팅 효율 영역 -->
+        <!-- 🟡 광고 효율 (신규 가입 분석) -->
         <tr class="group-header area-marketing">
           <td colspan="4">
-            <span class="area-icon">🟡</span>광고 / 마케팅 효율
-            <span class="area-desc">광고 채널 평가 · 신규 고객 획득 효율</span>
+            <span class="area-icon">🟡</span>광고 효율 (신규 가입자 분석)
+            <span class="area-desc">광고 → 가입 → 유료전환 흐름의 효율 측정</span>
           </td>
         </tr>
         <tr class="metric-good">
@@ -1531,30 +1546,74 @@ footer {
           </td>
           <td>⭐</td>
         </tr>
+        <tr class="metric-warn">
+          <td>유료전환율<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(가입 → 결제)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
+          <td><span class="val-chalna">24.3% → 12.4%</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(전년 대비 절반 수준 하락)</span></td>
+          <td>
+            <span class="val-bench"><strong>평균 8.9%</strong></span><br>
+            <span style="font-size:15px;color:var(--ink-soft)">good 8~15% / great 15~25%</span>
+          </td>
+          <td>⚠️</td>
+        </tr>
         <tr class="metric-good">
           <td>CAC<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(결제고객 1인당 획득 비용)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
-          <td><span class="val-chalna">30.4만</span><br><span style="display:inline-block;margin-top:6px;padding:4px 10px;background:#E8F2E0;border-radius:4px;font-size:14.5px;color:#3D6020;font-weight:600">LTV : CAC = 4.0 : 1 ✅</span><br><span style="font-size:14.5px;color:var(--ink-soft);margin-top:6px;display:inline-block">(실측 LTV 120만 ÷ CAC 30.4만)<br>· 2025년 12M: <strong>2.1:1</strong> (LTV 78만 ÷ CAC 37만)</span></td>
+          <td><span class="val-chalna">30.4만</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(광고비 2,948만 ÷ 신규 결제 97명)<br>· 2025년 12M: <strong>37.1만</strong> (광고비 1.56억 ÷ 420명)</span></td>
           <td>
             <span class="val-bench"><strong>LTV의 1/3 이하 권장</strong></span><br>
-            <span style="font-size:15px;color:var(--ink-soft)">실측 LTV 120만의 25% 수준</span>
+            <span style="font-size:15px;color:var(--ink-soft)">LTV 106만의 28% 수준</span>
+          </td>
+          <td>✅</td>
+        </tr>
+
+        <!-- 🟢 사업 건강도 (전체 매출 분석) -->
+        <tr class="group-header area-business">
+          <td colspan="4">
+            <span class="area-icon">🟢</span>사업 건강도 (전체 매출 분석)
+            <span class="area-desc">유료 고객의 가치와 광고비 회수율 - PLG SaaS 표준 평가</span>
+          </td>
+        </tr>
+        <tr class="metric-good">
+          <td>월 ARPU<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(전체 결제고객 1인당 매출)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
+          <td><span class="val-chalna">11.8만</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(전체 매출 1.92억 ÷ 504명 ÷ 3개월)<br>· 2025년 12M: <strong>8.7만</strong></span></td>
+          <td>
+            <span class="val-bench"><strong>월 $80~400 수준</strong></span><br>
+            <span style="font-size:15px;color:var(--ink-soft)">PLG ACV $1K~5K 구간 (가장 높은 전환)</span>
+          </td>
+          <td>✅</td>
+        </tr>
+        <tr class="metric-good">
+          <td>LTV<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(고객 1명이 평생 내는 총 금액)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
+          <td><span class="val-chalna">106만원</span><br><span style="display:inline-block;margin-top:6px;padding:4px 10px;background:#E8F2E0;border-radius:4px;font-size:14.5px;color:#3D6020;font-weight:600">LTV : CAC = 3.5 : 1 ✅</span><br><span style="font-size:14.5px;color:var(--ink-soft);margin-top:6px;display:inline-block">(ARPU 11.8만 × 9.0개월)<br>· 2025년 12M: <strong>78만원</strong> · LTV:CAC = 2.1:1<br>· <span style="color:#888">※ 평균 이용 9.0개월 = 2025 실측 적용</span></span></td>
+          <td>
+            <span class="val-bench"><strong>LTV : CAC = 3 : 1 이상</strong></span><br>
+            <span style="font-size:15px;color:var(--ink-soft)">PLG SaaS 글로벌 표준 / 우수 5:1+ / 엘리트 6:1+</span>
           </td>
           <td>✅</td>
         </tr>
         <tr class="metric-good">
           <td>ROAS (LTV 기준)<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(LTV ÷ CAC × 100%)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
-          <td><span class="val-chalna">392%</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(LTV 120만 ÷ CAC 30만 × 100%)<br>· 2025년 12M: <strong>211%</strong> (LTV 78만 ÷ CAC 37만)<br>· 즉시 ROAS (3M): 29.8% <span style="color:#999">(참고만, 측정 기간 한계)</span></span></td>
+          <td><span class="val-chalna">350%</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(LTV 106만 ÷ CAC 30만 × 100%)<br>· 2025년 12M: <strong>211%</strong> (LTV 78만 ÷ CAC 37만)<br>· <span style="color:#888">※ 평균 이용 9.0개월 = 2025 실측 적용</span></span></td>
           <td>
             <span class="val-bench"><strong>300~400% (3:1~4:1)</strong></span><br>
-            <span style="font-size:15px;color:var(--ink-soft)">SaaS 표준 우수 (LTV/12M 기준) / 평균 260% / 엘리트 600%+</span>
+            <span style="font-size:15px;color:var(--ink-soft)">SaaS 표준 우수 / 평균 260% / 엘리트 600%+</span>
           </td>
           <td>✅</td>
         </tr>
+        <tr class="metric-good">
+          <td>월 해지율<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(고객 충성도)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
+          <td><span class="val-chalna">1.41%</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(2025년 1.59% → 1Q 1.41%로 개선)</span></td>
+          <td>
+            <span class="val-bench"><strong>평균 3~5%</strong></span><br>
+            <span style="font-size:15px;color:var(--ink-soft)">PLG SaaS 우수 1% 이하</span>
+          </td>
+          <td>⭐</td>
+        </tr>
 
-        <!-- 🟢 사업 건강도 영역 -->
-        <tr class="group-header area-business">
+        <!-- 🔵 사업 규모 (BEP & 미활용 자원) -->
+        <tr class="group-header area-product">
           <td colspan="4">
-            <span class="area-icon">🟢</span>사업 건강도
-            <span class="area-desc">사업의 흑자 도달 가능성 · 비용 구조 효율</span>
+            <span class="area-icon">🔵</span>사업 규모 (BEP 도달 · 미활용 자원)
+            <span class="area-desc">사업 흑자 도달 · 휴면 고객 회복 등 규모 확대 지표</span>
           </td>
         </tr>
         <tr class="metric-bad">
@@ -1574,50 +1633,6 @@ footer {
             <span style="font-size:15px;color:var(--ink-soft)">찰나 비용 1억/월 ÷ ARPU 11.8만 기준</span>
           </td>
           <td>❌</td>
-        </tr>
-
-        <!-- 🔵 제품 / 충성도 영역 -->
-        <tr class="group-header area-product">
-          <td colspan="4">
-            <span class="area-icon">🔵</span>제품 / 충성도
-            <span class="area-desc">제품 가치 검증 · 고객 유지 및 회복</span>
-          </td>
-        </tr>
-        <tr class="metric-warn">
-          <td>유료전환율<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(가입 → 결제)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
-          <td><span class="val-chalna">24.3% → 12.4%</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(전년 대비 절반 수준 하락)</span></td>
-          <td>
-            <span class="val-bench"><strong>평균 8.9%</strong></span><br>
-            <span style="font-size:15px;color:var(--ink-soft)">good 8~15% / great 15~25%</span>
-          </td>
-          <td>⚠️</td>
-        </tr>
-        <tr class="metric-good">
-          <td>월 ARPU<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(전체 결제고객 1인당)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
-          <td><span class="val-chalna">11.8만</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(전체 매출 1.92억 ÷ 504명 ÷ 3개월)</span></td>
-          <td>
-            <span class="val-bench"><strong>월 $80~400 수준</strong></span><br>
-            <span style="font-size:15px;color:var(--ink-soft)">PLG ACV $1K~5K 구간 (가장 높은 전환)</span>
-          </td>
-          <td>✅</td>
-        </tr>
-        <tr class="metric-good">
-          <td>월 해지율<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(고객 충성도)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
-          <td><span class="val-chalna">1.41%</span><br><span style="font-size:14.5px;color:var(--ink-soft)">(2025년 1.59% → 1Q 1.41%로 개선)</span></td>
-          <td>
-            <span class="val-bench"><strong>평균 3~5%</strong></span><br>
-            <span style="font-size:15px;color:var(--ink-soft)">PLG SaaS 우수 1% 이하</span>
-          </td>
-          <td>⭐</td>
-        </tr>
-        <tr class="metric-good">
-          <td>LTV<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(고객 1명이 평균 이용 기간 동안 내는 총 금액)</span><br><span class="exec-kpi-source q1" style="margin-top:6px">2026 1Q</span></td>
-          <td><span class="val-chalna">120만원</span><br><span style="display:inline-block;margin-top:6px;padding:4px 10px;background:#E8F2E0;border-radius:4px;font-size:14.5px;color:#3D6020;font-weight:600">LTV : CAC = 4.0 : 1</span><br><span style="font-size:14.5px;color:var(--ink-soft);margin-top:6px;display:inline-block">(LTV 120만 ÷ CAC 30만)<br>· 2025년 12M: <strong>78만원</strong> · LTV:CAC = 2.1:1<br>· 2026 1Q: <strong>120만원</strong> · LTV:CAC = 4.0:1 ✅</span></td>
-          <td>
-            <span class="val-bench"><strong>LTV : CAC = 3 : 1 이상</strong></span><br>
-            <span style="font-size:15px;color:var(--ink-soft)">PLG SaaS 글로벌 표준 / 우수 5:1+ / 엘리트 6:1+</span>
-          </td>
-          <td>✅</td>
         </tr>
         <tr class="metric-bad">
           <td>휴면 회복률 (CRM)<br><span style="font-size:14.5px;color:var(--ink-soft);font-weight:500">(휴면 → 결제 회복)</span><br><span class="exec-kpi-source cumulative" style="margin-top:6px">전체 누적</span></td>
@@ -1643,8 +1658,8 @@ footer {
           <li><strong>유료전환율 12.4%</strong>는 Opt-in PLG 글로벌 평균(8.9%)보다 1.4배 우수. 단, 2025년(24.3%) 대비 절반으로 하락 — 하락 추세 자체가 경고 신호.</li>
           <li><strong>월 ARPU 11.8만</strong>(1Q 매출 1.92억 ÷ 결제 543명 ÷ 3개월)으로 SMB SaaS 우수 수준. 1인당 매출 가치는 검증됨.</li>
           <li><strong>월 해지율 1.41%</strong>: 한번 결제한 고객의 ~95%가 유지. 제품 가치는 충분히 작동. PLG SaaS 평균(3~5%)을 크게 하회.</li>
-          <li><strong>LTV 120만 · LTV:CAC = 4.0:1</strong>: PLG SaaS 글로벌 표준(3:1)을 충족. 광고비 30만원으로 평생 가치 120만원 고객 확보 — <strong>광고 효율 자체는 건강한 수준</strong>.</li>
-          <li><strong>ROAS (LTV 기준) 392%</strong>: 광고비 1원당 평생 3.92원 회수 가능. PLG SaaS 우수 구간(300~400%) 충족. <strong>광고비 회수 약 2.6개월 (CAC 30.4만 ÷ ARPU 11.8만)</strong> — SaaS 베스트 클래스(5~7개월)보다도 빠름.</li>
+          <li><strong>LTV 106만 · LTV:CAC = 3.5:1</strong>: PLG SaaS 글로벌 표준(3:1)을 충족. 광고비 30만원으로 평생 가치 106만원 고객 확보 — <strong>광고 효율 자체는 건강한 수준</strong>.</li>
+          <li><strong>ROAS (LTV 기준) 350%</strong>: 광고비 1원당 평생 3.50원 회수 가능. PLG SaaS 우수 구간(300~400%) 충족. <strong>광고비 회수 약 2.6개월 (CAC 30.4만 ÷ ARPU 11.8만)</strong> — SaaS 베스트 클래스(5~7개월)보다도 빠름.</li>
         </ul>
       </div>
 
@@ -1775,9 +1790,9 @@ footer {
         <div class="kpi-sub">카페24 7,680만 · 검색/배너 7,920만</div>
       </div>
       <div class="kpi">
-        <div class="kpi-label">신규 매출 ROAS</div>
-        <div class="kpi-value">76.5<span class="unit">%</span></div>
-        <div class="kpi-sub">전체 매출 분석은 별도 탭 참조</div>
+        <div class="kpi-label">ROAS (LTV 기준)</div>
+        <div class="kpi-value">211<span class="unit">%</span></div>
+        <div class="kpi-sub">LTV 78만 ÷ CAC 37만</div>
       </div>
     </div>
 
@@ -1794,21 +1809,19 @@ footer {
       <div class="group-desc">2025년에 가입한 1,727명의 코호트 분석</div>
     </div>
     <nav class="section-nav" data-nav="2025">
-      <button class="nav-tab active" data-tab="duration25">01 이용기간</button>
-      <button class="nav-tab" data-tab="conversion25">02 플랫폼별 전환</button>
-      <button class="nav-tab" data-tab="adcost25">03 광고비 효율</button>
-      <button class="nav-tab" data-tab="status25">04 고객 분포</button>
-      <button class="nav-tab" data-tab="plans25">05 서비스별 플랜</button>
+      <button class="nav-tab active" data-tab="conversion25">01 플랫폼별 전환</button>
+      <button class="nav-tab" data-tab="status25">02 고객 상태 분포</button>
+      <button class="nav-tab" data-tab="duration25">03 이용기간 (조기 이탈)</button>
     </nav>
 
 
     <!-- 01 DURATION -->
-    <section class="chart-section active" id="section-duration25">
+    <section class="chart-section" id="section-duration25">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 01</div>
-          <h2 class="section-title">유료고객 이용기간 분포</h2>
-          <p class="section-desc">유료전환일 기준, 해지 고객은 "전환일~해지일", 이용 중 고객은 "전환일~기준일(2026.05.06)"로 계산.</p>
+          <div class="section-num">SECTION 03</div>
+          <h2 class="section-title">이용기간 (조기 이탈 분석)</h2>
+          <p class="section-desc">유료전환자 420명의 이용 기간 분포. 1-3개월 안에 이탈하는 단기 이탈 패턴을 측정.</p>
         </div>
         <div class="controls">
           <span class="control-label">표시</span>
@@ -1817,14 +1830,16 @@ footer {
         </div>
       </div>
       <div class="note">
-        <strong>※ 계산 방식:</strong> 이용 중 고객의 이용기간은 "오늘 − 유료전환일"로 산정. 2025년 초 가입자는 14개월 이상 이용한 경우도 존재.
+        <strong>※ 조기 이탈</strong> = 가입 후 짧은 기간(1-3개월) 안에 해지/휴면 전환. 신규 가입자 품질의 핵심 지표.<br>
+        <strong>※ 잔존율</strong> = 일정 기간 이후에도 유료 이용 중인 고객 비율. 1 − 조기 이탈률.<br>
+        <strong>※ 계산:</strong> 이용 중 고객 = "오늘 − 유료전환일". 2025년 초 가입자는 14개월 이상 이용한 경우도 있음.
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">유료전환 총</div><div class="sub-stat-value">420명</div></div>
         <div class="sub-stat"><div class="sub-stat-label">해지 완료</div><div class="sub-stat-value">107명</div></div>
         <div class="sub-stat"><div class="sub-stat-label">이용 중</div><div class="sub-stat-value">313명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">해지 평균</div><div class="sub-stat-value">3.6개월</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">이용 중 평균</div><div class="sub-stat-value">8.0개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">해지 평균 기간</div><div class="sub-stat-value">3.6개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">3개월 내 이탈률</div><div class="sub-stat-value">15.0%</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="duration25-legend">
@@ -1836,59 +1851,21 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>해지 고객</strong>은 <span class="num">1~3개월(34명)</span>과 <span class="num">1개월 미만(29명)</span>에 집중 — 초기 3개월 이내 약 60% 이탈.</li>
-          <li><strong>이용 중 고객</strong>은 <span class="num">6~12개월(146명)</span>이 가장 많고, <span class="num">12~15개월 59명</span>도 존재. 2025년 초 유료전환한 장기 고객들이 여기 분포.</li>
-          <li>해지 고객은 "초반에 빠지는" 패턴, 이용 중 고객은 "오래 살아남은" 코호트로 거울처럼 대비. 임계점(약 3개월)을 넘기면 잔존율이 급격히 좋아짐.</li>
-          <li><strong>채널별 비교</strong> (채널별 탭): 카페24 332명, 검색/배너광고 88명. 카페24는 6~12개월 그룹이 <span class="num">133명(40%)</span>으로 가장 두꺼운 잔존층, 검색/배너광고도 <span class="num">39명(44%)</span>으로 비슷한 비율 — 두 채널 모두 일정 임계점만 넘기면 안정적인 잔존 패턴.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 02 REVENUE DISTRIBUTION -->
-    <section class="chart-section" id="section-revenue25">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 02</div>
-          <h2 class="section-title">2025년 매출 구간별 고객</h2>
-          <p class="section-desc">2025.02~2026.01 연 매출 기준. 275명의 매출 발생 고객을 플랜과 매출 구간으로 분석.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">기준</span>
-          <button class="btn-pill active" data-view="revenue25" data-mode="plan">플랜별</button>
-          <button class="btn-pill" data-view="revenue25" data-mode="bucket">매출구간</button>
-          <button class="btn-pill" data-view="revenue25" data-mode="channel">광고채널</button>
-        </div>
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">매출 발생 고객</div><div class="sub-stat-value">275명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">연 매출</div><div class="sub-stat-value">136,932,606원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">최대 단일 매출</div><div class="sub-stat-value">14,046,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">497,937원</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row" id="revenue25-legend">
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>매출 발생 고객 수</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_revenue25"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>플랜별 분포</strong>: Lite 163명(59%), Basic 52명(19%), Standard 27명(10%), Enterprise 33명(12%). Lite가 진입 플랜으로 압도적이지만 <span class="num">상위 플랜으로 분산</span>이 잘 됨.</li>
-          <li><strong>Enterprise 100만원+ 20명이 전체 매출의 46%(6,328만원)</strong> 차지. 헤비 고객 의존도 분명.</li>
-          <li><strong>매출 구간별</strong>: 100만+ 30명이 7,794만원(57%) 차지 — 적은 모수가 큰 매출. 30~50만 구간 44명 등 중간층도 두꺼움.</li>
-          <li><strong>광고 채널별</strong>: 카페24 매출 발생 218명(79%) vs 검색/배너광고 57명(21%). 매출고객 모수에서 카페24가 압도적.</li>
+          <li><strong>조기 이탈 집중</strong>: 해지 107명 중 <span class="num">63명(59%)이 3개월 이내</span> 이탈 — <span class="num">1개월 미만 29명 + 1~3개월 34명</span>. 가입 직후 3개월이 임계 구간.</li>
+          <li><strong>이용 중 고객</strong>은 <span class="num">6~12개월(146명)</span>이 가장 많고, <span class="num">12~15개월 59명</span>. 2025년 초 가입한 장기 고객들이 안정적 잔존층 형성.</li>
+          <li>해지 고객은 "초반에 빠지는" 패턴, 이용 중 고객은 "오래 살아남은" 코호트. <strong>임계점(약 3개월)을 넘기면 잔존율 급격히 좋아짐</strong>.</li>
+          <li><strong>채널별 비교</strong>: 카페24 332명, 검색/배너 88명. 카페24는 6~12개월 그룹이 <span class="num">133명(40%)</span>으로 가장 두꺼운 잔존층, 검색/배너도 <span class="num">39명(44%)</span>으로 비슷 — 두 채널 모두 임계점만 넘기면 안정적.</li>
         </ul>
       </div>
     </section>
 
     <!-- 04 PLATFORM CONVERSION -->
-    <section class="chart-section" id="section-conversion25">
+    <section class="chart-section active" id="section-conversion25">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 02</div>
-          <h2 class="section-title">플랫폼별 유료전환율</h2>
-          <p class="section-desc">커머스 플랫폼별 가입자 수 대비 유료전환 고객 수와 전환율 비교.</p>
+          <div class="section-num">SECTION 01</div>
+          <h2 class="section-title">플랫폼별 전환 (광고 → 가입 → 결제)</h2>
+          <p class="section-desc">광고비 1.56억으로 1,727명 가입, 420명 유료 전환. 채널별 광고 효율과 전환율을 종합 분석.</p>
         </div>
         <div class="controls">
           <span class="control-label">표시</span>
@@ -1896,11 +1873,18 @@ footer {
           <button class="btn-pill" data-view="conversion25" data-mode="rate">전환율순</button>
         </div>
       </div>
+      <div class="note">
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 결제 고객. 고객 1명 데려오는 데 든 광고비.<br>
+        <strong>※ 회원가입율</strong> = 가입자 ÷ 방문자 × 100%. 광고 노출 후 가입까지의 전환율.<br>
+        <strong>※ 유료전환율</strong> = 결제자 ÷ 가입자 × 100%. 가입 후 유료 결제까지의 전환율.<br>
+        <strong>※ 광고비 대비 가입자</strong> = 광고비 ÷ 가입자. 가입자 1명 데려오는 데 든 광고비 (CAC와 다름).
+      </div>
       <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">156,000,000원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">1,727명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">420명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">24.3%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (48.9%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">420명 (24.3%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">CAC (결제고객)</div><div class="sub-stat-value">371,429원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">광고비/가입자</div><div class="sub-stat-value">90,330원</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row">
@@ -1913,9 +1897,9 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><span class="num">cafe24</span>가 압도적 — 가입자 679명 중 <span class="num">332명(48.9%)</span>이 유료 전환. 유료 고객 420명 중 <span class="num">79%가 cafe24 출신</span>.</li>
-          <li><span class="num">direct</span>는 가입자 855명(전체 1위)이지만 전환율 <span class="num">7.7%</span>에 불과.</li>
-          <li>nhn(16.0%) 중간, makeshop(7.0%) direct 수준, <span class="num">colorme 16명 중 0명 전환</span>.</li>
+          <li><strong>cafe24 채널이 압도적 효율</strong> — 가입자 679명 중 <span class="num">332명(48.9%)</span>이 유료 전환. CAC <span class="num">23.1만</span>으로 가장 저렴. 유료 고객 420명 중 <span class="num">79%가 cafe24 출신</span>.</li>
+          <li><strong>검색/배너 채널은 비싼 헤비고객</strong> — 가입자 1,048명 중 88명(8.4%) 유료. CAC <span class="num">90.0만</span>으로 4배 비싸지만 ARPU도 3배 높아 LTV 측면에서 가치 있음.</li>
+          <li><strong>direct(7.7%) · makeshop(7.0%) · colorme(0%)</strong>는 광고비 효율 낮음. 채널 다변화 필요.</li>
         </ul>
         <div class="plg-bench">
           <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
@@ -1923,84 +1907,19 @@ footer {
             <strong>2025년 전체 유료전환율 24.3%</strong> ·
             PLG Opt-in 평균 <strong>8.9%</strong>의 약 <strong>2.7배</strong> ⭐<br>
             <span style="font-size:12.5px;color:var(--ink-mute)">cafe24(48.9%)는 PLG <strong>great 등급(15~25%)</strong> 초과로 매우 우수.
-            direct·makeshop(7~8%)은 PLG 평균 수준이며, <strong>채널별 성격이 명확히 구분됨</strong>.</span>
+            <strong>채널 품질이 사업의 핵심</strong>이며 cafe24 의존도를 다른 채널로 분산 필요.</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 03 AD COST -->
-    <section class="chart-section" id="section-adcost25">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 03</div>
-          <h2 class="section-title">광고비 대비 ARPU · ROAS 분석 (신규 매출)</h2>
-          <p class="section-desc">2025년 광고로 새로 가입한 고객의 매출만 기준. 전체 사업 ROAS는 별도 "전체 매출 분석" 탭 참조.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="adcost25" data-mode="roas">ROAS</button>
-          <button class="btn-pill" data-view="adcost25" data-mode="arpu_cac">ARPU·CAC</button>
-          <button class="btn-pill" data-view="adcost25" data-mode="rev_dist">매출분포</button>
-          <button class="btn-pill" data-view="adcost25" data-mode="cac_roas">CAC→ROAS</button>
-        </div>
-      </div>
-      <div class="note">
-        <strong>※ 신규 매출 ROAS</strong> = 2025년 광고로 가입한 신규 고객의 매출(2025.02~2026.01) ÷ 광고비. 매출이 1개월 밀림(무료체험 1개월). 광고가 만든 신규 고객의 결제 효율만 측정.<br>
-        <strong>※ 광고비:</strong> 카페24 640만원/월 × 12 = 7,680만원 · 검색/배너광고 660만원/월 × 12 = 7,920만원 · 총 1억 5,600만원
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">총 광고비 (연)</div><div class="sub-stat-value">156,000,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 매출</div><div class="sub-stat-value">119,337,602원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 매출 ROAS</div><div class="sub-stat-value">76.5%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">총 유료전환</div><div class="sub-stat-value">420명</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row" id="adcost25-legend">
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>카페24</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>검색/배너광고</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_adcost25"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>신규 매출 ROAS</strong>: 카페24 <span class="num">130.8%</span> (흑자) vs 검색/배너광고 <span class="num">23.9%</span> — 약 5.5배 차이.</li>
-          <li><strong>카페24 신규 흑자</strong>: 광고비 7,680만 → 신규 매출 1.00억 = <span class="num">+2,365만원 순이익</span>.</li>
-          <li><strong>검색/배너광고 신규 적자</strong>: 광고비 7,920만 → 신규 매출 1,889만 = <span class="num">-6,031만원</span>. 단, 시간 누적되면 전체 매출 기준으로는 흑자 전환 — "전체 매출 분석" 탭 확인.</li>
-          <li><strong>유료전환당 CAC</strong>: 카페24 23.1만 vs 검색/배너 90만 — 4배 차이.</li>
-        </ul>
-        <div class="plg-bench">
-          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
-          <div class="plg-bench-grid">
-            <div class="plg-bench-item">
-              <div class="plg-bench-label">신규 매출 ROAS (전체)</div>
-              <div class="plg-bench-row">
-                <span class="plg-bench-chalna">76.5%</span>
-                <span class="plg-bench-vs">vs PLG 100%+ (BEP)</span>
-              </div>
-              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">⚠️ 즉시 회수 미달. 단, LTV 기준 ROAS 211% (PLG 표준 약간 미달)</div>
-            </div>
-            <div class="plg-bench-item">
-              <div class="plg-bench-label">CAC (신규 결제 1인당)</div>
-              <div class="plg-bench-row">
-                <span class="plg-bench-chalna">37.1만원</span>
-                <span class="plg-bench-vs">vs PLG LTV의 1/3 이하 권장</span>
-              </div>
-              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">⚠️ LTV 78만 대비 약 1/2 수준 — 충족하지만 마진 좁음</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05 CUSTOMER STATUS -->
+    <!-- 02 CUSTOMER STATUS -->
     <section class="chart-section" id="section-status25">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 04</div>
-          <h2 class="section-title">가입자 대비 휴면 · 해지 분포</h2>
-          <p class="section-desc">2025년 가입 1,727명을 유료전환 여부 × 계정 상태(정상/휴면/해지)로 교차 분류.</p>
+          <div class="section-num">SECTION 02</div>
+          <h2 class="section-title">고객 상태 분포 (유료/휴면/해지)</h2>
+          <p class="section-desc">2025년 가입 1,727명을 유료전환 여부 × 계정 상태(정상/휴면/해지)로 교차 분류. 가입자가 유료로 잘 정착하는지 측정.</p>
         </div>
         <div class="controls">
           <span class="control-label">기준</span>
@@ -2010,7 +1929,9 @@ footer {
         </div>
       </div>
       <div class="note">
-        <strong>※ 카테고리 정의:</strong> 미전환·휴면 = 결제 없이 휴면 / 미전환·해지 = 결제 전 계정 해지 / 유료·정상 = 결제 후 이용 중 / 유료·해지 = 결제 후 해지 / 유료·휴면 = 결제 후 휴면(드뭄)
+        <strong>※ 휴면율</strong> = 휴면 ÷ 가입자 × 100%. 가입했지만 결제 없이 휴면 상태로 전환된 비율.<br>
+        <strong>※ 해지율</strong> = 해지 ÷ 가입자 × 100%. 가입 후 계정을 해지한 비율.<br>
+        <strong>※ 카테고리:</strong> 미전환·휴면 = 결제 없이 휴면 / 미전환·해지 = 결제 전 해지 / 유료·정상 = 결제 후 이용중 / 유료·해지 = 결제 후 해지 / 유료·휴면 = 결제 후 휴면(드뭄)
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">1,727명</div></div>
@@ -2062,111 +1983,6 @@ footer {
       </div>
     </section>
 
-    <!-- 06 LTV ACTUAL -->
-    <section class="chart-section" id="section-ltv25">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 06</div>
-          <h2 class="section-title">LTV 매출 검증 (실제 누적 데이터)</h2>
-          <p class="section-desc">2025년은 12개월 매출이 이미 누적된 코호트로, 실제 매출과 광고비 효율을 직접 검증할 수 있음. 2026년 1분기와 비교 기준점.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="ltv25" data-mode="roas">ROAS</button>
-          <button class="btn-pill" data-view="ltv25" data-mode="arpu">ARPU</button>
-          <button class="btn-pill" data-view="ltv25" data-mode="profit">손익</button>
-        </div>
-      </div>
-      <div class="note">
-        <strong>※ 2025년 = 실측치:</strong> 가입 후 1년이 충분히 지나 누적 매출이 거의 LTV에 가까움. 가입자 평균 매출 누적 기간 약 4.9개월(연중 분포된 가입자 평균). 매출고객 평균 이용기간 8개월 기준의 LTV 검증.<br>
-        <strong>※ 2026년과 비교:</strong> 2026년 1분기는 이 지표를 기준으로 추정한 예상치. 2025년은 실측치라 두 기간 비교의 앵커.
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">신규 매출 (12개월)</div><div class="sub-stat-value">119,337,602원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">광고비 (12개월)</div><div class="sub-stat-value">156,000,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 매출 ROAS</div><div class="sub-stat-value">76.5%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 순익</div><div class="sub-stat-value">-19,067,394원</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row" id="ltv25-legend">
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>카페24</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>검색/배너광고</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_ltv25"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>2025년 신규 매출 실측 데이터</strong>: 1년이 지나 신규 가입자의 매출이 충분히 누적됨. 추정 없이 실 ROAS/ARPU/손익 확인 가능.</li>
-          <li><strong>채널별 명확한 우열</strong>: 카페24 ROAS 130.8% (흑자 +2,365만원) vs 검색/배너 23.9% (적자 -6,031만원).</li>
-          <li><strong>신규 매출만 보면 적자</strong>: 광고비 1.56억 vs 신규 매출 1.19억 = 약 <span class="num">3,663만원 미회수</span>. 단, 2024년 이전 가입자의 누적 매출은 미반영.</li>
-          <li><strong>LTV 기준으로는 회수 가능</strong>: 2025 LTV 78만 ÷ CAC 37.1만 = LTV:CAC <span class="num">2.1:1</span>. PLG 표준(3:1)에 약간 미달이지만 시간 누적 시 충족 예상.</li>
-          <li><strong>전체 사업 ROAS는 별도 탭</strong>: "전체 매출 분석" 탭에서 2025년 전체 매출(6.20억) 기준 진짜 ROAS 397.6% 확인 가능.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 07 SERVICE USERS -->
-    <section class="chart-section" id="section-services25">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 07</div>
-          <h2 class="section-title">서비스별 활성 사용자</h2>
-          <p class="section-desc">5개 서비스의 사용자 수. 각 서비스 로드수가 1 이상인 고객 집계.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">기준</span>
-          <button class="btn-pill active" data-view="services25" data-mode="abs">절대값</button>
-          <button class="btn-pill" data-view="services25" data-mode="pct">전체 대비 %</button>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-wrap"><canvas id="ch_services25"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li>디스플레이어가 <span class="num">593명(전체의 34%)</span>으로 압도적 메인 서비스. 두 번째 샵플레이어와 4배 이상 차이.</li>
-          <li>위젯 활성 사용자 0명 — 데이터상 사용 흔적이 없어 사실상 비활성.</li>
-          <li>재생목록(35명)은 사용자 수 적지만 다음 섹션에서 보듯 유료 비중 가장 높음.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 08 PLANS BY SERVICE -->
-    <section class="chart-section" id="section-plans25">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 05</div>
-          <h2 class="section-title">서비스별 가격 플랜 분포</h2>
-          <p class="section-desc">각 서비스 사용자들이 어떤 플랜에 속해 있는지 누적 막대 비교.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">표시</span>
-          <button class="btn-pill active" data-view="plans25" data-mode="count">고객 수</button>
-          <button class="btn-pill" data-view="plans25" data-mode="ratio">비율 100%</button>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row">
-          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>Promotion</span>
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>Lite</span>
-          <span><span class="legend-dot" style="background:var(--ppt-5)"></span>Basic</span>
-          <span><span class="legend-dot" style="background:var(--ppt-4)"></span>Standard</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>Enterprise</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_plans25"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><span class="num">디스플레이어</span>: Promotion(46%) + Lite(32%) = <span class="num">78%가 무료/저가</span>. 진입 서비스 역할 명확.</li>
-          <li><span class="num">샵플레이어</span>: 유료 플랜(Lite 이상) 비율 약 63% — 결제 의향 높은 그룹.</li>
-          <li><span class="num">재생목록</span>: 35명 중 Basic+Standard+Enterprise가 15명(43%) — <span class="num">유료 비중 최고</span>.</li>
-        </ul>
-      </div>
-    </section>
-
     </div>
     <!-- /group-page new25 -->
 
@@ -2178,9 +1994,8 @@ footer {
     </div>
     <nav class="section-nav" data-nav="2025-overall">
       <button class="nav-tab active" data-tab="orevenue25">01 매출 분포</button>
-      <button class="nav-tab" data-tab="oadcost25">02 광고 효율</button>
-      <button class="nav-tab" data-tab="oltv25">03 LTV 매출 검증</button>
-      <button class="nav-tab" data-tab="ofeatures25">04 찰나 사용 기능</button>
+      <button class="nav-tab" data-tab="oltv25">02 LTV 매출 검증</button>
+      <button class="nav-tab" data-tab="ofeatures25">03 찰나 사용 기능</button>
     </nav>
 
     <!-- O01 OVERALL REVENUE -->
@@ -2227,78 +2042,36 @@ footer {
       </div>
     </section>
 
-    <!-- O02 OVERALL AD COST -->
-    <section class="chart-section" id="section-oadcost25">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 02</div>
-          <h2 class="section-title">광고 효율 (CAC · Payback)</h2>
-          <p class="section-desc">광고비 1.56억으로 신규 결제 420명 획득. 고객 1명 데려오는 비용(CAC)과 회수 기간(Payback)으로 광고 효율 진단.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oadcost25" data-mode="cac">CAC + ROAS</button>
-          <button class="btn-pill" data-view="oadcost25" data-mode="roas">ROAS</button>
-        </div>
-      </div>
-      <div class="note">
-        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 결제 고객 수. 고객 1명 데려오는 데 든 광고비.<br>
-        <strong>※ ROAS (전체 매출 기준)</strong> = 측정 기간 전체 매출 ÷ 광고비 × 100%. 광고비 1원당 회수한 매출. <br>
-        <strong>※ CAC + ROAS 모드</strong>: 채널별 CAC, 신규 결제 고객 수, ROAS%를 한 차트에서 종합 비교.<br>
-        <span style="color:var(--ink-soft);font-size:13px">※ Payback Period · LTV:CAC · LTV 기준 ROAS는 <strong>LTV 매출 검증</strong> 탭에서 · 채널별 고객 수 · 월별 가입자는 <strong>매출 분포</strong> 탭에서 확인하세요.</span>
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">156,000,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 결제 고객</div><div class="sub-stat-value">420명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 CAC</div><div class="sub-stat-value">371,429원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">4.3개월</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row" id="oadcost25-legend">
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>카페24</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>검색/배너광고</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_oadcost25"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>전체 CAC 37.1만원</strong>(광고비 1.56억 ÷ 신규 결제 420명): 채널별로 카페24 <span class="num">23.1만</span> (332명 결제) vs 검색/배너 <span class="num">90.0만</span> (88명 결제) — 검색/배너가 약 <strong>4배 비쌈</strong>.</li>
-          <li><strong>Payback 4.3개월</strong> (CAC 37.1만 ÷ ARPU 8.7만): 광고비를 약 4.3개월 만에 회수. <strong>SaaS 베스트 클래스(5~7개월) 능가</strong>, SaaS 우수 기준(12개월 이내)을 약 3배 초과 충족.</li>
-          <li><strong>채널별 Payback</strong>: 카페24 약 2.8개월 (CAC 23.1만 ÷ ARPU 8.3만) / 검색/배너 약 4.4개월 (CAC 90.0만 ÷ ARPU 20.4만). 두 채널 모두 베스트 클래스 수준.</li>
-          <li><strong>검색/배너의 역설</strong>: CAC 4배 비싸지만 ARPU(20.4만)가 카페24(6.0만)의 3.4배 — 회수 기간은 비슷한 수준이며 장기 수익성은 더 클 수 있음. 헤비 고객 채널 특성.</li>
-          <li><strong>광고 효율의 핵심은 분모(누가 결제했나)와 ARPU(얼마나 결제했나)</strong>. ROAS 및 LTV 회수 효율은 LTV 매출 검증 탭 참조.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- O03 OVERALL LTV -->
+    <!-- O02 OVERALL LTV -->
     <section class="chart-section" id="section-oltv25">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 03</div>
-          <h2 class="section-title">LTV 매출 검증 · ROAS</h2>
-          <p class="section-desc">2025년 12개월 매출이 누적되어 광고비 회수 효율을 실측 검증. 광고비 1원당 회수한 매출(ROAS)과 고객 1인 평생 가치(LTV) 분석.</p>
+          <div class="section-num">SECTION 02</div>
+          <h2 class="section-title">LTV 매출 검증 (CAC · ARPU · LTV · ROAS)</h2>
+          <p class="section-desc">2025년 12개월 매출이 누적되어 고객 1인 가치(LTV)와 광고비 회수(ROAS)를 실측 검증.</p>
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oltv25" data-mode="arpu">ARPU</button>
+          <button class="btn-pill active" data-view="oltv25" data-mode="cac">CAC</button>
+          <button class="btn-pill" data-view="oltv25" data-mode="arpu">ARPU</button>
           <button class="btn-pill" data-view="oltv25" data-mode="ltv">LTV</button>
           <button class="btn-pill" data-view="oltv25" data-mode="roas">ROAS</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ LTV (Customer Lifetime Value)</strong> = 월 ARPU × 평균 이용 개월. 고객 1인이 평균 이용기간 동안 만드는 총 매출.<br>
-        <strong>※ 평균 이용 개월</strong>은 raw 매출 데이터 실측치 — 가입~해지(또는 기준일)까지의 실제 이용 기간 평균.<br>
-        <strong>※ ROAS (LTV 기준)</strong> = LTV ÷ CAC × 100%. 광고비 1원당 회수한 평생 매출. <strong>PLG SaaS 표준 300~400%(3:1~4:1)</strong>가 우수.<br>
-        <strong>※ LTV:CAC 비율</strong>은 SaaS 사업 건강도의 핵심 지표 — 일반적으로 <strong>3:1 이상</strong>이면 우수, 5:1 이상은 매우 우수.
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 결제 고객. 고객 1명 데려오는 비용.<br>
+        <strong>※ ARPU (Average Revenue Per User)</strong> = 매출 ÷ 결제 고객 ÷ 개월. 고객 1명이 매달 내는 평균 매출.<br>
+        <strong>※ LTV (Lifetime Value)</strong> = ARPU × 평균 이용 개월. 고객 1인이 평생 만들어주는 총 매출. 실측 raw 매출 기반.<br>
+        <strong>※ ROAS (LTV 기준)</strong> = LTV ÷ CAC × 100%. 광고비 1원당 회수한 평생 매출. <strong>PLG SaaS 표준 300~400%</strong>가 우수.<br>
+        <strong>※ LTV:CAC 비율</strong> = LTV ÷ CAC. SaaS 사업 건강도의 핵심 지표 — <strong>3:1 이상</strong>이면 우수, 5:1 이상은 매우 우수.
       </div>
       <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">전체 LTV</div><div class="sub-stat-value">78만원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">CAC</div><div class="sub-stat-value">371,429원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">월 ARPU</div><div class="sub-stat-value">86,593원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 이용 개월</div><div class="sub-stat-value">9.0개월</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">ROAS (LTV 기준)</div><div class="sub-stat-value">211%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">LTV:CAC 비율</div><div class="sub-stat-value">2.1 : 1</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 이용 기간</div><div class="sub-stat-value">9.0개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 LTV</div><div class="sub-stat-value">78만원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">ROAS (LTV)</div><div class="sub-stat-value">211%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">LTV:CAC</div><div class="sub-stat-value">2.1 : 1</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oltv25-legend">
@@ -2315,7 +2088,7 @@ footer {
           <li><strong>전체 LTV 78만원</strong> — 월 ARPU 8.7만 × 2025년 평균 이용 9.0개월. raw 매출 데이터 기반 실측치.</li>
           <li><strong>이용 개월 분포 (2025)</strong>: 평균 9.0개월 · 카페24 채널 8.3개월 · 검색/배너 채널 12.8개월. 채널별 충성도 차이가 명확.</li>
           <li><strong>채널별 LTV 차이</strong>: 검색/배너 LTV <span class="num">261만원</span> (ARPU 20.4만 × 12.8개월) vs 카페24 LTV <span class="num">49.6만원</span> (ARPU 6.0만 × 8.3개월). 검색/배너는 헤비 고객 비중 높아 1인당 가치 5배.</li>
-          <li><strong>LTV:CAC = 2.1:1</strong> (LTV 78만 ÷ CAC 37.1만) — PLG SaaS 표준(3:1)에 미달. 채널별 카페24 <span class="num">2.1:1</span>, 검색/배너 <span class="num">2.9:1</span>. 1Q에서는 LTV:CAC가 4.0:1로 개선 — 사업 건강도 개선 추세.</li>
+          <li><strong>LTV:CAC = 2.1:1</strong> (LTV 78만 ÷ CAC 37.1만) — PLG SaaS 표준(3:1)에 미달. 채널별 카페24 <span class="num">2.1:1</span>, 검색/배너 <span class="num">2.9:1</span>. 1Q에서는 LTV:CAC가 3.5:1로 개선 — 사업 건강도 개선 추세.</li>
           <li><strong>참고: 즉시 ROAS (전체 매출 기준)</strong>: 397.6% (전체 매출 6.20억 ÷ 광고비 1.56억). 단, 이는 2025년 이전 가입자 매출까지 포함한 광의의 효율로, 신규 광고 효율 측정에는 부적합.</li>
         </ul>
       </div>
@@ -2325,7 +2098,7 @@ footer {
     <section class="chart-section" id="section-ofeatures25">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 04</div>
+          <div class="section-num">SECTION 03</div>
           <h2 class="section-title">찰나 사용 기능</h2>
           <p class="section-desc">2025년 가입자 1,727명의 서비스(기능)별 사용자 분포. 각 기능의 활성화 정도 측정.</p>
         </div>
@@ -2380,9 +2153,9 @@ footer {
         <div class="kpi-sub">카페24 1,380만 · 검색/배너 1,530만</div>
       </div>
       <div class="kpi">
-        <div class="kpi-label">신규 매출 ROAS</div>
-        <div class="kpi-value">30.2<span class="unit">%</span></div>
-        <div class="kpi-sub">전체 매출 분석은 별도 탭 참조</div>
+        <div class="kpi-label">ROAS (LTV 기준)</div>
+        <div class="kpi-value">350<span class="unit">%</span></div>
+        <div class="kpi-sub">LTV 106만 ÷ CAC 30만 ✅</div>
       </div>
     </div>
 
@@ -2399,22 +2172,20 @@ footer {
       <div class="group-desc">2026년 1분기에 가입한 784명의 코호트 분석</div>
     </div>
     <nav class="section-nav" data-nav="2026">
-      <button class="nav-tab active" data-tab="duration26">01 이용기간</button>
-      <button class="nav-tab" data-tab="conversion26">02 플랫폼별 전환</button>
-      <button class="nav-tab" data-tab="adcost26">03 광고비 효율</button>
-      <button class="nav-tab" data-tab="status26">04 고객 분포</button>
-      <button class="nav-tab" data-tab="plans26">05 서비스별 플랜</button>
+      <button class="nav-tab active" data-tab="conversion26">01 플랫폼별 전환</button>
+      <button class="nav-tab" data-tab="status26">02 고객 상태 분포</button>
+      <button class="nav-tab" data-tab="duration26">03 이용기간 (조기 이탈)</button>
     </nav>
 
 
 
     <!-- 01 DURATION -->
-    <section class="chart-section active" id="section-duration26">
+    <section class="chart-section" id="section-duration26">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 01</div>
-          <h2 class="section-title">유료고객 이용기간 분포</h2>
-          <p class="section-desc">유료전환일 기준, 해지 고객은 "전환일~해지일", 이용 중 고객은 "전환일~기준일(2026.05.06)"로 계산.</p>
+          <div class="section-num">SECTION 03</div>
+          <h2 class="section-title">이용기간 (조기 이탈 분석)</h2>
+          <p class="section-desc">2026 1Q 유료전환자 97명의 이용 기간 분포. 분기 데이터라 1-2개월 안에 이탈하는 단기 이탈 패턴 측정에 적합.</p>
         </div>
         <div class="controls">
           <span class="control-label">표시</span>
@@ -2423,14 +2194,16 @@ footer {
         </div>
       </div>
       <div class="note">
-        <strong>※ 1분기 코호트 한정:</strong> 2026.01~03 가입자가 유료전환한 시점부터 기준일까지의 이용기간. 1분기 가입자라 최대 약 4개월까지만 측정 가능.
+        <strong>※ 조기 이탈</strong> = 가입 후 짧은 기간(1-3개월) 안에 해지/휴면 전환. 분기 분석의 핵심 지표.<br>
+        <strong>※ 잔존율</strong> = 일정 기간 이후에도 유료 이용 중인 고객 비율.<br>
+        <strong>※ 1분기 코호트 한정:</strong> 2026.01~03 가입자만 분석. 측정 기간이 최대 4개월로 짧음.
       </div>
       <div class="sub-stats">
         <div class="sub-stat"><div class="sub-stat-label">유료전환 총</div><div class="sub-stat-value">97명</div></div>
         <div class="sub-stat"><div class="sub-stat-label">해지 완료</div><div class="sub-stat-value">2명</div></div>
         <div class="sub-stat"><div class="sub-stat-label">이용 중</div><div class="sub-stat-value">95명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">이용 중 평균</div><div class="sub-stat-value">1.5개월</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">해지율</div><div class="sub-stat-value">2.1%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 이용</div><div class="sub-stat-value">1.5개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">조기 이탈률</div><div class="sub-stat-value">2.1%</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="duration26-legend">
@@ -2442,66 +2215,22 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>이용 중 95명, 해지 2명</strong> — 유료전환 대비 해지율 단 2.1%. 2025년 유료·해지 25.5%와 큰 차이.</li>
-          <li><strong>이용 중 분포</strong>: 1~3개월 구간에 61명(64%) 집중. 1분기 가입자라 짧은 누적 기간이 자연스러움.</li>
-          <li><strong>해지 2명 모두 1개월 미만</strong>: 유료전환 직후 빠르게 빠진 사례. 다만 절대 수가 너무 적어 패턴 해석 어려움.</li>
-          <li><strong>채널별 비교</strong> (채널별 탭): 카페24 70명, 검색/배너광고 27명. 카페24의 1~3개월 구간이 45명(64%)으로 가장 두꺼움.</li>
-          <li>1분기 코호트는 매출 누적 기간이 짧아 장기 잔존 패턴 평가 불가. <span class="num">분기 종료 후 6개월 이상 시점에 재평가 권장</span>.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 02 REVENUE DISTRIBUTION -->
-    <section class="chart-section" id="section-revenue26">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 02</div>
-          <h2 class="section-title">26년 1분기 매출 구간별 고객</h2>
-          <p class="section-desc">2026.02~2026.04 3개월 누적 매출 기준. 86명의 매출 발생 고객을 플랜과 매출 구간으로 분석.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">기준</span>
-          <button class="btn-pill active" data-view="revenue26" data-mode="plan">플랜별</button>
-          <button class="btn-pill" data-view="revenue26" data-mode="bucket">매출구간</button>
-          <button class="btn-pill" data-view="revenue26" data-mode="channel">광고채널</button>
-        </div>
-      </div>
-      <div class="note">
-        <strong>※ 매출 산정:</strong> 1월 가입자는 무료체험 후 2~4월(3개월) 매출, 3월 가입자는 4월(1개월)만 매출. 즉 <strong>가입 시점에 따라 매출 누적 기간이 다름</strong>.<br>
-        <strong>※ 매출 발생 86명 ≠ 유료전환 97명</strong> — 유료전환 Y 중 12명은 매출 미발생(가입은 했으나 결제 시점 미도래·해지 처리), 유료전환 N 중 1명은 연결제로 매출 발생.
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">매출 발생 고객</div><div class="sub-stat-value">86명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">3개월 매출</div><div class="sub-stat-value">8,771,794원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">최대 단일 매출</div><div class="sub-stat-value">533,327원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">중앙 매출</div><div class="sub-stat-value">60,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 ARPU</div><div class="sub-stat-value">102,329원</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row" id="revenue26-legend">
-          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>매출 발생 고객 수</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_revenue26"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>매출 발생 86명의 플랜 분포</strong>: Lite 61명(71%), Basic 15명(17%), Standard 8명(9%), Enterprise 2명(2%). <span class="num">Lite가 진입 플랜으로 압도적</span>.</li>
-          <li><strong>Standard 8명이 매출 275만원(31%)</strong> — 인원은 적지만 객단가가 높아 매출 기여도 큼. 카페24 헤비 고객층.</li>
-          <li><strong>Enterprise 2명</strong>: 19만원, 42만원으로 1분기 코호트는 아직 100만원+ 헤비 Enterprise 고객 미형성.</li>
-          <li><strong>광고 채널별</strong>: 카페24 매출 발생 67명 vs 검색/배너광고 19명. <span class="num">카페24가 매출고객 모수에서 약 3.5배 우세</span>.</li>
-          <li>중앙 매출 6만원, 최대 53만원 — 헤비 고객이 아직 형성되지 않은 초기 코호트.</li>
+          <li><strong>조기 이탈률 단 2.1%</strong> — 유료전환자 97명 중 해지 2명. 2025년 해지율 25.5%와 큰 차이.</li>
+          <li><strong>이용 중 분포</strong>: 1~3개월 구간에 61명(64%) 집중. 1분기 가입자라 자연스러운 분포.</li>
+          <li><strong>해지 2명 모두 1개월 미만</strong>: 유료전환 직후 빠르게 빠진 사례. 절대 수 적어 패턴 해석 어려움.</li>
+          <li><strong>채널별</strong>: 카페24 70명, 검색/배너 27명. 카페24의 1~3개월 구간이 45명(64%)으로 가장 두꺼움.</li>
+          <li>1분기 코호트는 매출 누적 기간 짧아 장기 잔존 패턴 평가 불가. <span class="num">분기 종료 후 6개월 이상 시점에 재평가 권장</span>.</li>
         </ul>
       </div>
     </section>
 
     <!-- 04 PLATFORM CONVERSION -->
-    <section class="chart-section" id="section-conversion26">
+    <section class="chart-section active" id="section-conversion26">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 02</div>
-          <h2 class="section-title">플랫폼별 유료전환율</h2>
-          <p class="section-desc">커머스 플랫폼별 가입자 수 대비 유료전환 고객 수와 전환율 비교.</p>
+          <div class="section-num">SECTION 01</div>
+          <h2 class="section-title">플랫폼별 전환 (광고 → 가입 → 결제)</h2>
+          <p class="section-desc">광고비 2,948만으로 784명 가입, 97명 유료 전환. 채널별 광고 효율과 전환율을 종합 분석.</p>
         </div>
         <div class="controls">
           <span class="control-label">표시</span>
@@ -2509,11 +2238,18 @@ footer {
           <button class="btn-pill" data-view="conversion26" data-mode="rate">전환율순</button>
         </div>
       </div>
+      <div class="note">
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 결제 고객. 고객 1명 데려오는 데 든 광고비.<br>
+        <strong>※ 회원가입율</strong> = 가입자 ÷ 방문자 × 100%. 광고 노출 후 가입까지의 전환율.<br>
+        <strong>※ 유료전환율</strong> = 결제자 ÷ 가입자 × 100%. 가입 후 유료 결제까지의 전환율.<br>
+        <strong>※ 광고비 대비 가입자</strong> = 광고비 ÷ 가입자. 가입자 1명 데려오는 데 든 광고비 (CAC와 다름).
+      </div>
       <div class="sub-stats">
+        <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,480,000원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">전체 가입자</div><div class="sub-stat-value">784명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">97명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 전환율</div><div class="sub-stat-value">12.4%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">최고 전환 플랫폼</div><div class="sub-stat-value">cafe24 (37.4%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 유료전환</div><div class="sub-stat-value">97명 (12.4%)</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">CAC (결제고객)</div><div class="sub-stat-value">303,918원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">광고비/가입자</div><div class="sub-stat-value">37,602원</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row">
@@ -2526,10 +2262,10 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><span class="num">cafe24가 압도적</span>: 187명 중 70명(37.4%)이 유료 전환. 1분기 유료 고객 97명의 <span class="num">72%가 cafe24 출신</span>.</li>
-          <li><strong>direct는 가입자 1위(441명, 57%)이지만 전환율 4.3%</strong>로 매우 낮음 — 가입 허들 제거 후 검색/배너로 유입된 트래픽 대부분이 결제로 이어지지 않음.</li>
+          <li><strong>cafe24 효율 유지</strong>: 가입자 187명 중 <span class="num">70명(37.4%)</span> 유료 전환. CAC <span class="num">19.7만</span>으로 가장 저렴. 1Q 유료 고객 97명의 <span class="num">72%가 cafe24 출신</span>.</li>
+          <li><strong>direct 가입자 1위(441명, 57%)이나 전환율 4.3%</strong> — 가입 허들 제거 후 검색/배너로 유입된 트래픽 대부분이 결제로 이어지지 않음.</li>
+          <li><strong>2025년 대비 변화</strong>: CAC 37.1만 → 30.4만 (18% 개선) ✅. 단 cafe24 전환율 48.9% → 37.4% 하락.</li>
           <li>nhn 6.5%, makeshop 3.6%, colorme 0% — direct와 유사한 낮은 전환율 패턴.</li>
-          <li>2025년과 비교 시 <strong>cafe24의 우위는 유지(48.9%→37.4%)</strong>되지만 절대 전환율은 다소 하락.</li>
         </ul>
         <div class="plg-bench">
           <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
@@ -2537,86 +2273,19 @@ footer {
             <strong>1Q 전체 유료전환율 12.4%</strong> ·
             PLG Opt-in 평균 <strong>8.9%</strong>의 <strong>1.4배</strong> ✅<br>
             <span style="font-size:12.5px;color:var(--ink-mute)">cafe24(37.4%)는 여전히 PLG <strong>great 등급(15~25%)</strong> 초과로 우수.
-            단 <strong>2025년 24.3% 대비 절반</strong>으로 하락 — 가입 허들 제거 후 트래픽 품질이 중요. PLG 평균보다는 좋지만 <strong>회복 노력 필요</strong>.</span>
+            단 <strong>2025년 24.3% 대비 절반</strong>으로 하락 — 가입 허들 제거 후 트래픽 품질이 중요. <strong>유료전환율 회복이 1순위 과제</strong>.</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 03 AD COST -->
-    <section class="chart-section" id="section-adcost26">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 03</div>
-          <h2 class="section-title">광고비 대비 ARPU · ROAS 분석 (신규 매출)</h2>
-          <p class="section-desc">2026년 1분기 광고로 새로 가입한 고객의 매출만 기준. 전체 사업 ROAS는 별도 "전체 매출 분석" 탭 참조.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="adcost26" data-mode="roas">ROAS</button>
-          <button class="btn-pill" data-view="adcost26" data-mode="arpu_cac">ARPU·CAC</button>
-          <button class="btn-pill" data-view="adcost26" data-mode="rev_dist">매출분포</button>
-          <button class="btn-pill" data-view="adcost26" data-mode="cac_roas">CAC→ROAS</button>
-        </div>
-      </div>
-      <div class="note">
-        <strong>※ 신규 매출 ROAS</strong> = 2026년 1분기 광고로 가입한 신규 고객의 매출(2026.02~04) ÷ 광고비. 매출이 1개월 밀림(무료체험 1개월).<br>
-        <strong>※ 광고비:</strong> 1월 938만 · 2월 834만 · 3월 1,176만 · 총 2,948만원
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,480,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 매출</div><div class="sub-stat-value">8,771,794원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 매출 ROAS</div><div class="sub-stat-value">29.8%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">총 가입자</div><div class="sub-stat-value">784명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">총 유료전환</div><div class="sub-stat-value">97명</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row" id="adcost26-legend">
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>카페24</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>검색/배너광고</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_adcost26"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>3개월 신규 매출 ROAS</strong>: 카페24 <span class="num">45.4%</span> vs 검색/배너 <span class="num">16.0%</span> — 카페24가 약 2.8배 능가.</li>
-          <li><strong>가입 허들 제거 후</strong>: 검색/배너 가입자 597명으로 폭증했지만 매출고객은 27명에 그침. 카페24는 187명 가입에서 매출고객 70명.</li>
-          <li><strong>유료전환율도 카페24 우세</strong>: 카페24 37.4% vs 검색/배너 4.5%.</li>
-          <li><strong>채널별 CAC</strong>: 카페24 19.7만 (1,380만 ÷ 70명) vs 검색/배너 58.1만 (1,568만 ÷ 27명) — 검색/배너가 약 3배 비쌈.</li>
-          <li><strong>신규 매출 단독으로는 적자</strong>: 누적 기간이 짧아 매출이 작음. 전체 매출 기준으로는 흑자 — "전체 매출 분석" 탭 참조.</li>
-        </ul>
-        <div class="plg-bench">
-          <div class="plg-bench-head">PLG SaaS 글로벌 기준 비교</div>
-          <div class="plg-bench-grid">
-            <div class="plg-bench-item">
-              <div class="plg-bench-label">신규 매출 ROAS (1Q 즉시)</div>
-              <div class="plg-bench-row">
-                <span class="plg-bench-chalna">29.8%</span>
-                <span class="plg-bench-vs">vs PLG 300~400% (LTV 기준)</span>
-              </div>
-              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">⚠️ 측정 기간(3개월) 한계. <strong>LTV 기준 ROAS 392%</strong>로 PLG 표준 충족</div>
-            </div>
-            <div class="plg-bench-item">
-              <div class="plg-bench-label">CAC (신규 결제고객 1인당)</div>
-              <div class="plg-bench-row">
-                <span class="plg-bench-chalna">30.4만원</span>
-                <span class="plg-bench-vs">vs PLG LTV의 1/3 이하 권장</span>
-              </div>
-              <div class="plg-bench-eval" style="font-size:12px;color:var(--ink-mute);margin-top:4px">✅ LTV 120만 대비 1/4 수준 — 충족</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05 CUSTOMER STATUS -->
+    <!-- 02 CUSTOMER STATUS -->
     <section class="chart-section" id="section-status26">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 04</div>
-          <h2 class="section-title">가입자 대비 휴면 · 해지 분포</h2>
-          <p class="section-desc">1분기 가입 784명을 유료전환 여부 × 계정 상태(정상/휴면/해지)로 교차 분류.</p>
+          <div class="section-num">SECTION 02</div>
+          <h2 class="section-title">고객 상태 분포 (유료/휴면/해지)</h2>
+          <p class="section-desc">1Q 가입 784명을 유료전환 여부 × 계정 상태(정상/휴면/해지)로 교차 분류. 가입자가 유료로 정착하는지 측정.</p>
         </div>
         <div class="controls">
           <span class="control-label">기준</span>
@@ -2627,8 +2296,10 @@ footer {
       </div>
 
       <div class="note">
-        <strong>※ 카테고리 정의:</strong> 미전환·휴면 = 가입만 하고 결제 없이 휴면 / 미전환·해지 = 결제 전 계정 해지 / 미전환·정상 = 결제 전 활성 / 유료·정상이용중 = 결제 후 이용 중 / 유료·해지 = 결제 후 해지<br>
-        <strong>※ 휴면 정의는 일정 기간 미접속 또는 활동 정지 상태</strong>. 1분기 가입자 다수가 무료체험 종료 후 결제 없이 자동 휴면 처리된 케이스로 보임.
+        <strong>※ 휴면율</strong> = 휴면 ÷ 가입자 × 100%. 가입 후 결제 없이 휴면 상태로 전환된 비율.<br>
+        <strong>※ 해지율</strong> = 해지 ÷ 가입자 × 100%. 가입 후 계정을 해지한 비율.<br>
+        <strong>※ 카테고리:</strong> 미전환·휴면 = 가입만 하고 결제 없이 휴면 / 미전환·해지 = 결제 전 해지 / 유료·정상이용중 = 결제 후 이용 / 유료·해지 = 결제 후 해지<br>
+        <strong>※ 휴면 정의는 일정 기간 미접속 또는 활동 정지 상태</strong>. 1Q 가입자 다수가 무료체험 종료 후 결제 없이 자동 휴면 처리된 케이스로 보임.
       </div>
 
       <div class="sub-stats">
@@ -2691,118 +2362,6 @@ footer {
       </div>
     </section>
 
-        
-    <!-- 06 LTV PROJECTION -->
-    <section class="chart-section" id="section-ltv26">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 06</div>
-          <h2 class="section-title">LTV 8개월 기준 예상 ROAS · ARPU</h2>
-          <p class="section-desc">2025년 평균 이용기간 8개월을 LTV로 가정하고, 1분기 코호트의 매출이 8개월까지 누적될 경우의 ROAS와 ARPU를 추정.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="ltv26" data-mode="roas">예상 ROAS</button>
-          <button class="btn-pill" data-view="ltv26" data-mode="arpu">예상 ARPU</button>
-          <button class="btn-pill" data-view="ltv26" data-mode="profit">예상 손익</button>
-        </div>
-      </div>
-
-      <div class="note">
-        <strong>※ 계산 근거:</strong> <strong>2025년 가입고객의 평균 이용기간 8개월</strong>(이용 중 고객 평균)을 LTV 기준으로 사용. 1분기 가입자 784명의 평균 매출 누적 기간은 약 <strong>2.18개월</strong>(1월 가입자 3개월 + 2월 2개월 + 3월 1개월의 가중평균). 현재 매출을 월 단위로 환산 후 8개월에 곱해 예상치 산출.<br>
-        <strong>※ 한계:</strong> 단순 선형 외삽이라 실제 결과는 다를 수 있음. 잔존율, 결제 갱신율, 헤비 고객 비중 등 변수 미반영. <span style="color:#A04E14;font-weight:600">"이 정도 매출 페이스가 8개월 유지된다고 가정할 때"</span>의 시나리오로 해석 필요.
-      </div>
-
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">현재 누적기간(가중평균)</div><div class="sub-stat-value">2.18개월</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">LTV 기준</div><div class="sub-stat-value">8개월</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">예상 매출 (8개월)</div><div class="sub-stat-value">32,291,988원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">예상 ROAS</div><div class="sub-stat-value">111.0%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">예상 순익</div><div class="sub-stat-value">+3,191,988원</div></div>
-      </div>
-
-      <div class="chart-card">
-        <div class="legend-row" id="ltv26-legend">
-          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>현재 (2.18개월 누적)</span>
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>예상 (8개월 LTV)</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_ltv26"></canvas></div>
-      </div>
-
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>2026 1Q 신규 매출 ROAS</strong>: 카페24 <span class="num">45.4%</span> (광고비 1,380만 vs 매출 627만, 적자 -753만) vs 검색/배너 <span class="num">16.0%</span> (광고비 1,568만 vs 매출 250만, 적자 -1,318만).</li>
-          <li><strong>3개월 신규 매출 단독으로는 적자</strong>: 광고비 2,948만 vs 신규 매출 877만 = <span class="num">-2,071만원</span>. 단, 누적 기간이 짧은 영향.</li>
-          <li><strong>LTV 기준으로는 회수 가능</strong>: 1Q LTV 120만 ÷ CAC 30.4만 = LTV:CAC <span class="num">4.0:1</span>로 PLG 표준(3:1) 충족. 2025년(2.1:1) 대비 약 2배 개선.</li>
-          <li><strong>채널별 단가 차이</strong>: 검색/배너 고객 1인 가치 더 큼. 검색/배너 LTV 388만 vs 카페24 77만 — 카페24는 모수, 검색/배너는 단가 강점.</li>
-          <li><strong>관찰 포인트</strong>: 1Q 전환율 12.4%(2025 24.3% 대비 절반)이라 신규 매출 성장세 둔화. 광고비 늘려도 비례 증가 한계 — <strong>전환율 회복 + 휴면 CRM</strong>이 진짜 레버.</li>
-        </ul>
-      </div>
-    </section>
-    <!-- 07 SERVICE USERS -->
-    <section class="chart-section" id="section-services26">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 07</div>
-          <h2 class="section-title">서비스별 활성 사용자</h2>
-          <p class="section-desc">5개 서비스의 사용자 수. 각 서비스 로드수가 1 이상인 고객 집계.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">기준</span>
-          <button class="btn-pill active" data-view="services26" data-mode="abs">절대값</button>
-          <button class="btn-pill" data-view="services26" data-mode="pct">전체 대비 %</button>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-wrap"><canvas id="ch_services26"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li>디스플레이어가 <span class="num">223명(전체 가입자 784명의 28.7%)</span>으로 메인 서비스 위치 유지. 단 절대 비율은 2025년(34.3%)보다 약간 낮음.</li>
-          <li><strong>위젯이 새로 활성화</strong>: 2025년 0명 → 2026년 1분기 <span class="num">19명</span>. 신규 출시 또는 노출 강화로 보임.</li>
-          <li>썸네일플레이어 37명, 샵플레이어 35명으로 비슷한 규모. 재생목록은 7명으로 가장 적음.</li>
-          <li>2025년 대비 사용자 절대수는 적으나, 1분기 코호트만의 단기 데이터라 단순 비교는 어려움.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 08 PLANS BY SERVICE -->
-    <section class="chart-section" id="section-plans26">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 05</div>
-          <h2 class="section-title">서비스별 가격 플랜 분포</h2>
-          <p class="section-desc">각 서비스 사용자들이 어떤 플랜에 속해 있는지 누적 막대 비교.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">표시</span>
-          <button class="btn-pill active" data-view="plans26" data-mode="count">고객 수</button>
-          <button class="btn-pill" data-view="plans26" data-mode="ratio">비율 100%</button>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row">
-          <span><span class="legend-dot" style="background:var(--ppt-3)"></span>Promotion</span>
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>Lite</span>
-          <span><span class="legend-dot" style="background:var(--ppt-5)"></span>Basic</span>
-          <span><span class="legend-dot" style="background:var(--ppt-4)"></span>Standard</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>Enterprise</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_plans26"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>디스플레이어</strong>: Promotion 130명(58%) + Lite 63명(28%) = 86%가 무료/저가. 진입 서비스 역할 유지.</li>
-          <li><strong>샵플레이어</strong>: Standard·Enterprise가 각 5명씩(각 14%) — 고가 플랜 비중이 다른 서비스 대비 가장 높음. <span class="num">결제 의향 강한 사용자가 쓰는 서비스</span>.</li>
-          <li><strong>위젯</strong>: 19명 중 Enterprise 5명(26%). 적은 사용자지만 <span class="num">최상위 플랜 비중이 가장 높음</span> — 신규 활성 서비스인데 즉시 결제 고객 비중이 큼.</li>
-          <li><strong>재생목록</strong>: 7명 중 Enterprise 2명(29%). 소수지만 유료 비중 매우 높음 — 2025년과 동일 패턴.</li>
-        </ul>
-      </div>
-    </section>
-
     </div>
     <!-- /group-page new26 -->
 
@@ -2814,9 +2373,8 @@ footer {
     </div>
     <nav class="section-nav" data-nav="2026-overall">
       <button class="nav-tab active" data-tab="orevenue26">01 매출 분포</button>
-      <button class="nav-tab" data-tab="oadcost26">02 광고 효율</button>
-      <button class="nav-tab" data-tab="oltv26">03 LTV 매출 검증</button>
-      <button class="nav-tab" data-tab="ofeatures26">04 찰나 사용 기능</button>
+      <button class="nav-tab" data-tab="oltv26">02 LTV 매출 검증</button>
+      <button class="nav-tab" data-tab="ofeatures26">03 찰나 사용 기능</button>
     </nav>
 
     <!-- O01 OVERALL REVENUE 26 -->
@@ -2863,79 +2421,36 @@ footer {
       </div>
     </section>
 
-    <!-- O02 OVERALL AD COST 26 -->
-    <section class="chart-section" id="section-oadcost26">
-      <div class="section-header">
-        <div class="section-title-block">
-          <div class="section-num">SECTION 02</div>
-          <h2 class="section-title">광고 효율 (CAC · Payback)</h2>
-          <p class="section-desc">광고비 2,948만으로 신규 결제 97명 획득. 고객 1명 데려오는 비용(CAC)과 회수 기간(Payback)으로 광고 효율 진단.</p>
-        </div>
-        <div class="controls">
-          <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oadcost26" data-mode="cac">CAC + ROAS</button>
-          <button class="btn-pill" data-view="oadcost26" data-mode="roas">ROAS</button>
-        </div>
-      </div>
-      <div class="note">
-        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 결제 고객 수. 고객 1명 데려오는 데 든 광고비.<br>
-        <strong>※ ROAS (전체 매출 기준)</strong> = 측정 기간 전체 매출 ÷ 광고비 × 100%. 광고비 1원당 회수한 매출. <br>
-        <strong>※ CAC + ROAS 모드</strong>: 채널별 CAC, 신규 결제 고객 수, ROAS%를 한 차트에서 종합 비교.<br>
-        <span style="color:var(--ink-soft);font-size:13px">※ Payback Period · LTV:CAC · LTV 기준 ROAS는 <strong>LTV 매출 검증</strong> 탭에서 · 채널별 고객 수 · 월별 가입자는 <strong>매출 분포</strong> 탭에서 확인하세요.</span>
-      </div>
-      <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">총 광고비</div><div class="sub-stat-value">29,480,000원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">신규 결제 고객</div><div class="sub-stat-value">97명</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">CAC</div><div class="sub-stat-value">303,918원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">Payback</div><div class="sub-stat-value">2.6개월</div></div>
-      </div>
-      <div class="chart-card">
-        <div class="legend-row" id="oadcost26-legend">
-          <span><span class="legend-dot" style="background:var(--ppt-1)"></span>카페24</span>
-          <span><span class="legend-dot" style="background:var(--ppt-2)"></span>검색/배너광고</span>
-        </div>
-        <div class="chart-wrap"><canvas id="ch_oadcost26"></canvas></div>
-      </div>
-      <div class="insights">
-        <div class="insights-head">DATA INSIGHTS</div>
-        <ul>
-          <li><strong>CAC 30.4만원</strong>(광고비 2,948만 ÷ 신규 결제 97명): 2025년 가입자 기준 CAC 37.1만보다 <span class="num">18% 감소</span> — 광고 효율 개선 추세.</li>
-          <li><strong>채널별 CAC</strong>: 카페24 <span class="num">19.7만</span> (70명 결제) vs 검색/배너 <span class="num">58.1만</span> (27명 결제) — 검색/배너가 약 3배 비쌈. 2025년(4배 차이)보다 격차 축소.</li>
-          <li><strong>Payback 약 2.6개월</strong> (CAC 30.4만 ÷ ARPU 11.8만): 광고비를 약 2.6개월 만에 회수 완료. <strong>SaaS 베스트 클래스(5~7개월)도 능가</strong>하는 매우 빠른 회수 속도. 이후 평균 이용 10.2개월 중 7.6개월은 순이익 발생.</li>
-          <li><strong>채널별 Payback</strong>: 카페24 약 2.4개월 (CAC 19.7만 ÷ ARPU 8.4만) / 검색/배너 약 2.3개월 (CAC 58.1만 ÷ ARPU 25.5만). 두 채널 모두 베스트 클래스 수준.</li>
-          <li><strong>월별 CPA 상승 추세</strong>: 1월 28,773원 → 3월 59,394원 (2배 상승). 가입율도 6% → 4%로 하락. 광고 채널 효율 한계 신호 — 광고비 증액보다 다른 레버 필요.</li>
-          <li><strong>광고 효율의 핵심은 분모(누가 결제했나)와 ARPU(얼마나 결제했나)</strong>. ROAS 및 LTV 회수 효율은 LTV 매출 검증 탭 참조.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- O03 OVERALL LTV 26 -->
+    <!-- O02 OVERALL LTV 26 -->
     <section class="chart-section" id="section-oltv26">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 03</div>
-          <h2 class="section-title">LTV 매출 검증 · ROAS</h2>
-          <p class="section-desc">2026 1분기 광고비 회수 효율을 실측 검증. 광고비 1원당 회수한 매출(ROAS)과 고객 1인 평생 가치(LTV) 분석.</p>
+          <div class="section-num">SECTION 02</div>
+          <h2 class="section-title">LTV 매출 검증 (CAC · ARPU · LTV · ROAS)</h2>
+          <p class="section-desc">2026 1Q 광고비 회수 효율을 실측 검증. 고객 1인 가치(LTV)와 광고 회수율(ROAS) 분석.</p>
         </div>
         <div class="controls">
           <span class="control-label">지표</span>
-          <button class="btn-pill active" data-view="oltv26" data-mode="arpu">ARPU</button>
+          <button class="btn-pill active" data-view="oltv26" data-mode="cac">CAC</button>
+          <button class="btn-pill" data-view="oltv26" data-mode="arpu">ARPU</button>
           <button class="btn-pill" data-view="oltv26" data-mode="ltv">LTV</button>
           <button class="btn-pill" data-view="oltv26" data-mode="roas">ROAS</button>
         </div>
       </div>
       <div class="note">
-        <strong>※ LTV (Customer Lifetime Value)</strong> = 월 ARPU × 평균 이용 개월. 고객 1인이 평균 이용기간 동안 만드는 총 매출.<br>
-        <strong>※ 평균 이용 개월</strong>은 raw 매출 데이터 실측치 — 가입~해지(또는 기준일)까지의 실제 이용 기간 평균.<br>
-        <strong>※ ROAS (LTV 기준)</strong> = LTV ÷ CAC × 100%. 광고비 1원당 회수한 평생 매출. <strong>PLG SaaS 표준 300~400%(3:1~4:1)</strong>가 우수.<br>
-        <strong>※ LTV:CAC 비율</strong>은 SaaS 사업 건강도의 핵심 지표 — 일반적으로 <strong>3:1 이상</strong>이면 우수, 5:1 이상은 매우 우수.
+        <strong>※ CAC (Customer Acquisition Cost)</strong> = 광고비 ÷ 신규 결제 고객. 고객 1명 데려오는 비용.<br>
+        <strong>※ ARPU (Average Revenue Per User)</strong> = 매출 ÷ 결제 고객 ÷ 개월. 고객 1명이 매달 내는 평균 매출.<br>
+        <strong>※ LTV (Lifetime Value)</strong> = ARPU × 평균 이용 개월. 고객 1인이 평생 만들어주는 총 매출. 실측 raw 매출 기반.<br>
+        <strong>※ ROAS (LTV 기준)</strong> = LTV ÷ CAC × 100%. 광고비 1원당 회수한 평생 매출. <strong>PLG SaaS 표준 300~400%</strong>가 우수.<br>
+        <strong>※ LTV:CAC 비율</strong> = LTV ÷ CAC. SaaS 사업 건강도의 핵심 지표 — <strong>3:1 이상</strong>이면 우수, 5:1 이상은 매우 우수.
       </div>
       <div class="sub-stats">
-        <div class="sub-stat"><div class="sub-stat-label">전체 LTV</div><div class="sub-stat-value">120만원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">CAC</div><div class="sub-stat-value">303,918원</div></div>
         <div class="sub-stat"><div class="sub-stat-label">월 ARPU</div><div class="sub-stat-value">118,077원</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">평균 이용 개월</div><div class="sub-stat-value">10.2개월</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">ROAS (LTV 기준)</div><div class="sub-stat-value">392%</div></div>
-        <div class="sub-stat"><div class="sub-stat-label">LTV:CAC 비율</div><div class="sub-stat-value">4.0 : 1</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">평균 이용 기간<br><span style="font-size:11px;color:var(--ink-soft);font-weight:400">(2025 평균 이용 기간 적용)</span></div><div class="sub-stat-value">9.0개월</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">전체 LTV</div><div class="sub-stat-value">106만원</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">ROAS (LTV)</div><div class="sub-stat-value">350%</div></div>
+        <div class="sub-stat"><div class="sub-stat-label">LTV:CAC</div><div class="sub-stat-value">3.5 : 1</div></div>
       </div>
       <div class="chart-card">
         <div class="legend-row" id="oltv26-legend">
@@ -2947,13 +2462,13 @@ footer {
       <div class="insights">
         <div class="insights-head">DATA INSIGHTS</div>
         <ul>
-          <li><strong>ROAS (LTV 기준) 392%</strong> (LTV 120만 ÷ CAC 30.4만 × 100%) — <strong>PLG SaaS 표준 300~400% 충족 ✅</strong>. 광고비 1원당 평생 3.92원 회수 가능. 2025년(211%) 대비 약 1.9배 개선 — 사업 건강도 크게 향상.</li>
-          <li><strong>채널별 ROAS (LTV 기준)</strong>: 카페24 <span class="num">396%</span> (LTV 77만 ÷ CAC 19.7만) / 검색/배너 <span class="num">668%</span> (LTV 388만 ÷ CAC 58.1만). 두 채널 모두 PLG 표준 충족.</li>
-          <li><strong>전체 LTV 120만원</strong> — 월 ARPU 11.8만 × 2026 1Q 평균 이용 10.2개월. 2025년(78만) 대비 <span class="num">54% 증가</span>. ARPU 상승(+36%) + 평균 이용 증가(+13%)가 주된 요인.</li>
-          <li><strong>이용 개월 분포 (2026 1Q)</strong>: 평균 10.2개월 · 카페24 채널 9.2개월 · 검색/배너 채널 15.2개월. 2025년 대비 카페24(+0.9개월), 검색/배너(+2.4개월) 모두 충성도 향상.</li>
-          <li><strong>채널별 LTV 차이</strong>: 검색/배너 LTV <span class="num">388만원</span> (ARPU 25.5만 × 15.2개월) vs 카페24 LTV <span class="num">77만원</span> (ARPU 8.4만 × 9.2개월). 검색/배너는 Enterprise 등 헤비 고객 비중 높아 5배 차이.</li>
-          <li><strong>LTV:CAC = 4.0:1</strong> ✅ — PLG SaaS 글로벌 표준(3:1) 충족. 광고비 1원당 평균 4.0원 회수. 2025년(2.1:1) 대비 약 2배 개선 — 사업 효율 향상 추세.</li>
-          <li><strong>참고: 즉시 ROAS (전체 매출 기준)</strong>: 652.5% (전체 매출 1.92억 ÷ 광고비 2,948만). 단, 이는 이전 가입자 매출까지 포함한 광의의 효율로, LTV 기준이 더 정확한 신규 광고 효율 지표.</li>
+          <li><strong>ROAS (LTV 기준) 350%</strong> (LTV 106만 ÷ CAC 30.4만 × 100%) — <strong>PLG SaaS 표준 300~400% 충족 ✅</strong>. 광고비 1원당 평생 3.50원 회수 가능. 2025년(211%) 대비 약 1.7배 개선 — 사업 건강도 향상.</li>
+          <li><strong>채널별 ROAS (LTV 기준)</strong>: 카페24 <span class="num">357%</span> (LTV 70만 ÷ CAC 19.7만) / 검색/배너 <span class="num">563%</span> (LTV 327만 ÷ CAC 58.1만). 두 채널 모두 PLG 표준 충족.</li>
+          <li><strong>전체 LTV 106만원</strong> — 월 ARPU 11.8만 × <strong>2025 평균 이용 9.0개월 적용</strong> (1Q는 측정 기간 3개월로 실측 불가, 2025년 평균 적용). 2025년(78만) 대비 <span class="num">36% 증가</span> — ARPU 상승이 주된 요인.</li>
+          <li><strong>이용 개월 분포 (2025 실측 적용)</strong>: 평균 9.0개월 · 카페24 채널 8.3개월 · 검색/배너 채널 12.8개월. 1Q는 측정 기간 한계로 2025년 실측 평균을 그대로 적용.</li>
+          <li><strong>채널별 LTV 차이</strong>: 검색/배너 LTV <span class="num">327만원</span> (ARPU 25.5만 × 12.8개월) vs 카페24 LTV <span class="num">70만원</span> (ARPU 8.4만 × 8.3개월). 검색/배너는 Enterprise 등 헤비 고객 비중 높아 약 5배 차이.</li>
+          <li><strong>LTV:CAC = 3.5:1</strong> ✅ — PLG SaaS 글로벌 표준(3:1) 충족. 광고비 1원당 평균 3.5원 회수. 2025년(2.1:1) 대비 약 1.7배 개선 — 사업 효율 향상 추세.</li>
+          <li><strong>즉시 ROAS (전체 매출 ÷ 광고비) = 652.5%</strong>이나 이전 가입자 매출까지 포함한 광의의 지표로 측정 기간이 짧은 1Q에는 부정확. <strong>LTV 기준 ROAS 350%가 더 정확한 평가</strong>.</li>
         </ul>
       </div>
     </section>
@@ -2962,7 +2477,7 @@ footer {
     <section class="chart-section" id="section-ofeatures26">
       <div class="section-header">
         <div class="section-title-block">
-          <div class="section-num">SECTION 04</div>
+          <div class="section-num">SECTION 03</div>
           <h2 class="section-title">찰나 사용 기능</h2>
           <p class="section-desc">2026년 1분기 가입자 784명의 서비스(기능)별 사용자 분포.</p>
         </div>
@@ -3203,17 +2718,13 @@ const OVERALL_25 = {
 };
 
 let modes25 = {
-  duration25: 'stacked',
-  revenue25: 'plan',
-  adcost25: 'roas',
-  status25: 'overall',
-  ltv25: 'roas',
-  services25: 'abs',
-  plans25: 'count',
+  // 신규 가입자 분석 (3개 탭)
   conversion25: 'bar',
+  status25: 'overall',
+  duration25: 'stacked',
+  // 전체 매출 분석 (4개 탭)
   orevenue25: 'bucket',
-  oadcost25: 'cac',
-  oltv25: 'ltv',
+  oltv25: 'cac',
   ofeatures25: 'abs'
 };
 
@@ -3661,24 +3172,24 @@ const OVERALL_26 = {
   feature_counts: [223, 35, 37, 7, 19],
   feature_total: 777,
   // LTV 데이터 (실측: 월 ARPU × 평균 이용 개월)
-  ltv_total: 1200000,
-  ltv_cafe24: 781052,
-  ltv_search: 3879815,
+  ltv_total: 1062693,
+  ltv_cafe24: 704645,
+  ltv_search: 3267213,
   arpu_monthly_total: 118077,
   arpu_monthly_cafe24: 84897,
   arpu_monthly_search: 255251,
-  avg_months_total: 10.2,
-  avg_months_cafe24: 9.2,
-  avg_months_search: 15.2,
+  avg_months_total: 9.0,
+  avg_months_cafe24: 8.3,
+  avg_months_search: 12.8,
   churn_rate_total: 1.41,
   churn_rate_cafe24: 1.46,
   churn_rate_search: 1.15,
   cac_total: 303918,
   cac_cafe24: 197143,
   cac_search: 580741,
-  ltv_cac_ratio_total: 4.0,
-  ltv_cac_ratio_cafe24: 4.0,
-  ltv_cac_ratio_search: 6.7,
+  ltv_cac_ratio_total: 3.5,
+  ltv_cac_ratio_cafe24: 3.6,
+  ltv_cac_ratio_search: 5.6,
   // 채널별 Enterprise 핵심 고객 (100만원+ 무한로드 Enterprise)
   enterprise_cafe24: ['멜리언스', '핫핑', '리리앤코'],
   enterprise_search: ['젝시믹스', 'NA미디어', '카페24 광고', '신세계면세점'],
@@ -3689,17 +3200,13 @@ const OVERALL_26 = {
 };
 
 let modes26 = {
-  duration26: 'stacked',
-  revenue26: 'plan',
-  services26: 'abs',
-  plans26: 'count',
+  // 신규 가입자 분석 (3개 탭)
   conversion26: 'bar',
-  adcost26: 'roas',
   status26: 'overall',
-  ltv26: 'roas',
+  duration26: 'stacked',
+  // 전체 매출 분석 (4개 탭)
   orevenue26: 'bucket',
-  oadcost26: 'cac',
-  oltv26: 'ltv',
+  oltv26: 'cac',
   ofeatures26: 'abs'
 };
 
@@ -4048,29 +3555,18 @@ function buildAdcost26() {
 // BUILDERS REGISTRY
 // ===========================================
 const BUILDERS = {
-  duration25: buildDuration25,
-  revenue25: buildRevenue25,
-  adcost25: buildAdcost25,
-  status25: buildStatus25,
-  ltv25: buildLtv25,
-  services25: buildServices25,
-  plans25: buildPlans25,
+  // 신규 가입자 분석 (3개 탭)
   conversion25: buildConversion25,
-  duration26: buildDuration26,
-  revenue26: buildRevenue26,
-  services26: buildServices26,
-  plans26: buildPlans26,
+  status25: buildStatus25,
+  duration25: buildDuration25,
   conversion26: buildConversion26,
-  adcost26: buildAdcost26,
   status26: buildStatus26,
-  ltv26: buildLtv26,
-  // 전체 매출 분석
+  duration26: buildDuration26,
+  // 전체 매출 분석 (4개 탭)
   orevenue25: () => buildORevenue('25'),
-  oadcost25: () => buildOAdcost('25'),
   oltv25: () => buildOLtv('25'),
   ofeatures25: () => buildOFeatures('25'),
   orevenue26: () => buildORevenue('26'),
-  oadcost26: () => buildOAdcost('26'),
   oltv26: () => buildOLtv('26'),
   ofeatures26: () => buildOFeatures('26')
 };
@@ -4607,7 +4103,28 @@ function buildOLtv(year) {
 
   let data, yLabel, yFormatter, dataLabelFmt, tooltipFmt, legendHTML;
 
-  if (mode === 'ltv') {
+  if (mode === 'cac') {
+    // CAC 모드 - 채널별 CAC + 월별 CAC 부연
+    data = [D.cac_cafe24, D.cac_search];
+    yLabel = 'CAC (원/신규 결제 고객)';
+    yFormatter = (v) => (v/10000).toFixed(0) + '만';
+    dataLabelFmt = (v) => (v/10000).toFixed(1) + '만원';
+    tooltipFmt = (c) => {
+      const i = c.dataIndex;
+      const cost = i === 0 ? D.cost_cafe24 : D.cost_search;
+      const n = Math.round(cost / c.parsed.y);
+      const arpu = i === 0 ? D.arpu_monthly_cafe24 : D.arpu_monthly_search;
+      const payback = c.parsed.y / arpu;
+      return ['CAC: ' + c.parsed.y.toLocaleString() + '원',
+        '광고비: ' + cost.toLocaleString() + '원',
+        '신규 결제: ' + n + '명',
+        'Payback: ' + payback.toFixed(1) + '개월'];
+    };
+    legendHTML = `
+      <span><span class="legend-dot" style="background:${COLORS.ppt1}"></span>카페24 CAC (${(D.cac_cafe24/10000).toFixed(1)}만원)</span>
+      <span><span class="legend-dot" style="background:${COLORS.ppt2}"></span>검색/배너 CAC (${(D.cac_search/10000).toFixed(1)}만원)</span>
+      <span style="margin-left:auto;color:${COLORS.inkSoft};font-size:13px">CAC = 광고비 ÷ 신규 결제 고객</span>`;
+  } else if (mode === 'ltv') {
     data = [D.ltv_cafe24, D.ltv_search];
     yLabel = 'LTV (원/고객)';
     yFormatter = (v) => (v/10000).toLocaleString() + '만';
