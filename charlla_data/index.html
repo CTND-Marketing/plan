@@ -40,6 +40,14 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
+/* 본문 컨텐츠만 3% 축소 (상단 탭, 헤더 제외) */
+.main-page {
+  zoom: 0.97;
+}
+/* Firefox 전용 fallback (zoom 미지원) */
+@-moz-document url-prefix() {
+  .main-page { zoom: unset; font-size: 0.97em; }
+}
 .container { max-width: 1440px; margin: 0 auto; padding: 48px 32px 80px; }
 
 header {
@@ -79,13 +87,13 @@ header .subtitle {
   border-radius: 14px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   position: sticky;
-  top: 12px;
+  top: 10px;
   z-index: 100;
   backdrop-filter: blur(12px);
 }
 .main-nav-item {
   flex: 1;
-  padding: 18px 20px;
+  padding: 21px 22px;
   border: 2px solid transparent;
   background: var(--bg-subtle);
   color: var(--ink);
@@ -97,9 +105,10 @@ header .subtitle {
   transition: all 0.2s ease;
   letter-spacing: -0.01em;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 13px;
   position: relative;
 }
 .main-nav-item:hover {
@@ -111,8 +120,7 @@ header .subtitle {
 .main-nav-item.active {
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
-  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
 }
 .main-nav-item[data-target="overview"].active {
   background: linear-gradient(135deg, var(--ppt-1) 0%, #2C5BAD 100%);
@@ -126,8 +134,8 @@ header .subtitle {
 .main-nav-label {
   font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  opacity: 0.7;
+  letter-spacing: 0.06em;
+  opacity: 0.65;
   text-transform: uppercase;
   color: var(--ink-mute);
 }
@@ -136,7 +144,7 @@ header .subtitle {
   color: #fff;
 }
 .main-nav-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--ink);
 }
@@ -147,10 +155,10 @@ header .subtitle {
   font-size: 14px;
   font-weight: 500;
   color: var(--ink-mute);
-  margin-top: 2px;
+  opacity: 0.75;
 }
 .main-nav-item.active .main-nav-meta {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* BIZ DIAGNOSIS (사업 단계 진단 섹션) */
