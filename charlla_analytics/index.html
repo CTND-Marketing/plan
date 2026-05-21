@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>charlla · 통계</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --brand: #FF6B35;
+    --brand-soft: #FFE8DC;
+    --brand-text: #B84A1E;
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --border: #EFEDE8;
+    --border-strong: #DCDAD3;
+    --text: #1A1A1A;
+    --text-sub: #6B6B66;
+    --text-mute: #9C9A92;
+    --accent-purple: #534AB7;
+    --purple-soft: #EEEDFE;
+    --purple-text: #3C3489;
+    --success: #1D9E75;
+    --success-soft: #E1F5EE;
+    --success-text: #085041;
+    --danger: #A32D2D;
+    --danger-soft: #FCEBEB;
+    --danger-text: #791F1F;
+    --warning: #BA7517;
+    --warning-soft: #FAEEDA;
+    --warning-text: #854F0B;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+
+  /* ===== Top Console Header ===== */
+  .topnav { height: 60px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; position: sticky; top: 0; z-index: 100; }
+  .brand-logo { font-weight: 800; font-size: 23px; color: var(--brand); letter-spacing: -0.03em; margin-right: 36px; font-style: italic; }
+  .top-menu { display: flex; gap: 4px; flex: 1; }
+  .top-menu-item { padding: 8px 16px; font-size: 15px; color: var(--text-sub); cursor: pointer; font-weight: 500; border-radius: 6px; position: relative; transition: all 0.12s; }
+  .top-menu-item:hover { color: var(--text); background: var(--bg); }
+  .top-menu-item.active { color: var(--brand); font-weight: 600; }
+  .top-menu-item.active::after { content: ''; position: absolute; left: 16px; right: 16px; bottom: -19px; height: 2px; background: var(--brand); border-radius: 2px; }
+  .top-menu-item .new-badge { display: inline-block; padding: 1px 6px; background: #FFF3CD; color: #946800; font-size: 9.5px; font-weight: 700; border-radius: 4px; vertical-align: top; margin-left: 4px; }
+  .top-actions { display: flex; align-items: center; gap: 12px; }
+  .top-action-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--text-sub); cursor: pointer; border-radius: 6px; }
+  .top-action-btn:hover { background: var(--bg); color: var(--text); }
+  .avatar { width: 32px; height: 32px; background: var(--bg); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-sub); cursor: pointer; }
+  .upload-btn { background: var(--brand); color: #fff; font-weight: 600; padding: 8px 14px; border-radius: 8px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; border: none; font-family: inherit; }
+
+  .body-wrap { display: flex; min-height: calc(100vh - 60px); }
+
+  /* ===== Sub Sidebar ===== */
+  .sub-sidebar { width: 220px; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 12px; flex-shrink: 0; position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto; }
+  .sub-sidebar-title { font-size: 12px; color: var(--text-mute); padding: 0 12px 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .sub-nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 6px; color: var(--text-sub); cursor: pointer; font-size: 14.5px; font-weight: 500; margin-bottom: 1px; user-select: none; transition: all 0.12s; position: relative; }
+  .sub-nav-item:hover { background: var(--bg); color: var(--text); }
+  .sub-nav-item.active { background: var(--brand-soft); color: var(--brand-text); font-weight: 600; }
+  .sub-nav-item.parent { font-weight: 600; color: var(--text); cursor: default; }
+  .sub-nav-item.parent:hover { background: transparent; }
+  .sub-nav-child { padding-left: 32px; font-size: 14px; }
+  .sub-nav-child::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .sub-nav-grandchild { padding-left: 48px; font-size: 13.5px; color: var(--text-mute); }
+  .sub-nav-grandchild::before { content: ''; position: absolute; left: 34px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .sub-nav-grandchild:hover { color: var(--text); }
+  .sub-nav-grandchild.active { background: var(--brand-soft); color: var(--brand-text); font-weight: 600; }
+  .sub-nav-item.parent-active { color: var(--text); font-weight: 600; }
+  .sub-nav-divider { height: 1px; background: var(--border); margin: 8px 12px; }
+
+  /* ===== Main ===== */
+  .main { flex: 1; min-width: 0; padding: 28px 36px 48px; }
+  .breadcrumb { font-size: 13.5px; color: var(--text-mute); margin-bottom: 8px; }
+  .breadcrumb span { color: var(--text-sub); }
+  .page-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .page-title { font-size: 23px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .page-sub { font-size: 14px; color: var(--text-sub); }
+  .date-control { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 14px; color: var(--text); cursor: pointer; }
+  .compare-btn { padding: 8px 14px; background: transparent; border: 1px dashed var(--border-strong); border-radius: 8px; font-size: 13.5px; color: var(--text-sub); cursor: pointer; margin-left: 8px; }
+
+  .notice-strip { background: #EAF2FB; border: 1px solid #CCDBED; border-radius: 8px; padding: 11px 14px; font-size: 13.5px; color: #1F4F8C; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+
+  /* ===== KPI / Card ===== */
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .kpi-label { font-size: 13.5px; color: var(--text-sub); margin-bottom: 8px; font-weight: 500; }
+  .kpi-value { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .kpi-value .unit { font-size: 14px; color: var(--text-mute); font-weight: 400; margin-left: 2px; }
+  .kpi-delta { font-size: 12.5px; margin-top: 6px; font-weight: 500; }
+  .kpi-delta.up { color: var(--success-text); }
+  .kpi-delta.down { color: var(--danger-text); }
+  .kpi-delta.neutral { color: var(--text-mute); }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 16px; }
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; gap: 16px; flex-wrap: wrap; }
+  .card-title { font-size: 16px; font-weight: 600; margin-bottom: 2px; letter-spacing: -0.01em; }
+  .card-sub { font-size: 13.5px; color: var(--text-sub); }
+
+  /* ===== Tabs ===== */
+  .tabs { display: flex; gap: 2px; margin-bottom: 20px; border-bottom: 1px solid var(--border); overflow-x: auto; }
+  .tab { padding: 10px 16px; font-size: 14.5px; color: var(--text-sub); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; font-weight: 500; white-space: nowrap; transition: color 0.12s; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--text); border-bottom-color: var(--text); font-weight: 600; }
+  .tab .count { font-size: 12px; color: var(--text-mute); margin-left: 4px; font-weight: 500; }
+  .tab.active .count { color: var(--text-sub); }
+  .sub-page { display: none; }
+  .sub-page.active { display: block; }
+
+  /* ===== Selector ===== */
+  .selector { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 14px; }
+  .selector-arrow { color: var(--text-mute); margin-left: auto; }
+  .selector-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .selector-label { font-size: 13px; color: var(--text-sub); font-weight: 500; }
+
+  /* ===== Top Cards (TOP 5) ===== */
+  .top-card-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 16px; }
+  .top-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; position: relative; overflow: hidden; transition: all 0.15s; cursor: pointer; }
+  .top-card:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+  .top-card.rank-1 { background: linear-gradient(180deg, #FFF8E8 0%, #FFFFFF 60%); border-color: #F0D77E; }
+  .top-rank { font-size: 12px; font-weight: 700; color: var(--text-mute); letter-spacing: 0.05em; margin-bottom: 8px; }
+  .top-card.rank-1 .top-rank { color: #946800; }
+  .top-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; min-height: 36px; }
+  .top-meta { font-size: 12px; color: var(--text-sub); margin-bottom: 12px; }
+  .top-stat { display: flex; justify-content: space-between; font-size: 12.5px; padding: 4px 0; border-top: 1px solid var(--border); }
+  .top-stat:first-of-type { border-top: 1px solid var(--border); }
+  .top-stat span:first-child { color: var(--text-sub); }
+  .top-stat span:last-child { font-weight: 600; }
+
+  /* ===== Table ===== */
+  .table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .table th { text-align: left; font-weight: 600; color: var(--text-sub); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; padding: 12px 14px; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .table th:last-child, .table td:last-child { text-align: right; }
+  .table td { padding: 13px 14px; border-bottom: 1px solid var(--border); }
+  .table tr:last-child td { border-bottom: none; }
+  .table tr:hover td { background: var(--bg); cursor: pointer; }
+  .table tr.selected td { background: var(--brand-soft); }
+
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+  .pill.success { background: var(--success-soft); color: var(--success-text); }
+  .pill.brand { background: var(--purple-soft); color: var(--purple-text); }
+  .pill.gray { background: var(--bg); color: var(--text-sub); border: 1px solid var(--border); }
+  .pill.warning { background: var(--warning-soft); color: var(--warning-text); }
+  .pill.brand-orange { background: var(--brand-soft); color: var(--brand-text); }
+
+  /* ===== Path Flow ===== */
+  .path-flow { display: flex; align-items: flex-end; gap: 10px; height: 220px; margin: 20px 0 18px; }
+  .path-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+  .path-step-bar { width: 100%; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 10px 6px; color: #fff; font-size: 12.5px; text-align: center; line-height: 1.3; font-weight: 500; }
+  .path-arrow { color: var(--text-mute); margin-bottom: 80px; font-size: 19px; }
+  .path-pct { font-size: 12.5px; color: var(--text-sub); }
+  .path-pct.down { color: var(--danger-text); font-weight: 600; }
+  .path-label { font-size: 12.5px; color: var(--text-mute); }
+
+  .alert { padding: 12px 14px; background: var(--danger-soft); border-radius: 8px; font-size: 13.5px; color: var(--danger-text); display: flex; align-items: center; gap: 8px; }
+  .info-strip { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; font-size: 13.5px; color: var(--text-sub); line-height: 1.6; display: flex; gap: 10px; align-items: flex-start; }
+  .info-strip strong { color: var(--text); font-weight: 600; }
+
+  /* Accordion */
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-head { padding: 14px 4px; cursor: pointer; transition: background 0.12s; user-select: none; border-radius: 6px; }
+  .accordion-head:hover { background: var(--bg); }
+  .accordion-body { display: none; padding: 0 4px 14px; }
+  .accordion-item.open .accordion-body { display: block; }
+  .accordion-chev { color: var(--text-mute); transition: transform 0.2s; flex-shrink: 0; justify-self: end; }
+  .accordion-item.open .accordion-chev { transform: rotate(180deg); }
+
+  /* Back button */
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; color: var(--text-sub); cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.12s; margin-bottom: 12px; }
+  .back-btn:hover { background: var(--surface); border-color: var(--border-strong); color: var(--text); }
+  .back-btn svg { width: 14px; height: 14px; }
+
+  /* Breadcrumb clickable */
+  .breadcrumb .crumb-link { cursor: pointer; transition: color 0.12s; }
+  .breadcrumb .crumb-link:hover { color: var(--text); text-decoration: underline; }
+
+  /* ===== Page Card (페이지별 보기) ===== */
+  .page-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 12px; }
+  .page-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .page-card-title { font-size: 15px; font-weight: 600; }
+  .page-card-url { font-size: 12.5px; color: var(--text-mute); margin-top: 2px; font-family: 'SF Mono', Menlo, monospace; }
+  .page-card-summary { display: flex; gap: 16px; font-size: 13px; color: var(--text-sub); }
+  .page-card-summary strong { color: var(--text); font-weight: 600; margin-left: 4px; }
+
+  .widget-row { display: grid; grid-template-columns: 100px 1fr 80px 80px 80px 80px; gap: 16px; align-items: center; padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 14px; }
+  .widget-row:last-child { border-bottom: none; }
+  .widget-row-type { font-size: 12.5px; font-weight: 600; }
+  .widget-row-name { font-weight: 500; }
+  .widget-row-meta { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
+  .widget-row-num { font-size: 14.5px; font-weight: 600; text-align: right; }
+
+  /* ===== Plan / Upgrade ===== */
+  .plan-hero { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+  .plan-progress { height: 8px; background: var(--bg); border-radius: 100px; overflow: hidden; margin-top: 6px; }
+  .plan-progress-fill { height: 100%; background: var(--accent-purple); border-radius: 100px; }
+  .upgrade-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .upgrade-card.recommended { border: 2px solid var(--warning); background: linear-gradient(180deg, #FFFCF5 0%, #FFFFFF 80%); }
+  .upgrade-card.current { background: var(--bg); }
+  .upgrade-tag { font-size: 12px; padding: 4px 10px; border-radius: 100px; font-weight: 600; display: inline-block; margin-bottom: 12px; }
+  .upgrade-tag.current { background: var(--surface); color: var(--text-sub); border: 1px solid var(--border); }
+  .upgrade-tag.recommend { background: var(--warning); color: #fff; }
+  .upgrade-name { font-size: 18px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.01em; }
+  .upgrade-desc { font-size: 13px; color: var(--text-sub); margin-bottom: 18px; }
+  .upgrade-divider { border-top: 1px solid var(--border); margin: 16px 0; }
+  .upgrade-price-label { font-size: 12.5px; color: var(--text-sub); margin-bottom: 4px; }
+  .upgrade-price { font-size: 25px; font-weight: 700; letter-spacing: -0.02em; }
+  .upgrade-price.danger { color: var(--danger-text); }
+  .upgrade-note { font-size: 12.5px; color: var(--text-sub); margin-top: 6px; line-height: 1.5; }
+  .upgrade-cta { width: 100%; margin-top: 18px; padding: 11px; border: none; border-radius: 8px; font-size: 14.5px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .upgrade-cta.primary { background: var(--warning); color: #fff; }
+  .warning-card { background: var(--warning-soft) !important; border-color: #F5D08C !important; }
+  .warning-card .kpi-label { color: var(--warning-text); }
+  .warning-card .kpi-value { color: var(--warning-text); }
+
+  .chart-wrap { position: relative; width: 100%; }
+  .chart-wrap.h-220 { height: 220px; }
+
+  .legend { display: flex; gap: 14px; font-size: 13px; color: var(--text-sub); flex-wrap: wrap; }
+  .legend-dot { display: inline-flex; align-items: center; gap: 6px; }
+  .legend-dot::before { content: ''; width: 10px; height: 10px; border-radius: 2px; background: var(--accent-purple); }
+  .legend-dot.dash::before { background: var(--warning); border-radius: 0; height: 2px; }
+  .legend-dot.limit::before { background: var(--danger); border-radius: 0; height: 2px; }
+
+  .plan-badge-mini { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; background: var(--purple-soft); color: var(--purple-text); border-radius: 100px; font-size: 12px; font-weight: 600; }
+  .plan-badge-mini::before { content: ''; width: 5px; height: 5px; background: var(--accent-purple); border-radius: 50%; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .ic { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="brand-logo">charlla</div>
+  <nav class="top-menu">
+    <div class="top-menu-item">라이브러리</div>
+    <div class="top-menu-item">재생목록</div>
+    <div class="top-menu-item">위젯<span class="new-badge">New</span></div>
+    <div class="top-menu-item active">통계</div>
+    <div class="top-menu-item">이용 가이드</div>
+  </nav>
+  <div class="top-actions">
+    <div class="top-action-btn"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+    <div class="top-action-btn"><svg class="ic" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+    <div class="avatar"><svg class="ic" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    <button class="upload-btn"><svg class="ic" viewBox="0 0 24 24" style="stroke: #fff;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>영상 업로드</button>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <aside class="sub-sidebar">
+    <div class="sub-sidebar-title">통계</div>
+    <div class="sub-nav-item active" data-page="overview">
+      <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+      개요
+    </div>
+    <div class="sub-nav-divider"></div>
+    <div class="sub-nav-item" data-page="displayer">
+      <svg class="ic" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      디스플레이어
+    </div>
+    <div class="sub-nav-item parent">
+      <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      위젯
+    </div>
+    <div class="sub-nav-item sub-nav-child" data-page="widget-compare">
+      <span>유형별 비교</span>
+      <svg class="ic" viewBox="0 0 24 24" style="width: 12px; height: 12px; margin-left: auto; color: var(--text-mute);"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="sub-nav-item sub-nav-grandchild" data-page="widget-floating">플로팅</div>
+    <div class="sub-nav-item sub-nav-grandchild" data-page="widget-slide">슬라이드</div>
+    <div class="sub-nav-item sub-nav-grandchild" data-page="widget-multi">멀티 샵플레이어</div>
+    <div class="sub-nav-item sub-nav-child" data-page="widget-all">인스턴스 전체</div>
+    <div class="sub-nav-divider"></div>
+    <div class="sub-nav-item" data-page="domain">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      로드 발생 도메인
+    </div>
+    <div class="sub-nav-divider"></div>
+    <div class="sub-nav-item" data-page="plan">
+      <svg class="ic" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      플랜 · 사용량
+    </div>
+    <div class="sub-nav-divider"></div>
+    <div style="padding: 12px; font-size: 12.5px; color: var(--text-mute);">
+      <div style="margin-bottom: 6px;">현재 플랜</div>
+      <span class="plan-badge-mini">스탠다드</span>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ============ 개요 (대시보드) ============ -->
+    <section class="page active" data-page="overview">
+      <div class="breadcrumb">통계 <span>›</span> 개요</div>
+      <div class="page-header">
+        <div><h1 class="page-title">개요</h1><p class="page-sub">2026년 5월 19일 화요일 · 마지막 업데이트 12분 전</p></div>
+        <div style="display: flex; align-items: center;">
+          <div class="date-control"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>2026.05.01 - 2026.05.19</div>
+          <button class="compare-btn" onclick="toggleCompareMode()" id="compareBtn">+ 비교일 추가</button>
+        </div>
+      </div>
+
+      <!-- 비교 모드 안내 (활성화 시 표시) -->
+      <div id="compareIndicator" style="display: none; background: var(--brand-soft); border: 1px solid #FFCCB3; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <svg class="ic" viewBox="0 0 24 24" style="color: var(--brand);"><path d="M3 3v18h18"/><polyline points="7 17 12 12 16 16 21 11"/></svg>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--brand-text);">비교 모드 활성</div>
+            <div style="font-size: 12.5px; color: var(--brand-text); opacity: 0.8;">기준: 2026.05.01-05.19 (19일) · 비교: 2026.04.01-04.19 (19일)</div>
+          </div>
+        </div>
+        <span onclick="toggleCompareMode()" style="font-size: 13px; color: var(--brand-text); cursor: pointer; font-weight: 600;">해제 ×</span>
+      </div>
+
+      <!-- 1️⃣ 능동형 인사이트 (가장 위, 가장 강한 색) -->
+      <div style="margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg class="ic" viewBox="0 0 24 24" style="color: var(--brand);"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span style="font-size: 15px; font-weight: 600;">오늘의 인사이트</span>
+            <span style="font-size: 12px; padding: 2px 8px; background: var(--brand-soft); color: var(--brand-text); border-radius: 100px; font-weight: 600;">4건</span>
+          </div>
+          <span style="font-size: 13px; color: var(--text-mute);">전체 보기 ›</span>
+        </div>
+        <div style="font-size: 12.5px; color: var(--text-mute); margin-bottom: 12px;">
+          비교 기준 · <span style="color: var(--text-sub);">지난 4주 평균</span>, <span style="color: var(--text-sub);">위젯 유형별 평균</span>, <span style="color: var(--text-sub);">결제 한도</span> · 변동 폭 ±15% 이상일 때 표시
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+
+          <!-- 위험 인사이트 -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--danger); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+            <div style="width: 28px; height: 28px; background: var(--danger-soft); color: var(--danger-text); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg class="ic" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 3px;">
+                <span style="font-size: 14px; font-weight: 600;">월말 한도 초과 예상</span>
+                <span style="font-size: 10px; padding: 1px 6px; background: var(--bg); color: var(--text-mute); border-radius: 4px; font-weight: 500;">vs 결제 한도</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">현재 추세로 490K 로드 초과 · <strong style="color: var(--danger-text);">초과금 1,470,000원</strong> 발생 예상. 엔터프라이즈 검토 필요.</div>
+            </div>
+            <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 14px; height: 14px;"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <!-- 성장 인사이트 -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--success); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+            <div style="width: 28px; height: 28px; background: var(--success-soft); color: var(--success-text); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg class="ic" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 3px;">
+                <span style="font-size: 14px; font-weight: 600;">인스타그램 로드 급증</span>
+                <span style="font-size: 10px; padding: 1px 6px; background: var(--bg); color: var(--text-mute); border-radius: 4px; font-weight: 500;">vs 전월</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">전월 대비 <strong style="color: var(--success-text);">+42%</strong> 증가. 외부 채널 운영 강화 시점입니다.</div>
+            </div>
+            <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 14px; height: 14px;"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <!-- 주의 인사이트 -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--warning); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+            <div style="width: 28px; height: 28px; background: var(--warning-soft); color: var(--warning-text); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg class="ic" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 3px;">
+                <span style="font-size: 14px; font-weight: 600;">이벤트 플로팅 CTR 하락</span>
+                <span style="font-size: 10px; padding: 1px 6px; background: var(--bg); color: var(--text-mute); border-radius: 4px; font-weight: 500;">vs 플로팅 평균</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">플로팅 평균(4.17%) 대비 <strong style="color: var(--warning-text);">-37%</strong> 하락. 영상 교체 또는 위치 조정 권장.</div>
+            </div>
+            <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 14px; height: 14px;"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <!-- 발견 인사이트 -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-purple); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+            <div style="width: 28px; height: 28px; background: var(--purple-soft); color: var(--purple-text); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg class="ic" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 3px;">
+                <span style="font-size: 14px; font-weight: 600;">신상 룩북 슬라이드 4번째 영상 노출 저조</span>
+                <span style="font-size: 10px; padding: 1px 6px; background: var(--bg); color: var(--text-mute); border-radius: 4px; font-weight: 500;">위치별 분석</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">슬라이드 4번 위치 영상 재생률 <strong>51%</strong> (1번 영상의 58%) · 순서 조정 시 +30% 가능</div>
+            </div>
+            <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 14px; height: 14px;"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2️⃣ 핵심 KPI -->
+      <div style="font-size: 15px; font-weight: 600; margin-bottom: 10px;">핵심 지표</div>
+
+      <!-- 기준 모드 KPI -->
+      <div id="kpiNormal" class="grid-4">
+        <div class="kpi">
+          <div class="kpi-label">총 로드 수</div>
+          <div class="kpi-value">1,284,902</div>
+          <div class="kpi-delta up">▲ 12.4% vs 전월</div>
+          <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--text-mute);">목표 1.5M의 <strong style="color: var(--text);">85.7%</strong></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">평균 시청 시간</div>
+          <div class="kpi-value">14.2<span class="unit">초</span></div>
+          <div class="kpi-delta up">▲ 1.8초 vs 전월</div>
+          <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--text-mute);">숏폼 평균 길이 <strong style="color: var(--text);">17.5초</strong></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">위젯 평균 CTR</div>
+          <div class="kpi-value">4.8<span class="unit">%</span></div>
+          <div class="kpi-delta down">▼ 0.6%p vs 전월</div>
+          <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--text-mute);">업계 평균 <strong style="color: var(--success-text);">+1.4%p</strong> 우수</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">시청자 참여</div>
+          <div class="kpi-value">8,432</div>
+          <div class="kpi-delta neutral">♡ 6,012 · ↗ 2,420</div>
+          <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--text-mute);">위젯에서 발생한 좋아요·공유</div>
+        </div>
+      </div>
+
+      <!-- 비교 모드 KPI -->
+      <div id="kpiCompare" style="display: none;">
+        <div class="grid-4">
+          <div class="kpi">
+            <div class="kpi-label">총 로드 수</div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
+              <div style="font-size: 23px; font-weight: 700; letter-spacing: -0.02em;">1,284,902</div>
+              <div style="font-size: 12.5px; color: var(--text-mute);">vs 1,142,400</div>
+            </div>
+            <div style="margin-top: 6px;">
+              <span style="font-size: 12.5px; color: var(--success-text); font-weight: 600;">▲ +12.5% (+142,502)</span>
+            </div>
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); display: flex; gap: 10px; align-items: center;">
+              <div style="flex: 1;">
+                <div style="font-size: 10px; color: var(--text-mute); margin-bottom: 3px;">기준 5/1-19</div>
+                <div style="height: 4px; background: var(--accent-purple); border-radius: 2px; width: 100%;"></div>
+              </div>
+              <div style="flex: 1;">
+                <div style="font-size: 10px; color: var(--text-mute); margin-bottom: 3px;">비교 4/1-19</div>
+                <div style="height: 4px; background: var(--text-mute); border-radius: 2px; width: 89%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi">
+            <div class="kpi-label">평균 시청 시간</div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
+              <div style="font-size: 23px; font-weight: 700; letter-spacing: -0.02em;">14.2<span style="font-size: 14px; color: var(--text-mute); font-weight: 400;">초</span></div>
+              <div style="font-size: 12.5px; color: var(--text-mute);">vs 12.4초</div>
+            </div>
+            <div style="margin-top: 6px;">
+              <span style="font-size: 12.5px; color: var(--success-text); font-weight: 600;">▲ +1.8초 (+14.5%)</span>
+            </div>
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); display: flex; gap: 10px; align-items: center;">
+              <div style="flex: 1;">
+                <div style="font-size: 10px; color: var(--text-mute); margin-bottom: 3px;">기준</div>
+                <div style="height: 4px; background: var(--accent-purple); border-radius: 2px; width: 100%;"></div>
+              </div>
+              <div style="flex: 1;">
+                <div style="font-size: 10px; color: var(--text-mute); margin-bottom: 3px;">비교</div>
+                <div style="height: 4px; background: var(--text-mute); border-radius: 2px; width: 87%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi">
+            <div class="kpi-label">위젯 평균 CTR</div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
+              <div style="font-size: 23px; font-weight: 700; letter-spacing: -0.02em;">4.8<span style="font-size: 14px; color: var(--text-mute); font-weight: 400;">%</span></div>
+              <div style="font-size: 12.5px; color: var(--text-mute);">vs 5.4%</div>
+            </div>
+            <div style="margin-top: 6px;">
+              <span style="font-size: 12.5px; color: var(--danger-text); font-weight: 600;">▼ -0.6%p (-11.1%)</span>
+            </div>
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); display: flex; gap: 10px; align-items: center;">
+              <div style="flex: 1;">
+                <div style="font-size: 10px; color: var(--text-mute); margin-bottom: 3px;">기준</div>
+                <div style="height: 4px; background: var(--accent-purple); border-radius: 2px; width: 89%;"></div>
+              </div>
+              <div style="flex: 1;">
+                <div style="font-size: 10px; color: var(--text-mute); margin-bottom: 3px;">비교</div>
+                <div style="height: 4px; background: var(--text-mute); border-radius: 2px; width: 100%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi">
+            <div class="kpi-label">시청자 참여</div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
+              <div style="font-size: 23px; font-weight: 700; letter-spacing: -0.02em;">8,432</div>
+              <div style="font-size: 12.5px; color: var(--text-mute);">vs 6,820</div>
+            </div>
+            <div style="margin-top: 6px;">
+              <span style="font-size: 12.5px; color: var(--success-text); font-weight: 600;">▲ +23.6% (+1,612)</span>
+            </div>
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); display: flex; gap: 10px; align-items: center;">
+              <div style="flex: 1;">
+                <div style="font-size: 10px; color: var(--text-mute); margin-bottom: 3px;">기준</div>
+                <div style="height: 4px; background: var(--accent-purple); border-radius: 2px; width: 100%;"></div>
+              </div>
+              <div style="flex: 1;">
+                <div style="font-size: 10px; color: var(--text-mute); margin-bottom: 3px;">비교</div>
+                <div style="height: 4px; background: var(--text-mute); border-radius: 2px; width: 81%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3️⃣ 전환 흐름 + 트렌드 그래프 (좌우) -->
+      <div class="grid-2" id="funnelNormal">
+        <!-- 전환 흐름 -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">전체 전환 흐름</div><div class="card-sub">노출에서 클릭까지 단계별 전환율</div></div></div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: grid; grid-template-columns: 70px 1fr 60px; gap: 12px; align-items: center;">
+              <div style="font-size: 13px; color: var(--text-sub);">로드</div>
+              <div style="height: 28px; background: var(--success-soft); color: var(--success-text); border-radius: 6px; display: flex; align-items: center; padding: 0 12px; font-size: 13.5px; font-weight: 600; width: 100%;">1,284,902</div>
+              <div style="font-size: 13px; color: var(--text-sub); text-align: right;">100%</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 70px 1fr 60px; gap: 12px; align-items: center;">
+              <div style="font-size: 13px; color: var(--text-sub);">재생</div>
+              <div><div style="height: 28px; background: #9FE1CB; color: var(--success-text); border-radius: 6px; display: flex; align-items: center; padding: 0 12px; font-size: 13.5px; font-weight: 600; width: 78%;">1,002,224</div></div>
+              <div style="font-size: 13px; color: var(--text-sub); text-align: right;">78%</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 70px 1fr 60px; gap: 12px; align-items: center;">
+              <div style="font-size: 13px; color: var(--text-sub);">클릭</div>
+              <div><div style="height: 28px; background: var(--success); color: #fff; border-radius: 6px; display: flex; align-items: center; padding: 0 12px; font-size: 13.5px; font-weight: 600; width: 14%; min-width: 90px;">19,780</div></div>
+              <div style="font-size: 13px; color: var(--success-text); font-weight: 700; text-align: right;">4.8%</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 70px 1fr 60px; gap: 12px; align-items: center;">
+              <div style="font-size: 13px; color: var(--text-sub);">참여</div>
+              <div><div style="height: 28px; background: var(--success-text); color: #fff; border-radius: 6px; display: flex; align-items: center; padding: 0 12px; font-size: 13.5px; font-weight: 600; width: 8%; min-width: 80px;">8,432</div></div>
+              <div style="font-size: 13px; color: var(--text-sub); text-align: right;">2.0%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 일자별 트렌드 -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">일자별 로드 추이</div><div class="card-sub">디스플레이어 · 위젯 분리</div></div>
+            <div class="legend">
+              <span class="legend-dot">디스플레이어</span>
+              <span class="legend-dot" style="--c: var(--success);"><span style="background: var(--success) !important;"></span>위젯</span>
+            </div>
+          </div>
+          <div class="chart-wrap h-220"><canvas id="overviewTrend"></canvas></div>
+        </div>
+      </div>
+
+      <!-- 비교 모드 전환 흐름 + 트렌드 -->
+      <div class="grid-2" id="funnelCompare" style="display: none;">
+        <!-- 비교 전환 흐름 -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">전체 전환 흐름</div><div class="card-sub">기준 vs 비교 단계별 변화</div></div>
+            <div class="legend">
+              <span class="legend-dot">기준</span>
+              <span class="legend-dot" style="--c: var(--text-mute);"><span style="background: var(--text-mute) !important;"></span>비교</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <span style="color: var(--text-sub);">로드</span>
+                <span><strong>1,284,902</strong> <span style="color: var(--success-text); font-weight: 600; margin-left: 6px;">▲ +12.5%</span></span>
+              </div>
+              <div style="display: flex; gap: 4px;">
+                <div style="height: 16px; background: var(--accent-purple); width: 100%; border-radius: 3px;"></div>
+                <div style="height: 16px; background: var(--text-mute); width: 89%; border-radius: 3px; opacity: 0.4;"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <span style="color: var(--text-sub);">재생</span>
+                <span><strong>1,002K</strong> · <span style="color: var(--text-mute);">78% vs 75%</span></span>
+              </div>
+              <div style="display: flex; gap: 4px;">
+                <div style="height: 16px; background: var(--accent-purple); width: 78%; border-radius: 3px;"></div>
+                <div style="height: 16px; background: var(--text-mute); width: 66%; border-radius: 3px; opacity: 0.4;"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <span style="color: var(--text-sub);">클릭</span>
+                <span><strong>19,780</strong> · <span style="color: var(--danger-text); font-weight: 600;">CTR 4.8% vs 5.4%</span></span>
+              </div>
+              <div style="display: flex; gap: 4px;">
+                <div style="height: 16px; background: var(--accent-purple); width: 14%; min-width: 60px; border-radius: 3px;"></div>
+                <div style="height: 16px; background: var(--text-mute); width: 13%; min-width: 60px; border-radius: 3px; opacity: 0.4;"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <span style="color: var(--text-sub);">참여</span>
+                <span><strong>8,432</strong> <span style="color: var(--success-text); font-weight: 600; margin-left: 6px;">▲ +23.6%</span></span>
+              </div>
+              <div style="display: flex; gap: 4px;">
+                <div style="height: 16px; background: var(--accent-purple); width: 8%; min-width: 50px; border-radius: 3px;"></div>
+                <div style="height: 16px; background: var(--text-mute); width: 7%; min-width: 50px; border-radius: 3px; opacity: 0.4;"></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 14px; padding: 10px 12px; background: var(--danger-soft); border-radius: 6px; font-size: 13px; color: var(--danger-text);">
+            ⚠ 로드는 늘었지만 <strong>CTR이 하락</strong>했어요. 클릭률이 떨어진 위젯을 확인해보세요.
+          </div>
+        </div>
+
+        <!-- 비교 트렌드 그래프 -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">일자별 로드 추이</div><div class="card-sub">기준 vs 비교 기간 겹쳐서 표시</div></div>
+            <div class="legend">
+              <span class="legend-dot">기준 (5/1-19)</span>
+              <span class="legend-dot" style="--c: var(--text-mute);"><span style="background: var(--text-mute) !important;"></span>비교 (4/1-19)</span>
+            </div>
+          </div>
+          <div class="chart-wrap h-220"><canvas id="overviewTrendCompare"></canvas></div>
+        </div>
+      </div>
+
+      <!-- 4️⃣ TOP 5 + 급상승 (좌우) -->
+      <div class="grid-2">
+        <!-- TOP 5 콘텐츠 -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head">
+            <div><div class="card-title">이번 기간 TOP 5</div><div class="card-sub">로드 수 기준 상위 콘텐츠</div></div>
+          </div>
+          <table class="table" style="font-size: 13.5px;">
+            <thead><tr><th style="width: 30px; padding: 8px 8px;">#</th><th style="padding: 8px 8px;">이름</th><th style="padding: 8px 8px;">로드</th><th style="padding: 8px 8px;">CTR</th></tr></thead>
+            <tbody>
+              <tr><td style="color: var(--text-mute); font-weight: 600; padding: 10px 8px;">1</td><td style="padding: 10px 8px;">2026 여름 신상 쇼츠 컬렉션</td><td style="padding: 10px 8px;">68,201</td><td style="color: var(--success-text); font-weight: 600; padding: 10px 8px;">7.45%</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600; padding: 10px 8px;">2</td><td style="padding: 10px 8px;">홈 메인 플로팅</td><td style="padding: 10px 8px;">62,400</td><td style="padding: 10px 8px;">5.41%</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600; padding: 10px 8px;">3</td><td style="padding: 10px 8px;">린넨 셋업 시리즈</td><td style="padding: 10px 8px;">52,884</td><td style="color: var(--success-text); font-weight: 600; padding: 10px 8px;">6.09%</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600; padding: 10px 8px;">4</td><td style="padding: 10px 8px;">홈 비치웨어 멀티</td><td style="padding: 10px 8px;">48,118</td><td style="padding: 10px 8px;">3.50%</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600; padding: 10px 8px;">5</td><td style="padding: 10px 8px;">린넨 메인 배너</td><td style="padding: 10px 8px;">39,884</td><td style="color: var(--text-mute); padding: 10px 8px;">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 급상승 / 급하락 -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head">
+            <div><div class="card-title">이번 주 급변</div><div class="card-sub">지난 주 대비 가장 크게 변한 콘텐츠</div></div>
+          </div>
+
+          <div style="font-size: 12px; color: var(--text-mute); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px; text-transform: uppercase;">↑ 급상승</div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--success-soft); border-radius: 6px;">
+              <div style="font-size: 14px; font-weight: 500;">2026 여름 신상 쇼츠</div>
+              <span style="font-size: 13.5px; color: var(--success-text); font-weight: 700;">+84%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--success-soft); border-radius: 6px;">
+              <div style="font-size: 14px; font-weight: 500;">인스타그램 로드</div>
+              <span style="font-size: 13.5px; color: var(--success-text); font-weight: 700;">+42%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--success-soft); border-radius: 6px;">
+              <div style="font-size: 14px; font-weight: 500;">신상 가방 클로즈업</div>
+              <span style="font-size: 13.5px; color: var(--success-text); font-weight: 700;">+28%</span>
+            </div>
+          </div>
+
+          <div style="font-size: 12px; color: var(--text-mute); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px; text-transform: uppercase;">↓ 급하락</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--danger-soft); border-radius: 6px;">
+              <div style="font-size: 14px; font-weight: 500;">이벤트 플로팅</div>
+              <span style="font-size: 13.5px; color: var(--danger-text); font-weight: 700;">-37%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--danger-soft); border-radius: 6px;">
+              <div style="font-size: 14px; font-weight: 500;">베스트 컬렉션 슬라이드</div>
+              <span style="font-size: 13.5px; color: var(--danger-text); font-weight: 700;">-22%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5️⃣ 유형별 구성 + 도메인 미니 -->
+      <div class="grid-2">
+        <!-- 유형별 구성 -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">유형별 로드 구성</div></div></div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 4px;">
+                <span><strong>디스플레이어</strong> · 일반 영상</span>
+                <span><strong>872,818</strong> <span style="color: var(--text-mute);">68%</span></span>
+              </div>
+              <div style="height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden;"><div style="height: 100%; width: 68%; background: var(--accent-purple); border-radius: 4px;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 4px;">
+                <span><strong>위젯</strong> · 9개 인스턴스</span>
+                <span><strong>412,084</strong> <span style="color: var(--text-mute);">32%</span></span>
+              </div>
+              <div style="height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden;"><div style="height: 100%; width: 32%; background: var(--success); border-radius: 4px;"></div></div>
+              <!-- 위젯 내부 분해 -->
+              <div style="padding-left: 12px; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--text-sub);">
+                <div style="display: flex; justify-content: space-between;"><span>↳ 슬라이드</span><span>184,420 (45%)</span></div>
+                <div style="display: flex; justify-content: space-between;"><span>↳ 플로팅</span><span>148,624 (36%)</span></div>
+                <div style="display: flex; justify-content: space-between;"><span>↳ 멀티</span><span>79,040 (19%)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 도메인 미니 -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">로드 발생 채널</div><div class="card-sub">자사 · 외부 플랫폼</div></div></div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="pill success">자사</span>
+                <span style="font-size: 14px; font-weight: 500;">mall.example.com</span>
+              </div>
+              <span style="font-size: 14px; font-weight: 600;">982,114 <span style="color: var(--text-mute); font-weight: 400;">76%</span></span>
+            </div>
+            <div style="height: 1px; background: var(--border); margin: 4px 0;"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="pill brand-orange">외부</span>
+                <span style="font-size: 14px; font-weight: 500;">smartstore.naver.com</span>
+              </div>
+              <span style="font-size: 14px; font-weight: 600;">142,820 <span style="color: var(--success-text); font-weight: 700; font-size: 12.5px;">▲18%</span></span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="pill brand-orange">외부</span>
+                <span style="font-size: 14px; font-weight: 500;">store.kakao.com</span>
+              </div>
+              <span style="font-size: 14px; font-weight: 600;">82,440 <span style="color: var(--success-text); font-weight: 700; font-size: 12.5px;">▲12%</span></span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="pill brand-orange">외부</span>
+                <span style="font-size: 14px; font-weight: 500;">instagram.com</span>
+              </div>
+              <span style="font-size: 14px; font-weight: 600;">22,118 <span style="color: var(--success-text); font-weight: 700; font-size: 12.5px;">▲42%</span></span>
+            </div>
+            <div style="margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--text-mute);">외부 플랫폼 전체 <strong style="color: var(--text);">302,788</strong> (전체 24%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6️⃣ 플랜 사용량 미니 -->
+      <div class="card" style="margin-bottom: 16px;">
+        <div class="card-head">
+          <div><div class="card-title">이번 달 플랜 사용량</div><div class="card-sub">결제 주기 14일차 · 6/5 갱신</div></div>
+          <span style="font-size: 13px; color: var(--text-mute); cursor: pointer;">자세히 보기 ›</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+              <span style="color: var(--text-sub);">동영상 업로드</span>
+              <span style="font-weight: 600;">412 / 600개</span>
+            </div>
+            <div style="height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden;"><div style="height: 100%; width: 69%; background: var(--success); border-radius: 3px;"></div></div>
+            <div style="font-size: 12px; color: var(--text-mute); margin-top: 4px;">잔여 188개</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+              <span style="color: var(--text-sub);">누적 로드</span>
+              <span style="font-weight: 600;">582K / 800K</span>
+            </div>
+            <div style="height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden;"><div style="height: 100%; width: 73%; background: var(--accent-purple); border-radius: 3px;"></div></div>
+            <div style="font-size: 12px; color: var(--text-mute); margin-top: 4px;">한도의 73%</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+              <span style="color: var(--warning-text); font-weight: 600;">⚠ 월말 예상</span>
+              <span style="font-weight: 700; color: var(--warning-text);">1.29M</span>
+            </div>
+            <div style="height: 6px; background: rgba(133,79,11,0.15); border-radius: 3px; overflow: hidden;"><div style="height: 100%; width: 100%; background: var(--warning); border-radius: 3px;"></div></div>
+            <div style="font-size: 12px; color: var(--warning-text); margin-top: 4px; font-weight: 600;">490K 초과 · 1,470,000원 예상</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ 디스플레이어 ============ -->
+    <section class="page" data-page="displayer">
+      <div class="breadcrumb">통계 <span>›</span> 디스플레이어</div>
+      <div class="page-header">
+        <div><h1 class="page-title">디스플레이어 분석</h1><p class="page-sub">단일 영상 · 연결 영상 배치 시나리오별 분석</p></div>
+        <div class="date-control">2026.05.01 - 2026.05.19</div>
+      </div>
+
+      <div class="grid-4">
+        <div class="kpi"><div class="kpi-label">전체 로드</div><div class="kpi-value">872,818</div></div>
+        <div class="kpi"><div class="kpi-label">단일 배치 페이지</div><div class="kpi-value">50<span class="unit">개</span></div><div class="kpi-delta neutral">메인 8 · 상세 42</div></div>
+        <div class="kpi"><div class="kpi-label">연결 배치 페이지</div><div class="kpi-value">18<span class="unit">개</span></div><div class="kpi-delta neutral">상세에 2개↑ 배치</div></div>
+        <div class="kpi"><div class="kpi-label">평균 시청 시간</div><div class="kpi-value">14.2<span class="unit">초</span></div></div>
+      </div>
+
+      <!-- 단일/연결 탭 -->
+      <div class="tabs">
+        <div class="tab active" data-tab="displayer" data-target="d-single">단일 영상<span class="count">50개 페이지</span></div>
+        <div class="tab" data-tab="displayer" data-target="d-connected">연결 영상<span class="count">18개 페이지</span></div>
+      </div>
+
+      <!-- 단일 영상 탭 -->
+      <div class="sub-page active" data-subpage="d-single">
+
+        <div class="card-head" style="padding: 0 4px; margin-bottom: 12px;">
+          <div>
+            <div class="card-title">단일 영상 로드 수 TOP 5</div>
+            <div class="card-sub">1개 디스플레이어만 배치된 페이지 중 성과 상위</div>
+          </div>
+        </div>
+
+        <div class="top-card-grid">
+          <div class="top-card rank-1">
+            <div class="top-rank">★ TOP 1</div>
+            <div class="top-name">린넨 셋업 컬렉션 메인 배너</div>
+            <div class="top-meta">메인 배너 · /</div>
+            <div class="top-stat"><span>로드</span><span>39,884</span></div>
+            <div class="top-stat"><span>시청시간</span><span>16.8초</span></div>
+          </div>
+          <div class="top-card">
+            <div class="top-rank">TOP 2</div>
+            <div class="top-name">신상 가방 클로즈업</div>
+            <div class="top-meta">상세 · /product/bag-23</div>
+            <div class="top-stat"><span>로드</span><span>27,108</span></div>
+            <div class="top-stat"><span>시청시간</span><span>13.2초</span></div>
+          </div>
+          <div class="top-card">
+            <div class="top-rank">TOP 3</div>
+            <div class="top-name">스니커즈 풋샷</div>
+            <div class="top-meta">상세 · /product/sneakers</div>
+            <div class="top-stat"><span>로드</span><span>23,210</span></div>
+            <div class="top-stat"><span>시청시간</span><span>11.8초</span></div>
+          </div>
+          <div class="top-card">
+            <div class="top-rank">TOP 4</div>
+            <div class="top-name">여름 메인 비주얼</div>
+            <div class="top-meta">메인 배너 · /</div>
+            <div class="top-stat"><span>로드</span><span>18,442</span></div>
+            <div class="top-stat"><span>시청시간</span><span>15.4초</span></div>
+          </div>
+          <div class="top-card">
+            <div class="top-rank">TOP 5</div>
+            <div class="top-name">크롭 셔츠 디테일</div>
+            <div class="top-meta">상세 · /product/crop-shirt</div>
+            <div class="top-stat"><span>로드</span><span>16,772</span></div>
+            <div class="top-stat"><span>시청시간</span><span>10.2초</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">전체 단일 영상 (50개)</div><div class="card-sub">로드 수 순 정렬 · 클릭하면 영상 상세로 이동</div></div></div>
+          <table class="table">
+            <thead><tr><th style="width: 40px;">#</th><th>영상명</th><th>배치</th><th>로드</th><th>재생률</th><th>시청시간</th></tr></thead>
+            <tbody>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">1</td><td>린넨 셋업 컬렉션 메인 배너</td><td><span class="pill brand-orange">메인 배너</span></td><td>39,884</td><td>82%</td><td>16.8초</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>신상 가방 클로즈업</td><td><span class="pill gray">상세페이지</span></td><td>27,108</td><td>75%</td><td>13.2초</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>스니커즈 풋샷</td><td><span class="pill gray">상세페이지</span></td><td>23,210</td><td>70%</td><td>11.8초</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">4</td><td>여름 메인 비주얼</td><td><span class="pill brand-orange">메인 배너</span></td><td>18,442</td><td>78%</td><td>15.4초</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">5</td><td>크롭 셔츠 디테일</td><td><span class="pill gray">상세페이지</span></td><td>16,772</td><td>65%</td><td>10.2초</td></tr>
+              <tr><td style="color: var(--text-mute);">…</td><td style="color: var(--text-mute);">나머지 45개 영상</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- 연결 영상 탭 -->
+      <div class="sub-page" data-subpage="d-connected">
+
+        <div class="card-head" style="padding: 0 4px; margin-bottom: 12px;">
+          <div>
+            <div class="card-title">연결 영상 페이지 TOP 5</div>
+            <div class="card-sub">상세페이지에 디스플레이어 2개 이상 배치된 페이지 중 성과 상위</div>
+          </div>
+        </div>
+
+        <div class="top-card-grid">
+          <div class="top-card rank-1">
+            <div class="top-rank">★ TOP 1</div>
+            <div class="top-name">린넨 셋업 컬렉션 상세</div>
+            <div class="top-meta">5개 연결 · /detail/linen</div>
+            <div class="top-stat"><span>총 로드</span><span>142,208</span></div>
+            <div class="top-stat"><span>마지막까지</span><span>22%</span></div>
+            <div class="top-stat"><span>이탈 지점</span><span>영상 #3</span></div>
+          </div>
+          <div class="top-card">
+            <div class="top-rank">TOP 2</div>
+            <div class="top-name">신상 슈즈 컬렉션</div>
+            <div class="top-meta">4개 연결 · /detail/shoes-ss</div>
+            <div class="top-stat"><span>총 로드</span><span>98,440</span></div>
+            <div class="top-stat"><span>마지막까지</span><span>35%</span></div>
+            <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
+          </div>
+          <div class="top-card">
+            <div class="top-rank">TOP 3</div>
+            <div class="top-name">데님 시리즈</div>
+            <div class="top-meta">3개 연결 · /detail/denim</div>
+            <div class="top-stat"><span>총 로드</span><span>72,118</span></div>
+            <div class="top-stat"><span>마지막까지</span><span>48%</span></div>
+            <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
+          </div>
+          <div class="top-card">
+            <div class="top-rank">TOP 4</div>
+            <div class="top-name">아우터 컬렉션</div>
+            <div class="top-meta">3개 연결 · /detail/outer</div>
+            <div class="top-stat"><span>총 로드</span><span>54,201</span></div>
+            <div class="top-stat"><span>마지막까지</span><span>52%</span></div>
+            <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
+          </div>
+          <div class="top-card">
+            <div class="top-rank">TOP 5</div>
+            <div class="top-name">액세서리 시리즈</div>
+            <div class="top-meta">4개 연결 · /detail/acc</div>
+            <div class="top-stat"><span>총 로드</span><span>42,884</span></div>
+            <div class="top-stat"><span>마지막까지</span><span>28%</span></div>
+            <div class="top-stat"><span>이탈 지점</span><span>영상 #3</span></div>
+          </div>
+        </div>
+
+        <!-- 페이지 선택 → 시청 경로 -->
+        <div class="card">
+          <div class="card-head" style="margin-bottom: 14px;">
+            <div>
+              <div class="card-title">선택 페이지의 시청 경로</div>
+              <div class="card-sub">어느 영상까지 시청하고 이탈하는지 추적</div>
+            </div>
+            <div class="selector" style="min-width: 280px;">
+              <svg class="ic" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>린넨 셋업 컬렉션 상세 (5개 연결)</span>
+              <svg class="ic selector-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+
+          <div class="path-flow">
+            <div class="path-step">
+              <div class="path-pct">100%</div>
+              <div class="path-step-bar" style="height: 100%; background: #534AB7;"><span>영상 #1<br/><strong>28,440</strong></span></div>
+              <div class="path-label">상단</div>
+            </div>
+            <div class="path-arrow">→</div>
+            <div class="path-step">
+              <div class="path-pct">74%</div>
+              <div class="path-step-bar" style="height: 74%; background: #7F77DD;"><span>영상 #2<br/><strong>21,046</strong></span></div>
+              <div class="path-label">중상단</div>
+            </div>
+            <div class="path-arrow">→</div>
+            <div class="path-step">
+              <div class="path-pct down">42% ▼</div>
+              <div class="path-step-bar" style="height: 42%; background: #AFA9EC; color: #26215C;"><span>영상 #3<br/><strong>11,945</strong></span></div>
+              <div class="path-label">중단</div>
+            </div>
+            <div class="path-arrow">→</div>
+            <div class="path-step">
+              <div class="path-pct">31%</div>
+              <div class="path-step-bar" style="height: 31%; background: #CECBF6; color: #26215C;"><span><strong>8,816</strong></span></div>
+              <div class="path-label">중하단</div>
+            </div>
+            <div class="path-arrow">→</div>
+            <div class="path-step">
+              <div class="path-pct">22%</div>
+              <div class="path-step-bar" style="height: 22%; background: #EEEDFE; color: #26215C;"><span><strong>6,257</strong></span></div>
+              <div class="path-label">하단</div>
+            </div>
+          </div>
+
+          <div class="alert">
+            <svg class="ic" viewBox="0 0 24 24" style="stroke: var(--danger-text);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+            영상 #2 → #3 구간에서 이탈률 32%p 급증. 영상 #3 인트로 점검 권장.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">전체 연결 영상 페이지 (18개)</div><div class="card-sub">페이지를 클릭하면 시청 경로가 위쪽에 표시됩니다</div></div></div>
+          <table class="table">
+            <thead><tr><th style="width: 40px;">#</th><th>페이지명</th><th>연결 영상</th><th>총 로드</th><th>마지막까지</th><th>주요 이탈</th></tr></thead>
+            <tbody>
+              <tr class="selected"><td style="color: var(--text-mute); font-weight: 600;">1</td><td>린넨 셋업 컬렉션 상세</td><td><span class="pill gray">5개</span></td><td>142,208</td><td style="color: var(--danger-text);">22%</td><td>#2→#3 (-32%p)</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>신상 슈즈 컬렉션</td><td><span class="pill gray">4개</span></td><td>98,440</td><td>35%</td><td>#1→#2 (-28%p)</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>데님 시리즈</td><td><span class="pill gray">3개</span></td><td>72,118</td><td style="color: var(--success-text);">48%</td><td>#1→#2 (-22%p)</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">4</td><td>아우터 컬렉션</td><td><span class="pill gray">3개</span></td><td>54,201</td><td style="color: var(--success-text);">52%</td><td>#1→#2 (-18%p)</td></tr>
+              <tr><td style="color: var(--text-mute); font-weight: 600;">5</td><td>액세서리 시리즈</td><td><span class="pill gray">4개</span></td><td>42,884</td><td>28%</td><td>#2→#3 (-30%p)</td></tr>
+              <tr><td style="color: var(--text-mute);">…</td><td style="color: var(--text-mute);">나머지 13개 페이지</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ 위젯 : 유형별 비교 ============ -->
+    <section class="page" data-page="widget-compare">
+      <div class="breadcrumb">통계 <span>›</span> 위젯 <span>›</span> 유형별 비교</div>
+      <div class="page-header">
+        <div><h1 class="page-title">위젯 유형별 비교</h1><p class="page-sub">슬라이드 · 플로팅 · 멀티 — 어떤 유형이 효과적인지</p></div>
+        <div class="date-control">2026.05.01 - 2026.05.19</div>
+      </div>
+
+      <div class="grid-4">
+        <div class="kpi"><div class="kpi-label">전체 위젯 로드</div><div class="kpi-value">412,084</div></div>
+        <div class="kpi"><div class="kpi-label">전체 상품 클릭</div><div class="kpi-value">19,780</div></div>
+        <div class="kpi" style="background: var(--success-soft); border-color: #B8E0CD;"><div class="kpi-label" style="color: var(--success-text);">평균 CTR</div><div class="kpi-value" style="color: var(--success-text);">4.80<span class="unit" style="color: var(--success-text); opacity: 0.7;">%</span></div></div>
+        <div class="kpi"><div class="kpi-label">전체 인스턴스</div><div class="kpi-value">9<span class="unit">개</span></div></div>
+      </div>
+
+      <!-- 유형별 카드 (각각 인스턴스 수 표시) -->
+      <div style="font-size: 14px; color: var(--text-sub); margin-bottom: 10px;">유형을 클릭하면 상세 분석으로 이동합니다</div>
+      <div class="grid-3">
+        <div class="card" style="margin-bottom: 0; border: 2px solid var(--success); cursor: pointer;" onclick="goPage('widget-slide')">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <div>
+              <div style="font-size: 12px; font-weight: 700; color: var(--success-text); background: var(--success-soft); padding: 2px 8px; border-radius: 100px; display: inline-block; margin-bottom: 8px;">TOP</div>
+              <div style="font-size: 18px; font-weight: 700;">슬라이드</div>
+              <div style="font-size: 13px; color: var(--text-sub); margin-top: 2px;">쇼츠형 좌우 전환</div>
+            </div>
+            <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute);"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">인스턴스</span><span style="font-weight: 600;">4개 페이지</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">총 로드</span><span style="font-weight: 600;">184,420</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">총 클릭</span><span style="font-weight: 600;">11,148</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; padding-top: 8px; border-top: 1px solid var(--border);"><span style="color: var(--text-sub);">평균 CTR</span><span style="color: var(--success-text); font-weight: 700;">6.05%</span></div>
+            <div style="font-size: 12px; color: var(--text-mute); margin-top: 4px;">최고 7.45% · 최저 3.65%</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 0; cursor: pointer;" onclick="goPage('widget-floating')">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <div>
+              <div style="font-size: 18px; font-weight: 700;">플로팅</div>
+              <div style="font-size: 13px; color: var(--text-sub); margin-top: 2px;">한쪽 고정 표시</div>
+            </div>
+            <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute);"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">인스턴스</span><span style="font-weight: 600;">3개 페이지</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">총 로드</span><span style="font-weight: 600;">148,624</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">총 클릭</span><span style="font-weight: 600;">6,200</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; padding-top: 8px; border-top: 1px solid var(--border);"><span style="color: var(--text-sub);">평균 CTR</span><span style="color: var(--success-text); font-weight: 700;">4.17%</span></div>
+            <div style="font-size: 12px; color: var(--text-mute); margin-top: 4px;">최고 5.41% · 최저 2.62%</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 0; cursor: pointer;" onclick="goPage('widget-multi')">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <div>
+              <div style="font-size: 18px; font-weight: 700;">멀티 샵플레이어</div>
+              <div style="font-size: 13px; color: var(--text-sub); margin-top: 2px;">영상 + 상품 목록</div>
+            </div>
+            <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute);"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">인스턴스</span><span style="font-weight: 600;">2개 페이지</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">총 로드</span><span style="font-weight: 600;">79,040</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px;"><span style="color: var(--text-sub);">총 클릭</span><span style="font-weight: 600;">2,432</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; padding-top: 8px; border-top: 1px solid var(--border);"><span style="color: var(--text-sub);">평균 CTR</span><span style="color: var(--success-text); font-weight: 700;">3.08%</span></div>
+            <div style="font-size: 12px; color: var(--text-mute); margin-top: 4px;">최고 3.50% · 최저 2.42%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-strip">
+        <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-sub); margin-top: 2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>
+        <div><strong>슬라이드 위젯이 평균 CTR 6.05%로 가장 효과적</strong>이에요. 하지만 같은 유형 안에서도 인스턴스마다 편차가 크니, '인스턴스 전체' 탭에서 어떤 페이지/배치가 잘 되는지 함께 보세요.</div>
+      </div>
+    </section>
+
+    <!-- ============ 위젯 : 플로팅 ============ -->
+    <section class="page" data-page="widget-floating">
+      <button class="back-btn" onclick="goPage('widget-compare')">
+        <svg viewBox="0 0 24 24" style="stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        유형별 비교
+      </button>
+      <div class="breadcrumb">통계 <span>›</span> 위젯 <span>›</span> <span class="crumb-link" onclick="goPage('widget-compare')">유형별 비교</span> <span>›</span> 플로팅</div>
+      <div class="page-header">
+        <div><h1 class="page-title">플로팅 위젯</h1><p class="page-sub">화면 한쪽에 고정되어 표시되는 위젯 · 인스턴스 3개</p></div>
+        <div class="date-control">2026.05.01 - 2026.05.19</div>
+      </div>
+
+      <div class="grid-4">
+        <div class="kpi"><div class="kpi-label">총 로드</div><div class="kpi-value">148,624</div></div>
+        <div class="kpi"><div class="kpi-label">상품 클릭</div><div class="kpi-value">6,200</div></div>
+        <div class="kpi"><div class="kpi-label">평균 CTR</div><div class="kpi-value">4.17<span class="unit">%</span></div></div>
+        <div class="kpi"><div class="kpi-label">최고 CTR</div><div class="kpi-value" style="font-size: 18px;">홈 메인 플로팅</div><div class="kpi-delta up">5.41%</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">플로팅 일자별 CTR 추이</div></div></div>
+        <div class="chart-wrap h-220"><canvas id="floatingTrendChart"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">인스턴스별 성과</div><div class="card-sub">동일한 플로팅 위젯으로 3개 인스턴스 운영 중</div></div></div>
+        <table class="table">
+          <thead><tr><th style="width: 40px;">#</th><th>위젯명</th><th>영상</th><th>생성일</th><th>로드</th><th>클릭</th><th>CTR</th></tr></thead>
+          <tbody>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">1</td><td>홈 메인 플로팅</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.02</td><td>62,400</td><td>3,376</td><td style="color: var(--success-text); font-weight: 600;">5.41%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>카테고리 플로팅 (상의)</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.14</td><td>51,820</td><td>1,924</td><td style="color: var(--success-text); font-weight: 600;">3.71%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>이벤트 페이지 플로팅</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.05.01</td><td>34,404</td><td>900</td><td style="color: var(--danger-text);">2.62%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-strip">
+        <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-sub); margin-top: 2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>
+        <div><strong>이벤트 페이지 플로팅</strong>의 CTR이 평균(4.17%) 대비 낮아요. 영상 교체 또는 노출 위치 조정을 검토해보세요.</div>
+      </div>
+    </section>
+
+    <!-- ============ 위젯 : 슬라이드 ============ -->
+    <section class="page" data-page="widget-slide">
+      <button class="back-btn" onclick="goPage('widget-compare')">
+        <svg viewBox="0 0 24 24" style="stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        유형별 비교
+      </button>
+      <div class="breadcrumb">통계 <span>›</span> 위젯 <span>›</span> <span class="crumb-link" onclick="goPage('widget-compare')">유형별 비교</span> <span>›</span> 슬라이드</div>
+      <div class="page-header">
+        <div><h1 class="page-title">슬라이드 위젯</h1><p class="page-sub">여러 영상을 좌우로 넘기는 쇼츠형 위젯 · 인스턴스 4개</p></div>
+        <div class="date-control">2026.05.01 - 2026.05.19</div>
+      </div>
+
+      <div class="grid-4">
+        <div class="kpi"><div class="kpi-label">총 로드</div><div class="kpi-value">184,420</div></div>
+        <div class="kpi"><div class="kpi-label">상품 클릭</div><div class="kpi-value">11,148</div></div>
+        <div class="kpi" style="background: var(--success-soft); border-color: #B8E0CD;">
+          <div class="kpi-label" style="color: var(--success-text);">평균 CTR</div>
+          <div class="kpi-value" style="color: var(--success-text);">6.05<span class="unit" style="color: var(--success-text); opacity: 0.7;">%</span></div>
+        </div>
+        <div class="kpi"><div class="kpi-label">평균 영상 수</div><div class="kpi-value">5.2<span class="unit">개</span></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">슬라이드 일자별 CTR 추이</div></div></div>
+        <div class="chart-wrap h-220"><canvas id="slideTrendChart"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div><div class="card-title">인스턴스별 성과</div><div class="card-sub">위젯명을 클릭하면 그 위젯의 영상별 성과가 펼쳐져요</div></div>
+        </div>
+
+        <!-- 인스턴스 1 (펼쳐진 상태) -->
+        <div class="accordion-item open">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <div style="display: grid; grid-template-columns: 28px 1fr 70px 90px 70px 70px 70px 20px; align-items: center; gap: 12px; width: 100%;">
+              <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">1</div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 600;">2026 여름 신상 쇼츠 컬렉션</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">생성 2026.04.18</div>
+              </div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">6개</div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">17.2초</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">68,201</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">5,082</div>
+              <div style="font-size: 14.5px; font-weight: 700; text-align: right; color: var(--success-text);">7.45%</div>
+              <svg class="ic accordion-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div style="background: var(--bg); padding: 16px 20px; border-radius: 8px; margin-top: 12px;">
+              <div style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">슬라이드 안의 6개 영상 · 위치별 재생 분포</div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">1</div>
+                <div><div style="font-size: 14px; font-weight: 500;">린넨 반팔 셋업 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 1번 · 재생률 88%</div></div>
+                <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: 100%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">1,847</div>
+              </div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">2</div>
+                <div><div style="font-size: 14px; font-weight: 500;">와이드 슬랙스 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 2번 · 재생률 76%</div></div>
+                <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: 78%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">1,442</div>
+              </div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">3</div>
+                <div><div style="font-size: 14px; font-weight: 500;">크롭 셔츠 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 3번 · 재생률 64%</div></div>
+                <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: 60%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">1,108</div>
+              </div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0;">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">4</div>
+                <div><div style="font-size: 14px; font-weight: 500;">밀짚 모자 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 4번 · 재생률 51%</div></div>
+                <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: #5DCAA5; border-radius: 3px; width: 38%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">702</div>
+              </div>
+              <div style="margin-top: 12px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-size: 13px; color: var(--text-sub);">
+                💡 슬라이드 1번 영상이 압도적으로 재생됩니다. 가장 효율적인 영상을 첫 슬라이드에 배치하세요.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 인스턴스 2 (접힌 상태) -->
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <div style="display: grid; grid-template-columns: 28px 1fr 70px 90px 70px 70px 70px 20px; align-items: center; gap: 12px; width: 100%;">
+              <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">2</div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 600;">린넨 셋업 시리즈 슬라이드</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">생성 2026.04.05</div>
+              </div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">5개</div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">15.8초</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">52,884</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">3,221</div>
+              <div style="font-size: 14.5px; font-weight: 700; text-align: right; color: var(--success-text);">6.09%</div>
+              <svg class="ic accordion-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div style="background: var(--bg); padding: 16px 20px; border-radius: 8px; margin-top: 12px;">
+              <div style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">슬라이드 안의 5개 영상 · 위치별 재생 분포</div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">1</div>
+                <div><div style="font-size: 14px; font-weight: 500;">린넨 자켓 룩북</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 1번 · 재생률 91%</div></div>
+                <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: 100%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">1,402</div>
+              </div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">2</div>
+                <div><div style="font-size: 14px; font-weight: 500;">린넨 셔츠 디테일</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 2번 · 재생률 72%</div></div>
+                <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: 71%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">996</div>
+              </div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0;">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">3</div>
+                <div><div style="font-size: 14px; font-weight: 500;">린넨 팬츠 핏감</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 3번 · 재생률 58%</div></div>
+                <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: #5DCAA5; border-radius: 3px; width: 47%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">658</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 인스턴스 3 (접힌 상태) -->
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <div style="display: grid; grid-template-columns: 28px 1fr 70px 90px 70px 70px 70px 20px; align-items: center; gap: 12px; width: 100%;">
+              <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">3</div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 600;">신상 룩북 슬라이드</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">생성 2026.04.10</div>
+              </div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">6개</div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">14.4초</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">37,202</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">1,892</div>
+              <div style="font-size: 14.5px; font-weight: 700; text-align: right;">5.09%</div>
+              <svg class="ic accordion-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div style="background: var(--bg); padding: 16px 20px; border-radius: 8px; margin-top: 12px; font-size: 13px; color: var(--text-sub);">신상 룩북 슬라이드 안 6개 영상의 위치별 재생 분포가 여기 표시됩니다.</div>
+          </div>
+        </div>
+
+        <!-- 인스턴스 4 (접힌 상태) -->
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <div style="display: grid; grid-template-columns: 28px 1fr 70px 90px 70px 70px 70px 20px; align-items: center; gap: 12px; width: 100%;">
+              <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">4</div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 600;">베스트 컬렉션 슬라이드</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">생성 2026.03.28</div>
+              </div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">4개</div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">12.1초</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">26,133</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">953</div>
+              <div style="font-size: 14.5px; font-weight: 700; text-align: right;">3.65%</div>
+              <svg class="ic accordion-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div style="background: var(--bg); padding: 16px 20px; border-radius: 8px; margin-top: 12px; font-size: 13px; color: var(--text-sub);">베스트 컬렉션 슬라이드 안 4개 영상의 위치별 재생 분포가 여기 표시됩니다.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ 위젯 : 멀티 ============ -->
+    <section class="page" data-page="widget-multi">
+      <button class="back-btn" onclick="goPage('widget-compare')">
+        <svg viewBox="0 0 24 24" style="stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        유형별 비교
+      </button>
+      <div class="breadcrumb">통계 <span>›</span> 위젯 <span>›</span> <span class="crumb-link" onclick="goPage('widget-compare')">유형별 비교</span> <span>›</span> 멀티 샵플레이어</div>
+      <div class="page-header">
+        <div><h1 class="page-title">멀티 샵플레이어 위젯</h1><p class="page-sub">영상과 상품 목록을 함께 배치 (구 재생목록 통합) · 인스턴스 2개</p></div>
+        <div class="date-control">2026.05.01 - 2026.05.19</div>
+      </div>
+
+      <div class="notice-strip">
+        <svg class="ic" viewBox="0 0 24 24" style="stroke: #1F4F8C;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        기존 재생목록 통계가 멀티 샵플레이어로 통합되었어요. 스와이프 반응 191ms · 한 번 등록으로 전체 적용 · 랜덤 재생 지원
+      </div>
+
+      <div class="grid-4">
+        <div class="kpi"><div class="kpi-label">총 로드</div><div class="kpi-value">79,040</div></div>
+        <div class="kpi"><div class="kpi-label">상품 클릭</div><div class="kpi-value">2,432</div></div>
+        <div class="kpi"><div class="kpi-label">평균 CTR</div><div class="kpi-value">3.08<span class="unit">%</span></div></div>
+        <div class="kpi"><div class="kpi-label">평균 영상 수</div><div class="kpi-value">5.5<span class="unit">개</span></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">멀티 일자별 CTR 추이</div></div></div>
+        <div class="chart-wrap h-220"><canvas id="multiTrendChart"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div><div class="card-title">인스턴스별 성과</div><div class="card-sub">위젯명을 클릭하면 그 위젯의 영상별 재생이 펼쳐져요</div></div>
+        </div>
+
+        <!-- 인스턴스 1 (펼쳐진 상태) -->
+        <div class="accordion-item open">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <div style="display: grid; grid-template-columns: 28px 1fr 70px 110px 70px 70px 70px 20px; align-items: center; gap: 12px; width: 100%;">
+              <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">1</div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 600;">홈 비치웨어 멀티 위젯</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">랜덤 재생 · 우측 상품 리스트</div>
+              </div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">6개</div>
+              <div style="font-size: 13px; text-align: right; color: var(--text-sub);">2026.04.22</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">48,118</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">1,684</div>
+              <div style="font-size: 14.5px; font-weight: 700; text-align: right; color: var(--success-text);">3.50%</div>
+              <svg class="ic accordion-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div style="background: var(--bg); padding: 16px 20px; border-radius: 8px; margin-top: 12px;">
+              <div style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">위젯 안의 6개 영상 · 재생 순서별 분포</div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">1</div>
+                <div><div style="font-size: 14px; font-weight: 500;">비치웨어 모델 컷 A</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">자동 첫 재생 · 재생률 92%</div></div>
+                <div style="height: 6px; background: var(--purple-soft); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--accent-purple); border-radius: 3px; width: 100%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">22,118</div>
+              </div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">2</div>
+                <div><div style="font-size: 14px; font-weight: 500;">선글라스 클로즈업</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">2번째 재생 · 재생률 62%</div></div>
+                <div style="height: 6px; background: var(--purple-soft); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--accent-purple); border-radius: 3px; width: 62%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">13,720</div>
+              </div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">3</div>
+                <div><div style="font-size: 14px; font-weight: 500;">샌들 360°</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">3번째 재생 · 재생률 41%</div></div>
+                <div style="height: 6px; background: var(--purple-soft); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: #7F77DD; border-radius: 3px; width: 41%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">9,114</div>
+              </div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0;">
+                <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">4</div>
+                <div><div style="font-size: 14px; font-weight: 500;">비치백 디테일</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">4번째 재생 · 재생률 23%</div></div>
+                <div style="height: 6px; background: var(--purple-soft); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: #AFA9EC; border-radius: 3px; width: 23%;"></div></div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">5,084</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 인스턴스 2 (접힌 상태) -->
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <div style="display: grid; grid-template-columns: 28px 1fr 70px 110px 70px 70px 70px 20px; align-items: center; gap: 12px; width: 100%;">
+              <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">2</div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 600;">시즌 컬렉션 멀티</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">고정 재생 · 하단 상품 리스트</div>
+              </div>
+              <div style="font-size: 14px; text-align: right; color: var(--text-sub);">5개</div>
+              <div style="font-size: 13px; text-align: right; color: var(--text-sub);">2026.04.20</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">30,922</div>
+              <div style="font-size: 14.5px; font-weight: 600; text-align: right;">748</div>
+              <div style="font-size: 14.5px; font-weight: 700; text-align: right; color: var(--danger-text);">2.42%</div>
+              <svg class="ic accordion-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div style="background: var(--bg); padding: 16px 20px; border-radius: 8px; margin-top: 12px; font-size: 13px; color: var(--text-sub);">시즌 컬렉션 멀티 안 5개 영상의 재생 순서별 분포가 여기 표시됩니다.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ 위젯 : 인스턴스 전체 ============ -->
+    <section class="page" data-page="widget-all">
+      <div class="breadcrumb">통계 <span>›</span> 위젯 <span>›</span> 인스턴스 전체</div>
+      <div class="page-header">
+        <div><h1 class="page-title">위젯 인스턴스 전체</h1><p class="page-sub">9개 위젯을 한 표에서 정렬·필터 · CSV 다운로드 가능</p></div>
+        <div class="date-control">2026.05.01 - 2026.05.19</div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div><div class="card-title">전체 위젯 인스턴스 (9개)</div></div>
+          <div style="display: flex; gap: 6px;">
+            <span class="pill brand" style="cursor: pointer;">슬라이드 4</span>
+            <span class="pill warning" style="cursor: pointer;">플로팅 3</span>
+            <span class="pill success" style="cursor: pointer;">멀티 2</span>
+            <span class="pill gray" style="cursor: pointer;">전체</span>
+          </div>
+        </div>
+        <table class="table">
+          <thead><tr><th style="width: 40px;">#</th><th>위젯명</th><th>유형</th><th>영상 수</th><th>생성일</th><th>로드</th><th>클릭</th><th>CTR</th></tr></thead>
+          <tbody>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">1</td><td>2026 여름 신상 쇼츠 컬렉션</td><td><span class="pill brand">슬라이드</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.18</td><td>68,201</td><td>5,082</td><td style="color: var(--success-text); font-weight: 600;">7.45%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>홈 메인 플로팅</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.02</td><td>62,400</td><td>2,059</td><td>3.30%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>린넨 셋업 시리즈 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>5개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.05</td><td>52,884</td><td>3,221</td><td style="color: var(--success-text); font-weight: 600;">6.09%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">4</td><td>카테고리 플로팅 (상의)</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.14</td><td>51,820</td><td>1,924</td><td>3.71%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">5</td><td>홈 비치웨어 멀티 위젯</td><td><span class="pill success">멀티</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.22</td><td>48,118</td><td>1,684</td><td>3.50%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">6</td><td>신상 룩북 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.10</td><td>37,202</td><td>1,892</td><td>5.09%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">7</td><td>이벤트 페이지 플로팅</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.05.01</td><td>34,404</td><td>900</td><td style="color: var(--danger-text);">2.62%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">8</td><td>시즌 컬렉션 멀티</td><td><span class="pill success">멀티</span></td><td>5개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.20</td><td>30,922</td><td>748</td><td style="color: var(--danger-text);">2.42%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">9</td><td>베스트 컬렉션 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>4개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.28</td><td>26,133</td><td>953</td><td>3.65%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ 로드 발생 도메인 ============ -->
+    <section class="page" data-page="domain">
+      <div class="breadcrumb">통계 <span>›</span> 로드 발생 도메인</div>
+      <div class="page-header">
+        <div><h1 class="page-title">로드 발생 도메인</h1><p class="page-sub">영상·위젯이 어떤 사이트에서 재생되었는지 자동 추적</p></div>
+        <div class="date-control">2026.05.01 - 2026.05.19</div>
+      </div>
+
+      <div class="notice-strip">
+        <svg class="ic" viewBox="0 0 24 24" style="stroke: #1F4F8C;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        영상이 재생된 페이지의 도메인을 자동 수집해요. 자사 쇼핑몰 외 외부 플랫폼(네이버 스마트스토어, 카카오, 인스타 등)에 임베드한 경우도 모두 포함됩니다.
+      </div>
+
+      <div class="grid-4">
+        <div class="kpi"><div class="kpi-label">전체 로드</div><div class="kpi-value">1,284,902</div></div>
+        <div class="kpi"><div class="kpi-label">자사 도메인 로드</div><div class="kpi-value">982,114</div><div class="kpi-delta neutral">전체의 76.4%</div></div>
+        <div class="kpi"><div class="kpi-label">외부 플랫폼 로드</div><div class="kpi-value">302,788</div><div class="kpi-delta up">▲ 전체의 23.6%</div></div>
+        <div class="kpi"><div class="kpi-label">발생 도메인 수</div><div class="kpi-value">7<span class="unit">개</span></div></div>
+      </div>
+
+      <!-- 도메인별 카드 -->
+      <div class="card">
+        <div class="card-head">
+          <div><div class="card-title">도메인별 로드 수</div><div class="card-sub">자사·외부 구분 · 로드 수 순 정렬</div></div>
+        </div>
+
+        <!-- 자사 도메인 -->
+        <div style="margin-bottom: 24px;">
+          <div style="font-size: 12.5px; color: var(--text-mute); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 10px; text-transform: uppercase;">자사 도메인</div>
+          <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="pill success">자사</span>
+                <span style="font-family: monospace; font-size: 14px; font-weight: 600;">mall.example.com</span>
+              </div>
+              <div style="display: flex; gap: 20px; font-size: 14px;">
+                <span><span style="color: var(--text-sub);">로드</span> <strong style="margin-left: 6px;">982,114</strong></span>
+                <span style="color: var(--text-sub);">전체의 76.4%</span>
+              </div>
+            </div>
+            <!-- 경로별 분포 -->
+            <div style="padding-left: 12px; border-left: 2px solid var(--border); display: flex; flex-direction: column; gap: 6px; font-size: 13.5px;">
+              <div style="display: flex; justify-content: space-between;">
+                <span><span style="font-family: monospace; color: var(--text-sub);">/</span> <span style="color: var(--text-sub); font-size: 12.5px;">메인 홈</span></span>
+                <span><strong>328,420</strong> <span style="color: var(--text-mute); margin-left: 6px;">33.4%</span></span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span><span style="font-family: monospace; color: var(--text-sub);">/category/*</span> <span style="color: var(--text-sub); font-size: 12.5px;">카테고리</span></span>
+                <span><strong>241,668</strong> <span style="color: var(--text-mute); margin-left: 6px;">24.6%</span></span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span><span style="font-family: monospace; color: var(--text-sub);">/product/*</span> <span style="color: var(--text-sub); font-size: 12.5px;">상품 상세</span></span>
+                <span><strong>198,202</strong> <span style="color: var(--text-mute); margin-left: 6px;">20.2%</span></span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span><span style="font-family: monospace; color: var(--text-sub);">/collection/*</span> <span style="color: var(--text-sub); font-size: 12.5px;">기획전</span></span>
+                <span><strong>142,884</strong> <span style="color: var(--text-mute); margin-left: 6px;">14.5%</span></span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span><span style="font-family: monospace; color: var(--text-sub);">/event/*</span> <span style="color: var(--text-sub); font-size: 12.5px;">이벤트</span></span>
+                <span><strong>70,940</strong> <span style="color: var(--text-mute); margin-left: 6px;">7.2%</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 외부 플랫폼 -->
+        <div>
+          <div style="font-size: 12.5px; color: var(--text-mute); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 10px; text-transform: uppercase;">외부 플랫폼</div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: grid; grid-template-columns: auto 1fr auto auto; gap: 16px; align-items: center;">
+              <span class="pill brand-orange">외부</span>
+              <div>
+                <div style="font-family: monospace; font-size: 14px; font-weight: 600;">smartstore.naver.com</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">네이버 스마트스토어</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 16px; font-weight: 700;">142,820</div>
+                <div style="font-size: 12px; color: var(--text-mute);">전체의 11.1%</div>
+              </div>
+              <span style="font-size: 13px; color: var(--success-text); font-weight: 600;">▲ +18%</span>
+            </div>
+
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: grid; grid-template-columns: auto 1fr auto auto; gap: 16px; align-items: center;">
+              <span class="pill brand-orange">외부</span>
+              <div>
+                <div style="font-family: monospace; font-size: 14px; font-weight: 600;">store.kakao.com</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">카카오 쇼핑하기</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 16px; font-weight: 700;">82,440</div>
+                <div style="font-size: 12px; color: var(--text-mute);">전체의 6.4%</div>
+              </div>
+              <span style="font-size: 13px; color: var(--success-text); font-weight: 600;">▲ +12%</span>
+            </div>
+
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: grid; grid-template-columns: auto 1fr auto auto; gap: 16px; align-items: center;">
+              <span class="pill brand-orange">외부</span>
+              <div>
+                <div style="font-family: monospace; font-size: 14px; font-weight: 600;">brand.musinsa.com</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">무신사 브랜드관</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 16px; font-weight: 700;">48,202</div>
+                <div style="font-size: 12px; color: var(--text-mute);">전체의 3.8%</div>
+              </div>
+              <span style="font-size: 13px; color: var(--text-mute); font-weight: 600;">보합</span>
+            </div>
+
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: grid; grid-template-columns: auto 1fr auto auto; gap: 16px; align-items: center;">
+              <span class="pill brand-orange">외부</span>
+              <div>
+                <div style="font-family: monospace; font-size: 14px; font-weight: 600;">instagram.com</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">인스타그램 (링크 임베드)</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 16px; font-weight: 700;">22,118</div>
+                <div style="font-size: 12px; color: var(--text-mute);">전체의 1.7%</div>
+              </div>
+              <span style="font-size: 13px; color: var(--success-text); font-weight: 600;">▲ +42%</span>
+            </div>
+
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: grid; grid-template-columns: auto 1fr auto auto; gap: 16px; align-items: center;">
+              <span style="font-size: 12px; padding: 2px 8px; border-radius: 100px; font-weight: 600; background: #FFE8E5; color: #8C2615;">미식별</span>
+              <div>
+                <div style="font-family: monospace; font-size: 14px; font-weight: 600;">(unknown)</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Referrer 없음 · 직접 접근 또는 추적 차단</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 16px; font-weight: 700;">7,208</div>
+                <div style="font-size: 12px; color: var(--text-mute);">전체의 0.6%</div>
+              </div>
+              <span style="font-size: 13px; color: var(--text-mute); font-weight: 600;">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 도메인별 위젯/영상 분포 -->
+      <div class="card">
+        <div class="card-head" style="margin-bottom: 14px;">
+          <div><div class="card-title">선택 도메인에서 로드된 콘텐츠</div><div class="card-sub">어느 위젯·영상이 해당 도메인에서 재생됐는지</div></div>
+          <div class="selector" style="min-width: 280px;">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+            <span style="font-family: monospace;">smartstore.naver.com</span>
+            <svg class="ic selector-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead><tr><th style="width: 40px;">#</th><th>콘텐츠</th><th>유형</th><th>로드 수</th><th>전체 대비</th></tr></thead>
+          <tbody>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">1</td><td>2026 여름 신상 쇼츠 컬렉션</td><td><span class="pill brand">슬라이드 위젯</span></td><td>58,420</td><td style="color: var(--success-text); font-weight: 600;">40.9%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>린넨 셋업 컬렉션 메인 배너</td><td><span class="pill gray">디스플레이어</span></td><td>32,180</td><td>22.5%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>홈 비치웨어 멀티 위젯</td><td><span class="pill success">멀티 위젯</span></td><td>24,084</td><td>16.9%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">4</td><td>신상 가방 클로즈업</td><td><span class="pill gray">디스플레이어</span></td><td>18,420</td><td>12.9%</td></tr>
+            <tr><td style="color: var(--text-mute); font-weight: 600;">5</td><td>스니커즈 풋샷</td><td><span class="pill gray">디스플레이어</span></td><td>9,716</td><td>6.8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-strip">
+        <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-sub); margin-top: 2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>
+        <div><strong>외부 플랫폼 로드가 빠르게 증가</strong>하고 있어요. 특히 인스타그램(+42%), 네이버 스마트스토어(+18%)에서의 성장이 눈에 띕니다. 외부 채널 운영을 강화하는 시점에 참고하세요. <span style="color: var(--text-mute);">※ 도메인 추적은 브라우저 Referrer 기반이라 추적이 차단된 경우 '미식별'로 표시됩니다.</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 플랜 · 사용량 ============ -->
+    <section class="page" data-page="plan">
+      <div class="breadcrumb">통계 <span>›</span> 플랜 · 사용량</div>
+      <div class="page-header">
+        <div><h1 class="page-title">플랜 · 사용량</h1><p class="page-sub">결제 주기 · 월말 예상 · 업그레이드</p></div>
+      </div>
+
+      <div class="plan-hero">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 240px;">
+            <span class="plan-badge-mini">스탠다드</span>
+            <div style="font-size: 23px; font-weight: 700; margin: 12px 0 6px;">월 150,000원</div>
+            <div style="font-size: 14px; color: var(--text-sub);">결제일 매월 5일 · 다음 결제 2026.06.05</div>
+          </div>
+          <div style="flex: 1; min-width: 240px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; color: var(--text-sub); margin-bottom: 8px;"><span>결제 주기 진행</span><span style="color: var(--text); font-weight: 600;">14일 / 31일 (45%)</span></div>
+            <div class="plan-progress"><div class="plan-progress-fill" style="width: 45%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="kpi"><div class="kpi-label">동영상 업로드</div><div class="kpi-value">412<span class="unit">/ 600개</span></div><div class="plan-progress" style="margin: 10px 0 4px;"><div class="plan-progress-fill" style="width: 69%; background: var(--success);"></div></div></div>
+        <div class="kpi"><div class="kpi-label">현재 누적 로드</div><div class="kpi-value">582<span class="unit">K / 800K</span></div><div class="plan-progress" style="margin: 10px 0 4px;"><div class="plan-progress-fill" style="width: 73%;"></div></div></div>
+        <div class="kpi warning-card"><div class="kpi-label">⚠ 월말 예상 로드</div><div class="kpi-value">1.29<span class="unit" style="color: var(--warning-text);">M</span></div><div class="kpi-delta" style="color: var(--warning-text);">490K 초과 예상</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">월말 예상 청구액</div></div></div>
+          <div style="font-size: 32px; font-weight: 700; color: var(--danger-text);">1,620,000원</div>
+          <div style="border-top: 1px solid var(--border); padding-top: 12px; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; font-size: 14px;">
+            <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-sub);">기본료</span><span>150,000원</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-sub);">초과 (490K × 3원)</span><span style="color: var(--danger-text); font-weight: 600;">+1,470,000원</span></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">누적 로드 추이</div></div></div>
+          <div class="chart-wrap h-220"><canvas id="planChart"></canvas></div>
+        </div>
+      </div>
+
+      <div style="margin-top: 28px;">
+        <h2 style="font-size: 17px; font-weight: 600; margin-bottom: 6px;">스탠다드 위에는 엔터프라이즈가 있어요</h2>
+        <p style="font-size: 14px; color: var(--text-sub); margin-bottom: 16px;">월 147만원의 초과금이 반복된다면, 엔터프라이즈 협의가 더 유리할 수 있어요.</p>
+
+        <div class="grid-2">
+          <div class="upgrade-card current">
+            <span class="upgrade-tag current">현재 유지</span>
+            <div class="upgrade-name">스탠다드</div>
+            <div class="upgrade-desc">기본료 150,000원 + 초과 3원/회</div>
+            <div class="upgrade-divider"></div>
+            <div class="upgrade-price-label">월말 예상 청구</div>
+            <div class="upgrade-price danger">1,620,000원</div>
+            <div class="upgrade-note">초과 490K × 3원 = 147만원</div>
+          </div>
+          <div class="upgrade-card recommended">
+            <span class="upgrade-tag recommend">✓ 검토 권장</span>
+            <div class="upgrade-name">엔터프라이즈 전환</div>
+            <div class="upgrade-desc">대량 로드·업로드 협의 단가</div>
+            <div class="upgrade-divider"></div>
+            <div class="upgrade-price-label">월말 예상 청구</div>
+            <div class="upgrade-price">협의</div>
+            <div class="upgrade-note" style="color: var(--warning-text);">통상 초과금 대비 30~50% 절감 가능</div>
+            <button class="upgrade-cta primary">영업팀 문의하기 →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  function toggleAccordion(headEl) {
+    const item = headEl.closest('.accordion-item');
+    item.classList.toggle('open');
+  }
+
+  let compareMode = false;
+  function toggleCompareMode() {
+    compareMode = !compareMode;
+    const indicator = document.getElementById('compareIndicator');
+    const kpiNormal = document.getElementById('kpiNormal');
+    const kpiCompare = document.getElementById('kpiCompare');
+    const btn = document.getElementById('compareBtn');
+    const trendNormal = document.getElementById('overviewTrend');
+    const trendCompare = document.getElementById('overviewTrendCompare');
+    const funnelNormal = document.getElementById('funnelNormal');
+    const funnelCompare = document.getElementById('funnelCompare');
+
+    if (compareMode) {
+      indicator.style.display = 'flex';
+      kpiNormal.style.display = 'none';
+      kpiCompare.style.display = 'block';
+      btn.textContent = '비교 해제';
+      btn.style.borderStyle = 'solid';
+      btn.style.color = 'var(--brand-text)';
+      btn.style.background = 'var(--brand-soft)';
+      if (trendNormal) trendNormal.parentElement.parentElement.style.display = 'none';
+      if (trendCompare) trendCompare.parentElement.parentElement.style.display = 'block';
+      if (funnelNormal) funnelNormal.style.display = 'none';
+      if (funnelCompare) funnelCompare.style.display = 'block';
+    } else {
+      indicator.style.display = 'none';
+      kpiNormal.style.display = 'grid';
+      kpiCompare.style.display = 'none';
+      btn.textContent = '+ 비교일 추가';
+      btn.style.borderStyle = '';
+      btn.style.color = '';
+      btn.style.background = '';
+      if (trendNormal) trendNormal.parentElement.parentElement.style.display = 'block';
+      if (trendCompare) trendCompare.parentElement.parentElement.style.display = 'none';
+      if (funnelNormal) funnelNormal.style.display = 'block';
+      if (funnelCompare) funnelCompare.style.display = 'none';
+    }
+  }
+
+  function goPage(pageId) {
+    document.querySelectorAll('.sub-nav-item').forEach(n => n.classList.remove('active', 'parent-active'));
+    const navItem = document.querySelector(`.sub-nav-item[data-page="${pageId}"]`);
+    if (navItem) navItem.classList.add('active');
+
+    // 자식 페이지면 부모(유형별 비교)도 살짝 강조
+    const widgetTypePages = ['widget-floating', 'widget-slide', 'widget-multi'];
+    if (widgetTypePages.includes(pageId)) {
+      const parent = document.querySelector('.sub-nav-item[data-page="widget-compare"]');
+      if (parent) parent.classList.add('parent-active');
+    }
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = document.querySelector(`.page[data-page="${pageId}"]`);
+    if (page) page.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.sub-nav-item[data-page]').forEach(item => {
+    item.addEventListener('click', () => goPage(item.dataset.page));
+  });
+
+  // 디스플레이어 단일/연결 탭
+  document.querySelectorAll('.tab[data-tab]').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const parent = tab.closest('.page');
+      parent.querySelectorAll('.tab[data-tab]').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.target;
+      parent.querySelectorAll('.sub-page').forEach(sp => sp.classList.remove('active'));
+      parent.querySelector(`.sub-page[data-subpage="${target}"]`).classList.add('active');
+    });
+  });
+
+  // Widget type trend charts
+  function makeWidgetTrendChart(canvasId, data, color) {
+    const el = document.getElementById(canvasId);
+    if (!el) return;
+    new Chart(el, {
+      type: 'line',
+      data: {
+        labels: ['5/1','5/3','5/5','5/7','5/9','5/11','5/13','5/15','5/17','5/19'],
+        datasets: [{
+          data: data, borderColor: color, backgroundColor: color+'15',
+          tension: 0.35, fill: true, borderWidth: 2.5, pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9C9A92' } },
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 }, color: '#9C9A92', callback: v => v+'%' }, min: 0, max: 8 }
+        }
+      }
+    });
+  }
+  makeWidgetTrendChart('floatingTrendChart', [4.2,4.0,4.3,4.1,4.2,4.0,4.1,4.3,4.2,4.17], '#BA7517');
+  makeWidgetTrendChart('slideTrendChart', [5.8,6.0,5.9,6.2,6.0,6.1,6.3,6.0,6.1,6.05], '#534AB7');
+  makeWidgetTrendChart('multiTrendChart', [3.0,3.1,2.9,3.0,3.1,3.2,3.0,3.1,3.0,3.08], '#1D9E75');
+
+  // Overview trend chart
+  const overviewTrendEl = document.getElementById('overviewTrend');
+  if (overviewTrendEl) {
+    new Chart(overviewTrendEl, {
+      type: 'line',
+      data: {
+        labels: ['5/1','5/3','5/5','5/7','5/9','5/11','5/13','5/15','5/17','5/19'],
+        datasets: [
+          { label: '디스플레이어', data: [42000,45000,48000,52000,55000,58000,62000,65000,68000,72000], borderColor: '#534AB7', backgroundColor: 'rgba(83,74,183,0.08)', tension: 0.35, fill: true, borderWidth: 2, pointRadius: 0 },
+          { label: '위젯', data: [18000,19500,21000,23000,24500,26000,28000,30000,32000,34000], borderColor: '#1D9E75', backgroundColor: 'rgba(29,158,117,0.08)', tension: 0.35, fill: true, borderWidth: 2, pointRadius: 0 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9C9A92' } },
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 }, color: '#9C9A92', callback: v => (v/1000)+'k' } }
+        }
+      }
+    });
+  }
+
+  // Overview Compare trend chart
+  const overviewTrendCompareEl = document.getElementById('overviewTrendCompare');
+  if (overviewTrendCompareEl) {
+    new Chart(overviewTrendCompareEl, {
+      type: 'line',
+      data: {
+        labels: ['1일','3일','5일','7일','9일','11일','13일','15일','17일','19일'],
+        datasets: [
+          { label: '기준 (5/1-19)', data: [60000,64500,69000,75000,79500,84000,90000,95000,100000,106000], borderColor: '#534AB7', backgroundColor: 'rgba(83,74,183,0.08)', tension: 0.35, fill: true, borderWidth: 2.5, pointRadius: 0 },
+          { label: '비교 (4/1-19)', data: [52000,55000,59000,64000,68000,72000,77000,81000,85000,90000], borderColor: '#9C9A92', borderDash: [5,4], tension: 0.35, fill: false, borderWidth: 2, pointRadius: 0 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9C9A92' } },
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 }, color: '#9C9A92', callback: v => (v/1000)+'k' } }
+        }
+      }
+    });
+  }
+
+  // Plan Chart
+  const days = Array.from({length: 31}, (_, i) => (i+1));
+  const actual = [42,82,120,158,198,238,278,318,358,402,448,492,538,582];
+  while (actual.length < 31) actual.push(null);
+  const forecast = Array(31).fill(null);
+  forecast[13] = 582;
+  for (let i = 14; i < 31; i++) forecast[i] = Math.round(582 + (i-13) * 41.5);
+  const limit = Array(31).fill(800);
+  new Chart(document.getElementById('planChart'), {
+    type: 'line',
+    data: { labels: days, datasets: [
+      { label: '실제', data: actual, borderColor: '#534AB7', backgroundColor: 'rgba(83,74,183,0.1)', tension: 0.2, fill: true, borderWidth: 2, pointRadius: 0 },
+      { label: '예측', data: forecast, borderColor: '#BA7517', borderDash: [5,4], tension: 0.2, borderWidth: 2, pointRadius: 0, fill: false },
+      { label: '한도', data: limit, borderColor: '#A32D2D', borderWidth: 1.5, pointRadius: 0, fill: false }
+    ] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#9C9A92', maxRotation: 0, autoSkip: true, maxTicksLimit: 10, callback: function(v, i) { return days[i]+'일'; } } },
+        y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 }, color: '#9C9A92', callback: v => v+'K' }, max: 1500 }
+      }
+    }
+  });
+</script>
+</body>
+</html>
