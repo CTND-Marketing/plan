@@ -174,6 +174,51 @@
   .back-btn:hover { background: var(--surface); border-color: var(--border-strong); color: var(--text); }
   .back-btn svg { width: 14px; height: 14px; }
 
+  /* Detail Panel (inline drill-down) */
+  .detail-panel { background: linear-gradient(180deg, #FFF8F4 0%, var(--surface) 60%); border: 1px solid var(--border); border-left: 4px solid var(--brand); border-radius: 10px; padding: 24px 26px; margin-top: 14px; margin-bottom: 18px; animation: slideDown 0.25s ease; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .detail-panel-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .detail-panel-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .detail-panel-sub { font-size: 13px; color: var(--text-sub); }
+  .detail-close-btn { background: transparent; border: none; color: var(--text-mute); cursor: pointer; padding: 4px 8px; border-radius: 4px; font-size: 14px; font-family: inherit; }
+  .detail-close-btn:hover { background: var(--bg); color: var(--text); }
+
+  .detail-kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .detail-kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .detail-kpi-label { font-size: 12.5px; color: var(--text-sub); margin-bottom: 5px; font-weight: 500; }
+  .detail-kpi-value { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .detail-kpi-value .unit { font-size: 12.5px; color: var(--text-mute); font-weight: 400; }
+
+  .detail-section { margin-bottom: 18px; }
+  .detail-section:last-child { margin-bottom: 0; }
+  .detail-section-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .detail-section-title .ic { width: 15px; height: 15px; color: var(--text-sub); }
+
+  /* Domain bar list */
+  .domain-bar-row { display: grid; grid-template-columns: 1fr 90px 50px; gap: 12px; align-items: center; padding: 7px 0; font-size: 13px; }
+  .domain-bar-name { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .domain-bar-name .pill { font-size: 10.5px; padding: 1px 6px; }
+  .domain-progress { height: 8px; background: var(--bg); border-radius: 100px; overflow: hidden; }
+  .domain-progress-fill { height: 100%; background: var(--success); border-radius: 100px; }
+  .domain-progress-fill.external { background: var(--brand); }
+  .domain-bar-pct { font-size: 13px; font-weight: 600; text-align: right; color: var(--text-sub); }
+
+  /* Banner click table */
+  .banner-row { display: grid; grid-template-columns: 1fr 80px 80px 80px; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px dashed var(--border); font-size: 13px; }
+  .banner-row:last-child { border-bottom: none; }
+  .banner-name { font-weight: 500; }
+  .banner-num { text-align: right; font-weight: 600; }
+
+  /* Highlight on hover for clickable rows */
+  .clickable-row { cursor: pointer; transition: background 0.12s; }
+  .clickable-row:hover { background: var(--brand-soft) !important; }
+  .clickable-row.selected { background: var(--brand-soft) !important; }
+
+  /* Filter pills */
+  .filter-pill { transition: all 0.12s; opacity: 0.7; }
+  .filter-pill:hover { opacity: 1; }
+  .filter-pill.active { opacity: 1; box-shadow: 0 0 0 2px var(--text); }
+
   /* Breadcrumb clickable */
   .breadcrumb .crumb-link { cursor: pointer; transition: color 0.12s; }
   .breadcrumb .crumb-link:hover { color: var(--text); text-decoration: underline; }
@@ -857,19 +902,22 @@
         </div>
 
         <div class="card">
-          <div class="card-head"><div><div class="card-title">전체 단일 영상 (50개)</div><div class="card-sub">로드 수 순 정렬 · 클릭하면 영상 상세로 이동</div></div></div>
+          <div class="card-head"><div><div class="card-title">전체 단일 영상 (50개)</div><div class="card-sub">행을 클릭하면 아래에 상세 분석이 나타납니다</div></div></div>
           <table class="table">
             <thead><tr><th style="width: 40px;">#</th><th>영상명</th><th>배치</th><th>로드</th><th>재생률</th><th>시청시간</th></tr></thead>
             <tbody>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">1</td><td>린넨 셋업 컬렉션 메인 배너</td><td><span class="pill brand-orange">메인 배너</span></td><td>39,884</td><td>82%</td><td>16.8초</td></tr>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>신상 가방 클로즈업</td><td><span class="pill gray">상세페이지</span></td><td>27,108</td><td>75%</td><td>13.2초</td></tr>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>스니커즈 풋샷</td><td><span class="pill gray">상세페이지</span></td><td>23,210</td><td>70%</td><td>11.8초</td></tr>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">4</td><td>여름 메인 비주얼</td><td><span class="pill brand-orange">메인 배너</span></td><td>18,442</td><td>78%</td><td>15.4초</td></tr>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">5</td><td>크롭 셔츠 디테일</td><td><span class="pill gray">상세페이지</span></td><td>16,772</td><td>65%</td><td>10.2초</td></tr>
+              <tr class="clickable-row" onclick="showSingleVideoDetail(this, 'v1')"><td style="color: var(--text-mute); font-weight: 600;">1</td><td>린넨 셋업 컬렉션 메인 배너</td><td><span class="pill brand-orange">메인 배너</span></td><td>39,884</td><td>82%</td><td>16.8초</td></tr>
+              <tr class="clickable-row" onclick="showSingleVideoDetail(this, 'v2')"><td style="color: var(--text-mute); font-weight: 600;">2</td><td>신상 가방 클로즈업</td><td><span class="pill gray">상세페이지</span></td><td>27,108</td><td>75%</td><td>13.2초</td></tr>
+              <tr class="clickable-row" onclick="showSingleVideoDetail(this, 'v3')"><td style="color: var(--text-mute); font-weight: 600;">3</td><td>스니커즈 풋샷</td><td><span class="pill gray">상세페이지</span></td><td>23,210</td><td>70%</td><td>11.8초</td></tr>
+              <tr class="clickable-row" onclick="showSingleVideoDetail(this, 'v4')"><td style="color: var(--text-mute); font-weight: 600;">4</td><td>여름 메인 비주얼</td><td><span class="pill brand-orange">메인 배너</span></td><td>18,442</td><td>78%</td><td>15.4초</td></tr>
+              <tr class="clickable-row" onclick="showSingleVideoDetail(this, 'v5')"><td style="color: var(--text-mute); font-weight: 600;">5</td><td>크롭 셔츠 디테일</td><td><span class="pill gray">상세페이지</span></td><td>16,772</td><td>65%</td><td>10.2초</td></tr>
               <tr><td style="color: var(--text-mute);">…</td><td style="color: var(--text-mute);">나머지 45개 영상</td><td></td><td></td><td></td><td></td></tr>
             </tbody>
           </table>
         </div>
+
+        <!-- 단일 영상 상세 패널 -->
+        <div id="singleVideoDetail" style="display: none;"></div>
 
       </div>
 
@@ -935,12 +983,12 @@
             </div>
             <div class="selector" style="min-width: 280px;">
               <svg class="ic" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              <span>린넨 셋업 컬렉션 상세 (5개 연결)</span>
+              <span id="funnelSelector">린넨 셋업 컬렉션 상세 (5개 연결)</span>
               <svg class="ic selector-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
           </div>
 
-          <div class="path-flow">
+          <div class="path-flow" id="pathFlow">
             <div class="path-step">
               <div class="path-pct">100%</div>
               <div class="path-step-bar" style="height: 100%; background: #534AB7;"><span>영상 #1<br/><strong>28,440</strong></span></div>
@@ -972,26 +1020,29 @@
             </div>
           </div>
 
-          <div class="alert">
+          <div class="alert" id="funnelAlert">
             <svg class="ic" viewBox="0 0 24 24" style="stroke: var(--danger-text);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
-            영상 #2 → #3 구간에서 이탈률 32%p 급증. 영상 #3 인트로 점검 권장.
+            <span>영상 #2 → #3 구간에서 이탈률 32%p 급증. 영상 #3 인트로 점검 권장.</span>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-head"><div><div class="card-title">전체 연결 영상 페이지 (18개)</div><div class="card-sub">페이지를 클릭하면 시청 경로가 위쪽에 표시됩니다</div></div></div>
+          <div class="card-head"><div><div class="card-title">전체 연결 영상 페이지 (18개)</div><div class="card-sub">페이지를 클릭하면 위 시청 경로 그래프가 동적으로 갱신됩니다</div></div></div>
           <table class="table">
             <thead><tr><th style="width: 40px;">#</th><th>페이지명</th><th>연결 영상</th><th>총 로드</th><th>마지막까지</th><th>주요 이탈</th></tr></thead>
             <tbody>
-              <tr class="selected"><td style="color: var(--text-mute); font-weight: 600;">1</td><td>린넨 셋업 컬렉션 상세</td><td><span class="pill gray">5개</span></td><td>142,208</td><td style="color: var(--danger-text);">22%</td><td>#2→#3 (-32%p)</td></tr>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>신상 슈즈 컬렉션</td><td><span class="pill gray">4개</span></td><td>98,440</td><td>35%</td><td>#1→#2 (-28%p)</td></tr>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>데님 시리즈</td><td><span class="pill gray">3개</span></td><td>72,118</td><td style="color: var(--success-text);">48%</td><td>#1→#2 (-22%p)</td></tr>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">4</td><td>아우터 컬렉션</td><td><span class="pill gray">3개</span></td><td>54,201</td><td style="color: var(--success-text);">52%</td><td>#1→#2 (-18%p)</td></tr>
-              <tr><td style="color: var(--text-mute); font-weight: 600;">5</td><td>액세서리 시리즈</td><td><span class="pill gray">4개</span></td><td>42,884</td><td>28%</td><td>#2→#3 (-30%p)</td></tr>
+              <tr class="clickable-row selected" onclick="changeFunnelData(this, 'linen')"><td style="color: var(--text-mute); font-weight: 600;">1</td><td>린넨 셋업 컬렉션 상세</td><td><span class="pill gray">5개</span></td><td>142,208</td><td style="color: var(--danger-text);">22%</td><td>#2→#3 (-32%p)</td></tr>
+              <tr class="clickable-row" onclick="changeFunnelData(this, 'shoes')"><td style="color: var(--text-mute); font-weight: 600;">2</td><td>신상 슈즈 컬렉션</td><td><span class="pill gray">4개</span></td><td>98,440</td><td>35%</td><td>#1→#2 (-28%p)</td></tr>
+              <tr class="clickable-row" onclick="changeFunnelData(this, 'denim')"><td style="color: var(--text-mute); font-weight: 600;">3</td><td>데님 시리즈</td><td><span class="pill gray">3개</span></td><td>72,118</td><td style="color: var(--success-text);">48%</td><td>#1→#2 (-22%p)</td></tr>
+              <tr class="clickable-row" onclick="changeFunnelData(this, 'outer')"><td style="color: var(--text-mute); font-weight: 600;">4</td><td>아우터 컬렉션</td><td><span class="pill gray">3개</span></td><td>54,201</td><td style="color: var(--success-text);">52%</td><td>#1→#2 (-18%p)</td></tr>
+              <tr class="clickable-row" onclick="changeFunnelData(this, 'acc')"><td style="color: var(--text-mute); font-weight: 600;">5</td><td>액세서리 시리즈</td><td><span class="pill gray">4개</span></td><td>42,884</td><td>28%</td><td>#2→#3 (-30%p)</td></tr>
               <tr><td style="color: var(--text-mute);">…</td><td style="color: var(--text-mute);">나머지 13개 페이지</td><td></td><td></td><td></td><td></td></tr>
             </tbody>
           </table>
         </div>
+
+        <!-- 연결 페이지 도메인 패널 (동적) -->
+        <div id="connectedDomainPanel"></div>
 
       </div>
     </section>
@@ -1098,16 +1149,19 @@
       </div>
 
       <div class="card">
-        <div class="card-head"><div><div class="card-title">인스턴스별 성과</div><div class="card-sub">동일한 플로팅 위젯으로 3개 인스턴스 운영 중</div></div></div>
+        <div class="card-head"><div><div class="card-title">인스턴스별 성과</div><div class="card-sub">위젯명을 클릭하면 아래에 상세 분석이 나타납니다</div></div></div>
         <table class="table">
           <thead><tr><th style="width: 40px;">#</th><th>위젯명</th><th>영상</th><th>생성일</th><th>로드</th><th>클릭</th><th>CTR</th></tr></thead>
           <tbody>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">1</td><td>홈 메인 플로팅</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.02</td><td>62,400</td><td>3,376</td><td style="color: var(--success-text); font-weight: 600;">5.41%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>카테고리 플로팅 (상의)</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.14</td><td>51,820</td><td>1,924</td><td style="color: var(--success-text); font-weight: 600;">3.71%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>이벤트 페이지 플로팅</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.05.01</td><td>34,404</td><td>900</td><td style="color: var(--danger-text);">2.62%</td></tr>
+            <tr class="clickable-row" onclick="showFloatingDetail(this, 'home')"><td style="color: var(--text-mute); font-weight: 600;">1</td><td>홈 메인 플로팅</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.02</td><td>62,400</td><td>3,376</td><td style="color: var(--success-text); font-weight: 600;">5.41%</td></tr>
+            <tr class="clickable-row" onclick="showFloatingDetail(this, 'category')"><td style="color: var(--text-mute); font-weight: 600;">2</td><td>카테고리 플로팅 (상의)</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.14</td><td>51,820</td><td>1,924</td><td style="color: var(--success-text); font-weight: 600;">3.71%</td></tr>
+            <tr class="clickable-row" onclick="showFloatingDetail(this, 'event')"><td style="color: var(--text-mute); font-weight: 600;">3</td><td>이벤트 페이지 플로팅</td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.05.01</td><td>34,404</td><td>900</td><td style="color: var(--danger-text);">2.62%</td></tr>
           </tbody>
         </table>
       </div>
+
+      <!-- 플로팅 상세 패널 -->
+      <div id="floatingDetail"></div>
 
       <div class="info-strip">
         <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-sub); margin-top: 2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>
@@ -1166,37 +1220,48 @@
           </div>
           <div class="accordion-body">
             <div style="background: var(--bg); padding: 16px 20px; border-radius: 8px; margin-top: 12px;">
-              <div style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">슬라이드 안의 6개 영상 · 위치별 재생 분포</div>
-              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+              <div style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">슬라이드 안의 6개 영상 · 영상명 클릭 시 배너 상세 분석</div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 80px 100px 80px; align-items: center; gap: 12px; padding: 6px 0; font-size: 11px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600;">
+                <div></div><div>영상</div><div style="text-align: right;">배너 CTR</div><div></div><div style="text-align: right;">클릭수</div>
+              </div>
+              <div class="clickable-row" onclick="showSlideVideoDetail(this, 'sv1')" style="display: grid; grid-template-columns: 28px 1fr 80px 100px 80px; align-items: center; gap: 12px; padding: 10px 8px; border-bottom: 1px solid var(--border); border-radius: 4px;">
                 <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">1</div>
-                <div><div style="font-size: 14px; font-weight: 500;">린넨 반팔 셋업 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 1번 · 재생률 88%</div></div>
+                <div><div style="font-size: 14px; font-weight: 500;">린넨 반팔 셋업 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 1번 위치 · 배너 2개</div></div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--success-text); text-align: right;">8.42%</div>
                 <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: 100%;"></div></div>
                 <div style="font-size: 14px; font-weight: 600; text-align: right;">1,847</div>
               </div>
-              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+              <div class="clickable-row" onclick="showSlideVideoDetail(this, 'sv2')" style="display: grid; grid-template-columns: 28px 1fr 80px 100px 80px; align-items: center; gap: 12px; padding: 10px 8px; border-bottom: 1px solid var(--border); border-radius: 4px;">
                 <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">2</div>
-                <div><div style="font-size: 14px; font-weight: 500;">와이드 슬랙스 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 2번 · 재생률 76%</div></div>
+                <div><div style="font-size: 14px; font-weight: 500;">와이드 슬랙스 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 2번 위치 · 배너 1개</div></div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--success-text); text-align: right;">7.18%</div>
                 <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: 78%;"></div></div>
                 <div style="font-size: 14px; font-weight: 600; text-align: right;">1,442</div>
               </div>
-              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+              <div class="clickable-row" onclick="showSlideVideoDetail(this, 'sv3')" style="display: grid; grid-template-columns: 28px 1fr 80px 100px 80px; align-items: center; gap: 12px; padding: 10px 8px; border-bottom: 1px solid var(--border); border-radius: 4px;">
                 <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">3</div>
-                <div><div style="font-size: 14px; font-weight: 500;">크롭 셔츠 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 3번 · 재생률 64%</div></div>
+                <div><div style="font-size: 14px; font-weight: 500;">크롭 셔츠 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 3번 위치 · 배너 1개</div></div>
+                <div style="font-size: 14px; font-weight: 700; text-align: right;">5.74%</div>
                 <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: 60%;"></div></div>
                 <div style="font-size: 14px; font-weight: 600; text-align: right;">1,108</div>
               </div>
-              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0;">
+              <div class="clickable-row" onclick="showSlideVideoDetail(this, 'sv4')" style="display: grid; grid-template-columns: 28px 1fr 80px 100px 80px; align-items: center; gap: 12px; padding: 10px 8px; border-radius: 4px;">
                 <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">4</div>
-                <div><div style="font-size: 14px; font-weight: 500;">밀짚 모자 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 4번 · 재생률 51%</div></div>
+                <div><div style="font-size: 14px; font-weight: 500;">밀짚 모자 쇼츠</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">슬라이드 4번 위치 · 배너 1개</div></div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: right;">3.81%</div>
                 <div style="height: 6px; background: #E1F5EE; border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: #5DCAA5; border-radius: 3px; width: 38%;"></div></div>
                 <div style="font-size: 14px; font-weight: 600; text-align: right;">702</div>
               </div>
               <div style="margin-top: 12px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-size: 13px; color: var(--text-sub);">
-                💡 슬라이드 1번 영상이 압도적으로 재생됩니다. 가장 효율적인 영상을 첫 슬라이드에 배치하세요.
+                💡 1번 영상은 배너 2개를 가져서 클릭수가 압도적. 배너 추가도 CTR 향상에 효과적이에요.
               </div>
             </div>
           </div>
         </div>
+
+        <!-- 슬라이드 영상 상세 패널 -->
+        <div id="slideVideoDetail"></div>
+
 
         <!-- 인스턴스 2 (접힌 상태) -->
         <div class="accordion-item">
@@ -1340,34 +1405,48 @@
           </div>
           <div class="accordion-body">
             <div style="background: var(--bg); padding: 16px 20px; border-radius: 8px; margin-top: 12px;">
-              <div style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">위젯 안의 6개 영상 · 재생 순서별 분포</div>
-              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+              <div style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">위젯 안의 6개 영상 · 영상별 배너 클릭 성과 · 영상 클릭 시 배너 상세</div>
+              <div style="display: grid; grid-template-columns: 28px 1fr 80px 90px 80px 20px; align-items: center; gap: 12px; padding: 6px 0; font-size: 11px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600;">
+                <div></div><div>영상</div><div style="text-align: right;">배너 CTR</div><div></div><div style="text-align: right;">클릭수</div><div></div>
+              </div>
+              <div class="clickable-row" onclick="showMultiVideoDetail(this, 'mv1')" style="display: grid; grid-template-columns: 28px 1fr 80px 90px 80px 20px; align-items: center; gap: 12px; padding: 10px 8px; border-bottom: 1px solid var(--border); border-radius: 4px;">
                 <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">1</div>
-                <div><div style="font-size: 14px; font-weight: 500;">비치웨어 모델 컷 A</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">자동 첫 재생 · 재생률 92%</div></div>
+                <div><div style="font-size: 14px; font-weight: 500;">비치웨어 모델 컷 A</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">자동 첫 재생 · 배너 2개</div></div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--success-text); text-align: right;">4.62%</div>
                 <div style="height: 6px; background: var(--purple-soft); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--accent-purple); border-radius: 3px; width: 100%;"></div></div>
-                <div style="font-size: 14px; font-weight: 600; text-align: right;">22,118</div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">1,022</div>
+                <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 12px; height: 12px;"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
-              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+              <div class="clickable-row" onclick="showMultiVideoDetail(this, 'mv2')" style="display: grid; grid-template-columns: 28px 1fr 80px 90px 80px 20px; align-items: center; gap: 12px; padding: 10px 8px; border-bottom: 1px solid var(--border); border-radius: 4px;">
                 <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">2</div>
-                <div><div style="font-size: 14px; font-weight: 500;">선글라스 클로즈업</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">2번째 재생 · 재생률 62%</div></div>
+                <div><div style="font-size: 14px; font-weight: 500;">선글라스 클로즈업</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">2번째 재생 · 배너 1개</div></div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--success-text); text-align: right;">3.18%</div>
                 <div style="height: 6px; background: var(--purple-soft); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--accent-purple); border-radius: 3px; width: 62%;"></div></div>
-                <div style="font-size: 14px; font-weight: 600; text-align: right;">13,720</div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">436</div>
+                <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 12px; height: 12px;"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
-              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+              <div class="clickable-row" onclick="showMultiVideoDetail(this, 'mv3')" style="display: grid; grid-template-columns: 28px 1fr 80px 90px 80px 20px; align-items: center; gap: 12px; padding: 10px 8px; border-bottom: 1px solid var(--border); border-radius: 4px;">
                 <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">3</div>
-                <div><div style="font-size: 14px; font-weight: 500;">샌들 360°</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">3번째 재생 · 재생률 41%</div></div>
+                <div><div style="font-size: 14px; font-weight: 500;">샌들 360°</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">3번째 재생 · 배너 1개</div></div>
+                <div style="font-size: 14px; font-weight: 700; text-align: right;">2.41%</div>
                 <div style="height: 6px; background: var(--purple-soft); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: #7F77DD; border-radius: 3px; width: 41%;"></div></div>
-                <div style="font-size: 14px; font-weight: 600; text-align: right;">9,114</div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">220</div>
+                <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 12px; height: 12px;"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
-              <div style="display: grid; grid-template-columns: 28px 1fr 100px 80px; align-items: center; gap: 12px; padding: 10px 0;">
+              <div class="clickable-row" onclick="showMultiVideoDetail(this, 'mv4')" style="display: grid; grid-template-columns: 28px 1fr 80px 90px 80px 20px; align-items: center; gap: 12px; padding: 10px 8px; border-radius: 4px;">
                 <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">4</div>
-                <div><div style="font-size: 14px; font-weight: 500;">비치백 디테일</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">4번째 재생 · 재생률 23%</div></div>
+                <div><div style="font-size: 14px; font-weight: 500;">비치백 디테일</div><div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">4번째 재생 · 배너 1개</div></div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: right;">1.18%</div>
                 <div style="height: 6px; background: var(--purple-soft); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: #AFA9EC; border-radius: 3px; width: 23%;"></div></div>
-                <div style="font-size: 14px; font-weight: 600; text-align: right;">5,084</div>
+                <div style="font-size: 14px; font-weight: 600; text-align: right;">60</div>
+                <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 12px; height: 12px;"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- 멀티 영상 상세 패널 -->
+        <div id="multiVideoDetail"></div>
 
         <!-- 인스턴스 2 (접힌 상태) -->
         <div class="accordion-item">
@@ -1404,26 +1483,38 @@
 
       <div class="card">
         <div class="card-head">
-          <div><div class="card-title">전체 위젯 인스턴스 (9개)</div></div>
-          <div style="display: flex; gap: 6px;">
-            <span class="pill brand" style="cursor: pointer;">슬라이드 4</span>
-            <span class="pill warning" style="cursor: pointer;">플로팅 3</span>
-            <span class="pill success" style="cursor: pointer;">멀티 2</span>
-            <span class="pill gray" style="cursor: pointer;">전체</span>
+          <div><div class="card-title">전체 위젯 인스턴스 (<span id="allWidgetCount">9</span>개)</div><div class="card-sub">유형별 필터링 · 비교 기준 정렬</div></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; gap: 6px;" id="widgetFilters">
+            <span class="pill gray filter-pill active" data-filter="all" onclick="filterWidgetTable(this, 'all')" style="cursor: pointer;">전체 9</span>
+            <span class="pill brand filter-pill" data-filter="슬라이드" onclick="filterWidgetTable(this, '슬라이드')" style="cursor: pointer;">슬라이드 4</span>
+            <span class="pill warning filter-pill" data-filter="플로팅" onclick="filterWidgetTable(this, '플로팅')" style="cursor: pointer;">플로팅 3</span>
+            <span class="pill success filter-pill" data-filter="멀티" onclick="filterWidgetTable(this, '멀티')" style="cursor: pointer;">멀티 2</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 13px; color: var(--text-sub);">정렬:</span>
+            <select id="widgetSort" onchange="sortWidgetTable()" style="padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); font-size: 13px; font-family: inherit; cursor: pointer; color: var(--text);">
+              <option value="load">📦 로드 수 높은순</option>
+              <option value="clicks">🖱️ 배너 클릭수 높은순</option>
+              <option value="ctr">📈 배너 CTR 높은순</option>
+            </select>
           </div>
         </div>
-        <table class="table">
+
+        <table class="table" id="allWidgetTable">
           <thead><tr><th style="width: 40px;">#</th><th>위젯명</th><th>유형</th><th>영상 수</th><th>생성일</th><th>로드</th><th>클릭</th><th>CTR</th></tr></thead>
-          <tbody>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">1</td><td>2026 여름 신상 쇼츠 컬렉션</td><td><span class="pill brand">슬라이드</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.18</td><td>68,201</td><td>5,082</td><td style="color: var(--success-text); font-weight: 600;">7.45%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">2</td><td>홈 메인 플로팅</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.02</td><td>62,400</td><td>2,059</td><td>3.30%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">3</td><td>린넨 셋업 시리즈 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>5개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.05</td><td>52,884</td><td>3,221</td><td style="color: var(--success-text); font-weight: 600;">6.09%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">4</td><td>카테고리 플로팅 (상의)</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.14</td><td>51,820</td><td>1,924</td><td>3.71%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">5</td><td>홈 비치웨어 멀티 위젯</td><td><span class="pill success">멀티</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.22</td><td>48,118</td><td>1,684</td><td>3.50%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">6</td><td>신상 룩북 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.10</td><td>37,202</td><td>1,892</td><td>5.09%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">7</td><td>이벤트 페이지 플로팅</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.05.01</td><td>34,404</td><td>900</td><td style="color: var(--danger-text);">2.62%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">8</td><td>시즌 컬렉션 멀티</td><td><span class="pill success">멀티</span></td><td>5개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.20</td><td>30,922</td><td>748</td><td style="color: var(--danger-text);">2.42%</td></tr>
-            <tr><td style="color: var(--text-mute); font-weight: 600;">9</td><td>베스트 컬렉션 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>4개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.28</td><td>26,133</td><td>953</td><td>3.65%</td></tr>
+          <tbody id="allWidgetTbody">
+            <tr data-type="슬라이드" data-load="68201" data-clicks="5082" data-ctr="7.45"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">1</td><td>2026 여름 신상 쇼츠 컬렉션</td><td><span class="pill brand">슬라이드</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.18</td><td>68,201</td><td>5,082</td><td style="color: var(--success-text); font-weight: 600;">7.45%</td></tr>
+            <tr data-type="플로팅" data-load="62400" data-clicks="2059" data-ctr="3.30"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">2</td><td>홈 메인 플로팅</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.02</td><td>62,400</td><td>2,059</td><td>3.30%</td></tr>
+            <tr data-type="슬라이드" data-load="52884" data-clicks="3221" data-ctr="6.09"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">3</td><td>린넨 셋업 시리즈 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>5개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.05</td><td>52,884</td><td>3,221</td><td style="color: var(--success-text); font-weight: 600;">6.09%</td></tr>
+            <tr data-type="플로팅" data-load="51820" data-clicks="1924" data-ctr="3.71"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">4</td><td>카테고리 플로팅 (상의)</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.14</td><td>51,820</td><td>1,924</td><td>3.71%</td></tr>
+            <tr data-type="멀티" data-load="48118" data-clicks="1684" data-ctr="3.50"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">5</td><td>홈 비치웨어 멀티 위젯</td><td><span class="pill success">멀티</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.22</td><td>48,118</td><td>1,684</td><td>3.50%</td></tr>
+            <tr data-type="슬라이드" data-load="37202" data-clicks="1892" data-ctr="5.09"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">6</td><td>신상 룩북 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>6개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.10</td><td>37,202</td><td>1,892</td><td>5.09%</td></tr>
+            <tr data-type="플로팅" data-load="34404" data-clicks="900" data-ctr="2.62"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">7</td><td>이벤트 페이지 플로팅</td><td><span class="pill warning">플로팅</span></td><td>1개</td><td style="color: var(--text-sub); font-size: 13px;">2026.05.01</td><td>34,404</td><td>900</td><td style="color: var(--danger-text);">2.62%</td></tr>
+            <tr data-type="멀티" data-load="30922" data-clicks="748" data-ctr="2.42"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">8</td><td>시즌 컬렉션 멀티</td><td><span class="pill success">멀티</span></td><td>5개</td><td style="color: var(--text-sub); font-size: 13px;">2026.04.20</td><td>30,922</td><td>748</td><td style="color: var(--danger-text);">2.42%</td></tr>
+            <tr data-type="슬라이드" data-load="26133" data-clicks="953" data-ctr="3.65"><td class="row-rank" style="color: var(--text-mute); font-weight: 600;">9</td><td>베스트 컬렉션 슬라이드</td><td><span class="pill brand">슬라이드</span></td><td>4개</td><td style="color: var(--text-sub); font-size: 13px;">2026.03.28</td><td>26,133</td><td>953</td><td>3.65%</td></tr>
           </tbody>
         </table>
       </div>
@@ -1677,6 +1768,441 @@
     item.classList.toggle('open');
   }
 
+  // ============ DATA STORES ============
+  const CONNECTED_FLOW_DATA = {
+    linen: {
+      name: '린넨 셋업 컬렉션 상세 (5개 연결)',
+      steps: [
+        { pct: 100, label: '영상 #1', loc: '상단', count: '28,440', color: '#534AB7', txt: '#fff' },
+        { pct: 74, label: '영상 #2', loc: '중상단', count: '21,046', color: '#7F77DD', txt: '#fff' },
+        { pct: 42, label: '영상 #3', loc: '중단', count: '11,945', color: '#AFA9EC', txt: '#26215C', down: true },
+        { pct: 31, label: '', loc: '중하단', count: '8,816', color: '#CECBF6', txt: '#26215C' },
+        { pct: 22, label: '', loc: '하단', count: '6,257', color: '#EEEDFE', txt: '#26215C' }
+      ],
+      alert: '영상 #2 → #3 구간에서 이탈률 32%p 급증. 영상 #3 인트로 점검 권장.',
+      domain: [
+        { name: 'mall.example.com', label: '자사', pct: 78, count: '110,920', external: false },
+        { name: 'smartstore.naver.com', label: '외부', pct: 14, count: '19,909', external: true },
+        { name: 'store.kakao.com', label: '외부', pct: 6, count: '8,532', external: true },
+        { name: 'instagram.com', label: '외부', pct: 2, count: '2,844', external: true }
+      ]
+    },
+    shoes: {
+      name: '신상 슈즈 컬렉션 (4개 연결)',
+      steps: [
+        { pct: 100, label: '영상 #1', loc: '상단', count: '24,610', color: '#534AB7', txt: '#fff' },
+        { pct: 72, label: '영상 #2', loc: '중단', count: '17,719', color: '#AFA9EC', txt: '#26215C', down: true },
+        { pct: 54, label: '영상 #3', loc: '중하단', count: '13,290', color: '#CECBF6', txt: '#26215C' },
+        { pct: 35, label: '영상 #4', loc: '하단', count: '8,621', color: '#EEEDFE', txt: '#26215C' }
+      ],
+      alert: '영상 #1 → #2 구간에서 이탈률 28%p 발생. 초기 영상 길이가 너무 길 가능성.',
+      domain: [
+        { name: 'mall.example.com', label: '자사', pct: 82, count: '80,720', external: false },
+        { name: 'smartstore.naver.com', label: '외부', pct: 12, count: '11,813', external: true },
+        { name: 'brand.musinsa.com', label: '외부', pct: 6, count: '5,907', external: true }
+      ]
+    },
+    denim: {
+      name: '데님 시리즈 (3개 연결)',
+      steps: [
+        { pct: 100, label: '영상 #1', loc: '상단', count: '18,030', color: '#534AB7', txt: '#fff' },
+        { pct: 78, label: '영상 #2', loc: '중단', count: '14,063', color: '#AFA9EC', txt: '#26215C', down: true },
+        { pct: 48, label: '영상 #3', loc: '하단', count: '8,657', color: '#EEEDFE', txt: '#26215C' }
+      ],
+      alert: '마지막까지 시청률 48%로 양호. 콘텐츠 흐름이 잘 짜여있어요.',
+      domain: [
+        { name: 'mall.example.com', label: '자사', pct: 71, count: '51,204', external: false },
+        { name: 'smartstore.naver.com', label: '외부', pct: 18, count: '12,981', external: true },
+        { name: 'store.kakao.com', label: '외부', pct: 11, count: '7,933', external: true }
+      ]
+    },
+    outer: {
+      name: '아우터 컬렉션 (3개 연결)',
+      steps: [
+        { pct: 100, label: '영상 #1', loc: '상단', count: '13,550', color: '#534AB7', txt: '#fff' },
+        { pct: 82, label: '영상 #2', loc: '중단', count: '11,111', color: '#AFA9EC', txt: '#26215C', down: true },
+        { pct: 52, label: '영상 #3', loc: '하단', count: '7,034', color: '#EEEDFE', txt: '#26215C' }
+      ],
+      alert: '시청 유지율이 우수합니다. 다른 카테고리에도 비슷한 구성 추천.',
+      domain: [
+        { name: 'mall.example.com', label: '자사', pct: 85, count: '46,071', external: false },
+        { name: 'brand.musinsa.com', label: '외부', pct: 15, count: '8,130', external: true }
+      ]
+    },
+    acc: {
+      name: '액세서리 시리즈 (4개 연결)',
+      steps: [
+        { pct: 100, label: '영상 #1', loc: '상단', count: '10,721', color: '#534AB7', txt: '#fff' },
+        { pct: 84, label: '영상 #2', loc: '중상단', count: '9,006', color: '#7F77DD', txt: '#fff' },
+        { pct: 54, label: '영상 #3', loc: '중단', count: '5,789', color: '#AFA9EC', txt: '#26215C', down: true },
+        { pct: 28, label: '영상 #4', loc: '하단', count: '3,008', color: '#EEEDFE', txt: '#26215C' }
+      ],
+      alert: '영상 #2 → #3 구간에서 30%p 급락. 영상 #3 점검 권장.',
+      domain: [
+        { name: 'mall.example.com', label: '자사', pct: 76, count: '32,592', external: false },
+        { name: 'instagram.com', label: '외부', pct: 14, count: '6,004', external: true },
+        { name: 'smartstore.naver.com', label: '외부', pct: 10, count: '4,288', external: true }
+      ]
+    }
+  };
+
+  const SINGLE_VIDEO_DATA = {
+    v1: { name: '린넨 셋업 컬렉션 메인 배너', load: '39,884', play: '32,705 (82%)', avg: '16.8초', domain: [
+      { name: 'mall.example.com', label: '자사', pct: 84, count: '33,503', external: false },
+      { name: 'smartstore.naver.com', label: '외부', pct: 10, count: '3,988', external: true },
+      { name: 'store.kakao.com', label: '외부', pct: 6, count: '2,393', external: true }
+    ]},
+    v2: { name: '신상 가방 클로즈업', load: '27,108', play: '20,331 (75%)', avg: '13.2초', domain: [
+      { name: 'mall.example.com', label: '자사', pct: 92, count: '24,939', external: false },
+      { name: 'smartstore.naver.com', label: '외부', pct: 5, count: '1,355', external: true },
+      { name: 'instagram.com', label: '외부', pct: 3, count: '814', external: true }
+    ]},
+    v3: { name: '스니커즈 풋샷', load: '23,210', play: '16,247 (70%)', avg: '11.8초', domain: [
+      { name: 'mall.example.com', label: '자사', pct: 79, count: '18,336', external: false },
+      { name: 'brand.musinsa.com', label: '외부', pct: 14, count: '3,249', external: true },
+      { name: 'store.kakao.com', label: '외부', pct: 7, count: '1,625', external: true }
+    ]},
+    v4: { name: '여름 메인 비주얼', load: '18,442', play: '14,385 (78%)', avg: '15.4초', domain: [
+      { name: 'mall.example.com', label: '자사', pct: 88, count: '16,229', external: false },
+      { name: 'instagram.com', label: '외부', pct: 12, count: '2,213', external: true }
+    ]},
+    v5: { name: '크롭 셔츠 디테일', load: '16,772', play: '10,902 (65%)', avg: '10.2초', domain: [
+      { name: 'mall.example.com', label: '자사', pct: 81, count: '13,585', external: false },
+      { name: 'smartstore.naver.com', label: '외부', pct: 11, count: '1,845', external: true },
+      { name: 'brand.musinsa.com', label: '외부', pct: 8, count: '1,342', external: true }
+    ]}
+  };
+
+  const FLOATING_DATA = {
+    home: { name: '홈 메인 플로팅', load: '62,400', clicks: '3,376', ctr: '5.41%', domain: [
+      { name: 'mall.example.com', label: '자사', pct: 88, count: '54,912', external: false },
+      { name: 'smartstore.naver.com', label: '외부', pct: 8, count: '4,992', external: true },
+      { name: 'instagram.com', label: '외부', pct: 4, count: '2,496', external: true }
+    ], banners: [
+      { name: '린넨 반팔 셋업 (베이지)', clicks: 3376, ctr: 5.41 }
+    ]},
+    category: { name: '카테고리 플로팅 (상의)', load: '51,820', clicks: '1,924', ctr: '3.71%', domain: [
+      { name: 'mall.example.com', label: '자사', pct: 94, count: '48,711', external: false },
+      { name: 'smartstore.naver.com', label: '외부', pct: 6, count: '3,109', external: true }
+    ], banners: [
+      { name: '셔츠 컬렉션 시리즈', clicks: 1924, ctr: 3.71 }
+    ]},
+    event: { name: '이벤트 페이지 플로팅', load: '34,404', clicks: '900', ctr: '2.62%', domain: [
+      { name: 'mall.example.com', label: '자사', pct: 71, count: '24,427', external: false },
+      { name: 'instagram.com', label: '외부', pct: 22, count: '7,569', external: true },
+      { name: 'store.kakao.com', label: '외부', pct: 7, count: '2,408', external: true }
+    ], banners: [
+      { name: '여름 시즌오프 ~50%', clicks: 900, ctr: 2.62 }
+    ]}
+  };
+
+  const SLIDE_VIDEO_DATA = {
+    sv1: { name: '린넨 반팔 셋업 쇼츠', clicks: 1847, ctr: 8.42, banners: [
+      { name: '린넨 반팔 셋업 (베이지)', clicks: 1102, ctr: 5.02 },
+      { name: '린넨 반팔 셋업 (네이비)', clicks: 745, ctr: 3.40 }
+    ], domain: [
+      { name: 'mall.example.com', label: '자사', pct: 72, count: '15,840', external: false },
+      { name: 'smartstore.naver.com', label: '외부', pct: 18, count: '3,960', external: true },
+      { name: 'instagram.com', label: '외부', pct: 10, count: '2,200', external: true }
+    ]},
+    sv2: { name: '와이드 슬랙스 쇼츠', clicks: 1442, ctr: 7.18, banners: [
+      { name: '와이드 슬랙스 (블랙)', clicks: 1442, ctr: 7.18 }
+    ], domain: [
+      { name: 'mall.example.com', label: '자사', pct: 80, count: '16,072', external: false },
+      { name: 'smartstore.naver.com', label: '외부', pct: 20, count: '4,018', external: true }
+    ]},
+    sv3: { name: '크롭 셔츠 쇼츠', clicks: 1108, ctr: 5.74, banners: [
+      { name: '크롭 셔츠 (화이트)', clicks: 1108, ctr: 5.74 }
+    ], domain: [
+      { name: 'mall.example.com', label: '자사', pct: 85, count: '16,402', external: false },
+      { name: 'store.kakao.com', label: '외부', pct: 15, count: '2,895', external: true }
+    ]},
+    sv4: { name: '밀짚 모자 쇼츠', clicks: 702, ctr: 3.81, banners: [
+      { name: '밀짚 모자 (내추럴)', clicks: 702, ctr: 3.81 }
+    ], domain: [
+      { name: 'mall.example.com', label: '자사', pct: 92, count: '16,946', external: false },
+      { name: 'instagram.com', label: '외부', pct: 8, count: '1,474', external: true }
+    ]}
+  };
+
+  const MULTI_VIDEO_DATA = {
+    mv1: { name: '비치웨어 모델 컷 A', clicks: 1022, ctr: 4.62, banners: [
+      { name: '비치 원피스 (화이트)', clicks: 612, ctr: 2.77 },
+      { name: '비치 모자', clicks: 410, ctr: 1.85 }
+    ], domain: [
+      { name: 'mall.example.com', label: '자사', pct: 78, count: '17,252', external: false },
+      { name: 'instagram.com', label: '외부', pct: 16, count: '3,538', external: true },
+      { name: 'smartstore.naver.com', label: '외부', pct: 6, count: '1,328', external: true }
+    ]},
+    mv2: { name: '선글라스 클로즈업', clicks: 436, ctr: 3.18, banners: [
+      { name: '오버사이즈 선글라스', clicks: 436, ctr: 3.18 }
+    ], domain: [
+      { name: 'mall.example.com', label: '자사', pct: 82, count: '11,250', external: false },
+      { name: 'instagram.com', label: '외부', pct: 18, count: '2,470', external: true }
+    ]},
+    mv3: { name: '샌들 360°', clicks: 220, ctr: 2.41, banners: [
+      { name: '플랫 샌들 (탠)', clicks: 220, ctr: 2.41 }
+    ], domain: [
+      { name: 'mall.example.com', label: '자사', pct: 88, count: '8,020', external: false },
+      { name: 'brand.musinsa.com', label: '외부', pct: 12, count: '1,094', external: true }
+    ]},
+    mv4: { name: '비치백 디테일', clicks: 60, ctr: 1.18, banners: [
+      { name: '비치백 (스트로)', clicks: 60, ctr: 1.18 }
+    ], domain: [
+      { name: 'mall.example.com', label: '자사', pct: 91, count: '4,626', external: false },
+      { name: 'instagram.com', label: '외부', pct: 9, count: '458', external: true }
+    ]}
+  };
+
+  // ============ RENDER HELPERS ============
+  function renderDomainBars(domain) {
+    return domain.map(d => `
+      <div class="domain-bar-row">
+        <div class="domain-bar-name">
+          <span class="pill ${d.external ? 'brand-orange' : 'success'}">${d.label}</span>
+          <span style="font-family: monospace; font-size: 12px;">${d.name}</span>
+          <span style="color: var(--text-mute); font-size: 12px;">${d.count}</span>
+        </div>
+        <div class="domain-progress"><div class="domain-progress-fill ${d.external ? 'external' : ''}" style="width: ${d.pct}%;"></div></div>
+        <div class="domain-bar-pct">${d.pct}%</div>
+      </div>
+    `).join('');
+  }
+
+  function renderBannerRows(banners) {
+    return banners.map((b, i) => `
+      <div class="banner-row">
+        <div class="banner-name">${i+1}. ${b.name}</div>
+        <div class="banner-num">${b.clicks.toLocaleString()}</div>
+        <div class="banner-num" style="color: var(--success-text);">${b.ctr}%</div>
+        <div style="height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden;"><div style="height: 100%; background: var(--success); border-radius: 3px; width: ${Math.min(100, b.ctr * 12)}%;"></div></div>
+      </div>
+    `).join('');
+  }
+
+  function selectRow(targetRow, containerSelector) {
+    document.querySelectorAll(`${containerSelector} tr.clickable-row, ${containerSelector} .clickable-row`).forEach(r => r.classList.remove('selected'));
+    if (targetRow) targetRow.classList.add('selected');
+  }
+
+  // ============ DISPLAYER: Single Video Detail ============
+  function showSingleVideoDetail(rowEl, key) {
+    selectRow(rowEl, 'section[data-page="displayer"]');
+    const d = SINGLE_VIDEO_DATA[key];
+    const panel = document.getElementById('singleVideoDetail');
+    panel.innerHTML = `
+      <div class="detail-panel">
+        <div class="detail-panel-head">
+          <div>
+            <div class="detail-panel-title">📊 ${d.name} 상세 분석</div>
+            <div class="detail-panel-sub">단일 영상 · 누적 지표 · 도메인별 분포</div>
+          </div>
+          <button class="detail-close-btn" onclick="closeDetail('singleVideoDetail')">× 닫기</button>
+        </div>
+        <div class="detail-kpi-row">
+          <div class="detail-kpi"><div class="detail-kpi-label">누적 로드 수</div><div class="detail-kpi-value">${d.load}</div></div>
+          <div class="detail-kpi"><div class="detail-kpi-label">순수 재생 수</div><div class="detail-kpi-value">${d.play}</div></div>
+          <div class="detail-kpi"><div class="detail-kpi-label">평균 시청 시간</div><div class="detail-kpi-value">${d.avg}</div></div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+            도메인별 로드 발생 비중
+          </div>
+          ${renderDomainBars(d.domain)}
+        </div>
+      </div>
+    `;
+    panel.style.display = 'block';
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
+  // ============ DISPLAYER: Connected Funnel ============
+  function changeFunnelData(rowEl, key) {
+    selectRow(rowEl, 'section[data-page="displayer"]');
+    const d = CONNECTED_FLOW_DATA[key];
+    document.getElementById('funnelSelector').textContent = d.name;
+
+    let html = '';
+    d.steps.forEach((s, i) => {
+      if (i > 0) html += '<div class="path-arrow">→</div>';
+      html += `
+        <div class="path-step">
+          <div class="path-pct ${s.down ? 'down' : ''}">${s.pct}%${s.down ? ' ▼' : ''}</div>
+          <div class="path-step-bar" style="height: ${s.pct}%; background: ${s.color}; color: ${s.txt};">
+            <span>${s.label ? s.label + '<br/>' : ''}<strong>${s.count}</strong></span>
+          </div>
+          <div class="path-label">${s.loc}</div>
+        </div>
+      `;
+    });
+    document.getElementById('pathFlow').innerHTML = html;
+    document.getElementById('funnelAlert').querySelector('span').textContent = d.alert;
+
+    const domainPanel = document.getElementById('connectedDomainPanel');
+    domainPanel.innerHTML = `
+      <div class="detail-panel">
+        <div class="detail-panel-head">
+          <div>
+            <div class="detail-panel-title">🌐 ${d.name} 로드 발생 도메인</div>
+            <div class="detail-panel-sub">이 페이지에서 영상이 재생된 도메인 분포</div>
+          </div>
+          <button class="detail-close-btn" onclick="closeDetail('connectedDomainPanel')">× 닫기</button>
+        </div>
+        <div class="detail-section">${renderDomainBars(d.domain)}</div>
+      </div>
+    `;
+  }
+
+  // ============ FLOATING: Widget Detail ============
+  function showFloatingDetail(rowEl, key) {
+    selectRow(rowEl, 'section[data-page="widget-floating"]');
+    const d = FLOATING_DATA[key];
+    const panel = document.getElementById('floatingDetail');
+    panel.innerHTML = `
+      <div class="detail-panel">
+        <div class="detail-panel-head">
+          <div>
+            <div class="detail-panel-title">📊 ${d.name} 상세 분석</div>
+            <div class="detail-panel-sub">플로팅 위젯 · 배너 성과 · 도메인 분포</div>
+          </div>
+          <button class="detail-close-btn" onclick="closeDetail('floatingDetail')">× 닫기</button>
+        </div>
+        <div class="detail-kpi-row">
+          <div class="detail-kpi"><div class="detail-kpi-label">누적 로드</div><div class="detail-kpi-value">${d.load}</div></div>
+          <div class="detail-kpi"><div class="detail-kpi-label">배너 클릭</div><div class="detail-kpi-value">${d.clicks}</div></div>
+          <div class="detail-kpi"><div class="detail-kpi-label">배너 CTR</div><div class="detail-kpi-value" style="color: var(--success-text);">${d.ctr}</div></div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+            로드 발생 도메인 비중
+          </div>
+          ${renderDomainBars(d.domain)}
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+            배너 상품 링크별 성과
+          </div>
+          <div class="banner-row" style="font-size: 11px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; border-bottom: 1px solid var(--border);">
+            <div>상품 링크</div><div style="text-align: right;">클릭수</div><div style="text-align: right;">CTR</div><div></div>
+          </div>
+          ${renderBannerRows(d.banners)}
+        </div>
+      </div>
+    `;
+    panel.style.display = 'block';
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
+  // ============ SLIDE: Video Detail ============
+  function showSlideVideoDetail(rowEl, key) {
+    const d = SLIDE_VIDEO_DATA[key];
+    const panel = document.getElementById('slideVideoDetail');
+    panel.innerHTML = `
+      <div class="detail-panel">
+        <div class="detail-panel-head">
+          <div>
+            <div class="detail-panel-title">🎬 ${d.name} 배너 분석</div>
+            <div class="detail-panel-sub">슬라이드 안 영상 · 상품 링크별 클릭 · 도메인 분포</div>
+          </div>
+          <button class="detail-close-btn" onclick="closeDetail('slideVideoDetail')">× 닫기</button>
+        </div>
+        <div class="detail-kpi-row">
+          <div class="detail-kpi"><div class="detail-kpi-label">배너 총 클릭</div><div class="detail-kpi-value">${d.clicks.toLocaleString()}</div></div>
+          <div class="detail-kpi"><div class="detail-kpi-label">배너 CTR</div><div class="detail-kpi-value" style="color: var(--success-text);">${d.ctr}%</div></div>
+          <div class="detail-kpi"><div class="detail-kpi-label">상품 링크</div><div class="detail-kpi-value">${d.banners.length}<span class="unit">개</span></div></div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">상품 링크별 성과</div>
+          <div class="banner-row" style="font-size: 11px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; border-bottom: 1px solid var(--border);">
+            <div>상품 링크</div><div style="text-align: right;">클릭수</div><div style="text-align: right;">CTR</div><div></div>
+          </div>
+          ${renderBannerRows(d.banners)}
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">로드 발생 도메인 비중</div>
+          ${renderDomainBars(d.domain)}
+        </div>
+      </div>
+    `;
+    panel.style.display = 'block';
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
+  // ============ MULTI: Video Detail ============
+  function showMultiVideoDetail(rowEl, key) {
+    const d = MULTI_VIDEO_DATA[key];
+    const panel = document.getElementById('multiVideoDetail');
+    panel.innerHTML = `
+      <div class="detail-panel">
+        <div class="detail-panel-head">
+          <div>
+            <div class="detail-panel-title">🎬 ${d.name} 배너 분석</div>
+            <div class="detail-panel-sub">멀티 샵플레이어 영상 · 배너 성과 · 도메인 분포</div>
+          </div>
+          <button class="detail-close-btn" onclick="closeDetail('multiVideoDetail')">× 닫기</button>
+        </div>
+        <div class="detail-kpi-row">
+          <div class="detail-kpi"><div class="detail-kpi-label">배너 총 클릭</div><div class="detail-kpi-value">${d.clicks.toLocaleString()}</div></div>
+          <div class="detail-kpi"><div class="detail-kpi-label">배너 CTR</div><div class="detail-kpi-value" style="color: var(--success-text);">${d.ctr}%</div></div>
+          <div class="detail-kpi"><div class="detail-kpi-label">상품 링크</div><div class="detail-kpi-value">${d.banners.length}<span class="unit">개</span></div></div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">상품 링크별 성과</div>
+          <div class="banner-row" style="font-size: 11px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; border-bottom: 1px solid var(--border);">
+            <div>상품 링크</div><div style="text-align: right;">클릭수</div><div style="text-align: right;">CTR</div><div></div>
+          </div>
+          ${renderBannerRows(d.banners)}
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">로드 발생 도메인 비중</div>
+          ${renderDomainBars(d.domain)}
+        </div>
+      </div>
+    `;
+    panel.style.display = 'block';
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
+  function closeDetail(panelId) {
+    const panel = document.getElementById(panelId);
+    if (panel) {
+      panel.style.display = 'none';
+      panel.innerHTML = '';
+    }
+  }
+
+  // ============ WIDGET-ALL: Filter + Sort ============
+  let currentFilter = 'all';
+  function filterWidgetTable(pillEl, type) {
+    currentFilter = type;
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pillEl.classList.add('active');
+    applyFilterAndSort();
+  }
+  function sortWidgetTable() {
+    applyFilterAndSort();
+  }
+  function applyFilterAndSort() {
+    const tbody = document.getElementById('allWidgetTbody');
+    if (!tbody) return;
+    const sortBy = document.getElementById('widgetSort').value;
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.forEach(r => {
+      r.style.display = (currentFilter === 'all' || r.dataset.type === currentFilter) ? '' : 'none';
+    });
+    const visible = rows.filter(r => r.style.display !== 'none');
+    visible.sort((a, b) => parseFloat(b.dataset[sortBy]) - parseFloat(a.dataset[sortBy]));
+    visible.forEach((r, i) => {
+      const rankCell = r.querySelector('.row-rank');
+      if (rankCell) rankCell.textContent = (i + 1);
+      tbody.appendChild(r);
+    });
+    document.getElementById('allWidgetCount').textContent = visible.length;
+  }
+
   let compareMode = false;
   function toggleCompareMode() {
     compareMode = !compareMode;
@@ -1701,6 +2227,13 @@
       if (trendCompare) trendCompare.parentElement.parentElement.style.display = 'block';
       if (funnelNormal) funnelNormal.style.display = 'none';
       if (funnelCompare) funnelCompare.style.display = 'block';
+      // Chart resize fix - 숨겨진 canvas가 노출될 때 강제 리사이즈
+      setTimeout(() => {
+        if (window.Chart && trendCompare) {
+          const inst = Chart.getChart(trendCompare);
+          if (inst) { inst.resize(); inst.update(); }
+        }
+      }, 50);
     } else {
       indicator.style.display = 'none';
       kpiNormal.style.display = 'grid';
@@ -1713,6 +2246,12 @@
       if (trendCompare) trendCompare.parentElement.parentElement.style.display = 'none';
       if (funnelNormal) funnelNormal.style.display = 'block';
       if (funnelCompare) funnelCompare.style.display = 'none';
+      setTimeout(() => {
+        if (window.Chart && trendNormal) {
+          const inst = Chart.getChart(trendNormal);
+          if (inst) { inst.resize(); inst.update(); }
+        }
+      }, 50);
     }
   }
 
