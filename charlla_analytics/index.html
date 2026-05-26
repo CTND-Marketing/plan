@@ -123,6 +123,9 @@
   .top-card.rank-1 { background: linear-gradient(180deg, #FFF8E8 0%, #FFFFFF 60%); border-color: #F0D77E; }
   .top-rank { font-size: 12px; font-weight: 700; color: var(--text-mute); letter-spacing: 0.05em; margin-bottom: 8px; }
   .top-card.rank-1 .top-rank { color: #946800; }
+  .top-card.selected { border-color: var(--brand); box-shadow: 0 0 0 2px var(--brand-soft); }
+  .top-card-link { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; color: var(--brand-text); font-weight: 600; padding: 6px 0 0; margin-top: 6px; border-top: 1px solid var(--border); cursor: pointer; transition: color 0.12s; }
+  .top-card-link:hover { color: var(--brand); }
   .top-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; min-height: 36px; }
   .top-meta { font-size: 12px; color: var(--text-sub); margin-bottom: 12px; }
   .top-stat { display: flex; justify-content: space-between; font-size: 12.5px; padding: 4px 0; border-top: 1px solid var(--border); }
@@ -932,45 +935,50 @@
         </div>
 
         <div class="top-card-grid">
-          <div class="top-card rank-1" onclick="goConnectedDetail('linen')">
+          <div class="top-card rank-1" onclick="changeFunnelData(null, 'linen')">
             <div class="top-rank">★ TOP 1</div>
             <div class="top-name">린넨 셋업 컬렉션 상세</div>
             <div class="top-meta">5개 연결 · /detail/linen</div>
             <div class="top-stat"><span>총 로드</span><span>142,208</span></div>
             <div class="top-stat"><span>마지막까지</span><span>22%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #3</span></div>
+            <div class="top-card-link" onclick="event.stopPropagation(); goConnectedDetail('linen')">상세 보기 ›</div>
           </div>
-          <div class="top-card" onclick="goConnectedDetail('shoes')">
+          <div class="top-card" onclick="changeFunnelData(null, 'shoes')">
             <div class="top-rank">TOP 2</div>
             <div class="top-name">신상 슈즈 컬렉션</div>
             <div class="top-meta">4개 연결 · /detail/shoes-ss</div>
             <div class="top-stat"><span>총 로드</span><span>98,440</span></div>
             <div class="top-stat"><span>마지막까지</span><span>35%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
+            <div class="top-card-link" onclick="event.stopPropagation(); goConnectedDetail('shoes')">상세 보기 ›</div>
           </div>
-          <div class="top-card" onclick="goConnectedDetail('denim')">
+          <div class="top-card" onclick="changeFunnelData(null, 'denim')">
             <div class="top-rank">TOP 3</div>
             <div class="top-name">데님 시리즈</div>
             <div class="top-meta">3개 연결 · /detail/denim</div>
             <div class="top-stat"><span>총 로드</span><span>72,118</span></div>
             <div class="top-stat"><span>마지막까지</span><span>48%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
+            <div class="top-card-link" onclick="event.stopPropagation(); goConnectedDetail('denim')">상세 보기 ›</div>
           </div>
-          <div class="top-card" onclick="goConnectedDetail('outer')">
+          <div class="top-card" onclick="changeFunnelData(null, 'outer')">
             <div class="top-rank">TOP 4</div>
             <div class="top-name">아우터 컬렉션</div>
             <div class="top-meta">3개 연결 · /detail/outer</div>
             <div class="top-stat"><span>총 로드</span><span>54,201</span></div>
             <div class="top-stat"><span>마지막까지</span><span>52%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
+            <div class="top-card-link" onclick="event.stopPropagation(); goConnectedDetail('outer')">상세 보기 ›</div>
           </div>
-          <div class="top-card" onclick="goConnectedDetail('acc')">
+          <div class="top-card" onclick="changeFunnelData(null, 'acc')">
             <div class="top-rank">TOP 5</div>
             <div class="top-name">액세서리 시리즈</div>
             <div class="top-meta">4개 연결 · /detail/acc</div>
             <div class="top-stat"><span>총 로드</span><span>42,884</span></div>
             <div class="top-stat"><span>마지막까지</span><span>28%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #3</span></div>
+            <div class="top-card-link" onclick="event.stopPropagation(); goConnectedDetail('acc')">상세 보기 ›</div>
           </div>
         </div>
 
@@ -2522,6 +2530,48 @@
           scales: { x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9C9A92' } }, y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 }, color: '#9C9A92' } } } }
       });
     }, 80);
+  }
+
+  // ===== Connected Funnel: inline update (no navigation) =====
+  function changeFunnelData(rowEl, key) {
+    const d = CONNECTED_FLOW_DATA[key];
+    if (!d) return;
+
+    // 모든 선택 표시 해제 (카드 + 표 행)
+    document.querySelectorAll('section[data-page="displayer"] .top-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('section[data-page="displayer"] tr.clickable-row').forEach(r => r.classList.remove('selected'));
+
+    // 호출한 요소 강조 (카드든 표 행이든)
+    if (rowEl) {
+      rowEl.classList.add('selected');
+    } else {
+      // 카드 클릭이면 onclick에서 element가 null이라 currentTarget 추적이 어려움 → key로 카드 찾기
+      const targetCard = document.querySelector(`section[data-page="displayer"] .top-card[onclick*="'${key}'"]`);
+      if (targetCard) targetCard.classList.add('selected');
+    }
+
+    // 셀렉터 텍스트 업데이트
+    document.getElementById('funnelSelector').textContent = d.name;
+
+    // 시청 경로 그래프 동적 갱신
+    let html = '';
+    d.steps.forEach((s, i) => {
+      if (i > 0) html += '<div class="path-arrow">→</div>';
+      html += `
+        <div class="path-step">
+          <div class="path-pct ${s.down ? 'down' : ''}">${s.pct}%${s.down ? ' ▼' : ''}</div>
+          <div class="path-step-bar" style="height: ${s.pct}%; background: ${s.color}; color: ${s.txt};">
+            <span>${s.label ? s.label + '<br/>' : ''}<strong>${s.count}</strong></span>
+          </div>
+          <div class="path-label">${s.loc}</div>
+        </div>
+      `;
+    });
+    document.getElementById('pathFlow').innerHTML = html;
+    document.getElementById('funnelAlert').querySelector('span').textContent = d.alert;
+
+    // 시청 경로 영역으로 부드럽게 스크롤
+    document.getElementById('pathFlow').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   // ===== Connected Detail Page =====
