@@ -864,35 +864,35 @@
         </div>
 
         <div class="top-card-grid">
-          <div class="top-card rank-1">
+          <div class="top-card rank-1" onclick="goVideoDetail('v1')">
             <div class="top-rank">★ TOP 1</div>
             <div class="top-name">린넨 셋업 컬렉션 메인 배너</div>
             <div class="top-meta">메인 배너 · /</div>
             <div class="top-stat"><span>로드</span><span>39,884</span></div>
             <div class="top-stat"><span>시청시간</span><span>16.8초</span></div>
           </div>
-          <div class="top-card">
+          <div class="top-card" onclick="goVideoDetail('v2')">
             <div class="top-rank">TOP 2</div>
             <div class="top-name">신상 가방 클로즈업</div>
             <div class="top-meta">상세 · /product/bag-23</div>
             <div class="top-stat"><span>로드</span><span>27,108</span></div>
             <div class="top-stat"><span>시청시간</span><span>13.2초</span></div>
           </div>
-          <div class="top-card">
+          <div class="top-card" onclick="goVideoDetail('v3')">
             <div class="top-rank">TOP 3</div>
             <div class="top-name">스니커즈 풋샷</div>
             <div class="top-meta">상세 · /product/sneakers</div>
             <div class="top-stat"><span>로드</span><span>23,210</span></div>
             <div class="top-stat"><span>시청시간</span><span>11.8초</span></div>
           </div>
-          <div class="top-card">
+          <div class="top-card" onclick="goVideoDetail('v4')">
             <div class="top-rank">TOP 4</div>
             <div class="top-name">여름 메인 비주얼</div>
             <div class="top-meta">메인 배너 · /</div>
             <div class="top-stat"><span>로드</span><span>18,442</span></div>
             <div class="top-stat"><span>시청시간</span><span>15.4초</span></div>
           </div>
-          <div class="top-card">
+          <div class="top-card" onclick="goVideoDetail('v5')">
             <div class="top-rank">TOP 5</div>
             <div class="top-name">크롭 셔츠 디테일</div>
             <div class="top-meta">상세 · /product/crop-shirt</div>
@@ -932,7 +932,7 @@
         </div>
 
         <div class="top-card-grid">
-          <div class="top-card rank-1">
+          <div class="top-card rank-1" onclick="goConnectedDetail('linen')">
             <div class="top-rank">★ TOP 1</div>
             <div class="top-name">린넨 셋업 컬렉션 상세</div>
             <div class="top-meta">5개 연결 · /detail/linen</div>
@@ -940,7 +940,7 @@
             <div class="top-stat"><span>마지막까지</span><span>22%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #3</span></div>
           </div>
-          <div class="top-card">
+          <div class="top-card" onclick="goConnectedDetail('shoes')">
             <div class="top-rank">TOP 2</div>
             <div class="top-name">신상 슈즈 컬렉션</div>
             <div class="top-meta">4개 연결 · /detail/shoes-ss</div>
@@ -948,7 +948,7 @@
             <div class="top-stat"><span>마지막까지</span><span>35%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
           </div>
-          <div class="top-card">
+          <div class="top-card" onclick="goConnectedDetail('denim')">
             <div class="top-rank">TOP 3</div>
             <div class="top-name">데님 시리즈</div>
             <div class="top-meta">3개 연결 · /detail/denim</div>
@@ -956,7 +956,7 @@
             <div class="top-stat"><span>마지막까지</span><span>48%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
           </div>
-          <div class="top-card">
+          <div class="top-card" onclick="goConnectedDetail('outer')">
             <div class="top-rank">TOP 4</div>
             <div class="top-name">아우터 컬렉션</div>
             <div class="top-meta">3개 연결 · /detail/outer</div>
@@ -964,7 +964,7 @@
             <div class="top-stat"><span>마지막까지</span><span>52%</span></div>
             <div class="top-stat"><span>이탈 지점</span><span>영상 #2</span></div>
           </div>
-          <div class="top-card">
+          <div class="top-card" onclick="goConnectedDetail('acc')">
             <div class="top-rank">TOP 5</div>
             <div class="top-name">액세서리 시리즈</div>
             <div class="top-meta">4개 연결 · /detail/acc</div>
@@ -1722,6 +1722,49 @@
       </div>
     </section>
 
+    <!-- ============ 연결 영상 상세 ============ -->
+    <section class="page" data-page="connected-detail">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" style="stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        뒤로
+      </button>
+      <div class="breadcrumb" id="connectedDetailBreadcrumb">통계 <span>›</span> 디스플레이어 <span>›</span> 연결 영상 상세</div>
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" id="connectedDetailTitle">연결 영상 상세</h1>
+          <p class="page-sub" id="connectedDetailSub">연결 영상 페이지 분석</p>
+        </div>
+        <div class="date-control">2026.05.01 - 2026.05.19</div>
+      </div>
+
+      <div class="grid-4" id="connectedDetailKpi"></div>
+
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">시청 경로</div><div class="card-sub">상단부터 하단까지 단계별 이탈</div></div></div>
+        <div class="path-flow" id="connectedDetailPath"></div>
+        <div class="alert" id="connectedDetailAlert">
+          <svg class="ic" viewBox="0 0 24 24" style="stroke: var(--danger-text);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+          <span>경고 메시지</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">일자별 총 로드 수</div><div class="card-sub">이 페이지의 영상들 누적 로드 추이</div></div></div>
+        <div class="chart-wrap h-220"><canvas id="connectedDailyChart"></canvas></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">도메인별 로드 비중</div></div></div>
+          <div id="connectedDomainList"></div>
+        </div>
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-head"><div><div class="card-title">포함된 영상</div><div class="card-sub">영상명 클릭 시 개별 영상 상세</div></div></div>
+          <div id="connectedVideoList"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 위젯 상세 ============ -->
     <section class="page" data-page="widget-detail">
       <button class="back-btn" onclick="goBack()">
@@ -1851,6 +1894,15 @@
   const CONNECTED_FLOW_DATA = {
     linen: {
       name: '린넨 셋업 컬렉션 상세 (5개 연결)',
+      totalLoad: 142208, lastPct: 22, mainExit: '영상 #2 → #3 (-32%p)',
+      dailyLoad: [6510,6980,7370,7720,7470,7860,8060,7770,7470,7670,7920,8160,8290,8090,7770,7610,7470,7160,7360],
+      videos: [
+        { id: 'cv-linen-1', name: '린넨 셋업 메인 인트로', loads: 28440, position: '상단' },
+        { id: 'cv-linen-2', name: '린넨 자켓 룩북', loads: 21046, position: '중상단' },
+        { id: 'cv-linen-3', name: '린넨 셔츠 디테일', loads: 11945, position: '중단' },
+        { id: 'cv-linen-4', name: '린넨 팬츠 핏감', loads: 8816, position: '중하단' },
+        { id: 'cv-linen-5', name: '린넨 코디 마무리', loads: 6257, position: '하단' }
+      ],
       steps: [
         { pct: 100, label: '영상 #1', loc: '상단', count: '28,440', color: '#534AB7', txt: '#fff' },
         { pct: 74, label: '영상 #2', loc: '중상단', count: '21,046', color: '#7F77DD', txt: '#fff' },
@@ -1868,6 +1920,14 @@
     },
     shoes: {
       name: '신상 슈즈 컬렉션 (4개 연결)',
+      totalLoad: 98440, lastPct: 35, mainExit: '영상 #1 → #2 (-28%p)',
+      dailyLoad: [4480,4800,5080,5300,5130,5380,5530,5340,5130,5260,5430,5600,5680,5550,5340,5230,5130,4920,5050],
+      videos: [
+        { id: 'cv-shoes-1', name: '신상 슈즈 메인', loads: 24610, position: '상단' },
+        { id: 'cv-shoes-2', name: '슈즈 컬러 라인업', loads: 17719, position: '중단' },
+        { id: 'cv-shoes-3', name: '슈즈 코디 1', loads: 13290, position: '중하단' },
+        { id: 'cv-shoes-4', name: '슈즈 코디 2', loads: 8621, position: '하단' }
+      ],
       steps: [
         { pct: 100, label: '영상 #1', loc: '상단', count: '24,610', color: '#534AB7', txt: '#fff' },
         { pct: 72, label: '영상 #2', loc: '중단', count: '17,719', color: '#AFA9EC', txt: '#26215C', down: true },
@@ -1883,6 +1943,13 @@
     },
     denim: {
       name: '데님 시리즈 (3개 연결)',
+      totalLoad: 72118, lastPct: 48, mainExit: '영상 #1 → #2 (-22%p)',
+      dailyLoad: [3280,3520,3720,3880,3760,3940,4040,3900,3760,3850,3970,4090,4150,4050,3900,3820,3760,3590,3690],
+      videos: [
+        { id: 'cv-denim-1', name: '데님 룩북 인트로', loads: 18030, position: '상단' },
+        { id: 'cv-denim-2', name: '데님 워싱 디테일', loads: 14063, position: '중단' },
+        { id: 'cv-denim-3', name: '데님 코디 완성', loads: 8657, position: '하단' }
+      ],
       steps: [
         { pct: 100, label: '영상 #1', loc: '상단', count: '18,030', color: '#534AB7', txt: '#fff' },
         { pct: 78, label: '영상 #2', loc: '중단', count: '14,063', color: '#AFA9EC', txt: '#26215C', down: true },
@@ -1897,6 +1964,13 @@
     },
     outer: {
       name: '아우터 컬렉션 (3개 연결)',
+      totalLoad: 54201, lastPct: 52, mainExit: '영상 #1 → #2 (-18%p)',
+      dailyLoad: [2470,2640,2790,2920,2820,2970,3040,2930,2820,2890,2990,3080,3120,3050,2930,2870,2820,2700,2780],
+      videos: [
+        { id: 'cv-outer-1', name: '아우터 메인', loads: 13550, position: '상단' },
+        { id: 'cv-outer-2', name: '아우터 디테일', loads: 11111, position: '중단' },
+        { id: 'cv-outer-3', name: '아우터 코디', loads: 7034, position: '하단' }
+      ],
       steps: [
         { pct: 100, label: '영상 #1', loc: '상단', count: '13,550', color: '#534AB7', txt: '#fff' },
         { pct: 82, label: '영상 #2', loc: '중단', count: '11,111', color: '#AFA9EC', txt: '#26215C', down: true },
@@ -1910,6 +1984,14 @@
     },
     acc: {
       name: '액세서리 시리즈 (4개 연결)',
+      totalLoad: 42884, lastPct: 28, mainExit: '영상 #2 → #3 (-30%p)',
+      dailyLoad: [1950,2080,2200,2300,2230,2340,2410,2330,2230,2290,2360,2440,2480,2420,2330,2280,2230,2140,2200],
+      videos: [
+        { id: 'cv-acc-1', name: '액세서리 인트로', loads: 10721, position: '상단' },
+        { id: 'cv-acc-2', name: '시즌 백', loads: 9006, position: '중상단' },
+        { id: 'cv-acc-3', name: '시즌 모자', loads: 5789, position: '중단' },
+        { id: 'cv-acc-4', name: '시즌 슈즈', loads: 3008, position: '하단' }
+      ],
       steps: [
         { pct: 100, label: '영상 #1', loc: '상단', count: '10,721', color: '#534AB7', txt: '#fff' },
         { pct: 84, label: '영상 #2', loc: '중상단', count: '9,006', color: '#7F77DD', txt: '#fff' },
@@ -2440,6 +2522,88 @@
           scales: { x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9C9A92' } }, y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 }, color: '#9C9A92' } } } }
       });
     }, 80);
+  }
+
+  // ===== Connected Detail Page =====
+  let connectedDailyChart = null;
+  function goConnectedDetail(key) {
+    pageHistory.push('connected-detail');
+    const d = CONNECTED_FLOW_DATA[key];
+    if (!d) return;
+
+    document.getElementById('connectedDetailTitle').textContent = d.name;
+    document.getElementById('connectedDetailSub').textContent = `연결 영상 페이지 · 2026.05.01 - 2026.05.19`;
+    document.getElementById('connectedDetailBreadcrumb').innerHTML =
+      `통계 <span>›</span> <span class="crumb-link" onclick="goPage('displayer')">디스플레이어</span> <span>›</span> 연결 영상 <span>›</span> ${d.name}`;
+
+    document.getElementById('connectedDetailKpi').innerHTML = `
+      <div class="kpi"><div class="kpi-label">총 로드 수</div><div class="kpi-value">${d.totalLoad.toLocaleString()}</div></div>
+      <div class="kpi"><div class="kpi-label">마지막까지 시청</div><div class="kpi-value ${d.lastPct >= 45 ? '' : ''}" style="${d.lastPct >= 45 ? 'color: var(--success-text);' : (d.lastPct < 30 ? 'color: var(--danger-text);' : '')}">${d.lastPct}<span class="unit">%</span></div></div>
+      <div class="kpi"><div class="kpi-label">연결 영상</div><div class="kpi-value">${d.videos.length}<span class="unit">개</span></div></div>
+      <div class="kpi"><div class="kpi-label">발생 도메인</div><div class="kpi-value">${d.domain.length}<span class="unit">개</span></div><div class="kpi-delta neutral">자사 + 외부 ${d.domain.filter(x => x.external).length}개</div></div>
+    `;
+
+    // 시청 경로 퍼널
+    let pathHtml = '';
+    d.steps.forEach((s, i) => {
+      if (i > 0) pathHtml += '<div class="path-arrow">→</div>';
+      pathHtml += `
+        <div class="path-step">
+          <div class="path-pct ${s.down ? 'down' : ''}">${s.pct}%${s.down ? ' ▼' : ''}</div>
+          <div class="path-step-bar" style="height: ${s.pct}%; background: ${s.color}; color: ${s.txt};">
+            <span>${s.label ? s.label + '<br/>' : ''}<strong>${s.count}</strong></span>
+          </div>
+          <div class="path-label">${s.loc}</div>
+        </div>
+      `;
+    });
+    document.getElementById('connectedDetailPath').innerHTML = pathHtml;
+    document.getElementById('connectedDetailAlert').querySelector('span').textContent = d.alert;
+
+    document.getElementById('connectedDomainList').innerHTML = renderDomainBars(d.domain);
+
+    // 포함된 영상 리스트
+    let videoListHtml = '';
+    d.videos.forEach((v, i) => {
+      videoListHtml += `
+        <div onclick="goVideoDetailFromConnected('${v.id}')" style="display: grid; grid-template-columns: 28px 1fr 90px 20px; align-items: center; gap: 12px; padding: 11px 8px; border-bottom: 1px solid var(--border); cursor: pointer; border-radius: 4px; transition: background 0.12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background=''">
+          <div style="font-size: 13px; color: var(--text-mute); font-weight: 600;">#${i + 1}</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500;">${v.name}</div>
+            <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">${v.position}</div>
+          </div>
+          <div style="font-size: 14px; font-weight: 600; text-align: right;">${v.loads.toLocaleString()}</div>
+          <svg class="ic" viewBox="0 0 24 24" style="color: var(--text-mute); width: 14px; height: 14px;"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      `;
+    });
+    document.getElementById('connectedVideoList').innerHTML = videoListHtml;
+
+    goPageNoHistory('connected-detail');
+
+    setTimeout(() => {
+      const labels = ['5/1','5/2','5/3','5/4','5/5','5/6','5/7','5/8','5/9','5/10','5/11','5/12','5/13','5/14','5/15','5/16','5/17','5/18','5/19'];
+      if (connectedDailyChart) connectedDailyChart.destroy();
+      connectedDailyChart = new Chart(document.getElementById('connectedDailyChart'), {
+        type: 'line',
+        data: { labels, datasets: [{ data: d.dailyLoad, borderColor: '#534AB7', backgroundColor: 'rgba(83,74,183,0.1)', tension: 0.3, fill: true, borderWidth: 2.5, pointRadius: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+          scales: { x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9C9A92' } }, y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 }, color: '#9C9A92' } } } }
+      });
+    }, 80);
+  }
+
+  // 연결 영상 페이지에서 개별 영상 클릭 시 — 영상 ID가 cv-* 형태라 임시로 v1으로 매핑
+  function goVideoDetailFromConnected(videoId) {
+    // 실제 환경에서는 videoId에 맞는 데이터 보유. 데모용: 가장 가까운 영상 데이터 사용
+    const fallbackMap = {
+      'cv-linen-1': 'v1', 'cv-linen-2': 'v1', 'cv-linen-3': 'v1', 'cv-linen-4': 'v1', 'cv-linen-5': 'v1',
+      'cv-shoes-1': 'v2', 'cv-shoes-2': 'v2', 'cv-shoes-3': 'v2', 'cv-shoes-4': 'v2',
+      'cv-denim-1': 'v3', 'cv-denim-2': 'v3', 'cv-denim-3': 'v3',
+      'cv-outer-1': 'v4', 'cv-outer-2': 'v4', 'cv-outer-3': 'v4',
+      'cv-acc-1': 'v5', 'cv-acc-2': 'v5', 'cv-acc-3': 'v5', 'cv-acc-4': 'v5'
+    };
+    goVideoDetail(fallbackMap[videoId] || 'v1');
   }
 
   // ===== Widget Detail Page =====
