@@ -2570,8 +2570,14 @@
     document.getElementById('pathFlow').innerHTML = html;
     document.getElementById('funnelAlert').querySelector('span').textContent = d.alert;
 
-    // 시청 경로 영역으로 부드럽게 스크롤
-    document.getElementById('pathFlow').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // 카드와 그래프 둘 다 보이도록 스크롤 조정
+    // 카드 섹션 상단을 기준으로 위로 약간 여유 두고 스크롤
+    const cardGrid = document.querySelector('section[data-page="displayer"] [data-subpage="d-connected"] .top-card-grid');
+    if (cardGrid) {
+      const rect = cardGrid.getBoundingClientRect();
+      const offsetTop = window.pageYOffset + rect.top - 90; // topnav(72px) + 여유 18px
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    }
   }
 
   // ===== Connected Detail Page =====
