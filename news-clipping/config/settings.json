@@ -1,0 +1,16 @@
+{
+  "_comment": "운영 설정 — 수집기간·발송시간·수신자",
+  "days_limit": 2,
+  "portals": {
+    "naver": true,
+    "google": false
+  },
+  "auto_hour": 9,
+  "auto_min": 0,
+  "auto_enabled": false,
+  "receiver_emails": [
+    "kse@catenoid.net"
+  ],
+  "send_channel": "email",
+  "slack_webhook_url": ""
+}
