@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}개발자 설정{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-title">네이버 API</div>
+  <div class="form-row col2">
+    <div class="form-group"><label>Client ID</label>
+      <input id="naver-id" value="{{ dev.get('naver_api',{}).get('client_id','') }}"></div>
+    <div class="form-group"><label>Client Secret</label>
+      <input id="naver-sec" type="password" value="{{ dev.get('naver_api',{}).get('client_secret','') }}"></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Gemini API 키 <span style="font-size:10px;font-weight:400;color:var(--text-sub)">429 소진 시 자동 로테이션</span></div>
+  <div id="gemini-keys">
+  {% for key in dev.get('gemini_api_keys',[]) %}
+  <div class="api-key-row">
+    <div class="dot {{ 'ok' if key else 'empty' }}"></div>
+    <input type="password" value="{{ key }}" class="gkey">
+    <button class="btn btn-ghost btn-sm" onclick="this.closest('.api-key-row').remove()">✕</button>
+  </div>
+  {% endfor %}
+  </div>
+  <div class="api-key-row" style="margin-top:6px">
+    <div class="dot empty"></div>
+    <input id="new-key" placeholder="새 API 키 입력..." type="password" style="flex:1;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12px;font-family:monospace;background:var(--kw-bg)">
+    <button class="btn btn-teal btn-sm" onclick="addKey()">+ 추가</button>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">SMTP 설정 <span style="font-size:10px;font-weight:400;color:var(--text-sub)">리포트 발신자</span></div>
+  <div class="form-row col3">
+    <div class="form-group"><label>메일 서비스</label>
+      <select id="smtp-provider" onchange="onProviderChange()">
+        {% for p in ['Gmail','네이버','카카오','Outlook','다음'] %}
+        <option {% if dev.get('smtp',{}).get('provider','')==p %}selected{% endif %}>{{ p }}</option>
+        {% endfor %}
+      </select></div>
+    <div class="form-group"><label>SMTP 서버</label>
+      <input id="smtp-server" value="{{ dev.get('smtp',{}).get('server','smtp.gmail.com') }}"></div>
+    <div class="form-group"><label>포트</label>
+      <input id="smtp-port" value="{{ dev.get('smtp',{}).get('port',587) }}"></div>
+  </div>
+  <div class="form-row col2">
+    <div class="form-group"><label>발신 이메일</label>
+      <input id="smtp-email" value="{{ dev.get('smtp',{}).get('sender_email','') }}"></div>
+    <div class="form-group"><label>앱 비밀번호</label>
+      <input id="smtp-pw" type="password" value="{{ dev.get('smtp',{}).get('sender_password','') }}"></div>
+  </div>
+  <div class="info-box">ℹ Gmail 사용 시 일반 비밀번호가 아닌 앱 비밀번호(16자리)를 입력하세요.<br>
+    myaccount.google.com → 보안 → 앱 비밀번호</div>
+</div>
+<div style="display:flex;justify-content:flex-end;gap:8px">
+  <button class="btn btn-ghost" onclick="testSmtp()">테스트 발송</button>
+  <button class="btn btn-save" onclick="savePage()">저장</button>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const smtpMap = {
+  'Gmail':   ['smtp.gmail.com',       587],
+  '네이버':   ['smtp.naver.com',        587],
+  '카카오':   ['smtp.kakao.com',         465],
+  'Outlook': ['smtp.office365.com',    587],
+  '다음':    ['smtp.daum.net',          465],
+};
+function onProviderChange() {
+  const p = document.getElementById('smtp-provider').value;
+  if (smtpMap[p]) {
+    document.getElementById('smtp-server').value = smtpMap[p][0];
+    document.getElementById('smtp-port').value   = smtpMap[p][1];
+  }
+}
+function addKey() {
+  const val = document.getElementById('new-key').value.trim();
+  if (!val) return;
+  const row = document.createElement('div');
+  row.className = 'api-key-row';
+  row.innerHTML = `<div class="dot ok"></div>
+    <input type="password" value="${val}" class="gkey" style="flex:1;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12px;font-family:monospace;background:var(--kw-bg)">
+    <button class="btn btn-ghost btn-sm" onclick="this.closest('.api-key-row').remove()">✕</button>`;
+  document.getElementById('gemini-keys').appendChild(row);
+  document.getElementById('new-key').value = '';
+}
+async function testSmtp() {
+  showFeedback('테스트 발송 중...', true);
+  alert('SMTP 테스트 기능은 개발자 탭 저장 후 서버에서 확인하세요.');
+}
+async function savePage() {
+  const keys = [...document.querySelectorAll('.gkey')].map(e=>e.value.trim()).filter(Boolean);
+  const res = await post('/api/save/developer', {
+    naver_api: {
+      client_id:     document.getElementById('naver-id').value.trim(),
+      client_secret: document.getElementById('naver-sec').value.trim(),
+    },
+    gemini_api_keys: keys,
+    smtp: {
+      provider:        document.getElementById('smtp-provider').value,
+      server:          document.getElementById('smtp-server').value.trim(),
+      port:            parseInt(document.getElementById('smtp-port').value),
+      sender_email:    document.getElementById('smtp-email').value.trim(),
+      sender_password: document.getElementById('smtp-pw').value.trim(),
+    }
+  });
+  if (res.ok) showFeedback('✓ 개발자 설정 저장됨');
+}
+</script>
+{% endblock %}

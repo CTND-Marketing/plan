@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}운영 설정{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-title">수집 기간</div>
+  <div style="display:flex;align-items:baseline;gap:10px">
+    <input id="days" type="number" min="1" max="30" value="{{ sett.get('days_limit',2) }}"
+           style="width:80px;font-size:22px;font-weight:700;color:var(--accent);text-align:center;border:1px solid var(--border);border-radius:8px;padding:8px">
+    <span style="font-size:14px;color:var(--text-sub)">일 동안 수집</span>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">자동 발송 시각</div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+    <input id="hour" type="number" min="0" max="23" value="{{ sett.get('auto_hour',9) }}"
+           style="width:64px;font-size:20px;font-weight:700;color:var(--accent);text-align:center;border:1px solid var(--border);border-radius:8px;padding:7px">
+    <span style="font-size:18px;color:var(--text-sub)">:</span>
+    <input id="minute" type="number" min="0" max="59" value="{{ sett.get('auto_min',0) }}"
+           style="width:64px;font-size:20px;font-weight:700;color:var(--accent);text-align:center;border:1px solid var(--border);border-radius:8px;padding:7px">
+    <span style="font-size:13px;color:var(--text-sub)">시 분</span>
+  </div>
+  <label class="toggle-group">
+    <span class="toggle-label" style="margin-right:8px">자동 실행</span>
+    <label class="toggle">
+      <input type="checkbox" id="auto-enabled" {% if sett.get('auto_enabled') %}checked{% endif %}>
+      <span class="toggle-slider"></span>
+    </label>
+  </label>
+</div>
+<div class="card">
+  <div class="card-title">수집 포털</div>
+  {% set portal = 'naver' if sett.get('portals',{}).get('naver',True) else 'google' %}
+  <label class="radio-option {% if portal=='naver' %}selected{% endif %}">
+    <input type="radio" name="portal" value="naver" {% if portal=='naver' %}checked{% endif %}>
+    <div><div class="radio-main">네이버</div>
+         <div class="radio-desc">국내 언론사 커버리지 우수 — 기본 권장</div></div>
+  </label>
+  <label class="radio-option {% if portal=='google' %}selected{% endif %}">
+    <input type="radio" name="portal" value="google" {% if portal=='google' %}checked{% endif %}>
+    <div><div class="radio-main">구글</div>
+         <div class="radio-desc">네이버 미색인 기사 수집 가능 (해외 매체 포함)</div></div>
+  </label>
+</div>
+<div class="card">
+  <div class="card-title">발송 채널</div>
+  {% set ch = sett.get('send_channel','email') %}
+  {% for val,label,desc in [('email','이메일만','설정된 수신자 이메일로 발송'),('slack','슬랙만','슬랙 웹훅 URL로 발송'),('email_slack','이메일 + 슬랙','이메일과 슬랙 동시 발송')] %}
+  <label class="radio-option {% if ch==val %}selected{% endif %}">
+    <input type="radio" name="channel" value="{{ val }}" {% if ch==val %}checked{% endif %} onchange="onChannelChange()">
+    <div><div class="radio-main">{{ label }}</div>
+         <div class="radio-desc">{{ desc }}</div></div>
+  </label>
+  {% endfor %}
+  <div id="email-section" style="margin-top:14px">
+    <div class="card-title" style="margin-bottom:8px">수신자 이메일</div>
+    <div id="receivers">
+    {% for email in sett.get('receiver_emails',[]) %}
+    <div class="email-row">
+      <input value="{{ email }}" style="flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--kw-bg);font-family:inherit">
+      <button class="btn btn-ghost btn-sm" onclick="this.closest('.email-row').remove()">✕</button>
+    </div>
+    {% endfor %}
+    </div>
+    <div class="email-row" style="margin-top:8px">
+      <input id="new-email" placeholder="추가할 이메일 입력..." style="flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--kw-bg);font-family:inherit">
+      <button class="btn btn-teal btn-sm" onclick="addEmail()">+ 추가</button>
+    </div>
+  </div>
+  <div id="slack-section" style="margin-top:14px;display:none">
+    <div class="card-title" style="margin-bottom:8px">슬랙 웹훅 URL</div>
+    <input id="slack-url" value="{{ sett.get('slack_webhook_url','') }}"
+           placeholder="https://hooks.slack.com/services/..."
+           style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--kw-bg);font-family:inherit">
+    <div class="warn-box" style="margin-top:6px">슬랙 채널 → 앱 추가 → Incoming Webhooks → 웹훅 URL 복사</div>
+  </div>
+</div>
+<div style="display:flex;justify-content:flex-end">
+  <button class="btn btn-save" onclick="savePage()">저장</button>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function onChannelChange() {
+  const ch = document.querySelector('input[name=channel]:checked')?.value || 'email';
+  document.getElementById('email-section').style.display = (ch==='email'||ch==='email_slack') ? 'block':'none';
+  document.getElementById('slack-section').style.display = (ch==='slack'||ch==='email_slack') ? 'block':'none';
+}
+onChannelChange();
+function addEmail() {
+  const val = document.getElementById('new-email').value.trim();
+  if (!val || !val.includes('@')) return alert('올바른 이메일을 입력해 주세요.');
+  const row = document.createElement('div');
+  row.className = 'email-row';
+  row.innerHTML = `<input value="${val}" style="flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--kw-bg);font-family:inherit">
+    <button class="btn btn-ghost btn-sm" onclick="this.closest('.email-row').remove()">✕</button>`;
+  document.getElementById('receivers').appendChild(row);
+  document.getElementById('new-email').value = '';
+}
+async function savePage() {
+  const receivers = [...document.querySelectorAll('#receivers .email-row input')].map(e=>e.value.trim()).filter(Boolean);
+  const portal = document.querySelector('input[name=portal]:checked')?.value || 'naver';
+  const res = await post('/api/save/settings', {
+    days_limit: parseInt(document.getElementById('days').value),
+    auto_hour:  parseInt(document.getElementById('hour').value),
+    auto_min:   parseInt(document.getElementById('minute').value),
+    auto_enabled: document.getElementById('auto-enabled').checked,
+    portals: { naver: portal==='naver', google: portal==='google' },
+    send_channel: document.querySelector('input[name=channel]:checked')?.value || 'email',
+    slack_webhook_url: document.getElementById('slack-url')?.value.trim() || '',
+    receiver_emails: receivers,
+  });
+  if (res.ok) showFeedback('✓ 운영 설정 저장됨');
+}
+</script>
+{% endblock %}

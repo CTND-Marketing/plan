@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}기업 · 서비스 정보{% endblock %}
+{% block content %}
+<form id="company-form">
+<div class="card">
+  <div class="card-title">기업 기본 정보</div>
+  <div class="form-row col2">
+    <div class="form-group"><label>기업명</label>
+      <input name="name" value="{{ data.get('name','') }}"></div>
+    <div class="form-group"><label>영문명</label>
+      <input name="name_en" value="{{ data.get('name_en','') }}"></div>
+  </div>
+  <div class="form-group"><label>비즈니스 정체성 <span style="color:var(--accent);font-size:10px">AI 판단 기준</span></label>
+    <textarea name="identity" rows="3">{{ data.get('identity','') }}</textarea>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">주력 서비스</div>
+  <div id="services-list">
+  {% for svc in data.get('services',[]) %}
+  <div class="service-item">
+    <div class="service-dot" style="background:var(--accent)"></div>
+    <input placeholder="영문명" value="{{ svc.get('name_en','') }}" class="svc-en" style="width:120px">
+    <span style="color:var(--text-sub)">(</span>
+    <input placeholder="한글명" value="{{ svc.get('name','') }}" class="svc-ko" style="width:80px">
+    <span style="color:var(--text-sub)">)</span>
+    <input placeholder="설명" value="{{ svc.get('desc','') }}" class="svc-desc">
+    <button type="button" class="btn btn-ghost btn-sm" onclick="this.closest('.service-item').remove()">✕</button>
+  </div>
+  {% endfor %}
+  </div>
+  <button type="button" class="btn btn-teal btn-sm" style="margin-top:8px" onclick="addService()">+ 서비스 추가</button>
+</div>
+
+<div class="card">
+  <div class="card-title">핵심 관심 영역 <span style="font-size:10px;font-weight:400;color:var(--text-sub)">AI 필터 판단 기준</span></div>
+  <div id="interests-list">
+  {% for item in data.get('interests',[]) %}
+  <div class="interest-row">
+    <input value="{{ item }}" class="interest-input" style="flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--kw-bg);font-family:inherit">
+    <button type="button" class="btn btn-ghost btn-sm" onclick="this.closest('.interest-row').remove()">✕</button>
+  </div>
+  {% endfor %}
+  </div>
+  <button type="button" class="btn btn-teal btn-sm" style="margin-top:8px" onclick="addInterest()">+ 항목 추가</button>
+</div>
+
+<div style="display:flex;justify-content:flex-end">
+  <button type="button" class="btn btn-save" onclick="savePage()">저장</button>
+</div>
+</form>
+{% endblock %}
+{% block scripts %}
+<script>
+function addService() {
+  const row = document.createElement('div');
+  row.className = 'service-item';
+  row.innerHTML = `<div class="service-dot" style="background:var(--accent)"></div>
+    <input placeholder="영문명" class="svc-en" style="width:120px">
+    <span style="color:var(--text-sub)">(</span>
+    <input placeholder="한글명" class="svc-ko" style="width:80px">
+    <span style="color:var(--text-sub)">)</span>
+    <input placeholder="설명" class="svc-desc">
+    <button type="button" class="btn btn-ghost btn-sm" onclick="this.closest('.service-item').remove()">✕</button>`;
+  document.getElementById('services-list').appendChild(row);
+}
+function addInterest() {
+  const row = document.createElement('div');
+  row.className = 'interest-row';
+  row.innerHTML = `<input class="interest-input" placeholder="관심 영역 입력..." style="flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;background:var(--kw-bg);font-family:inherit">
+    <button type="button" class="btn btn-ghost btn-sm" onclick="this.closest('.interest-row').remove()">✕</button>`;
+  document.getElementById('interests-list').appendChild(row);
+}
+async function savePage() {
+  const form = document.getElementById('company-form');
+  const services = [...document.querySelectorAll('.service-item')].map(el => ({
+    name_en: el.querySelector('.svc-en').value.trim(),
+    name:    el.querySelector('.svc-ko').value.trim(),
+    desc:    el.querySelector('.svc-desc').value.trim(),
+  })).filter(s => s.name_en || s.name);
+  const interests = [...document.querySelectorAll('.interest-input')]
+    .map(el => el.value.trim()).filter(Boolean);
+  const data = {
+    name:      form.querySelector('[name=name]').value.trim(),
+    name_en:   form.querySelector('[name=name_en]').value.trim(),
+    identity:  form.querySelector('[name=identity]').value.trim(),
+    services, interests
+  };
+  const res = await post('/api/save/company', data);
+  if (res.ok) showFeedback('✓ 기업정보 저장됨');
+}
+</script>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block title %}카테고리 · 키워드{% endblock %}
+
+{% block content %}
+<!-- 전체 공통 AI 필터 -->
+<div class="global-filter-bar">
+  <div class="label">🤖 전체 공통 AI 필터 — 모든 카테고리에 적용</div>
+  <textarea id="global-filter" rows="3" style="width:100%;border:1px solid #bfdbfe;border-radius:8px;padding:10px;font-family:inherit;font-size:13px;background:#fff;resize:none">{{ aif.get('global', []) | join(' / ') }}</textarea>
+</div>
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+  <span style="font-size:12px;color:var(--text-sub)">카테고리 {{ cats|length }}개</span>
+  <button class="btn btn-teal btn-sm" onclick="addCategory()">+ 카테고리 추가</button>
+</div>
+
+<div id="cat-list">
+{% for cat, val in cats.items() %}
+{% if cat != '_comment' %}
+<div class="cat-card" id="card-{{ loop.index }}">
+  <div class="cat-header">
+    <div class="cat-bar"></div>
+    <span class="cat-name-label">{{ cat }}</span>
+    <div style="display:flex;gap:6px;margin-left:auto">
+      <button class="btn btn-ghost btn-sm" onclick="editCard({{ loop.index }})">편집</button>
+      <button class="btn btn-sm" style="background:#fee2e2;color:var(--danger)"
+              onclick="deleteCard({{ loop.index }}, '{{ cat }}')">삭제</button>
+    </div>
+  </div>
+  <div class="cat-body">
+    <div class="cat-kw-label">🔍 검색 키워드</div>
+    <div class="cat-kw-readonly" style="background:var(--kw-bg);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:12px;color:var(--text);margin-bottom:14px">
+      {{ val.get('keywords', []) | join(', ') }}
+    </div>
+    <div class="cat-two-col">
+      <div>
+        <div class="cat-field-label label-note">📋 수집 주의사항</div>
+        <div style="background:var(--note-bg);border:1px solid var(--border);border-left:3px solid #d97706;border-radius:0 8px 8px 0;padding:9px 12px;font-size:12px;min-height:80px;white-space:pre-wrap;line-height:1.7">{{ val.get('notes','') }}</div>
+      </div>
+      <div>
+        <div class="cat-field-label label-ai">🤖 AI 필터 기준</div>
+        <div style="background:#eff6ff;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 12px;font-size:12px;min-height:80px;white-space:pre-wrap;line-height:1.7">{{ aif.get('by_category', {}).get(cat, '') }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+
+<!-- 카테고리 추가 템플릿 (숨김) -->
+<template id="new-card-tpl">
+<div class="cat-card editing" id="card-new">
+  <div class="cat-header">
+    <div class="cat-bar"></div>
+    <input class="cat-name-input" placeholder="카테고리명 입력" id="new-cat-name"/>
+    <div style="display:flex;gap:6px;margin-left:auto">
+      <button class="btn btn-primary btn-sm" onclick="saveNewCard()">저장</button>
+      <button class="btn btn-ghost btn-sm" onclick="cancelNewCard()">취소</button>
+    </div>
+  </div>
+  <div class="cat-body">
+    <div class="cat-kw-label">🔍 검색 키워드 (쉼표로 구분)</div>
+    <input class="cat-kw-input" id="new-kw" placeholder="키워드1, 키워드2, ..."/>
+    <div class="cat-two-col">
+      <div>
+        <div class="cat-field-label label-note">📋 수집 주의사항</div>
+        <textarea class="cat-textarea note-textarea" id="new-note" placeholder="수집 시 주의사항 입력..."></textarea>
+      </div>
+      <div>
+        <div class="cat-field-label label-ai">🤖 AI 필터 기준</div>
+        <textarea class="cat-textarea ai-textarea" id="new-ai" placeholder="AI 필터 기준 입력..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const catData = {{ cats | tojson }};
+const aiData  = {{ aif  | tojson }};
+
+function editCard(idx) {
+  const card = document.getElementById('card-'+idx);
+  const name = card.querySelector('.cat-name-label').textContent.trim();
+  const val  = catData[name] || {};
+  const ai   = (aiData.by_category || {})[name] || '';
+  card.classList.add('editing');
+  card.innerHTML = `
+    <div class="cat-header">
+      <div class="cat-bar"></div>
+      <input class="cat-name-input" value="${name}" id="edit-name-${idx}"/>
+      <div style="display:flex;gap:6px;margin-left:auto">
+        <button class="btn btn-primary btn-sm" onclick="saveCard(${idx},'${name}')">저장</button>
+        <button class="btn btn-ghost btn-sm" onclick="location.reload()">취소</button>
+        <button class="btn btn-sm" style="background:#fee2e2;color:var(--danger)" onclick="deleteCard(${idx},'${name}')">삭제</button>
+      </div>
+    </div>
+    <div class="cat-body">
+      <div class="cat-kw-label">🔍 검색 키워드 (쉼표로 구분)</div>
+      <input class="cat-kw-input" id="edit-kw-${idx}" value="${(val.keywords||[]).join(', ')}"/>
+      <div class="cat-two-col">
+        <div>
+          <div class="cat-field-label label-note">📋 수집 주의사항</div>
+          <textarea class="cat-textarea note-textarea" id="edit-note-${idx}">${val.notes||''}</textarea>
+        </div>
+        <div>
+          <div class="cat-field-label label-ai">🤖 AI 필터 기준</div>
+          <textarea class="cat-textarea ai-textarea" id="edit-ai-${idx}">${ai}</textarea>
+        </div>
+      </div>
+    </div>`;
+}
+
+async function saveCard(idx, oldName) {
+  const name = document.getElementById('edit-name-'+idx).value.trim();
+  const kws  = document.getElementById('edit-kw-'+idx).value.split(',').map(k=>k.trim()).filter(Boolean);
+  const note = document.getElementById('edit-note-'+idx).value.trim();
+  const ai   = document.getElementById('edit-ai-'+idx).value.trim();
+  if (!name) return alert('카테고리명을 입력해 주세요.');
+  await savePage();
+  location.reload();
+}
+
+function addCategory() {
+  const tpl = document.getElementById('new-card-tpl');
+  const clone = tpl.content.cloneNode(true);
+  document.getElementById('cat-list').appendChild(clone);
+}
+
+function cancelNewCard() {
+  const el = document.getElementById('card-new');
+  if (el) el.remove();
+}
+
+async function saveNewCard() {
+  const name = document.getElementById('new-cat-name').value.trim();
+  const kws  = document.getElementById('new-kw').value.split(',').map(k=>k.trim()).filter(Boolean);
+  const note = document.getElementById('new-note').value.trim();
+  const ai   = document.getElementById('new-ai').value.trim();
+  if (!name) return alert('카테고리명을 입력해 주세요.');
+  catData[name] = { keywords: kws, notes: note };
+  if (!aiData.by_category) aiData.by_category = {};
+  aiData.by_category[name] = ai;
+  await savePage();
+  location.reload();
+}
+
+async function deleteCard(idx, name) {
+  if (!confirm(`'${name}' 카테고리를 삭제할까요?`)) return;
+  delete catData[name];
+  if (aiData.by_category) delete aiData.by_category[name];
+  await savePage();
+  location.reload();
+}
+
+async function savePage() {
+  // 현재 편집 중인 카드 데이터 수집
+  const cats = {};
+  const aiCats = {};
+  document.querySelectorAll('.cat-card').forEach(card => {
+    const nameEl = card.querySelector('.cat-name-label') ||
+                   card.querySelector('.cat-name-input');
+    const name = nameEl ? nameEl.textContent || nameEl.value : '';
+    if (!name || name.trim() === '') return;
+    const n = name.trim();
+    const kwEl   = card.querySelector('[id^="edit-kw-"], .cat-kw-input');
+    const noteEl = card.querySelector('[id^="edit-note-"], .note-textarea');
+    const aiEl   = card.querySelector('[id^="edit-ai-"], .ai-textarea');
+    const kws  = kwEl   ? kwEl.value.split(',').map(k=>k.trim()).filter(Boolean) : (catData[n]?.keywords||[]);
+    const note = noteEl ? noteEl.value.trim() : (catData[n]?.notes||'');
+    const ai   = aiEl   ? aiEl.value.trim()   : ((aiData.by_category||{})[n]||'');
+    cats[n]    = { keywords: kws, notes: note };
+    aiCats[n]  = ai;
+  });
+  const globalText = document.getElementById('global-filter').value;
+  const globalRules = globalText.split('/').map(s=>s.trim()).filter(Boolean);
+  await post('/api/save/category', {
+    categories: cats,
+    global_filter: globalRules,
+    ai_by_cat: aiCats
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}테스트{% endblock %}
+{% block content %}
+<div class="info-box" style="margin-bottom:16px">
+  ℹ 카테고리를 선택하고 실행하면 실제 기사 3건을 수집해 결과를 미리 확인할 수 있습니다.
+</div>
+<div class="card">
+  <div class="card-title">키워드 샘플 수집</div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <select id="test-cat" style="flex:1;border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:13px;background:var(--kw-bg);font-family:inherit">
+      <option value="">카테고리 선택...</option>
+      {% for cat in cats %}
+      <option>{{ cat }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-primary" onclick="runTest()">▶ 수집 테스트</button>
+  </div>
+</div>
+<div id="test-result"></div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function runTest() {
+  const cat = document.getElementById('test-cat').value;
+  if (!cat) return alert('카테고리를 선택해 주세요.');
+  const result = document.getElementById('test-result');
+  result.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-sub)"><div class="spinner" style="margin:0 auto 12px"></div>수집 중...</div>';
+  const data = await post('/api/test/category', { category: cat });
+  let html = `<div class="stat-grid">
+    <div class="stat-card"><div class="stat-label">1차 수집</div><div class="stat-value">${data.total}건</div></div>
+    <div class="stat-card"><div class="stat-label">AI 필터 후 예상</div><div class="stat-value" style="color:var(--accent2)">~${data.estimated}건</div></div>
+    <div class="stat-card"><div class="stat-label">카테고리</div><div class="stat-value" style="font-size:16px;color:var(--text-sub)">${cat}</div></div>
+  </div>
+  <div class="card-title" style="margin-bottom:10px">상위 기사 3건 미리보기</div>`;
+  if (data.preview?.length) {
+    data.preview.forEach((item,i) => {
+      html += `<div class="article-card">
+        <a class="article-title" href="${item.link}" target="_blank">${i+1}. ${item.title}</a>
+        <div class="article-meta">${item.media} · ${item.date}</div>
+      </div>`;
+    });
+  } else {
+    html += '<div class="warn-box">수집된 기사가 없습니다. 키워드나 수집 기간을 확인해 주세요.</div>';
+  }
+  html += '<p style="font-size:11px;color:var(--text-sub);margin-top:12px">* AI 필터 후 예상 건수는 실제와 다를 수 있습니다.</p>';
+  result.innerHTML = html;
+}
+</script>
+{% endblock %}
