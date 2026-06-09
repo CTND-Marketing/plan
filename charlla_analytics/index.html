@@ -269,9 +269,14 @@
 
   .legend { display: flex; gap: 14px; font-size: 13px; color: var(--text-sub); flex-wrap: wrap; }
   .legend-dot { display: inline-flex; align-items: center; gap: 6px; }
-  .legend-dot::before { content: ''; width: 10px; height: 10px; border-radius: 2px; background: var(--accent-purple); }
+  .legend-dot::before { content: ''; width: 10px; height: 10px; border-radius: 2px; background: var(--c, var(--accent-purple)); }
   .legend-dot.dash::before { background: var(--warning); border-radius: 0; height: 2px; }
   .legend-dot.limit::before { background: var(--danger); border-radius: 0; height: 2px; }
+
+  /* 오늘의 인사이트 카드 호버 (입체 효과) */
+  .insight-link { cursor: pointer; transition: border-color .15s ease, transform .12s ease, box-shadow .15s ease; }
+  .insight-link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(40,34,20,0.45); border-color: var(--border-strong); }
+  .insight-link:active { transform: translateY(0); box-shadow: 0 4px 12px -8px rgba(40,34,20,0.4); }
 
   .plan-badge-mini { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; background: var(--purple-soft); color: var(--purple-text); border-radius: 100px; font-size: 12px; font-weight: 600; }
   .plan-badge-mini::before { content: ''; width: 5px; height: 5px; background: var(--accent-purple); border-radius: 50%; }
@@ -297,7 +302,7 @@
     <div class="top-action-btn"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
     <div class="top-action-btn"><svg class="ic" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
     <div class="avatar"><svg class="ic" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-    <button class="upload-btn"><svg class="ic" viewBox="0 0 24 24" style="stroke: #fff;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>영상 업로드</button>
+    <button class="upload-btn" style="background-color: rgb(255, 107, 53)"><svg class="ic" viewBox="0 0 24 24" style="stroke: #fff;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>영상 업로드</button>
   </div>
 </header>
 
@@ -385,7 +390,7 @@
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
 
           <!-- 위험 인사이트 -->
-          <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--danger); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+          <div class="insight-link" onclick="goPage('plan')" style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--danger); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
             <div style="width: 28px; height: 28px; background: var(--danger-soft); color: var(--danger-text); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
               <svg class="ic" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
             </div>
@@ -400,7 +405,7 @@
           </div>
 
           <!-- 성장 인사이트 -->
-          <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--success); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+          <div class="insight-link" onclick="goPage('domain')" style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--success); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
             <div style="width: 28px; height: 28px; background: var(--success-soft); color: var(--success-text); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
               <svg class="ic" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
             </div>
@@ -415,7 +420,7 @@
           </div>
 
           <!-- 주의 인사이트 -->
-          <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--warning); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+          <div class="insight-link" onclick="goPage('widget-floating')" style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--warning); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
             <div style="width: 28px; height: 28px; background: var(--warning-soft); color: var(--warning-text); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
               <svg class="ic" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </div>
@@ -430,7 +435,7 @@
           </div>
 
           <!-- 발견 인사이트 -->
-          <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-purple); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+          <div class="insight-link" onclick="goPage('widget-slide')" style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-purple); border-radius: 8px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
             <div style="width: 28px; height: 28px; background: var(--purple-soft); color: var(--purple-text); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
               <svg class="ic" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </div>
@@ -601,7 +606,7 @@
           <div class="card-head"><div><div class="card-title">일자별 로드 추이</div><div class="card-sub">디스플레이어 · 위젯 분리</div></div>
             <div class="legend">
               <span class="legend-dot">디스플레이어</span>
-              <span class="legend-dot" style="--c: var(--success);"><span style="background: var(--success) !important;"></span>위젯</span>
+              <span class="legend-dot" style="--c: #FF6B35;"><span style="background: #FF6B35 !important;"></span>위젯</span>
             </div>
           </div>
           <div class="chart-wrap h-220"><canvas id="overviewTrend"></canvas></div>
@@ -803,7 +808,7 @@
       <div class="card" style="margin-bottom: 16px;">
         <div class="card-head">
           <div><div class="card-title">이번 달 플랜 사용량</div><div class="card-sub">결제 주기 14일차 · 6/5 갱신</div></div>
-          <span style="font-size: 13px; color: var(--text-mute); cursor: pointer;">자세히 보기 ›</span>
+          <span onclick="goPage('plan')" style="font-size: 13px; color: var(--brand-text); cursor: pointer; font-weight: 600;">자세히 보기 ›</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
           <div>
@@ -3115,7 +3120,7 @@
         labels: ['5/1','5/3','5/5','5/7','5/9','5/11','5/13','5/15','5/17','5/19'],
         datasets: [
           { label: '디스플레이어', data: [42000,45000,48000,52000,55000,58000,62000,65000,68000,72000], borderColor: '#534AB7', backgroundColor: 'rgba(83,74,183,0.08)', tension: 0.35, fill: true, borderWidth: 2, pointRadius: 0 },
-          { label: '위젯', data: [18000,19500,21000,23000,24500,26000,28000,30000,32000,34000], borderColor: '#1D9E75', backgroundColor: 'rgba(29,158,117,0.08)', tension: 0.35, fill: true, borderWidth: 2, pointRadius: 0 }
+          { label: '위젯', data: [18000,19500,21000,23000,24500,26000,28000,30000,32000,34000], borderColor: '#FF6B35', backgroundColor: 'rgba(255,107,53,0.08)', tension: 0.35, fill: true, borderWidth: 2, pointRadius: 0 }
         ]
       },
       options: {
