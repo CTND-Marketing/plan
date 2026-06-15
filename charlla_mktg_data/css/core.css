@@ -1,0 +1,94 @@
+/* ============================================
+   CORE.CSS - 10 selectors
+   ============================================ */
+
+:root {
+  --ppt-1: #4472C4;
+  --ppt-2: #ED7D31;
+  --ppt-3: #A5A5A5;
+  --ppt-4: #FFC000;
+  --ppt-5: #5B9BD5;
+  --ppt-6: #70AD47;
+  --bg: #ffffff;
+  --bg-card: #ffffff;
+  --bg-subtle: #f5f7fa;
+  --ink: #1f1f1f;
+  --ink-soft: #4a4a4a;
+  --ink-mute: #8a8a8a;
+  --line: #e5e7eb;
+  --line-strong: #cbd0d6;
+  --accent-2025: #4472C4;
+  --accent-2026: #ED7D31;
+  --accent: #4472C4;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 17px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+/* 본문 컨텐츠만 3% 축소 (상단 탭, 헤더 제외) */
+
+@-moz-document url-prefix() {
+  .main-page { zoom: unset; font-size: 0.97em; }
+}
+
+.container { max-width: 1440px; margin: 0 auto; padding: 48px 32px 80px; }
+
+
+header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.brand-mark {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+
+header h1 {
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+header .subtitle {
+  font-size: 17px;
+  color: var(--ink-mute);
+  margin-top: 8px;
+}
+
+/* MAIN NAV (메인 페이지 / 연도별 분석) */
+
+@media (max-width: 900px) {
+  .container { padding: 32px 20px 60px; }
+  header h1 { font-size: 30px; }
+  .year-tabs { flex-direction: column; }
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  .section-title { font-size: 24px; }
+  .chart-card { padding: 16px; }
+  .chart-wrap { height: 340px; }
+}
+
+
+
+.main-page {
+  zoom: 0.97;
+}
+.main-page { display: none; animation: fadeIn 0.3s ease; }
+
+.main-page.active { display: block; }
+
